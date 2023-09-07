@@ -1,0 +1,57 @@
+// Copy the content of "keybindings" to the actual keybinds.json, they don't work from here.
+// Keyboard shortcut: CTRL + Shift + P and then write "Preference: Open Keyboard Shortcuts (JSON)"
+{
+	"keybindings": [
+		// Sane tab handling (Goes to the next or previous tab in the tab row instead of the last used.)
+		{
+			"key": "ctrl+tab",
+			"command": "workbench.action.nextEditor"
+		},
+		{
+			"key": "ctrl+shift+tab",
+			"command": "workbench.action.previousEditor"
+		},
+		{
+			"key": "ctrl+b ctrl+r",
+			"command": "workbench.action.files.revert"
+		},
+		// See: https://github.com/robole/vscode-markdown-shortcuts/blob/master/package.json
+		{
+			"key": "ctrl+b",
+			"command": "editor.action.insertSnippet",
+			"when": "!editorReadonly && editorTextFocus && editorLangId == markdown",
+			"args": {
+			  "langId": "markdown",
+			  "name": "Insert bold text"
+			}
+		},
+		{
+		  "key": "ctrl+i",
+		  "mac": "cmd+i",
+		  "command": "editor.action.insertSnippet",
+		  "when": "!editorReadonly && editorTextFocus && editorLangId == markdown",
+		  "args": {
+			"langId": "markdown",
+			"name": "Insert italic text"
+		  }
+		},
+		{
+			"key": "alt+s",
+			"command": "editor.action.insertSnippet",
+			"when": "!editorReadonly && editorTextFocus && editorLangId == markdown",
+			"args": {
+			  "langId": "markdown",
+			  "name": "Insert strikethrough"
+			}
+		},
+		{
+			"key": "ctrl+k",
+			"command": "editor.action.insertSnippet",
+			"when": "!editorReadonly && editorTextFocus && editorLangId == markdown",
+			"args": {
+			  "langId": "markdown",
+			  "name": "Insert link"
+			}
+		}
+	]
+}
