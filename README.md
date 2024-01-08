@@ -5,7 +5,7 @@
 	<p align="center">
 		A chess training app made with React.js and Next.js.
 		<br>
-    		<a href="https://www.pictureofhotdog.com/make-it-a-winner"><strong>Explore the docs »</strong></a>
+    		<a href="docs/README.md"><strong>Explore the docs »</strong></a>
 		<br><br>
 		<a href="https://www.pictureofhotdog.com/store/naked-dog">View Demo</a>
 		◈
@@ -20,8 +20,8 @@
 		<a href="https://www.pictureofhotdog.com/store/dressed-dog">Report Bug</a>
 		◈
 		<a href="https://www.pictureofhotdog.com/make-it-beautiful">Request Feature</a>
-  		<br>
-   		<a href="https://www.pictureofhotdog.com/make-it-a-winner"><strong>Explore the docs »</strong></a>
+  		<br><br>
+   		<a href="docs/README.md"><strong>Explore the docs »</strong></a>
     		<br>
 		<a href="#">En</a>
 		◈
