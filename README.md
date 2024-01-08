@@ -4,32 +4,20 @@
 	<h3 align="center">APP2000 Group 11</h3>
 	<p align="center">
 		A chess training app made with React.js and Next.js.
-		<br>
-    		<a href="docs/README.md"><strong>Explore the docs »</strong></a>
 		<br><br>
 		<a href="https://www.pictureofhotdog.com/store/naked-dog">View Demo</a>
 		◈
 		<a href="https://www.pictureofhotdog.com/store/dressed-dog">Report Bug</a>
 		◈
 		<a href="https://www.pictureofhotdog.com/make-it-beautiful">Request Feature</a>
-  		<br><br><br><br>
-    		A chess training app made with React.js and Next.js.
-		<br>
-		<a href="https://www.pictureofhotdog.com/store/naked-dog">View Demo</a>
-		◈
-		<a href="https://www.pictureofhotdog.com/store/dressed-dog">Report Bug</a>
-		◈
-		<a href="https://www.pictureofhotdog.com/make-it-beautiful">Request Feature</a>
-  		<br><br>
-   		<a href="docs/README.md"><strong>Explore the docs »</strong></a>
-    		<br>
-		<a href="#">En</a>
-		◈
-		<a href="./README.no.md">No</a>
+		<br><br>
+		<a href="docs/README.md"><strong>Explore the docs »</strong></a>
 	</p>
 </div>
 
-# Table of Contents
+<details>
+<summary>Table of Contents</summary>
+
 * [About The Project](#about-the-project)
 	* [Built With](#built-with)
 * [Getting Started](#getting-started)
@@ -41,6 +29,9 @@
 * [Contact](#contact)
 * [Acknowledgments](#acknowledgments)
 * [License](#license)
+
+</details>
+<br>
 
 # About the project
 ## Built with
