@@ -5,11 +5,11 @@
 	<p align="center">
 		A chess training app made with React.js and Next.js.
 		<br><br>
-		<a href="https://www.pictureofhotdog.com/store/naked-dog">View Demo</a>
+		<a href="https://www.pictureofhotdog.com">View Demo</a>
 		◈
-		<a href="https://www.pictureofhotdog.com/store/dressed-dog">Report Bug</a>
+		<a href="https://github.com/frigvid/app2000-gruppe11/issues/new?assignees=&labels=bug&projects=&template=bug-report.yml&title=bug%3A+">Report Bug</a>
 		◈
-		<a href="https://www.pictureofhotdog.com/make-it-beautiful">Request Feature</a>
+		<a href="https://github.com/frigvid/app2000-gruppe11/issues/new?assignees=&labels=needs+triage%2Cenhancement&projects=&template=feature-request.yml&title=feature%3A+">Request Feature</a>
 		<br><br>
 		<a href="docs/README.md"><strong>Explore the docs »</strong></a>
 	</p>
