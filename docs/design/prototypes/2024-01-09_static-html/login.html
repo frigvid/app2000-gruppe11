@@ -1,12 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="global.css">
-    <title>Login</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="global.css">
+<title>Login Page</title>
+<style>
+    /* General resets */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Use a color scheme and font similar to the uploaded image */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4; /* A light background similar to the image */
+        color: #333; /* A standard text color */
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+
+    /* Header styles */
+    header {
+        background-color: #7f563b; /* A brownish color picked from the image */
+        padding: 1em;
+        text-align: center;
+        font-size: 2em;
+        color: white;
+    }
+
+    /* Main content styles */
+    main {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Footer styles */
+    footer {
+        background-color: #7f563b; /* Same as header */
+        padding: 1em;
+        text-align: center;
+        font-size: 1em;
+        color: white;
+    }
+
+    /* Login box styles */
+    .login-box {
+        background: white;
+        padding: 2em;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        width: 300px; /* Fixed width */
+    }
+
+    /* Form styles */
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    input[type="text"], input[type="password"] {
+        padding: 0.5em;
+        margin: 0.5em 0;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    input[type="submit"] {
+        background-color: #c0a080; /* Same as header/footer */
+        color: white;
+        padding: 0.5em;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 1em;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #a08570; /* A darker shade for hover effect */
+    }
+</style>
 </head>
 <body>
-    
+
+<header>
+    Chess Buddy Trainer
+</header>
+
+<main>
+    <div class="login-box">
+        <form>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <input type="submit" value="Login">
+        </form>
+    </div>
+</main>
+
+<footer>
+    © 2024 Chess Buddy Trainer. All rights reserved.
+</footer>
+
 </body>
 </html>
