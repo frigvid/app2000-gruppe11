@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="global.css">
+	<link rel="stylesheet" href="login.css">
+	<title>Sign Up Page</title>
+</head>
+
+<body>
+
+	<header>
+		<a href="./homepage.html" class="headerLink">Chess Buddy Trainer</a>
+	</header>
+
+	<main>
+		<div class="login-box">
+			<form>
+				<label for="new-username">Username</label>
+				<input type="text" id="new-username" name="new-username" required>
+
+				<label for="new-password">Password</label>
+				<input type="password" id="new-password" name="new-password" required>
+
+				<label for="confirm-password">Confirm Password</label>
+				<input type="password" id="confirm-password" name="confirm-password" required>
+
+				<input type="button" value="Sign Up" onclick="location.href='./userprofile.html';">
+			</form>
+			<br>
+			<div class="existingAccount">
+				<span>Already have an account? <a href="./login.html">Login instead.</a></span>
+			</div>
+		</div>
+	</main>
+
+	<footer>
+		© 2024 Chess Buddy Trainer. All rights reserved.
+	</footer>
+
+</body>
+
+</html>
