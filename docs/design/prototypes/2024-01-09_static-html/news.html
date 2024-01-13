@@ -4,43 +4,46 @@
     <!-- Meta tags for character set and viewport -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Title of the webpage -->
-    <title>Chess Trainer News</title>
     <!-- Internal CSS styles -->
     <style>
-        /* Resetting default margin and padding, setting background color */
+        /* Styling for the container */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
             margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
         }
 
         /* Styling for the header */
         header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #7f563b;
+            padding: 1em;
+            font-size: 2em;
+            color: white;
         }
 
-        /* Styling for the navigation bar */
-        nav {
-            background-color: #444;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-        }
-
-        /* Styling for navigation links */
-        nav a {
-            color: #fff;
+        a {
+            color: white;
             text-decoration: none;
-            margin: 0 15px;
+        }
+
+        nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        span {
+            color: #a1887f;
         }
 
         /* Styling for the main content area */
         main {
+            flex: 1;
             padding: 20px;
         }
 
@@ -51,45 +54,84 @@
 
         /* Styling for the footer */
         footer {
-            background-color: #333;
+            background-color: #7f563b; /* Change to the desired color */
             color: #fff;
             padding: 10px;
             text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+
+        /* Styling for news section */
+        .news-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Styling for individual news articles */
+        .news-article {
+            width: 70%;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header section with the site title -->
-    <header>
-        <h1>Chess Trainer News</h1>
-    </header>
+    <!-- Container to hold header and main content -->
+    <div id="container">
 
-    <!-- Navigation bar with links -->
-    <nav>
+        <!-- Header section with the site title and link to homepage -->
+        <header>
+            <a href="./homepage.html" class="headerLink">Chess Buddy Trainer</a>
+            <nav>
+                <a href="./homepage.html" class="headerLink">Home</a>
+                <span>|</span>
+                <a href="./news.html" class="headerLink">News</a>
+                <span>|</span>
+                <a href="./docs.html" class="headerLink">Docs</a>
+            </nav>
+            <a href="./login.html" class="headerLink">Login</a>
+        </header>
 
-        <a href="#">News</a>
-        
-    </nav>
+        <!-- Main content area -->
+        <main>
+            <!-- News section with centered column -->
+            <div class="news-section">
+                <!-- First news article -->
+                <div class="news-article">
+                    <h2>Grandmaster Tips: Opening Strategies</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod, risus ut dictum tempor, elit sapien fermentum urna, ut ultricies arcu nisi vel ex.</p>
+                    <p><em>Published on: January 13, 2024</em></p>
+                </div>
 
-    <!-- Main content area -->
-    <main>
-        <!-- First article with a title, content, and publication date -->
-        <article>
-            <h2>Grandmaster Tips: Opening Strategies</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod, risus ut dictum tempor, elit sapien fermentum urna, ut ultricies arcu nisi vel ex.</p>
-            <p><em>Published on: January 13, 2024</em></p>
-        </article>
+                <!-- Second news article -->
+                <div class="news-article">
+                    <h2>Upcoming Tournaments</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod, risus ut dictum tempor, elit sapien fermentum urna, ut ultricies arcu nisi vel ex.</p>
+                    <p><em>Published on: January 12, 2024</em></p>
+                </div>
 
-        <!-- Second article with a title, content, and publication date -->
-        <article>
-            <h2>Upcoming Tournaments</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod, risus ut dictum tempor, elit sapien fermentum urna, ut ultricies arcu nisi vel ex.</p>
-            <p><em>Published on: January 12, 2024</em></p>
-        </article>
+                <!-- Add more news articles as needed -->
+            </div>
+        </main>
+    </div>
 
-        <!-- Add more articles as needed -->
-
-    </main>
+    <!-- Footer section -->
+    <footer>
+        &copy; 2024 Chess Buddy Trainer News
+    </footer>
 </body>
 </html>
+
+
+
+
+
+
+
+
