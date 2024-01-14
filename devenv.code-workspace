@@ -1,0 +1,64 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		/* Themes:
+			Toggle between Light/Dark themes Ctrl + Shift + P: Setting preferred themes makes it toggle between them. */
+		"workbench.colorTheme": "Solarized Light",
+		"workbench.preferredDarkColorTheme": "Abyss",
+		"workbench.preferredLightColorTheme": "Solarized Light",
+		
+		/* Quality of life:
+			aka (mostly) personal preferrence */
+		"files.insertFinalNewline": true,
+		// This adds lines between brackets, makes it easier to see which bracket you're inside.
+		"editor.guides.bracketPairs": true,
+		// Set to tabs for accessibility reasons. Tab sizes can be controlled externally, whereas spaces cannot.
+		"editor.insertSpaces": false,
+		"editor.tabSize": 3,
+		// Linux line ends (LF) = "\n". Windows line ends (CRLF) = "\r\n".
+		"files.eol": "\n",
+		// Disabled simply because it makes multicursor in VSCode more annoying to use when it's on.
+		"files.trimTrailingWhitespace": false,
+		"editor.trimAutoWhitespace": false,
+		"editor.renderWhitespace": "boundary",
+		"editor.fontFamily": "FiraCode NF", // Monospace with support for some Unicode icons used in terminals like Fish
+		"editor.fontWeight": "normal",
+		
+		/* Files or directories added here with a "true" boolean, will hide them in VSCode's
+		   Explorer. It shouldn't affect anything else. */
+		"files.exclude": {
+			// Directories
+			"**/.bin": true,
+			"**/.out": true,
+			"**/.git": true,
+			"**/.vscode": false,
+			
+			// File extensions
+			"**/.gitignore": false,
+			"**/*.DS_Store": true,
+			"**/*.md": false,
+			"**/*.dll": true,
+			"**/*.zip": true,
+			"**/*.exe": true,
+		}
+	},
+	"extensions": {
+		// Search for "@recommended" in the Extensions Activity Bar search.
+		"recommendations": [
+			"msjsdiag.vscode-react-native",
+			"dbaeumer.vscode-eslint",
+			"annsk.alignment",
+			"MatthiasSchedel.bibtex-manager",
+			// One or the other, not both
+			"ritwickdey.LiveServer",
+			"ms-vscode.live-server",
+			// Toggle with: "Highlight Duplicates: Toggle Highlighting"
+			"LordBrom.highlight-duplicates",
+		],
+		"unwantedRecommendations": []
+	},
+}
