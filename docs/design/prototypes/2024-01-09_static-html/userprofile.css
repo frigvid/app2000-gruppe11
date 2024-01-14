@@ -10,7 +10,7 @@
 /* Use a color scheme and font similar to the uploaded image */
 body {
 	font-family: 'Arial', sans-serif;
-	background-color: #f4f4f4;
+	background-color: #fffbf3; /* #f4f4f4; */
 	/* A light background similar to the image */
 	color: #333;
 	/* A standard text color */
