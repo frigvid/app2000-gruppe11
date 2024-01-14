@@ -5,8 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="global.css">
     <title>Chessboard</title>
+    <link rel="stylesheet" href="chessboard.css">
+    <script src="chessboard.js"></script>
 </head>
 <body>
-    
+    <header>
+        <a href="./homepage.html" class="headerLink">Chess Buddy Trainer</a>
+        <nav>
+            <a href="./homepage.html" class="headerLink">Home</a>
+            <span>|</span>
+            <a href="./news.html" class="headerLink">News</a>
+            <span>|</span>
+            <a href="./docs.html" class="headerLink">Docs</a>
+        </nav>
+        <a href="./login.html" class="headerLink">Login</a>
+    </header>
+    <main class="flex">
+        <section>
+            <img src="ref/how-to-set-up-a-chessboard-7.jpg" alt="">
+        </section>
+        <aside class="flex" id="chatbox">
+                <p id="chatDisplayName">Rockminer64</p>
+                <div id="messageContainer">
+                    <div class="messages">
+                        <p>LOREM IPÅSUM</p>
+                        <p>Chat</p>
+                        <p>Chat</p>
+                        <p>Chat</p>
+                        <p>Chat</p>
+                        <p>Chat</p>
+                        <p>Chat</p>
+                    </div>
+                    <div class="flex" id="msgInput">
+                        <Textarea id="ta" cols="30" rows="2" placeholder="Write Message here"></Textarea>
+                        <button onclick="btnPress()">Send</button>
+                    </div>
+                </div> 
+        </aside>
+    </main>
+    <footer>
+		© 2024 Chess Buddy Trainer. All rights reserved.
+	</footer>
 </body>
 </html>
