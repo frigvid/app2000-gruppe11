@@ -3,10 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="global.css"> 
     <title>Homepage</title>
-</head>
-<body>
+
+    <style>
+      body {
+        background-color: #f5f5dc; /* Beige background */
+        font-family: Arial, sans-serif;
+      }
+      .header {
+        background-color: #8b4513; /* Brown header */
+        color: white;
+        padding: 10px 20px;
+        text-align: right;
+      }
+      .login-button {
+        background-color: #deb887; /* Contrasting color */
+        color: white;
+        padding: 5px 15px;
+        text-decoration: none;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+      }
+      .container {
+        display: flex;
+        justify-content: space-around;
+        padding: 20px;
+      }
+      .button {
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 30%;
+        text-align: center;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+      }
+      .button:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      }
+      .login-button:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      }
+    </style>
+    </head>
+    <body>
     
-</body>
-</html>
+    <div class="header">
+      Chess Buddy Trainer
+      <button class="login-button"onclick="location.href='#';" >Log In</button>
+
+    </div>
+    <div class="container">
+      <div class="button" onclick="location.href='#';">TRAIN</div>
+      <div class="button" onclick="location.href='#';">PLAY</div>
+      <div class="button" onclick="location.href='#';">HISTORY</div>
+    </div>
+    </body>
+    </html>
