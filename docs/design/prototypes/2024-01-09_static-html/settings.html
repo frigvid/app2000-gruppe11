@@ -1,12 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="global.css">
-    <title>Settings</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account Settings</title>
+<style>
+    header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #7f563b;
+    padding: 1em;
+    font-size: 2em;
+    color: white;
+    
+    a {
+        color: white; text-decoration: none;
+    }
+    
+    nav {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        
+        span {
+            color: #a1887f;
+        }
+    }
+}
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #333;
+    color: white;
+    margin: 0;
+  }
+  .sidebar {
+    background-color: #222;
+    padding: 10px;
+    width: 200px;
+    height: 100vh;
+    float: left;
+  }
+  .content {
+    margin-left: 200px;
+    padding: 20px;
+  }
+  .settings-option {
+    background-color: #444;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  .settings-header {
+    padding: 10px 0;
+    border-bottom: 1px solid #555;
+  }
+  .form-group {
+    margin-bottom: 10px;
+  }
+  label, .form-group {
+    display: block;
+  }
+  input[type="text"], input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    background-color: #555;
+    border: none;
+    color: white;
+  }
+  input[type="submit"], .delete-button {
+    background-color: #5cb85c;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  .delete-button {
+    background-color: #d9534f;
+  }
+  .form-group.inline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .profile-picture {
+    width: 50px;
+    height: 50px;
+  }
+</style>
 </head>
 <body>
+    <header>
+        <a href="./homepage.html" class="headerLink">Chess Buddy Trainer</a>
+        <nav>
+            <a href="./homepage.html" class="headerLink">Home</a>
+            <span>|</span>
+            <a href="./news.html" class="headerLink">News</a>
+            <span>|</span>
+            <a href="./docs.html" class="headerLink">Docs</a>
+        </nav>
+        <a href="./login.html" class="headerLink">Login</a>
+    </header>
+
+<div class="sidebar">
+  <div>Summary</div>
+  <div>Activity</div>
+  <div>Notifications</div>
+  <div>Messages</div>
+  <div>Badges</div>
+  <div>Preferences</div>
+
+</div>
+
+<div class="content">
+ 
+  <div class="settings-header">
+    <h2>Account</h2>
+  </div>
+
+
+  <div class="settings-option">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" value="nils123">
+    </div>
+    <div class="form-group">
+      <span>People can mention you as @nils123</span>
+    </div>
+  </div>
+
+
+
+
+  <div class="settings-option">
     
-</body>
-</html>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" value="">
+        <span>Never shown to the public.</span>
+      </div>
+      <div class="form-group">
+        <button class="add-email">+ Add Alternate Email</button>
+      </div>
+    </div>
+  
+   
+    <div class="settings-option">
+      <input type="submit" value="Save Changes">
+    </div>
+  
+    <div class="settings-option">
+      <button class="delete-button">Delete My Account</button>
+    </div>
+  
+  </div>
+  
+  
+  </body>
+  </html>
+  

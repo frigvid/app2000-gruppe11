@@ -1,12 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="global.css">
-    <title>FAQ</title>
+    <title>Chess Website FAQ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .header {
+            background: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .faq {
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        .question {
+            font-weight: bold;
+        }
+        .answer {
+            padding-top: 10px;
+        }
+        header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #7f563b;
+    padding: 1em;
+    font-size: 2em;
+    color: white;
+    
+    a {
+        color: white; text-decoration: none;
+    }
+    
+    nav {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        
+        span {
+            color: #a1887f;
+        }
+    }
+}
+    </style>
 </head>
 <body>
-    
+    <header>
+        <a href="./homepage.html" class="headerLink">Chess Buddy Trainer</a>
+        <nav>
+            <a href="./homepage.html" class="headerLink">Home</a>
+            <span>|</span>
+            <a href="./news.html" class="headerLink">News</a>
+            <span>|</span>
+            <a href="./docs.html" class="headerLink">Docs</a>
+        </nav>
+        <a href="./login.html" class="headerLink">Login</a>
+    </header>
+    <div class="header">
+        <h1>Chess FAQ</h1>
+    </div>
+
+    <div class="container">
+        <div class="faq">
+            <div class="question">Q: How do I start a new game?</div>
+            <div class="answer">A: Click the 'New Game' button on the main page to start playing.</div>
+        </div>
+
+        <div class="faq">
+            <div class="question">Q: Can I play against the computer?</div>
+            <div class="answer">A: Yes, you can select the 'Play against Computer' option.</div>
+        </div>
+        
+        <div class="faq">
+            <div class="question">Q:Are there any membership fees associated with your website?</div>
+            <div class="answer">A: YOur website offers both free.</div>
+        </div>
+        <div class="faq">
+            <div class="question">Q: Can I analyze my past games on the website?</div>
+            <div class="answer">A:  Yes, we provide a game analysis tool for you to review and analyze your past games.</div>
+        </div>
+
+        <!-- Add more FAQs here -->
+    </div>
 </body>
 </html>
