@@ -1,0 +1,34 @@
+header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: #7f563b;
+	padding: 1em;
+	font-size: 2em;
+	color: white;
+	
+	a {
+		color: white; text-decoration: none;
+	}
+	
+	nav {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		
+		span {
+			color: #a1887f;
+		}
+	}
+}
+
+/* Footer styles */
+footer {
+	background-color: #7f563b;
+	/* Same as header */
+	padding: 1em;
+	text-align: center;
+	font-size: 1em;
+	color: white;
+	flex-shrink: 0;
+}

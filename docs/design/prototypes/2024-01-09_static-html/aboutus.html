@@ -1,84 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="global.css">
-    <title>About us</title>
-    <style>
-        body {
-          background-color: #f5f5dc; /* Beige background */
-          font-family: Arial, sans-serif;
-        }
-        header {
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="global.css">
+	<link rel="stylesheet" href="headfoot.css">
+	<title>About us</title>
+	<style>
+		body {
+			font-family: 'Arial', sans-serif;
+			background-color: #fffbf3;
 			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			background-color: #7f563b;
-			padding: 1em;
-			font-size: 2em;
-			color: white;
-
-			a {
-				color: white;
-				text-decoration: none;
-			}
-
-			nav {
-				position: absolute;
-				left: 50%;
-				transform: translateX(-50%);
-
-				span {
-					color: #a1887f;
-				}
-			}
+			flex-direction: column;
+			min-height: 100vh;
+			margin: 0;
 		}
-        .container {
-          max-width: 800px;
-          margin: 0 auto;
-          padding: 20px;
-          background-color: white;
-          border-radius: 5px;
-          box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        .text-box {
-          background-color: #f5f5dc; /* Beige background */
-          border: 1px solid #ccc;
-          border-radius: 5px;
-          padding: 20px;
-          margin-bottom: 20px;
-        }
-        .text-box p {
-          margin: 0;
-        }
-      </style>
-      </head>
-      <body>
-        <header>
-            <a href="./homepage.html" class="headerLink">Chess Buddy Trainer</a>
-            <nav>
-                <a href="./homepage.html" class="headerLink">Home</a>
-                <span>|</span>
-                <a href="./news.html" class="headerLink">News</a>
-                <span>|</span>
-                <a href="./docs.html" class="headerLink">Docs</a>
-            </nav>
-            <a href="./login.html" class="headerLink">Login</a>
-        </header>
-      
-      <div class="container">
-        <h1>About Us</h1>
-        <div class="text-box">
-          <p>Welcome to Chess Buddy - your ultimate chess training companion. We are a team of passionate chess enthusiasts dedicated to helping you improve your chess skills.</p>
-        </div>
-        <div class="text-box">
-          <p>Our mission is to provide you with the best resources, training materials, and a supportive community to enhance your chess journey. Whether you're a beginner or an experienced player, Chess Buddy is here to assist you every step of the way.</p>
-        </div>
-        <div class="text-box">
-          <p>Join us today and embark on an exciting chess adventure. Together, we'll unlock the secrets of this timeless game and take your chess skills to new heights.</p>
-        </div>
-      </div>
-      
-      </body>
-      </html>
+		
+		main {
+			flex-grow: 1;
+		}
+
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+			margin-top: 20px;
+			padding: 20px;
+			background-color: white;
+			border-radius: 5px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		}
+
+		.box {
+			background-color: #fffbf3;
+			/* Beige background */
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			padding: 20px;
+			margin-bottom: 20px;
+		}
+
+		.box p {
+			margin: 0;
+		}
+		
+		h1 {
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<a href="./homepage.html" class="headerLink">Chess Buddy Trainer</a>
+		<nav>
+			<a href="./homepage.html" class="headerLink">Home</a>
+			<span>|</span>
+			<a href="./news.html" class="headerLink">News</a>
+			<span>|</span>
+			<a href="./docs.html" class="headerLink">Docs</a>
+		</nav>
+		<a href="./login.html" class="headerLink">Login</a>
+	</header>
+
+	<main>
+		<div class="container">
+			<h1>About Us</h1>
+			<br>
+			<div class="box">
+				<p>Welcome to Chess Buddy - your ultimate chess training companion. We are a team of passionate chess
+					enthusiasts dedicated to helping you improve your chess skills.</p>
+			</div>
+			<div class="box">
+				<p>Our mission is to provide you with the best resources, training materials, and a supportive community to
+					enhance your chess journey. Whether you're a beginner or an experienced player, Chess Buddy is here to
+					assist you every step of the way.</p>
+			</div>
+			<div class="box">
+				<p>Join us today and embark on an exciting chess adventure. Together, we'll unlock the secrets of this timeless
+					game and take your chess skills to new heights.</p>
+			</div>
+		</div>
+	</main>
+
+	<footer>
+		© 2024 Chess Buddy Trainer. All rights reserved.
+	</footer>
+
+</body>
+
+</html>

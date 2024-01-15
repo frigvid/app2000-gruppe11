@@ -1,139 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <!-- Meta tags for character set and viewport -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Internal CSS styles -->
-    <style>
-        /* Styling for the container */
-        body {
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            margin: 0;
-        }
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="headfoot.css">
+	<title>News</title>
+	<style>
+		/* Styling for the container */
+		body {
+			font-family: 'Arial', sans-serif;
+			display: flex;
+			flex-direction: column;
+			min-height: 100vh;
+			margin: 0;
+			background-color: #fffbf3;
+		}
 
-        /* Styling for the header */
-        header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background-color: #7f563b;
-            padding: 1em;
-            font-size: 2em;
-            color: white;
-            
-            a {
-                color: white; text-decoration: none;
-            }
-            
-            nav {
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
-                
-                span {
-                    color: #a1887f;
-                }
-            }
-        }
+		/* Styling for the main content area */
+		main {
+			flex: 1;
+			padding: 20px;
+		}
 
-        /* Styling for the main content area */
-        main {
-            flex: 1;
-            padding: 20px;
-        }
+		/* Styling for individual articles */
+		article {
+			margin-bottom: 30px;
+		}
 
-        /* Styling for individual articles */
-        article {
-            margin-bottom: 30px;
-        }
-
-        /* Styling for the footer */
-        footer {
-            font-family: 'Arial', sans-serif;
-            background-color: #7f563b; /* Change to the desired color */
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-
-
-        /* Styling for news section */
-        .news-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* Styling for individual news articles */
-        .news-article {
-            width: 70%;
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 10px; /* Adjust the value as needed */
-        }
-
-    </style>
+		/* Styling for news section */
+		.news-section {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			
+			div[class^='news-article'] {
+				background-color: #ffffff;
+				width: 70%;
+				border: 1px solid #ddd;
+				padding: 15px;
+				margin-bottom: 20px;
+				border-radius: 10px;
+			}
+		}
+	</style>
 </head>
+
 <body>
 
-    <!-- Container to hold header and main content -->
-    <div id="container">
+	<!-- Header section with the site title and link to homepage -->
+	<header>
+		<a href="./homepage.html" class="headerLink">Chess Buddy Trainer</a>
+		<nav>
+			<a href="./homepage.html" class="headerLink">Home</a>
+			<span>|</span>
+			<a href="./news.html" class="headerLink">News</a>
+			<span>|</span>
+			<a href="./docs.html" class="headerLink">Docs</a>
+		</nav>
+		<a href="./login.html" class="headerLink">Login</a>
+	</header>
 
-        <!-- Header section with the site title and link to homepage -->
-        <header>
-            <a href="./homepage.html" class="headerLink">Chess Buddy Trainer</a>
-            <nav>
-                <a href="./homepage.html" class="headerLink">Home</a>
-                <span>|</span>
-                <a href="./news.html" class="headerLink">News</a>
-                <span>|</span>
-                <a href="./docs.html" class="headerLink">Docs</a>
-            </nav>
-            <a href="./login.html" class="headerLink">Login</a>
-        </header>
+	<!-- Main content area -->
+	<main>
+		<!-- News section with centered column -->
+		<div class="news-section">
+			<!-- First news article -->
+			<div class="news-article">
+				<h2>Grandmaster Tips: Opening Strategies</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod, risus ut dictum tempor, elit
+					sapien fermentum urna, ut ultricies arcu nisi vel ex.</p>
+				<p>Source: <a href="example.com">example.com/chess-related-news</a></p>
+				<p><em>Published on: January 13, 2024</em></p>
+			</div>
 
-        <!-- Main content area -->
-        <main>
-            <!-- News section with centered column -->
-            <div class="news-section">
-                <!-- First news article -->
-                <div class="news-article">
-                    <h2>Grandmaster Tips: Opening Strategies</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod, risus ut dictum tempor, elit sapien fermentum urna, ut ultricies arcu nisi vel ex.</p>
-                    <p><em>Published on: January 13, 2024</em></p>
-                </div>
+			<!-- Second news article -->
+			<div class="news-article">
+				<h2>Upcoming Tournaments</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod, risus ut dictum tempor, elit
+					sapien fermentum urna, ut ultricies arcu nisi vel ex.</p>
+				<p>Source: <a href="example.com">example.com/chess-related-news</a></p>
+				<p><em>Published on: January 12, 2024</em></p>
+			</div>
 
-                <!-- Second news article -->
-                <div class="news-article">
-                    <h2>Upcoming Tournaments</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod, risus ut dictum tempor, elit sapien fermentum urna, ut ultricies arcu nisi vel ex.</p>
-                    <p><em>Published on: January 12, 2024</em></p>
-                </div>
+			<!-- Add more news articles as needed -->
+		</div>
+	</main>
 
-                <!-- Add more news articles as needed -->
-            </div>
-        </main>
-    </div>
-
-    <!-- Footer section -->
-    <footer>
-        &copy; 2024 Chess Buddy Trainer News
-    </footer>
+	<footer>
+		© 2024 Chess Buddy Trainer. All rights reserved.
+	</footer>
 </body>
+
 </html>
-
-
-
-
-
-
-
-

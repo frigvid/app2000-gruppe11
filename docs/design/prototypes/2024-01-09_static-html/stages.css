@@ -1,85 +1,51 @@
 body {
-    background-color: #fffbf3;
-}
-
-
-/* Header styles */
-header {
+	font-family: 'Arial', sans-serif;
+	background-color: #fffbf3;
 	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	background-color: #7f563b;
-	padding: 1em;
-	font-size: 2em;
-	color: white;
-	
-	a {
-		color: white; text-decoration: none;
-	}
-	
-	nav {
-		position: absolute;
-		left: 50%;
-		transform: translateX(-50%);
-		
-		span {
-			color: #a1887f;
-		}
-	}
+	flex-direction: column;
+	min-height: 100vh;
+	margin: 0;
 }
-
 
 .flex {
-    display: flex;
+	display: flex;
 }
-
 
 main {
-    justify-content: center;
-    margin-top: 10vh;
+	justify-content: center;
+	margin-top: 10vh;
+	flex-grow: 1;
 }
+
 /* Opening Container */
 #container {
-    margin: 0 10vw;
-    padding: 1vh 1vw; 
-    border: 5px solid #7f563b;
-    border-radius: 10px;
-    background-color: #ffffff;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex-flow: row wrap;
-    max-height: 60vh;
-    overflow: auto;
+	margin: 0 10vw;
+	padding: 1vh 1vw;
+	border: 5px solid #7f563b;
+	border-radius: 10px;
+	background-color: #ffffff;
+	justify-content: center;
+	align-items: flex-start;
+	flex-flow: row wrap;
+	max-height: 60vh;
+	overflow: auto;
 }
 
 /* Card Styling */
 .card {
-    color: black;
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    padding: 50px 10%;
-    margin: 10px;
-    border: 1px solid black;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    border-radius: 10px;
+	color: black;
+	text-decoration: none;
+	display: flex;
+	flex-direction: column;
+	padding: 50px 10%;
+	margin: 10px;
+	border: 1px solid black;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	border-radius: 10px;
 }
 
 .card:hover {
-    background-color: #7f563b;
-}
-
-/* Footer styles */
-footer {
 	background-color: #7f563b;
-	/* Same as header */
-	padding: 1em 0;
-	text-align: center;
-	font-size: 1em;
-	color: white;
-    position: absolute;
-    bottom: 0;
-    width: 100vw;
 }

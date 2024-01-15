@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="global.css">
+	<link rel="stylesheet" href="headfoot.css">
 	<title>Homepage</title>
 
 	<style>
@@ -33,40 +34,6 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-		}
-
-		header {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			background-color: #7f563b;
-			padding: 1em;
-			font-size: 2em;
-			color: white;
-
-			a {
-				color: white;
-				text-decoration: none;
-			}
-
-			nav {
-				position: absolute;
-				left: 50%;
-				transform: translateX(-50%);
-
-				span {
-					color: #a1887f;
-				}
-			}
-		}
-
-		footer {
-			background-color: #7f563b;
-			/* Same as header */
-			padding: 1em;
-			text-align: center;
-			font-size: 1em;
-			color: white;
 		}
 
 		.container {
@@ -129,10 +96,8 @@
 		<div class="container">
 			<div class="button" onclick="location.href='./stages.html';">TRAIN</div>
 			<div class="button" onclick="location.href='./chessboard.html';">PLAY</div>
-			<div class="button" onclick="location.href='#';">HISTORY</div>
+			<div class="button" onclick="alert('UNIMPLEMENTED'); location.href='#';">HISTORY</div>
 		</div>
-        
-        
 	</main>
 
 	<footer>
