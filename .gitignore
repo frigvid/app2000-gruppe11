@@ -1,3 +1,9 @@
+# JetBrains
+/.idea/
+
+# VSCode
+/.vscode/
+
 ## npx generated gitignore:
 # dependencies
 /node_modules
