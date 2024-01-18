@@ -38,6 +38,19 @@
 # Getting started
 ## Prerequisites
 ## Installation
+
+```bash
+npm install
+```
+
+## Running DEBUG
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
 # Usage
 # Roadmap
 # Contributing
