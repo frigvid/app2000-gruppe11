@@ -1,6 +1,6 @@
 <!-- Listen, I know align=center is basically deprecated, but it's GitHub. You use what you can, because there's not a lot of that going around. -->
 <div align="center">
-	<img src="./assets/logo.svg" alt="Logo" width="80" height="80">
+	<img src="./public/logo.svg" alt="Logo" width="80" height="80">
 	<h3 align="center">APP2000 Group 11</h3>
 	<p align="center">
 		A chess training app made with React.js and Next.js.
