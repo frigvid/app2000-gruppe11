@@ -34,9 +34,33 @@
 <br>
 
 # About the project
+Chess has various strategies to for both proactive and reactive actions for the early-game, mid-game and late-game.
+
+Chess Buddy is a web-application designed to teach its users opening strategies.
+
+Features:
+- Full chess battles against machine-opponents (AI) or fellow humans.
+- Theoretical documentation and explanations of strategies.
+- Practical implementations and utilizations of strategies.
+- User-definable strategy groups.
+    - Groups can be custom-ordered or randomly ordered, effectively blindfolding the user as to which strategy is currently in effect.
+- Interactive views of strategies, both with and without hints as to what the step is, based on the users wants.
+
 ## Built with
+
+The project is developed using:
+
+- React/Next.js.
+- TailwindCSS.
+
 # Getting started
-## Prerequisites
+## Pre-requisites
+Getting the project up and running is rather easy, you just need to clone this repository and then follow the instructions below.
+
+Do note that our developer documentation is available through [GitHub's repository-level Wiki](https://github.com/frigvid/app2000-gruppe11/wiki).
+
+You can also generate code documentation using `jsdoc` once the project has been cloned and installed.
+
 ## Installation
 
 ```bash
@@ -52,9 +76,21 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000).
 
 # Usage
+
+Usage of the web-application should be relatively straight forward. It is designed to be mostly intuitive, but also contains internal user-aligned documentation.
+
 # Roadmap
+
+Our roadmap can be viewed through our [GitHub Project](https://github.com/users/frigvid/projects/1).
+
 # Contributing
+
+We are not accepting arbitrary contributions at this time.
+
 # Contact
+
+We can be contacted through GitHub.
+
 # Acknowledgments
 # License
 
