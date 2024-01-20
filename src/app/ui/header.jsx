@@ -1,7 +1,7 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import logoIcon from '/public/logo.svg'
-import styles from '@/app/ui/bar.module.css'
+import Image from "next/image";
+import Link from "next/link";
+import logoIcon from "/public/logo.svg";
+import styles from "@/app/ui/bar.module.css";
 
 export default function Header() {
 	return (
