@@ -18,7 +18,7 @@ export default function Page() {
 						<button type="button" onClick="" className={`${styles.buttonColor} mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal`}>
 							Log in
 						</button>
-						<Link href="/forgot" className="hover:text-blue-800">Forgot password?</Link>
+						<Link href="/login/forgot" className="hover:text-blue-800">Forgot password?</Link>
 					</div>
 				</form>
 				<div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
@@ -26,7 +26,7 @@ export default function Page() {
 				</div>
 				<div className="flex items-center justify-between pb-6">
 					<p className="mb-0 mr-2">Don't have an account?</p>
-					<Link href="/signup" className={`${styles.buttonColor} inline-block rounded px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger`}>Register</Link>
+					<Link href="/login/signup" className={`${styles.buttonColor} inline-block rounded px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger`}>Register</Link>
 				</div>
 			</div>
 		</main>
