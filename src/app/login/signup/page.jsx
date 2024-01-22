@@ -1,7 +1,7 @@
 import styles from "@/app/ui/login/button.module.css";
 import Link from "next/link";
 
-export default function Page() {
+export default function Signup() {
 	return (
 		<main className="flex justify-center items-center">
 			<div className="bg-white p-4 rounded shadow-lg">
