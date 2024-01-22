@@ -14,7 +14,9 @@ module.exports = {
       },
       colors: {
         'foreground': '#fffbf3',
-        'main': '#7f563b'
+        'main': '#7f563b',
+        'navseparator': '#a1887f',
+        'buttoncolor' : '#c0a080'
       }
     },
   },
