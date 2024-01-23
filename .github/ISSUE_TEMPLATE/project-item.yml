@@ -1,6 +1,6 @@
 name: Project item
 description: Create a new project item in our backlog
-title: "Project Item: "
+title: "PROJECT ITEM: "
 labels: [ "project" ]
 projects: [ "frigvid/1" ]
 body:
