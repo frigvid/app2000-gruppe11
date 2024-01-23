@@ -12,11 +12,18 @@ body:
             Please search our [existing project items](https://github.com/frigvid/app2000-gruppe11/issues?q=label%3Aproject) and open [our backlog](https://github.com/users/frigvid/projects/1) and verify that there isn't an existing item already. Thank you.
             
             ---
-   -  type: input
-      id: body
+   -  type: textarea
+      id: use-case
       attributes:
-         label: Item Body Content
-         description: This is the content of the issue, the "body," if you will.
-         placeholder: Describe item here.
+         label: Use-Case
+         description: Project items should have a relevant use-case.
+         placeholder: Describe the use-case here.
+      validations:
+         required: true
+   -  type: textarea
+      id: additional-context
+      attributes:
+         label: Additional context
+         description: Any other context about the project item.
       validations:
          required: false
