@@ -1,4 +1,3 @@
-import styles from "@/app/ui/login/button.module.css";
 import Link from "next/link";
 
 export default function Page() {
@@ -15,7 +14,7 @@ export default function Page() {
 						<input id="password" type="password" name="password" required className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"/>
 					</div>
 					<div className="mb-2 pb-1 pt-1 text-center">
-						<button type="button" onClick="" className={`${styles.buttonColor} mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal`}>
+						<button type="button" onClick="" className="bg-buttoncolor mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal">
 							Log in
 						</button>
 						<Link href="/login/forgot" className="hover:text-blue-800">Forgot password?</Link>
@@ -26,7 +25,7 @@ export default function Page() {
 				</div>
 				<div className="flex items-center justify-between pb-6">
 					<p className="mb-0 mr-2">Don't have an account?</p>
-					<Link href="/login/signup" className={`${styles.buttonColor} inline-block rounded px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger`}>Register</Link>
+					<Link href="/login/signup" className="bg-buttoncolor inline-block rounded px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger">Register</Link>
 				</div>
 			</div>
 		</main>
