@@ -1,4 +1,6 @@
-import { createBrowserClient } from "@supabase/ssr";
+"use client";
+
+import {createBrowserClient} from "@supabase/ssr";
 
 export const createClient = () =>
 	createBrowserClient(
