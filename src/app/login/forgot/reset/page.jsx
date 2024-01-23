@@ -1,4 +1,3 @@
-import styles from "@/app/ui/login/button.module.css";
 import Link from "next/link";
 
 export default function Reset() {
@@ -9,7 +8,7 @@ export default function Reset() {
 				<p className="mb-4 text-center">A link to reset your password has been sent to your email address.</p>
 				<p className="mb-4 text-center">Please check your email and follow the instructions to reset your password.</p>
 				<div className="pb-1 pt-1 text-center">
-					<Link href="/login" className={`${styles.buttonColor} mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal`}>
+					<Link href="/login" className="bg-buttoncolor mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal">
 						Back to log in
 					</Link>
 				</div>
