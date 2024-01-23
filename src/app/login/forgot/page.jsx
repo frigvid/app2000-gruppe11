@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Page() {
+export default function Forgot() {
 	return (
 		<main className="flex justify-center items-center">
 			<div className="bg-white p-4 rounded shadow-lg">
