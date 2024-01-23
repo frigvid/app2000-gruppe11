@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import logoIcon from "/public/logo.svg";
+import Login from "./login/login";
 
 export default function Header() {
 	return (
@@ -20,9 +21,7 @@ export default function Header() {
 					<Link className="text-xl font-semibold leading-6 text-white hover:underline hover:underline-offset-8" href="/docs">Docs</Link>
 				</div>
 				<div className="lg:flex lg:flex-1 lg:justify-end">
-					<Link className="text-xl font-semibold leading-6 text-white hover:underline hover:underline-offset-8" href="/login">
-						Log in <span aria-hidden="true">&rarr;</span>
-					</Link>
+					<Login/>
 				</div>
 			</nav>
 		</header>
