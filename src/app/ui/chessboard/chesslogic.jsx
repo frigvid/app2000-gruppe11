@@ -1,9 +1,8 @@
 // Import necessary dependencies
 import React, { useState, useRef, useEffect } from 'react';
-import Chessboard from 'chessboard'; // Adjust the path accordingly
+import Chessboard from 'chessboard.jsx'; // Adjust the path accordingly
 import Chess from 'chess.js'; // Import the Chess class
 import Stockfish from 'stockfish.js';
-
 
 // ChessGame Component represents a chess game with a computer opponent
 const ChessGame = ({ onMove, onGameEnd, onRestartGame }) => {
@@ -11,6 +10,7 @@ const ChessGame = ({ onMove, onGameEnd, onRestartGame }) => {
 	const [fen, setFen] = useState('start'); // FEN notation representing the current game state
 	const [result, setResult] = useState(null); // Result of the game (win, lose, draw)
 	const [isGameOver, setIsGameOver] = useState(false); // Flag indicating if the game is over
+	const [gameMessage, setGameMessage] = useState(''); // Message to display on the UI
 	const chessRef = useRef(new Chess()); // Reference to the Chess.js instance to manage the game logic
 	const stockfishRef = useRef(null); // Reference to the Stockfish engine for computer moves
 
@@ -25,7 +25,7 @@ const ChessGame = ({ onMove, onGameEnd, onRestartGame }) => {
 		};
 	}, []);
 
-// Function to handle player moves
+	// Function to handle player moves
 	const handleMove = (move) => {
 		// Check if the game is over
 		if (isGameOver) {
@@ -70,7 +70,7 @@ const ChessGame = ({ onMove, onGameEnd, onRestartGame }) => {
 	// Function to check if the game is finished (either in a draw or checkmate)
 	const isGameFinished = () => chessRef.current.in_draw() || chessRef.current.in_checkmate();
 
-// Function to handle the end of the game, update the result, and notify the parent component
+	// Function to handle the end of the game, update the result, and notify the parent component
 	const handleGameEnd = () => {
 		setIsGameOver(true);
 
@@ -83,7 +83,6 @@ const ChessGame = ({ onMove, onGameEnd, onRestartGame }) => {
 
 		onGameEnd(result); // Notify the parent component (Arena) of the game end
 	};
-
 
 	// Function to restart the game by resetting the Chess.js instance and initiating a new game
 	const restartGame = () => {
@@ -116,6 +115,8 @@ const ChessGame = ({ onMove, onGameEnd, onRestartGame }) => {
 			</div>
 		</div>
 	);
+};
 
 // Export the ChessGame component as the default export
 export default ChessGame;
+
