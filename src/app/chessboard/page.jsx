@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Importing the 'Arena' component from the specified file path.
-import Arena from '../ui/chessboard/Arena';
+import Arena from '../ui/chessboard/arena';
 
 // Defining the 'App' functional component.
 const App = () => {
