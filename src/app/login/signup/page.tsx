@@ -4,8 +4,8 @@ import {createClient} from "@/app/lib/supabase/server";
 import {redirect} from "next/navigation";
 
 export default function Signup({
-											 searchParams,
-										 }: {
+	searchParams,
+}: {
 	searchParams: { message: string };
 }) {
 
