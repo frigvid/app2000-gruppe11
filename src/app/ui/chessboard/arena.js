@@ -61,4 +61,3 @@ const Arena = () => {
 
 // Export the Arena component as the default export
 export default Arena;
-
