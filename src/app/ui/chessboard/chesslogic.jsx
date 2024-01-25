@@ -1,7 +1,8 @@
 // Import necessary dependencies
 import React, { useState, useRef, useEffect } from 'react';
 import Chess from 'chess.js'; // Import the Chess class
-import Stockfish from 'stockfish';
+import Stockfish from 'stockfish.js';
+
 
 // ChessGame Component represents a chess game with a computer opponent
 const ChessGame = ({ onMove, onGameEnd, onRestartGame }) => {
