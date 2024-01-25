@@ -1,4 +1,6 @@
 // Import necessary dependencies from the React library
+'use client'
+
 import React, { useState } from 'react';
 
 // Import the Chessboard component from the 'react-chessboard' library
