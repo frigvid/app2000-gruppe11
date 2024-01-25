@@ -1,5 +1,6 @@
 // Import necessary dependencies
 import React, { useState, useRef, useEffect } from 'react';
+import Chessboard from 'chessboard'; // Adjust the path accordingly
 import Chess from 'chess.js'; // Import the Chess class
 import Stockfish from 'stockfish.js';
 
@@ -24,11 +25,11 @@ const ChessGame = ({ onMove, onGameEnd, onRestartGame }) => {
 		};
 	}, []);
 
-	// Function to handle player moves
+// Function to handle player moves
 	const handleMove = (move) => {
 		// Check if the game is over
 		if (isGameOver) {
-			alert('The game is over. Start a new game.');
+			setGameMessage('The game is over. Start a new game.'); // Display a message on the UI
 			return;
 		}
 
@@ -69,7 +70,7 @@ const ChessGame = ({ onMove, onGameEnd, onRestartGame }) => {
 	// Function to check if the game is finished (either in a draw or checkmate)
 	const isGameFinished = () => chessRef.current.in_draw() || chessRef.current.in_checkmate();
 
-	// Function to handle the end of the game, update the result, and notify the parent component
+// Function to handle the end of the game, update the result, and notify the parent component
 	const handleGameEnd = () => {
 		setIsGameOver(true);
 
@@ -82,6 +83,7 @@ const ChessGame = ({ onMove, onGameEnd, onRestartGame }) => {
 
 		onGameEnd(result); // Notify the parent component (Arena) of the game end
 	};
+
 
 	// Function to restart the game by resetting the Chess.js instance and initiating a new game
 	const restartGame = () => {
@@ -108,12 +110,12 @@ const ChessGame = ({ onMove, onGameEnd, onRestartGame }) => {
 				orientation="white"
 			/>
 			<div style={{ marginTop: '20px' }}>
+				{gameMessage && <p>{gameMessage}</p>}
 				{result && <p>{result}</p>}
 				<button onClick={restartGame}>Start a new game</button>
 			</div>
 		</div>
 	);
-};
 
 // Export the ChessGame component as the default export
 export default ChessGame;
