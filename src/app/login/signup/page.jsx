@@ -1,7 +1,6 @@
-import styles from "@/app/ui/login/button.module.css";
 import Link from "next/link";
 
-export default function Page() {
+export default function Signup() {
 	return (
 		<main className="flex justify-center items-center">
 			<div className="bg-white p-4 rounded shadow-lg">
@@ -19,7 +18,7 @@ export default function Page() {
 						<input id="passwordVerify" type="password" name="password" required className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"/>
 					</div>
 					<div className="mb-2 pb-1 pt-1 text-center">
-						<button type="button" onClick="" className={`${styles.buttonColor} mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal`}>
+						<button type="button" onClick="" className="bg-buttoncolor mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal">
 							Sign up
 						</button>
 					</div>
@@ -28,7 +27,7 @@ export default function Page() {
 					<p className="mx-4 mb-0 text-center font-semibold">Or</p>
 				</div>
 				<div className="pb-1 pt-1 text-center">
-					<Link href="/login" className={`${styles.buttonColor} mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal`}>
+					<Link href="/login" className="bg-buttoncolor mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal">
 						Back to log in
 					</Link>
 				</div>
