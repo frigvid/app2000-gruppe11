@@ -1,7 +1,6 @@
 // Import necessary dependencies
 import React, { useState, useRef, useEffect } from 'react';
 import Chess from 'chess.js'; // Import the Chess class
-import Chessboard from 'chessboardjsx';
 import Stockfish from 'stockfish';
 
 // ChessGame Component represents a chess game with a computer opponent
