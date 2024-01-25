@@ -4,7 +4,7 @@ import React from 'react';
 // Importing the 'Arena' component from the specified file path.
 import Arena from '../ui/chessboard/chessboard.jsx';
 
-// Defining the 'App' functional component.
+// Defining the 'home' functional component.
 const Home = () => {
 	// Returning JSX (JavaScript XML) to define the structure of the component.
 	return (
