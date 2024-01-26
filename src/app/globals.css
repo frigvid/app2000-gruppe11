@@ -2,12 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {}
+:root {
+}
 
 @media (prefers-color-scheme: dark) {
-  :root {}
+	:root {
+	}
 }
 
 body {
-  @apply bg-foreground;
+	@apply bg-foreground;
 }
