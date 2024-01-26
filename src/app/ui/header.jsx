@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import logoIcon from "/public/logo.svg";
-import Login from "./login/login";
+import Login from "@ui/auth/login";
 
 export default function Header() {
 	return (
