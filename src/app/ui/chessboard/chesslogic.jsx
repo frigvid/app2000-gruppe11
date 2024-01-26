@@ -1,8 +1,7 @@
 // Import necessary dependencies
 import React, { useState, useRef, useEffect } from 'react';
-import Chessboard from 'chessboard.jsx'; // Adjust the path accordingly
+import Chessboard from 'chessboard.js'; // Adjust the path accordingly
 import Chess from 'chess.js'; // Import the Chess class
-import Stockfish from 'stockfish.js';
 
 // ChessGame Component represents a chess game with a computer opponent
 const ChessGame = ({ onMove, onGameEnd, onRestartGame }) => {
@@ -16,7 +15,7 @@ const ChessGame = ({ onMove, onGameEnd, onRestartGame }) => {
 
 	// useEffect hook to initialize the Stockfish engine and make the first computer move
 	useEffect(() => {
-		stockfishRef.current = new Worker(Stockfish);
+		stockfishRef.current = new Worker(new URL('stockfish.js', import.meta.url));
 		makeComputerMove();
 
 		// Cleanup function to terminate the Stockfish engine when the component unmounts
@@ -119,4 +118,5 @@ const ChessGame = ({ onMove, onGameEnd, onRestartGame }) => {
 
 // Export the ChessGame component as the default export
 export default ChessGame;
+
 

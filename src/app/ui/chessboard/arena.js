@@ -1,13 +1,7 @@
 // Import necessary dependencies from the React library
-'use client'
-
 import React, { useState } from 'react';
-
-// Import the Chessboard component from the 'react-chessboard' library
-import Chessboard from 'react-chessboard';
-
 // Import the custom ChessGame component from the 'ChessLogic' module
-import ChessGame from './ChessLogic';
+import ChessGame from 'ChessLogic'; // Make sure to use the correct path
 
 // Define the Arena component
 const Arena = () => {
