@@ -1,5 +1,5 @@
 import React from 'react';
-import Chessboard from './Chessboard'; // Replace './Chessboard' with the correct path to your Chessboard component
+import Chessboard from 'Chessboard'; // Replace './Chessboard' with the correct path to your Chessboard component
 
 const Page = () => {
 	const handleMove = (move) => {
