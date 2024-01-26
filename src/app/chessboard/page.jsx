@@ -5,10 +5,10 @@ import { Chess } from "chess.js";
 import Arena from "../ui/chessboard/arena";
 
 const openings = {
-	"Italian Game": ["e4", "e5", "Nf3", "Nc6", "Bc4"],
+	"Italian Game (play as black)": ["e4", "e5", "Nf3", "Nc6", "Bc4"],
 	"Sicilian Defense": ["e4", "c5"],
 	"French Defense": ["e4", "e6"],
-	"Ruy Lopez": ["e4", "e5", "Nf3", "Nc6", "Bb5"],
+	"Ruy Lopez (play as black)": ["e4", "e5", "Nf3", "Nc6", "Bb5"],
 	// Legg til flere åpninger her
 };
 
