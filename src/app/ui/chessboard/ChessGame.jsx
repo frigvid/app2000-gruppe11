@@ -16,6 +16,7 @@ export default function ChessGame() {
 		return true; // null if the move was illegal, the move object if the move was legal
 	}
 
+	//function where "Bot" does a random legal move after player has played a move
 	function makeRandomMove() {
 		// we need to update the state after the previous move has happened all in the same render
 		setGame((currentGame) => {
@@ -49,5 +50,13 @@ export default function ChessGame() {
 		return true;
 	}
 
-	return <Chessboard position={game.fen()} onPieceDrop={onDrop} />;
+	function resetPos() {
+		game.fen('start');
+	};
+
+	return (
+	<div className="w-96 h-96">
+		<Chessboard position={game.fen()} onPieceDrop={onDrop} />
+	</div>
+	);
 }
