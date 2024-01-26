@@ -137,3 +137,7 @@ export default function Page() {
 		</div>
 	);
 }
+/**
+ * kilde chatgpt
+ */
+
