@@ -49,10 +49,14 @@ export default function ChessGame() {
 		return true;
 	}
 
+	function resetPos() {
+		setGame(new Chess());
+	}
+
 
 	return (
 	<div className="w-96 h-96">
-		<button onClick={() => {console.log("reset")}}>Reset</button>
+		<button onClick={() => {resetPos()}}>Reset</button>
 		<Chessboard position={game.fen()} onPieceDrop={onDrop} />
 	</div>
 	);
