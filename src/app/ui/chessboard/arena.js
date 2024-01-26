@@ -1,10 +1,7 @@
 // Import necessary dependencies from the React library
-'use client'
-// Import necessary dependencies from the React library
 import React, { useState } from 'react';
 // Import the Chessboard component
-import Chessboard from 'arena'; // Adjust the path based on your project structure
-
+import Chessboard from 'Chessboard'; // Updated the path based on your project structure
 
 // Define the Arena component
 const Arena = () => {
@@ -54,5 +51,7 @@ const Arena = () => {
 
 // Export the Arena component as the default export
 export default Arena;
+
+
 
 

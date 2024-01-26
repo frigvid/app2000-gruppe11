@@ -7,8 +7,8 @@ const Chessboard = ({ onMove, onGameEnd, onRestartGame }) => {
 
 	useEffect(() => {
 		const initChessboard = () => {
-			const board = new Chess();
-			setBoard(board);
+			const newBoard = new Chess();
+			setBoard(newBoard);
 		};
 
 		initChessboard();
@@ -32,13 +32,13 @@ const Chessboard = ({ onMove, onGameEnd, onRestartGame }) => {
 							display: 'flex',
 							justifyContent: 'center',
 							alignItems: 'center',
-							border: '1px solid #333', // Border around the squares
+							border: '1px solid #333',
 							position: 'relative',
 						}}
 					>
 						{piece ? (
 							<img
-								src={`path-to-piece-images/${piece.type}_${piece.color}.png`}
+								src={`image.jsx/${piece.type}_${piece.color}.png`}
 								alt={`${piece.color}_${piece.type}`}
 								style={{ width: '40px', height: '40px' }}
 							/>
@@ -55,7 +55,7 @@ const Chessboard = ({ onMove, onGameEnd, onRestartGame }) => {
 		const move = board.move({ from, to, promotion: 'q' });
 		if (move) {
 			setBoard(new Chess(board.fen()));
-			onMove({ from, to }); // Notify Arena component about the move
+			onMove({ from, to });
 		}
 	};
 
@@ -81,4 +81,6 @@ const Chessboard = ({ onMove, onGameEnd, onRestartGame }) => {
 };
 
 export default Chessboard;
+
+
 
