@@ -1,7 +1,8 @@
-import Link from "next/link";
-import {cookies, headers} from "next/headers";
+import PasswordDetails from "@ui/auth/password-details";
 import {createClient} from "@/app/lib/supabase/server";
+import {cookies, headers} from "next/headers";
 import {redirect} from "next/navigation";
+import Link from "next/link";
 
 export default function Signup({
 	searchParams,
@@ -27,10 +28,10 @@ export default function Signup({
 		});
 
 		if (error) {
-			return redirect("/login/signup?message=Could not authenticate user");
+			return redirect("/auth/signup?message=Something went wrong");
 		}
 
-		return redirect("/login/signup?message=Check email to continue sign in process");
+		return redirect("/auth/signup?message=Check email to continue sign in process");
 	};
 
 	return (
@@ -61,22 +62,22 @@ export default function Signup({
 							className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
 							type="password"
 							name="password"
-							placeholder="••••••••"
+							placeholder=""
 							required
 						/>
 					</div>
 					<div className="mb-2 pb-1 pt-1 text-center">
 						{/*
-							TODO: Investigate "AuthApiError: invalid request: both auth code and code verifier should be non-empty" when
-									opening the sign-up verification link sent to the users email in Firefox. Google Chrome seems to handle
-									it perfectly fine, but while the Firefox one /does/ sign you up still, it does not redirect back to the
-									root path as it should.
+							TODO: Investigate #29: https://github.com/frigvid/app2000-gruppe11/issues/29
+
+							NOTE: This might be fixed now. ¯\_(ツ)_/¯ Dunno how.
 						*/}
 						<button
 							className="bg-buttoncolor mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
 							formAction={signUp}>
 							Sign up
 						</button>
+						<PasswordDetails/>
 						{searchParams?.message && (
 							<p className="mt-4 p-4 text-center">
 								{searchParams.message}
@@ -88,7 +89,7 @@ export default function Signup({
 					<p className="mx-4 mb-0 text-center font-semibold">Or</p>
 				</div>
 				<div className="pb-1 pt-1 text-center">
-					<Link href="/login" className="bg-buttoncolor mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal">
+					<Link href="/auth/signin" className="bg-buttoncolor mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal">
 						Back to log in
 					</Link>
 				</div>

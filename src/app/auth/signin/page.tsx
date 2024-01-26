@@ -1,7 +1,7 @@
-import Link from "next/link";
-import {headers, cookies} from "next/headers";
 import {createClient} from "@/app/lib/supabase/server";
 import {redirect} from "next/navigation";
+import {cookies} from "next/headers";
+import Link from "next/link";
 
 export default function Login({
 	searchParams,
@@ -22,7 +22,7 @@ export default function Login({
 		});
 
 		if (error) {
-			return redirect("/login?message=Could not authenticate user");
+			return redirect("/auth/signin?message=Could not authenticate user");
 		}
 
 		return redirect("/");
@@ -66,7 +66,7 @@ export default function Login({
 							formAction={signIn}>
 							Log in
 						</button>
-						<Link href="/login/forgot" className="hover:text-blue-800">Forgot password?</Link>
+						<Link href="/auth/forgot" className="hover:text-blue-800">Forgot password?</Link>
 						{searchParams?.message && (
 							<div className="mt-4 p-4 bg-red-600 font-bold text-center">
 								<p>WARNING!</p>
@@ -80,7 +80,7 @@ export default function Login({
 				</div>
 				<div className="flex items-center justify-between pb-6">
 					<p className="mb-0 mr-2">Don't have an account?</p>
-					<Link href="/login/signup" className="bg-buttoncolor inline-block rounded px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger">Register</Link>
+					<Link href="/auth/signup" className="bg-buttoncolor inline-block rounded px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger">Register</Link>
 				</div>
 			</div>
 		</main>

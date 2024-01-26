@@ -1,7 +1,7 @@
 import {createClient} from "@/app/lib/supabase/server";
-import Link from "next/link";
-import {cookies} from "next/headers";
 import {redirect} from "next/navigation";
+import {cookies} from "next/headers";
+import Link from "next/link";
 
 export default async function Login() {
 	const cookieStore = cookies();
@@ -30,7 +30,10 @@ export default async function Login() {
 			</form>
 		</div>
 	) : (
-		<Link className="text-xl font-semibold leading-6 text-white hover:underline hover:underline-offset-8" href="/login">
+		<Link
+			className="text-xl font-semibold leading-6 text-white hover:underline hover:underline-offset-8"
+			href="/auth/signin"
+		>
 			Log in <span aria-hidden="true">&rarr;</span>
 		</Link>
 	);
