@@ -1,6 +1,6 @@
 "use client";
 
-import ChessGame from "../ui/chessboard/ChessGame"
+import ChessGame from "../ui/chessGame/ChessGame"
 export default function App() {
 
 
@@ -12,9 +12,6 @@ export default function App() {
 
 
         <div className="flex justify-center items-center">
-        <div>
-            <button onClick={() => {alert("reset")}} className="bg-main text-foreground">Reset</button>
-        </div>
             <ChessGame/>
         </div>
         </>

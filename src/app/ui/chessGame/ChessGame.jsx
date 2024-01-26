@@ -27,7 +27,6 @@ export default function ChessGame() {
       if (currentGame.isGameOver() || currentGame.isDraw() || possibleMoves.length === 0) {
         alert("Winner winner chicken dinner")
         return currentGame
-
       }
 			newGame.move(possibleMoves[randomIndex]);
 
@@ -50,12 +49,10 @@ export default function ChessGame() {
 		return true;
 	}
 
-	function resetPos() {
-		game.fen('start');
-	};
 
 	return (
 	<div className="w-96 h-96">
+		<button onClick={() => {console.log("reset")}}>Reset</button>
 		<Chessboard position={game.fen()} onPieceDrop={onDrop} />
 	</div>
 	);
