@@ -1,7 +1,10 @@
 // Import necessary dependencies from the React library
+'use client'
+// Import necessary dependencies from the React library
 import React, { useState } from 'react';
-// Import the custom ChessGame component from the 'ChessLogic' module
-import ChessGame from 'ChessLogic'; // Make sure to use the correct path
+// Import the Chessboard component
+import Chessboard from 'arena'; // Adjust the path based on your project structure
+
 
 // Define the Arena component
 const Arena = () => {
@@ -31,12 +34,8 @@ const Arena = () => {
 	// Render the Arena component
 	return (
 		<div>
-			{/* Render the ChessGame component, passing event handlers */}
-			<ChessGame
-				onMove={handleMove}
-				onGameEnd={handleGameEnd}
-				onRestartGame={handleRestartGame}
-			/>
+			{/* Render the Chessboard component, passing event handlers */}
+			<Chessboard onMove={handleMove} onGameEnd={handleGameEnd} onRestartGame={handleRestartGame} />
 			<div>
 				{/* Display move history as an ordered list */}
 				<h2>Move History:</h2>
@@ -55,3 +54,5 @@ const Arena = () => {
 
 // Export the Arena component as the default export
 export default Arena;
+
+

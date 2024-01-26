@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Chess from 'chess.js';
 import stockfish from 'stockfish';
 
-const Chessboard = () => {
+const Chessboard = ({ onMove, onGameEnd, onRestartGame }) => {
 	const [board, setBoard] = useState(new Chess());
 
 	useEffect(() => {
@@ -55,6 +55,7 @@ const Chessboard = () => {
 		const move = board.move({ from, to, promotion: 'q' });
 		if (move) {
 			setBoard(new Chess(board.fen()));
+			onMove({ from, to }); // Notify Arena component about the move
 		}
 	};
 
@@ -80,3 +81,4 @@ const Chessboard = () => {
 };
 
 export default Chessboard;
+
