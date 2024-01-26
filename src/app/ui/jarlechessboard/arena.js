@@ -1,7 +1,7 @@
 // Import necessary dependencies from the React library
 import React, { useState } from 'react';
 // Import the Chessboard component
-import Chessboard from 'Chessboard'; // Updated the path based on your project structure
+import Chessboard from './chessboard'; // Updated the path based on your project structure
 
 // Define the Arena component
 const Arena = () => {

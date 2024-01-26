@@ -1,5 +1,6 @@
+"use client"
 import React from 'react';
-import Chessboard from 'Chessboard'; // Update the path based on your project structure
+import Chessboard from '../ui/jarlechessboard/chessboard'; // Update the path based on your project structure
 
 const Page = () => {
 	const handleMove = (move) => {
