@@ -2,7 +2,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { Chess } from "chess.js";
-import Arena from "../ui/chessboard/arena";
+import Arena from "../ui/karstenchessboard/arena";
 
 export default function Page() {
 	const [game, setGame] = useState(new Chess());

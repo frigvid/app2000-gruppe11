@@ -2,7 +2,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { Chess } from "chess.js";
-import Arena from "../ui/chessboard/arena";
+import Arena from "../ui/karstenchessboard/arena";
 
 const openings = {
 	"Italian Game (play as black)": ["e4", "e5", "Nf3", "Nc6", "Bc4"],

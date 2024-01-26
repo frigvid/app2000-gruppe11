@@ -1,6 +1,6 @@
 "use client";
 
-import ChessGame from "../ui/chessGame/ChessGame"
+import ChessGame from "../ui/mariuschessGame/ChessGame"
 export default function App() {
 
 
