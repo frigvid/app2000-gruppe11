@@ -1,0 +1,40 @@
+import {createClient} from "@/app/lib/supabase/server";
+import {redirect} from "next/navigation";
+import {cookies} from "next/headers";
+import Link from "next/link";
+
+export default async function Login() {
+	const cookieStore = cookies();
+	const supabase = createClient(cookieStore);
+
+	const {
+		data: {user},
+	} = await supabase.auth.getUser();
+
+	const signOut = async () => {
+		"use server";
+
+		const cookieStore = cookies();
+		const supabase = createClient(cookieStore);
+		await supabase.auth.signOut();
+		return redirect("/");
+	};
+
+	return user ? (
+		<div className="flex items-center gap-4">
+			Hey, {user.email}!
+			<form action={signOut}>
+				<button className="text-xl font-semibold leading-6 text-white hover:underline hover:underline-offset-8">
+					Logout
+				</button>
+			</form>
+		</div>
+	) : (
+		<Link
+			className="text-xl font-semibold leading-6 text-white hover:underline hover:underline-offset-8"
+			href="/auth/signin"
+		>
+			Log in <span aria-hidden="true">&rarr;</span>
+		</Link>
+	);
+}
