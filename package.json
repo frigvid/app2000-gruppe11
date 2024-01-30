@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "chess.js": "^1.0.0-beta.7",
     "@supabase/ssr": "^0.0.10",
     "@supabase/supabase-js": "^2.39.3",
     "next": "14.0.4",
     "react": "^18",
+    "react-chessboard": "^4.4.0",
     "react-dom": "^18"
   },
   "devDependencies": {
