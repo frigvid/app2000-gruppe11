@@ -4,12 +4,11 @@ export default function Home() {
 	return (
 		<main className="flex justify-center items-center">
 			<div className="flex flex-col space-y-4">
-				{/* TODO: When implemented, change bg-gray-500 to bg-blue-500. */}
 				<Link
-					className="block bg-gray-500 text-white text-center py-4 px-8 rounded"
-					href="/tren"
+					className="block bg-blue-500 text-white text-center py-4 px-8 rounded"
+					href="/chess/train"
 				>
-					Tren (Not implemented)
+					Tren*
 				</Link>
 				<Link
 					className="block bg-green-500 text-white text-center py-4 px-8 rounded"
@@ -17,12 +16,11 @@ export default function Home() {
 				>
 					Spill
 				</Link>
-				{/* TODO: When implemented, change bg-gray-500 to bg-red-500. */}
 				<Link
-					className="block bg-gray-500 text-white text-center py-4 px-8 rounded"
-					href="/historikk"
+					className="block bg-red-500 text-white text-center py-4 px-8 rounded"
+					href="/chess/history"
 				>
-					Historikk (Not implemented)
+					Historikk*
 				</Link>
 			</div>
 		</main>

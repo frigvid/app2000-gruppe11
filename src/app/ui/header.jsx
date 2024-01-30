@@ -14,11 +14,26 @@ export default function Header() {
 					</Link>
 				</div>
 				<div className="lg:flex lg:gap-x-12">
-					<Link className="text-xl font-semibold leading-6 text-white hover:underline hover:underline-offset-8" href="/" key="NAME">Home</Link>
+					<Link
+						className="text-xl font-semibold leading-6 text-white hover:underline hover:underline-offset-8"
+						href="/"
+					>
+						Home
+					</Link>
 					<span className="text-navseparator text-xl font-semibold leading-6">|</span>
-					<Link className="text-xl font-semibold leading-6 text-white hover:underline hover:underline-offset-8" href="/news">News</Link>
+					<Link
+						className="text-xl font-semibold leading-6 text-white hover:underline hover:underline-offset-8"
+						href="/news"
+					>
+						News*
+					</Link>
 					<span className="text-navseparator text-xl font-semibold leading-6">|</span>
-					<Link className="text-xl font-semibold leading-6 text-white hover:underline hover:underline-offset-8" href="/docs">Docs</Link>
+					<Link
+						className="text-xl font-semibold leading-6 text-white hover:underline hover:underline-offset-8"
+						href="/docs"
+					>
+						Docs*
+					</Link>
 				</div>
 				<div className="lg:flex lg:flex-1 lg:justify-end">
 					<Login/>
