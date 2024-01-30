@@ -1,6 +1,6 @@
 "use client";
 
-import PlayChess from "@ui/chess/PlayChess";
+import PlayChess from "@ui/chess/play-chess";
 
 export default function App() {
 	return (
