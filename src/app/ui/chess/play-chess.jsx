@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
-import { Chess } from "chess.js";
-import { Chessboard } from "react-chessboard";
-import { addGamedata } from "@utils/game/add-gamedata";
+import {useState, useEffect} from "react";
+import {Chess} from "chess.js";
+import {Chessboard} from "react-chessboard";
+import {addGamedata} from "@utils/game/add-gamedata";
 
 export default function PlayChess() {
 	const [game, setGame] = useState(new Chess());
-	const [score, setScore] = useState({ wins: 0, losses: 0 });
+	const [score, setScore] = useState({wins: 0, losses: 0});
 
 	const [status, setStatus] = useState("Game ongoing");
 
@@ -42,6 +42,7 @@ export default function PlayChess() {
 			return newGame;
 		});
 	}
+
 	//
 
 	useEffect(() => {
@@ -65,13 +66,13 @@ export default function PlayChess() {
 	//checks if w or b won and updates scoreboard & user history
 	const updateScore = (winner) => {
 		if (winner === "Black") {
-			setScore({ ...score, losses: score.losses + 1 });
+			setScore({...score, losses: score.losses + 1});
 			addGamedata("dfe83755-0afa-438d-8740-b980ea59d5a4", false);
 
 			//adds loss to user history
 		} else {
 			//adds win to user history
-			setScore({ ...score, wins: score.wins + 1 });
+			setScore({...score, wins: score.wins + 1});
 			addGamedata("dfe83755-0afa-438d-8740-b980ea59d5a4", true);
 		}
 	};
@@ -115,7 +116,7 @@ export default function PlayChess() {
 				</button>
 			</div>
 			<div className="w-96 h-96">
-				<Chessboard position={game.fen()} onPieceDrop={onDrop} />
+				<Chessboard position={game.fen()} onPieceDrop={onDrop}/>
 			</div>
 		</div>
 	);
