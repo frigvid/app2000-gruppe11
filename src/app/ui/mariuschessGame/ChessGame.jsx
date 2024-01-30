@@ -39,7 +39,7 @@ export default function ChessGame() {
 		const move = makeAMove({
 			from: sourceSquare,
 			to: targetSquare,
-			promotion: "q", // always promote to a queen for example simplicity
+			promotion: 'q', // always promote to a queen for example simplicity
 		});
 
 		// illegal move
@@ -53,7 +53,7 @@ export default function ChessGame() {
 		setGame(new Chess());
 	}
 
-
+	
 	return (
 	<div className="w-96 h-96">
 		<button onClick={() => {resetPos()}}>Reset</button>
@@ -61,3 +61,12 @@ export default function ChessGame() {
 	</div>
 	);
 }
+
+//Needs to be figured out
+//Promotion steps
+
+//
+
+//onPromotionCheck() automatically checks if piece can promot or not
+
+//onPromotionPieceSelect() run when a promotion piece is selected. 
