@@ -79,7 +79,8 @@ export default function Login({
 					<p className="mx-4 mb-0 text-center font-semibold">Or</p>
 				</div>
 				<div className="flex items-center justify-between pb-6">
-					<p className="mb-0 mr-2">Don't have an account?</p>
+					{/* Don't change "Don&#39;t" to "Don't", it will literally cause npm run build to fail. */}
+					<p className="mb-0 mr-2">Don&#39;t have an account?</p>
 					<Link href="/auth/signup" className="bg-buttoncolor inline-block rounded px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger">Register</Link>
 				</div>
 			</div>
