@@ -67,12 +67,14 @@ export default function PlayChess() {
 	const updateScore = (winner) => {
 		if (winner === "Black") {
 			setScore({...score, losses: score.losses + 1});
+			// FIXME: Hard-coding the user UUID is a temporary measure for this obligatory task specifically.
 			addGamedata("dfe83755-0afa-438d-8740-b980ea59d5a4", false).then(r => console.log("Added data to database."));
 
 			//adds loss to user history
 		} else {
 			//adds win to user history
 			setScore({...score, wins: score.wins + 1});
+			// FIXME: Hard-coding the user UUID is a temporary measure for this obligatory task specifically.
 			addGamedata("dfe83755-0afa-438d-8740-b980ea59d5a4", true).then(r => console.log("Added data to database."));
 		}
 	};
