@@ -5,6 +5,9 @@ import PasswordDetails from "@ui/auth/password-details";
 import {createClient} from "@lib/supabase/client";
 import {useRouter} from "next/navigation";
 
+/**
+ * @author frigvid
+ */
 const PasswordUpdateForm: FC = () => {
 	const [newPassword, setNewPassword] = useState<string>('');
 	const [confirmPassword, setConfirmPassword] = useState<string>('');

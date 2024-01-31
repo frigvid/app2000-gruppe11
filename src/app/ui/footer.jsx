@@ -1,3 +1,6 @@
+/**
+ * @author frigvid
+ */
 export default function Footer() {
 	return (
 		<footer className="bg-main p-4">

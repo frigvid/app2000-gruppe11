@@ -6,6 +6,9 @@ import {cookies} from 'next/headers';
 // Specifies that this is an Edge Function, for use in an edge runtime environment:
 //export const runtime = 'edge';
 
+/**
+ * @author Supabase, frigvid
+ */
 export async function GET(request: Request) {
 	const {searchParams} = new URL(request.url);
 	// Retrieves the token hash from the query parameters

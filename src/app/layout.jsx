@@ -3,13 +3,20 @@ import Header from "@ui/header";
 import Footer from "@ui/footer";
 import "@/app/globals.css";
 
+
 const inter = Inter({subsets: ['latin']})
 
+/**
+ * @author frigvid
+ */
 export const metadata = {
 	title: 'Chess Buddy',
 	description: 'Chess trainer app',
 }
 
+/**
+ * @author frigvid
+ */
 export default function RootLayout({children}) {
 	return (
 		<html lang="en">

@@ -3,6 +3,9 @@ import {createClient} from "@lib/supabase/server";
 import {cookies} from "next/headers";
 import Link from "next/link";
 
+/**
+ * @author frigvid
+ */
 export default function Forgot() {
 	const resetPasswordEmail = async (formData: FormData) => {
 		"use server";

@@ -3,6 +3,9 @@ import {redirect} from "next/navigation";
 import {cookies} from "next/headers";
 import Link from "next/link";
 
+/**
+ * @author frigvid
+ */
 export default function Login({
 	searchParams,
 }: {

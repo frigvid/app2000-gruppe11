@@ -2,6 +2,9 @@ import {createClient} from "@/app/lib/supabase/server";
 import {NextResponse} from "next/server";
 import {cookies} from "next/headers";
 
+/**
+ * @author Supabase, frigvid
+ */
 export async function GET(request: Request) {
 	/* The `/auth/callback` route is required for the server-side auth flow implemented
 	 * by the Auth Helpers package[1]. It exchanges an auth code for the user's session.

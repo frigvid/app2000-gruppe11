@@ -12,6 +12,7 @@ import type {Database} from "@/app/database.types";
  *
  * @param uuid The auth.users.id in question.
  * @param win If true, increments wins column. If false, increments losses column.
+ * @author frigvid
  */
 export async function addGamedata(uuid: string, win: boolean): Promise<void> {
 	const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;

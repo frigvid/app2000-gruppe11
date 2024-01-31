@@ -1,6 +1,9 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
+/**
+ * @author Supabase, frigvid
+ */
 export async function middleware(request: NextRequest) {
 	let response = NextResponse.next({
 		request: {

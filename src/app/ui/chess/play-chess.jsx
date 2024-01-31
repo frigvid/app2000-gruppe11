@@ -3,6 +3,9 @@ import {Chess} from "chess.js";
 import {Chessboard} from "react-chessboard";
 import {addGamedata} from "@utils/game/add-gamedata";
 
+/**
+ * @author qwertyfyr, jarle0, KarstenKebba, oldpopcorn
+ */
 export default function PlayChess() {
 	const [game, setGame] = useState(new Chess());
 	const [score, setScore] = useState({wins: 0, losses: 0});

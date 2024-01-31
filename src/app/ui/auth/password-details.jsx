@@ -1,3 +1,6 @@
+/**
+ * @author frigvid
+ */
 export default function PasswordDetails() {
 	return (
 		<div className="flex flex-col items-center justify-center">

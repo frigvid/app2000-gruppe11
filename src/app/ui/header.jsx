@@ -3,6 +3,9 @@ import Link from "next/link";
 import logoIcon from "/public/logo.svg";
 import Login from "@ui/auth/login";
 
+/**
+ * @author frigvid
+ */
 export default function Header() {
 	return (
 		<header className="bg-main">
