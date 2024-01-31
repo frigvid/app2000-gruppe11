@@ -1,5 +1,8 @@
 import Link from "next/link";
 
+/**
+ * @author frigvid
+ */
 export default function Home() {
 	return (
 		<main className="flex justify-center items-center">

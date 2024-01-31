@@ -5,6 +5,9 @@ import { cookies } from "next/headers";
 // Specifies that this is an Edge Function, for use in an edge runtime environment
 //export const runtime = 'edge';
 
+/**
+ * @author Supabase, frigvid
+ */
 export async function POST(request: Request) {
 	try {
 		const requestUrl = new URL(request.url);
