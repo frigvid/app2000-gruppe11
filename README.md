@@ -5,7 +5,7 @@
 	<p align="center">
 		A chess training app made with React.js and Next.js.
 		<br><br>
-		<a href="https://www.pictureofhotdog.com">View Demo</a>
+		<a href="https://a2g11.vercel.app">View Demo</a>
 		◈
 		<a href="https://github.com/frigvid/app2000-gruppe11/issues/new?assignees=&labels=bug&projects=&template=bug-report.yml&title=bug%3A+">Report Bug</a>
 		◈
