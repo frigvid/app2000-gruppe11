@@ -4,6 +4,10 @@ import logoIcon from "/public/logo.svg";
 import Login from "@ui/auth/login";
 
 /**
+ * Header component.
+ *
+ * Only used in root-layout.
+ *
  * @author frigvid
  */
 export default function Header() {

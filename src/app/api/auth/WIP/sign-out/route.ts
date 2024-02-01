@@ -6,6 +6,8 @@ import { cookies } from "next/headers";
 //export const runtime = 'edge';
 
 /**
+ * API route for signing out.
+ *
  * @author Supabase, frigvid
  */
 export async function POST(request: Request) {

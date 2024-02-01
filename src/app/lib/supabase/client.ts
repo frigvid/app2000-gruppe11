@@ -1,6 +1,9 @@
 import {createBrowserClient} from '@supabase/ssr';
 
 /**
+ * Supabase's client, loading environment secrets,
+ * to support the authentication process.
+ *
  * @author Supabase, frigvid
  */
 export const createClient = () =>

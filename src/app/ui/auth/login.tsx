@@ -4,6 +4,10 @@ import {cookies} from "next/headers";
 import Link from "next/link";
 
 /**
+ * Re-usable component for the header component,
+ * that changes the "login" button to a status
+ * message containing the user's email address.
+ *
  * @author frigvid
  */
 export default async function Login() {

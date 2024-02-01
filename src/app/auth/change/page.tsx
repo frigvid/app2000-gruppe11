@@ -6,6 +6,9 @@ import {createClient} from "@lib/supabase/client";
 import {useRouter} from "next/navigation";
 
 /**
+ * Password change page, and related code to
+ * perform a password change using Supabase.
+ *
  * @author frigvid
  */
 const PasswordUpdateForm: FC = () => {

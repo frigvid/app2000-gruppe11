@@ -7,6 +7,10 @@ import {cookies} from 'next/headers';
 //export const runtime = 'edge';
 
 /**
+ * Confirmation route logic, used for redirecting
+ * to protected routes, after having recieved relevant
+ * details through email.
+ *
  * @author Supabase, frigvid
  */
 export async function GET(request: Request) {

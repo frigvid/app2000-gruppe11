@@ -2,6 +2,11 @@ import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
 /**
+ * Next.js middleware code, currently primarily
+ * used for supporting Supabase's authentication
+ * process. But can and likely will be used for
+ * defining protected routes in the future.
+ *
  * @author Supabase, frigvid
  */
 export async function middleware(request: NextRequest) {

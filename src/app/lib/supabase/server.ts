@@ -2,6 +2,8 @@ import {createServerClient, type CookieOptions} from "@supabase/ssr";
 import {cookies} from "next/headers";
 
 /**
+ * Supabase's server client.
+ *
  * @author Supabase, frigvid
  */
 export const createClient = (cookieStore: ReturnType<typeof cookies>) => {

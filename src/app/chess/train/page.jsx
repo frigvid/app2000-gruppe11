@@ -1,4 +1,6 @@
 /**
+ * Stub page for user-training.
+ *
  * @author frigvid
  */
 export default function App() {

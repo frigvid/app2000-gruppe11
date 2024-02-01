@@ -3,6 +3,9 @@ import {NextResponse} from "next/server";
 import {cookies} from "next/headers";
 
 /**
+ * Callback route, used for API calls during
+ * authentication requests.
+ *
  * @author Supabase, frigvid
  */
 export async function GET(request: Request) {

@@ -1,4 +1,8 @@
 /**
+ * A custom 404 page for the application, to avoid the
+ * default 404 page from pushing the footer out of the
+ * viewport.
+ *
  * @author frigvid
  */
 export default function NotFound() {
