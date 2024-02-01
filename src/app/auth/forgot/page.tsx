@@ -4,6 +4,17 @@ import {cookies} from "next/headers";
 import Link from "next/link";
 
 /**
+ * Forgotten password page, and related logic.
+ *
+ * Currently, sends an email to the user, containing
+ * relevant tokens. However, without protected routes
+ * this means, while you'll be sent to the /change route,
+ * you can also do so manually.
+ *
+ * FIXME: Opening the password reset link also logs you in,
+ * 		 and lets you essentially use it as an email-login.
+ * 		 This should be changed.
+ *
  * @author frigvid
  */
 export default function Forgot() {

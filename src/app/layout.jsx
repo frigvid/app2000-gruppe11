@@ -7,6 +7,8 @@ import "@/app/globals.css";
 const inter = Inter({subsets: ['latin']})
 
 /**
+ * Metadata for the application.
+ *
  * @author frigvid
  */
 export const metadata = {
@@ -15,6 +17,13 @@ export const metadata = {
 }
 
 /**
+ * Root layout for the application.
+ *
+ * It's set up to use the entire viewport, and uses grid,
+ * such that all elements are placed correctly. This makes
+ * the footer and header stick to the bottom and top of the
+ * page respectively.
+ *
  * @author frigvid
  */
 export default function RootLayout({children}) {

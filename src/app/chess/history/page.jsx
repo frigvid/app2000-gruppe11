@@ -1,4 +1,6 @@
 /**
+ * Stub page for user game history.
+ *
  * @author frigvid
  */
 export default function App() {

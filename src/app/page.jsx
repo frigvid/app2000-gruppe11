@@ -1,6 +1,8 @@
 import Link from "next/link";
 
 /**
+ * Homepage for the application.
+ *
  * @author frigvid
  */
 export default function Home() {

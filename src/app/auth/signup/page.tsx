@@ -5,6 +5,8 @@ import {redirect} from "next/navigation";
 import Link from "next/link";
 
 /**
+ * Sign up page, and related logic.
+ *
  * @author frigvid
  */
 export default function Signup({

@@ -1,4 +1,7 @@
 /**
+ * Re-usable component that describes password
+ * requirements for signing up a new user.
+ *
  * @author frigvid
  */
 export default function PasswordDetails() {

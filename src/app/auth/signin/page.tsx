@@ -4,6 +4,8 @@ import {cookies} from "next/headers";
 import Link from "next/link";
 
 /**
+ * Login page, and related logic.
+ *
  * @author frigvid
  */
 export default function Login({

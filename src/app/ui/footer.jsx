@@ -1,4 +1,8 @@
 /**
+ * Footer component.
+ *
+ * Only used in root-layout.
+ *
  * @author frigvid
  */
 export default function Footer() {

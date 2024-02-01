@@ -1,4 +1,6 @@
 /**
+ * Stub page for news.
+ *
  * @author frigvid
  */
 export default function App() {

@@ -46,8 +46,7 @@ export default function PlayChess() {
 		});
 	}
 
-	//
-
+	// Logic for checking how the game ended.
 	useEffect(() => {
 		if (game.isGameOver()) {
 			if (game.isCheckmate()) {
