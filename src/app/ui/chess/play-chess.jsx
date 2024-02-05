@@ -107,7 +107,7 @@ export default function PlayChess() {
 				<h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
 					Game Status
 				</h5>
-				<p className>{status}</p>
+				<p>{status}</p>
 				<p>Wins: {score.wins}</p>
 				<p>Losses: {score.losses}</p>
 				<button
