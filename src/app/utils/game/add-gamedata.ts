@@ -1,5 +1,4 @@
-import {createClient} from "@supabase/supabase-js";
-import type {Database} from "@/app/database.types";
+import {createClient} from "@lib/supabase/client";
 
 /**
  * This function is used to add data to the public.gamedata table
@@ -15,9 +14,7 @@ import type {Database} from "@/app/database.types";
  * @author frigvid
  */
 export async function addGamedata(uuid: string, win: boolean): Promise<void> {
-	const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-	const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-	const supabase = createClient<Database>(supabaseUrl, supabaseKey);
+	const supabase = createClient();
 
 	// Validate input.
 	if (!uuid) {throw new Error("No userid inputted")}
