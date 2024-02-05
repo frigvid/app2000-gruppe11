@@ -2,6 +2,7 @@ import {useState, useEffect} from "react";
 import {Chess} from "chess.js";
 import {Chessboard} from "react-chessboard";
 import {addGamedata} from "@utils/game/add-gamedata";
+import DeleteData from "@ui/chess/delete-data";
 
 /**
  * @author qwertyfyr, jarle0, KarstenKebba, oldpopcorn
@@ -103,7 +104,7 @@ export default function PlayChess() {
 	return (
 		//Container
 		<div className="flex justify-center items-center">
-			<div className="mr-8  p-3 px-8 max-w-sm bg-gray-200 rounded-lg border border-gray-200 shadow-md">
+			<div className="flex flex-col mr-8 p-3 px-8 max-w-sm bg-gray-200 rounded-lg border border-gray-200 shadow-md">
 				<h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
 					Game Status
 				</h5>
@@ -118,6 +119,7 @@ export default function PlayChess() {
 				>
 					Reset
 				</button>
+				<DeleteData/>
 			</div>
 			<div className="w-96 h-96">
 				<Chessboard position={game.fen()} onPieceDrop={onDrop}/>
