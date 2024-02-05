@@ -1,12 +1,6 @@
 import {removeGamedata} from "@utils/game/remove-gamedata";
-//import {user} from "@utils/supabase/get-user";
-import {getUser} from "@utils/supabase/get-user";
 
 export default function DeleteData() {
-	//const user = getUserObject();
-	let userId: string;
-	const user = getUser;
-	console.log(user.id);
 
 	const deleteData = async () => {
 		//"use server";
