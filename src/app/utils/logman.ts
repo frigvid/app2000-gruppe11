@@ -5,10 +5,13 @@
  * @param message The message to log.
  * @author frigvid
  */
-function logman(message: string) {
+function logman(message: string): void {
 	 if (process.env.ENVIRONMENT === 'dev') {
 		  console.log(message);
 	 }
 }
+
+// Inform that debug logging is enabled.
+logman("Logman loaded.");
 
 export default logman;
