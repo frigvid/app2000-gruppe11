@@ -1,5 +1,6 @@
 import {createClient} from "@lib/supabase/client";
 import {User} from "@supabase/gotrue-js";
+import logman from "@utils/logman";
 
 const supabase = createClient();
 
@@ -11,7 +12,7 @@ const supabase = createClient();
 export const getUser = async (): Promise<User | undefined> => {
 	//const { data, error } = await supabase.auth.getUser();
 	const { data: {user}, error } = await supabase.auth.getUser();
-	console.log(user.id);
+	logman(user.id);
 
 	if (error) {
 		console.error(error);
