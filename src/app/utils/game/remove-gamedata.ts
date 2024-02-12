@@ -1,13 +1,12 @@
 import {createClient} from "@lib/supabase/client";
 
-
 /**
  * This function is used to remove data from the public.gamedata table
  * on matching UUIDs.
  *
  * Currently, it's hard-coded to a user if no input is given.
  */
-export async function removeGamedata(uuid?: string): Promise<void> {
+async function removeGamedata(uuid?: string): Promise<void> {
 	const supabase = createClient();
 	//const {data: {user}} = await supabase.auth.getUser().then((user) => {return user});
 	let userId: string;
@@ -33,3 +32,5 @@ export async function removeGamedata(uuid?: string): Promise<void> {
 		throw err;
 	}
 }
+
+export default removeGamedata;
