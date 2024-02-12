@@ -1,12 +1,15 @@
 import {createBrowserClient} from '@supabase/ssr';
-import {createClient} from "@supabase/supabase-js";
 import {Database} from "@/app/database.types";
 
 /**
- * Supabase's client, loading environment secrets,
- * to support the authentication process.
+ * Lets you access Supabase from Client Components.
+ *
+ * See also [documentation at Supabase]{@link https://supabase.com/docs/guides/auth/server-side/nextjs}.
  *
  * @author Supabase, frigvid
+ * @warning Do not use this in server-side code. Browser-context only.
+ * @hint This uses a singleton pattern, only one instance of the client is created,
+ * 		regardless of how many times this function is called.
  */
 export const createClient = () =>
 	createBrowserClient<Database>(
