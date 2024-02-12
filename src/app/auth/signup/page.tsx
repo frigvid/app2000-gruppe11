@@ -1,11 +1,11 @@
+"use client";
+
 import PasswordDetails from "@ui/auth/password-details";
-import {createClient} from "@/app/lib/supabase/server";
-import {cookies, headers} from "next/headers";
-import {redirect} from "next/navigation";
+import signUp from "@utils/auth/sign-up";
 import Link from "next/link";
 
 /**
- * Sign up page, and related logic.
+ * Sign up page.
  *
  * @author frigvid
  */
@@ -14,31 +14,6 @@ export default function Signup({
 }: {
 	searchParams: { message: string };
 }) {
-
-	const signUp = async (formData: FormData) => {
-		"use server";
-
-		const origin = headers().get("origin");
-		const email = formData.get("email") as string;
-		const password = formData.get("password") as string;
-		const cookieStore = cookies();
-		const supabase = createClient(cookieStore);
-
-		const {error} = await supabase.auth.signUp({
-			email,
-			password,
-			options: {
-				emailRedirectTo: `${origin}/auth/callback`,
-			},
-		});
-
-		if (error) {
-			return redirect("/auth/signup?message=Something went wrong");
-		}
-
-		return redirect("/auth/signup?message=Check email to continue sign in process");
-	};
-
 	return (
 		<main className="flex justify-center items-center">
 			<div className="bg-white p-4 rounded shadow-lg">

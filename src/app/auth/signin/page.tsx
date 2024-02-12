@@ -1,10 +1,10 @@
-import {createClient} from "@/app/lib/supabase/server";
-import {redirect} from "next/navigation";
-import {cookies} from "next/headers";
+"use client";
+
+import signIn from "@utils/auth/sign-in";
 import Link from "next/link";
 
 /**
- * Login page, and related logic.
+ * Login page.
  *
  * @author frigvid
  */
@@ -13,26 +13,6 @@ export default function Login({
 }: {
 	searchParams: { message: string };
 }) {
-	const signIn = async (formData: FormData) => {
-		"use server";
-
-		const email = formData.get("email") as string;
-		const password = formData.get("password") as string;
-		const cookieStore = cookies();
-		const supabase = createClient(cookieStore);
-
-		const {error} = await supabase.auth.signInWithPassword({
-			email,
-			password,
-		});
-
-		if (error) {
-			return redirect("/auth/signin?message=Could not authenticate user");
-		}
-
-		return redirect("/");
-	};
-
 	return (
 		<main className="flex justify-center items-center">
 			<div className="bg-white p-4 rounded shadow-lg">
