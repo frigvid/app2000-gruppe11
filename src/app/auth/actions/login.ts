@@ -4,6 +4,7 @@ import { createClient } from "@lib/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+import logman from "@utils/logman";
 
 export async function login(formData: FormData) {
 	const cookieStore = cookies();
@@ -19,6 +20,7 @@ export async function login(formData: FormData) {
 	const { error } = await supabase.auth.signInWithPassword(data);
 	
 	if (error) {
+		logman(error);
 		redirect('/error/500');
 	}
 	
