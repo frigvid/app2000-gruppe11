@@ -1,6 +1,6 @@
 "use client";
 
-import {signOutSA} from "@/app/auth/logout/actions/sign-out-sa";
+import {signOutSA} from "@/app/auth/signout/actions/sign-out-sa";
 import {createClient} from "@lib/supabase/client";
 import {useRouter} from "next/navigation";
 import {useEffect} from "react";
