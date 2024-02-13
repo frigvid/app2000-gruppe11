@@ -6,7 +6,7 @@
  * 
  * @author frigvid
  */
-export default function Forgot() {
+export default function UserProfile() {
 	return (
 		<main className="flex justify-center items-center">
 			<p>User profile</p>
