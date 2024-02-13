@@ -1,7 +1,7 @@
 "use client";
 
 import PasswordDetails from "@/app/auth/components/password-details";
-import signUp from "@/app/auth/actions/sign-up";
+import signUpSA from "@/app/auth/signup/actions/sign-up-sa";
 import Link from "next/link";
 
 /**
@@ -9,15 +9,11 @@ import Link from "next/link";
  *
  * @author frigvid
  */
-export default function Signup({
-	searchParams,
-}: {
-	searchParams: { message: string };
-}) {
+export default function Signup() {
 	return (
 		<main className="flex justify-center items-center">
 			<div className="bg-white p-4 rounded shadow-lg">
-				<form action={signUp}>
+				<form action={signUpSA}>
 					<div className="mb-4">
 						<label
 							className="block text-gray-700 text-sm font-bold mb-2"
@@ -54,15 +50,10 @@ export default function Signup({
 						*/}
 						<button
 							className="bg-buttoncolor mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
-							formAction={signUp}>
+							formAction={signUpSA}>
 							Sign up
 						</button>
 						<PasswordDetails/>
-						{searchParams?.message && (
-							<p className="mt-4 p-4 text-center">
-								{searchParams.message}
-							</p>
-						)}
 					</div>
 				</form>
 				<div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
