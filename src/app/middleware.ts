@@ -113,7 +113,7 @@ export const config = {
 // * @author frigvid
 // * */
 //const protectedRoutes: string[] = [
-//	"/auth/account/profile", // Should protect both profile and settings.
+//	"/auth/user/profile", // Should protect both profile and settings.
 //];
 //
 ///**
@@ -126,7 +126,7 @@ export const config = {
 //	matcher: [
 //		'/api/:path*', // Matches all API routes. (You must be authenticated to access these routes.)
 //		'/testing/:path*',
-//		'/auth/account/profile'
+//		'/auth/user/profile'
 //	]
 //}
 //
