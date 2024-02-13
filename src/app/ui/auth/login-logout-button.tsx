@@ -11,7 +11,7 @@ import saveUserDetails from "@utils/supabase/user-details";
  *
  * @author frigvid
  */
-export default async function Login() {
+export default async function LoginLogoutButton() {
 	const cookieStore = cookies();
 	const supabase = createClient(cookieStore);
 
