@@ -6,7 +6,14 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import logman from "@utils/logman";
 
-export async function login(formData: FormData) {
+/**
+ * Server action for signing in the user.
+ *
+ * @param formData The sign-in form data.
+ * @author frigvid
+ * @created 2024-02-13
+ */
+export async function SignInSA(formData: FormData) {
 	const cookieStore = cookies();
 	const supabase = createClient(cookieStore);
 	

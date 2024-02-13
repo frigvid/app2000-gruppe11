@@ -1,4 +1,4 @@
-import {login} from "@/app/auth/actions/login";
+import {SignInSA} from "@/app/auth/signin/actions/sign-in-sa";
 import Link from "next/link";
 
 /**
@@ -6,15 +6,11 @@ import Link from "next/link";
  *
  * @author frigvid
  */
-export default function Login({
-	searchParams,
-}: {
-	searchParams: { message: string };
-}) {
+export default function SignIn() {
 	return (
 		<main className="flex justify-center items-center">
 			<div className="bg-white p-4 rounded shadow-lg">
-				<form action={login}>
+				<form action={SignInSA}>
 					<div className="mb-4">
 						<label
 							className="block text-gray-700 text-sm font-bold mb-2"
@@ -46,16 +42,10 @@ export default function Login({
 					<div className="mb-2 pb-1 pt-1 text-center">
 						<button
 							className="bg-buttoncolor mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
-							formAction={login}>
+							formAction={SignInSA}>
 							Log in
 						</button>
 						<Link href="/auth/password/forgot" className="hover:text-blue-800">Forgot password?</Link>
-						{searchParams?.message && (
-							<div className="mt-4 p-4 bg-red-600 font-bold text-center">
-								<p>WARNING!</p>
-								<p>{searchParams.message}</p>
-							</div>
-						)}
 					</div>
 				</form>
 				<div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
