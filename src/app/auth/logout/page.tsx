@@ -4,6 +4,7 @@ import {signOutSA} from "@/app/auth/logout/actions/sign-out-sa";
 import {createClient} from "@lib/supabase/client";
 import {useRouter} from "next/navigation";
 import {useEffect} from "react";
+
 import logman from "@utils/logman";
 
 /**
@@ -17,7 +18,7 @@ import logman from "@utils/logman";
  * @author frigvid
  * @created 2024-02-13
  */
-const LogoutPage = () => {
+export default function SignOut() {
 	const router = useRouter();
 	const supabase = createClient();
 	
@@ -103,5 +104,3 @@ const LogoutPage = () => {
 		</div>
 	);
 }
-
-export default LogoutPage;
