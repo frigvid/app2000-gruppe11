@@ -1,13 +1,8 @@
-import {createClient} from "@lib/supabase/server";
-//import {redirect} from "next/navigation";
-import {cookies} from "next/headers";
-import Link from "next/link";
-
 /**
- * Authentication error page.
+ * Use this error for when a malformed request occurs,
+ * or some data wasn't understood by the server.
  *
- * For example, this'll appear if you try to use
- * a password reset link that's expired.
+ * See [Wikipedia - HTTP 403](https://en.wikipedia.org/wiki/HTTP_403) for more information.
  *
  * @author frigvid
  */
