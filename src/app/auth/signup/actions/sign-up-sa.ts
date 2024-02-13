@@ -21,6 +21,8 @@ const signUpSA = async (formData: FormData) => {
 	const supabase = createClient(cookieStore);
 
 	// Additional metadata can be added to `options`.
+	// NOTE: Type-casting is here for convenience.
+	// FIXME: Validate inputs.
 	const {error} = await supabase.auth.signUp({
 		email,
 		password,
