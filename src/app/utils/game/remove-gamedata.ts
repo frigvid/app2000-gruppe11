@@ -1,4 +1,4 @@
-import {createClient} from "@lib/supabase/client";
+import {createClient} from "@utils/supabase/client";
 
 /**
  * This function is used to remove data from the public.gamedata table

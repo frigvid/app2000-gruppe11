@@ -196,7 +196,7 @@ export const config = {
 // * This is the primary middleware, where handling of protected routes
 // * occur.
 // *
-// * See also Supabase middleware {@link @lib/supabase/middleware}
+// * See also Supabase middleware {@link @utils/supabase/middleware}
 // *
 // * @author frigvid
 // * */

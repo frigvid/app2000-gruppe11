@@ -1,7 +1,7 @@
 "use client";
 
 import {signOutSA} from "@/app/auth/signout/actions/sign-out-sa";
-import {createClient} from "@lib/supabase/client";
+import {createClient} from "@utils/supabase/client";
 import {useRouter} from "next/navigation";
 import {useEffect} from "react";
 
@@ -38,8 +38,8 @@ export default function SignOut() {
 				 * and that users are unlikely to spam logout requests, I've opted for `getUser()`.
 				 *
 				 * For why `getSession()` should be used in other situations, see:
-				 * - [Browser-context client]{@link @lib/supabase/client.ts}.
-				 * - [Server-context client]{@link @lib/supabase/server.ts}.
+				 * - [Browser-context client]{@link @utils/supabase/client.ts}.
+				 * - [Server-context client]{@link @utils/supabase/server.ts}.
 				 * - [Middleware]{@link @/app/middleware.ts}.
 				 *
 				 * @author frigvid
