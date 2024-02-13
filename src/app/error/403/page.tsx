@@ -11,7 +11,7 @@ import Link from "next/link";
  *
  * @author frigvid
  */
-export default function Forgot() {
+export default function ForbiddenError() {
 	return (
 		<div className="flex items-center justify-center">
 			<h1 className="text-3xl font-medium mr-5 p-0">403</h1>
