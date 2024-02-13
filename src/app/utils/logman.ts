@@ -5,7 +5,7 @@
  * @param message The message to log.
  * @author frigvid
  */
-function logman(message: string): void {
+function logman(message: any): void {
 	 if (process.env.ENVIRONMENT === 'dev') {
 		  console.log(message);
 	 }
