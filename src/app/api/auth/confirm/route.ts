@@ -72,6 +72,6 @@ export async function GET(request: Request) {
 
 	// If there's an error or if token_hash/type are not provided, redirects to an error page
 	return NextResponse.redirect(
-		new URL('/auth/error', request.url)
+		new URL('/error/403', request.url)
 	);
 }
