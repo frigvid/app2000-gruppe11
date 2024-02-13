@@ -8,7 +8,7 @@ import {cookies} from 'next/headers';
 
 /**
  * Confirmation route logic, used for redirecting
- * to protected routes, after having recieved relevant
+ * to protected routes, after having received relevant
  * details through email.
  *
  * @author Supabase, frigvid
