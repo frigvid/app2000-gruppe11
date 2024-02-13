@@ -1,15 +1,8 @@
-import {createClient} from "@lib/supabase/server";
-//import {redirect} from "next/navigation";
-import {cookies} from "next/headers";
-import Link from "next/link";
-
 /**
- * Authentication error page.
- *
- * For example, this'll appear if you try to use
- * a password reset link that's expired.
+ * Use this error for when something generic goes wrong.
  *
  * @author frigvid
+ * @created 2024-02-13
  */
 export default function InternalServerError() {
 	return (
