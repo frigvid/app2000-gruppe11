@@ -9,7 +9,7 @@ import Link from "next/link";
  *
  * @author frigvid
  */
-export default function Signup() {
+export default function SignUp() {
 	return (
 		<main className="flex justify-center items-center">
 			<div className="bg-white p-4 rounded shadow-lg">
