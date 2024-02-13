@@ -6,8 +6,8 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
 export async function login(formData: FormData) {
-	const cookieStore = cookies()
-	const supabase = createClient(cookieStore)
+	const cookieStore = cookies();
+	const supabase = createClient(cookieStore);
 	
 	// NOTE: Type-casting is here for convenience.
 	// FIXME: Validate inputs.
@@ -16,12 +16,12 @@ export async function login(formData: FormData) {
 		password: formData.get('password') as string,
 	}
 	
-	const { error } = await supabase.auth.signInWithPassword(data)
+	const { error } = await supabase.auth.signInWithPassword(data);
 	
 	if (error) {
-		redirect('/error/500')
+		redirect('/error/500');
 	}
 	
-	revalidatePath('/', 'layout')
-	redirect('/')
+	revalidatePath('/', 'layout');
+	redirect('/');
 }
