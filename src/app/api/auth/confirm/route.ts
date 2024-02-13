@@ -56,7 +56,7 @@ export async function GET(request: Request) {
 			if (type === 'recovery') {
 				return NextResponse.redirect(
 					//new URL(`/redirect/auth-password-update?next=${next}`, request.url)
-					new URL(`/auth/change?next=${next}`, request.url)
+					new URL(`/auth/password/change?next=${next}`, request.url)
 				);
 			}
 			// Handle other OTP types as needed
@@ -72,7 +72,6 @@ export async function GET(request: Request) {
 
 	// If there's an error or if token_hash/type are not provided, redirects to an error page
 	return NextResponse.redirect(
-		//new URL('/redirect/auth-code-error', request.url)
-		new URL('/redirect/auth-code-error', request.url)
+		new URL('/auth/error', request.url)
 	);
 }
