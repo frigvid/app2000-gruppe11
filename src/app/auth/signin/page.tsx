@@ -51,7 +51,7 @@ export default function Login({
 							formAction={signIn}>
 							Log in
 						</button>
-						<Link href="/auth/forgot" className="hover:text-blue-800">Forgot password?</Link>
+						<Link href="/auth/password/forgot" className="hover:text-blue-800">Forgot password?</Link>
 						{searchParams?.message && (
 							<div className="mt-4 p-4 bg-red-600 font-bold text-center">
 								<p>WARNING!</p>
