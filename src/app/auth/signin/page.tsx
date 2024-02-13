@@ -1,6 +1,4 @@
-"use client";
-
-import signIn from "@/app/auth/actions/sign-in";
+import {login} from "@/app/auth/actions/login";
 import Link from "next/link";
 
 /**
@@ -16,7 +14,7 @@ export default function Login({
 	return (
 		<main className="flex justify-center items-center">
 			<div className="bg-white p-4 rounded shadow-lg">
-				<form action={signIn}>
+				<form action={login}>
 					<div className="mb-4">
 						<label
 							className="block text-gray-700 text-sm font-bold mb-2"
@@ -48,7 +46,7 @@ export default function Login({
 					<div className="mb-2 pb-1 pt-1 text-center">
 						<button
 							className="bg-buttoncolor mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
-							formAction={signIn}>
+							formAction={login}>
 							Log in
 						</button>
 						<Link href="/auth/password/forgot" className="hover:text-blue-800">Forgot password?</Link>
