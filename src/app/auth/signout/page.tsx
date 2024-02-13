@@ -56,6 +56,7 @@ export default function SignOut() {
 					logman("A session error occurred: " + sessionError);
 					// FIXME: Exception is caught locally.
 					throw sessionError;
+					// TODO: redirect("/error/401");
 				}
 				
 				await signOutSA();
@@ -68,6 +69,7 @@ export default function SignOut() {
 					logman("A sign out error occurred: " + signOutError);
 					// FIXME: Exception is caught locally.
 					throw signOutError;
+					// TODO: redirect("/error/401");
 				}
 			} catch (error) {
 				/* If it has some kind of error, logging it for the user to see is probably better.
