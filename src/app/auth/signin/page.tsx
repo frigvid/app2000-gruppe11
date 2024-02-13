@@ -1,6 +1,6 @@
 "use client";
 
-import signIn from "@utils/auth/sign-in";
+import signIn from "@/app/auth/actions/sign-in";
 import Link from "next/link";
 
 /**

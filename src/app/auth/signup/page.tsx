@@ -1,7 +1,7 @@
 "use client";
 
 import PasswordDetails from "@/app/auth/components/password-details";
-import signUp from "@utils/auth/sign-up";
+import signUp from "@/app/auth/actions/sign-up";
 import Link from "next/link";
 
 /**
