@@ -1,6 +1,6 @@
 "use client";
 
-import PasswordDetails from "@ui/auth/password-details";
+import PasswordDetails from "@/app/auth/components/password-details";
 import signUp from "@utils/auth/sign-up";
 import Link from "next/link";
 
