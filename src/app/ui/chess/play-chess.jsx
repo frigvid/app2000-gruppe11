@@ -86,7 +86,7 @@ export default function PlayChess() {
 		const move = makeAMove({
 			from: sourceSquare,
 			to: targetSquare,
-			promotion: piece[1].toLowerCase() ?? "q", // always promote to a queen for example simplicity
+			promotion: piece[1].toLowerCase() ?? "q", 
 		});
 
 		// illegal move
