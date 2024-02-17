@@ -1,5 +1,6 @@
 import {createServerClient, type CookieOptions} from '@supabase/ssr'
 import {NextResponse, type NextRequest} from 'next/server'
+import {redirect} from "next/navigation";
 import logman from "@utils/logman";
 
 /**
@@ -73,7 +74,11 @@ export async function middleware(request: NextRequest) {
 	)
 	
 	// Refresh Auth token.
-	await supabase.auth.getUser()
+	const {error} = await supabase.auth.getUser()
+	// Ensure logout and cookie deletion to avoid 400.
+	if (error) {
+		redirect("/auth/signout");
+	}
 	
 	return response
 }
