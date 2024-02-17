@@ -1,3 +1,5 @@
+import ProtectContent from "@/app/auth/components/protect-page";
+
 /**
  * Stub page for user profiles.
  *
@@ -8,8 +10,10 @@
  */
 export default function UserProfile() {
 	return (
-		<main className="flex justify-center items-center">
-			<p>User profile</p>
-		</main>
+		ProtectContent(
+			<main className="flex justify-center items-center">
+				<p>User profile</p>
+			</main>
+		)
 	);
 }
