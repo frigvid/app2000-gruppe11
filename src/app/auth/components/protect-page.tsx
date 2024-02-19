@@ -1,9 +1,9 @@
 "use server";
 
+import UnauthorizedError from "@ui/error/401_internal-server";
 import {createClient} from "@utils/supabase/server";
 import {cookies} from "next/headers";
 import Link from "next/link";
-import UnauthorizedError from "@/app/error/401/page";
 
 /**
  * Protects a given page from unauthorized access.
