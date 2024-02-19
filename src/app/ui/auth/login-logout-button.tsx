@@ -17,17 +17,11 @@ export default async function LoginLogoutButton() {
 	const {
 		data: {user},
 	} = await supabase.auth.getUser();
-
-	const signOut = async () => {
-		"use server";
-		
-		return redirect("/auth/signout");
-	};
 	
 	return user ? (
 		<div className="flex items-center gap-4">
 			Hey, {user.email}!
-			<form action={signOut}>
+			<form action="/auth/signout">
 				<button className="text-xl font-semibold leading-6 text-white hover:underline hover:underline-offset-8">
 					Logout
 				</button>
