@@ -20,13 +20,10 @@ export default async function LoginLogoutButton() {
 
 	const signOut = async () => {
 		"use server";
-
-		const cookieStore = cookies();
-		const supabase = createClient(cookieStore);
-		await supabase.auth.signOut();
-		return redirect("/");
+		
+		return redirect("/auth/signout");
 	};
-
+	
 	return user ? (
 		<div className="flex items-center gap-4">
 			Hey, {user.email}!
