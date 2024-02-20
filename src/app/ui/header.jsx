@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import logoIcon from "/public/logo.svg";
-import Login from "@ui/auth/login";
+import LoginLogoutButton from "@ui/auth/login-logout-button";
 
 /**
  * Header component.
@@ -43,7 +43,7 @@ export default function Header() {
 					</Link>
 				</div>
 				<div className="lg:flex lg:flex-1 lg:justify-end">
-					<Login/>
+					<LoginLogoutButton/>
 				</div>
 			</nav>
 		</header>

@@ -1,4 +1,4 @@
-import {removeGamedata} from "@utils/game/remove-gamedata";
+import removeGamedata from "@utils/game/remove-gamedata";
 
 export default function DeleteData() {
 
