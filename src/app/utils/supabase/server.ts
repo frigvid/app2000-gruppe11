@@ -1,6 +1,6 @@
 import {createServerClient, type CookieOptions} from "@supabase/ssr";
-import {cookies} from "next/headers";
 import {Database} from "@/app/database.types";
+import {cookies} from "next/headers";
 
 /**
  * Lets you access Supabase from Server Components,
@@ -32,7 +32,7 @@ export const createClient = (cookieStore: ReturnType<typeof cookies>) => {
 				get(name: string) {
 					return cookieStore.get(name)?.value;
 				},
-
+				
 				set(name: string, value: string, options: CookieOptions) {
 					try {
 						cookieStore.set({name, value, ...options});
@@ -42,7 +42,7 @@ export const createClient = (cookieStore: ReturnType<typeof cookies>) => {
 						// user sessions.
 					}
 				},
-
+				
 				remove(name: string, options: CookieOptions) {
 					try {
 						cookieStore.set({name, value: "", ...options});
