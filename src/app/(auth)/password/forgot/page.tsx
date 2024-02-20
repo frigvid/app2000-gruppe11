@@ -30,7 +30,7 @@ export default function Forgot() {
 
 		if (error) {
 			/* See note below. */
-			//return redirect("/auth/forgot?message=Something went wrong");
+			//return redirect("/forgot?message=Something went wrong");
 		}
 
 		/* While it /could/ be nice to have a success message, the problem is as
@@ -47,7 +47,7 @@ export default function Forgot() {
 		 * avenue through which to guess which emails /are/ in the database,
 		 * because it'll only return an error on a miss. Thus, both are disabled.
 		 */
-		//return redirect("/auth/forgot?message=Check email to continue sign in process");
+		//return redirect("/forgot?message=Check email to continue sign in process");
 	};
 
 	return (
@@ -84,7 +84,7 @@ export default function Forgot() {
 				<div className="pb-1 pt-1 text-center">
 					<Link
 						className="bg-buttoncolor mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
-						href="/auth/signin"
+						href="/signin"
 					>
 						Back to log in
 					</Link>

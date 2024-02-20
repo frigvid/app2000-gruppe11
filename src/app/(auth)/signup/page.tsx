@@ -60,7 +60,7 @@ export default function SignUp() {
 					<p className="mx-4 mb-0 text-center font-semibold">Or</p>
 				</div>
 				<div className="pb-1 pt-1 text-center">
-					<Link href="/auth/signin" className="bg-buttoncolor mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal">
+					<Link href="/signin" className="bg-buttoncolor mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal">
 						Back to log in
 					</Link>
 				</div>

@@ -21,7 +21,7 @@ export default async function LoginLogoutButton() {
 	return user ? (
 		<div className="flex items-center gap-4">
 			Hey, {user.email}!
-			<form action="/auth/signout">
+			<form action="/signout">
 				<button className="text-xl font-semibold leading-6 text-white hover:underline hover:underline-offset-8">
 					Logout
 				</button>
@@ -30,7 +30,7 @@ export default async function LoginLogoutButton() {
 	) : (
 		<Link
 			className="text-xl font-semibold leading-6 text-white hover:underline hover:underline-offset-8"
-			href="/auth/signin"
+			href="/signin"
 		>
 			Log in <span aria-hidden="true">&rarr;</span>
 		</Link>

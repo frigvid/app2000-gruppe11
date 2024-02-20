@@ -45,7 +45,7 @@ export default function SignIn() {
 							formAction={SignInSA}>
 							Log in
 						</button>
-						<Link href="/auth/password/forgot" className="hover:text-blue-800">Forgot password?</Link>
+						<Link href="/password/forgot" className="hover:text-blue-800">Forgot password?</Link>
 					</div>
 				</form>
 				<div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
@@ -54,7 +54,7 @@ export default function SignIn() {
 				<div className="flex items-center justify-between pb-6">
 					{/* Don't change "Don&#39;t" to "Don't", it will literally cause npm run build to fail. */}
 					<p className="mb-0 mr-2">Don&#39;t have an account?</p>
-					<Link href="/auth/signup" className="bg-buttoncolor inline-block rounded px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger">Register</Link>
+					<Link href="/signup" className="bg-buttoncolor inline-block rounded px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger">Register</Link>
 				</div>
 			</div>
 		</main>
