@@ -1,10 +1,9 @@
 "use server";
 
-import { createClient } from "@utils/supabase/server";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
-import logman from "@utils/logman";
+import {createClient} from "@utils/supabase/server";
+import {revalidatePath} from "next/cache";
+import {redirect} from "next/navigation";
+import {cookies} from "next/headers";
 
 /**
  * Server action for signing in the user.
@@ -24,10 +23,9 @@ export async function SignInSA(formData: FormData) {
 		password: formData.get('password') as string,
 	}
 	
-	const { error } = await supabase.auth.signInWithPassword(data);
+	const {error} = await supabase.auth.signInWithPassword(data);
 	
 	if (error) {
-		logman(error);
 		redirect('/error/500');
 	}
 	
