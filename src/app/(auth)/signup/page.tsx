@@ -43,11 +43,6 @@ export default function SignUp() {
 						/>
 					</div>
 					<div className="mb-2 pb-1 pt-1 text-center">
-						{/*
-							TODO: Investigate #29: https://github.com/frigvid/app2000-gruppe11/issues/29
-
-							NOTE: This might be fixed now. ¯\_(ツ)_/¯ Dunno how.
-						*/}
 						<button
 							className="bg-buttoncolor mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
 							formAction={signUpSA}>

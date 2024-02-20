@@ -31,13 +31,12 @@ const signUpSA = async (formData: FormData) => {
 		},
 	});
 
-	// FIXME: Solution is no longer using search parameters. A new solution needs to be devised.
+	// NOTE: A more elegant solution should probably be cooked up for these two returns, eventually.
 	if (error) {
-		return redirect("/signup?message=Something went wrong");
+		return redirect("/signup/error");
 	}
 	
-	// FIXME: Solution is no longer using search parameters. A new solution needs to be devised.
-	return redirect("/signup?message=Check email to continue sign in process");
+	return redirect("/signup/check");
 };
 
 export default signUpSA;
