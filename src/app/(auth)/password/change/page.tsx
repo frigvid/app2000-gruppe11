@@ -1,7 +1,7 @@
 "use client";
 
 import {FC, FormEvent, useEffect, useState} from "react";
-import PasswordDetails from "@/app/auth/components/password-details";
+import PasswordDetails from "@/app/(auth)/components/password-details";
 import {createClient} from "@utils/supabase/client";
 import {useRouter} from "next/navigation";
 

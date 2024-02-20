@@ -1,4 +1,4 @@
-import ProtectContent from "@/app/auth/components/protect-page";
+import ProtectContent from "@/app/(auth)/components/protect-page";
 
 /**
  * Stub page for user profiles.
