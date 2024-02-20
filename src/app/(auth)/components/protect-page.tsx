@@ -47,7 +47,7 @@ export default async function ProtectContent(Component: any): Promise<any> {
 				<div className="mb-8">
 					<UnauthorizedError/>
 				</div>
-				<Link href="/public"
+				<Link href="/"
 				className="bg-buttoncolor inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
 					>
 					Return to home
