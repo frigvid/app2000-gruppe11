@@ -10,7 +10,7 @@ async function removeGamedata(uuid?: string): Promise<void> {
 	const supabase = createClient();
 	//const {data: {user}} = await supabase.auth.getUser().then((user) => {return user});
 	let userId: string;
-
+	
 	// Validate input.
 	if (!uuid) {
 		//userId = user.id;
@@ -19,7 +19,7 @@ async function removeGamedata(uuid?: string): Promise<void> {
 	} else {
 		userId = uuid;
 	}
-
+	
 	try {
 		// See: https://supabase.com/docs/reference/javascript/using-filters
 		// See also: https://supabase.com/docs/reference/javascript/auth-getuser/delete

@@ -6,9 +6,9 @@
  * @author frigvid
  */
 function logman(message: any): void {
-	 if (process.env.ENVIRONMENT === 'dev') {
-		  console.log(message);
-	 }
+	if (process.env.ENVIRONMENT === 'dev') {
+		console.log(message);
+	}
 }
 
 // Inform that debug logging is enabled.

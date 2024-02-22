@@ -1,7 +1,7 @@
+import LoginLogoutButton from "@ui/auth/login-logout-button";
+import logoIcon from "/public/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
-import logoIcon from "/public/logo.svg";
-import LoginLogoutButton from "@ui/auth/login-logout-button";
 
 /**
  * Header component.

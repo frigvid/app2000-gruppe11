@@ -1,5 +1,4 @@
 import {createClient} from "@utils/supabase/server";
-//import {redirect} from "next/navigation";
 import {cookies} from "next/headers";
 import Link from "next/link";
 
@@ -20,19 +19,19 @@ import Link from "next/link";
 export default function Forgot() {
 	const resetPasswordEmail = async (formData: FormData) => {
 		"use server";
-
+		
 		const email = formData.get("email") as string;
 		const cookieStore = cookies();
 		const supabase = createClient(cookieStore);
-
-		const { data, error } = await supabase.auth
+		
+		const {data, error} = await supabase.auth
 			.resetPasswordForEmail(email)
-
+		
 		if (error) {
 			/* See note below. */
 			//return redirect("/forgot?message=Something went wrong");
 		}
-
+		
 		/* While it /could/ be nice to have a success message, the problem is as
 		 * always security. Doing this, you could theoretically find users if you
 		 * brute-force the process by simply trying different emails.
@@ -49,7 +48,7 @@ export default function Forgot() {
 		 */
 		//return redirect("/forgot?message=Check email to continue sign in process");
 	};
-
+	
 	return (
 		<main className="flex justify-center items-center">
 			<div className="bg-white p-4 rounded shadow-lg">

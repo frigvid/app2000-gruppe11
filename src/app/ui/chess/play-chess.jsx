@@ -1,8 +1,8 @@
-import {useState, useEffect} from "react";
-import {Chess} from "chess.js";
-import {Chessboard} from "react-chessboard";
 import {addGamedata} from "@utils/game/add-gamedata";
 import DeleteData from "@ui/chess/delete-data";
+import {Chessboard} from "react-chessboard";
+import {useState, useEffect} from "react";
+import {Chess} from "chess.js";
 
 /**
  * @author qwertyfyr, jarle0, KarstenKebba, oldpopcorn
@@ -10,9 +10,9 @@ import DeleteData from "@ui/chess/delete-data";
 export default function PlayChess() {
 	const [game, setGame] = useState(new Chess());
 	const [score, setScore] = useState({wins: 0, losses: 0});
-
+	
 	const [status, setStatus] = useState("Game ongoing");
-
+	
 	//code is an altered version from react-chessboard example with added error handling
 	function makeAMove(move) {
 		const gameCopy = new Chess(game.fen());
@@ -24,15 +24,15 @@ export default function PlayChess() {
 		setGame(gameCopy);
 		return true; // null if the move was illegal, the move object if the move was legal
 	}
-
+	
 	//function where "Bot" does a random legal move after player has played a move.
 	//code is an altered version from the react-chessboard example that works with current version of chess.js
 	function makeRandomMove() {
 		// we need to update the state after the previous move has happened all in the same render
-
+		
 		setGame((currentGame) => {
 			const possibleMoves = currentGame.moves();
-
+			
 			const randomIndex = Math.floor(Math.random() * possibleMoves.length);
 			const newGame = new Chess(currentGame.fen());
 			if (
@@ -46,7 +46,7 @@ export default function PlayChess() {
 			return newGame;
 		});
 	}
-
+	
 	// Logic for checking how the game ended.
 	useEffect(() => {
 		if (game.isGameOver()) {
@@ -65,14 +65,14 @@ export default function PlayChess() {
 			}
 		}
 	}, [game]);
-
+	
 	//checks if w or b won and updates scoreboard & user history
 	const updateScore = (winner) => {
 		if (winner === "Black") {
 			setScore({...score, losses: score.losses + 1});
 			// FIXME: Hard-coding the user UUID is a temporary measure for this obligatory task specifically.
 			addGamedata("dfe83755-0afa-438d-8740-b980ea59d5a4", false).then(r => console.log("Added data to database."));
-
+			
 			//adds loss to user history
 		} else {
 			//adds win to user history
@@ -81,26 +81,26 @@ export default function PlayChess() {
 			addGamedata("dfe83755-0afa-438d-8740-b980ea59d5a4", true).then(r => console.log("Added data to database."));
 		}
 	};
-
+	
 	function onDrop(sourceSquare, targetSquare, piece) {
 		const move = makeAMove({
 			from: sourceSquare,
 			to: targetSquare,
-			promotion: piece[1].toLowerCase() ?? "q", 
+			promotion: piece[1].toLowerCase() ?? "q",
 		});
-
+		
 		// illegal move
 		if (move === null) return false;
-
+		
 		setTimeout(makeRandomMove, 200);
 		return true;
 	}
-
+	
 	function resetBoard() {
 		setGame(new Chess());
 		setStatus("Game ongoing");
 	}
-
+	
 	return (
 		//Container
 		<div className="flex justify-center items-center">

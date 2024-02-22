@@ -5,7 +5,7 @@ import ProtectContent from "@/app/(auth)/components/protect-page";
  *
  * Currently not accessible without manually
  * inputting the link.
- * 
+ *
  * @author frigvid
  */
 export default function UserProfile() {

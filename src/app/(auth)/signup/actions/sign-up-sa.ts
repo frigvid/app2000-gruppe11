@@ -19,7 +19,7 @@ const signUpSA = async (formData: FormData) => {
 	const password = formData.get("password") as string;
 	const cookieStore = cookies();
 	const supabase = createClient(cookieStore);
-
+	
 	// Additional metadata can be added to `options`.
 	// NOTE: Type-casting is here for convenience.
 	// FIXME: Validate inputs.
@@ -30,7 +30,7 @@ const signUpSA = async (formData: FormData) => {
 			//emailRedirectTo: `${origin}/auth/callback`,
 		},
 	});
-
+	
 	// NOTE: A more elegant solution should probably be cooked up for these two returns, eventually.
 	if (error) {
 		return redirect("/signup/error");

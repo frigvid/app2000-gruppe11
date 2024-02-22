@@ -15,39 +15,50 @@ import {createClient} from "@utils/supabase/client";
  */
 export async function addGamedata(uuid: string, win: boolean): Promise<void> {
 	const supabase = createClient();
-
+	
 	// Validate input.
-	if (!uuid) {throw new Error("No userid inputted")}
-	if (typeof win !== 'boolean') {throw new Error("No win boolean inputted")}
-
+	if (!uuid) {
+		throw new Error("No userid inputted")
+	}
+	
+	if (typeof win !== 'boolean') {
+		throw new Error("No win boolean inputted")
+	}
+	
 	try {
 		// Get data.
-		const { data, error } = await supabase
+		const {data, error} = await supabase
 			.from('gamedata')
 			.select('userid, wins, losses')
 			.eq('userid', uuid)
 			.maybeSingle();
-
+		
 		if (error) {
 			// Insert new user in table.
-			const { error: insertError } = await supabase
+			const {error: insertError} = await supabase
 				.from('gamedata')
-				.insert([{ userid: uuid, wins: win ? 1 : 0, losses: win ? 0 : 1 }]);
-			if (insertError) {throw insertError}
+				.insert([{userid: uuid, wins: win ? 1 : 0, losses: win ? 0 : 1}]);
+			if (insertError) {
+				throw insertError
+			}
 		} else if (data) {
 			// Update existing user in table.
-			const updateColumn = win ? { wins: data.wins + 1 } : { losses: data.losses + 1 };
-			const { error: updateError } = await supabase
+			const updateColumn = win ? {wins: data.wins + 1} : {losses: data.losses + 1};
+			const {error: updateError} = await supabase
 				.from('gamedata')
 				.update(updateColumn)
 				.eq('userid', uuid);
-			if (updateError) {throw updateError}
+			if (updateError) {
+				throw updateError
+			}
 		} else {
 			// Handle case where user doesn't exist and no error was thrown.
-			const { error: insertError } = await supabase
+			const {error: insertError} = await supabase
 				.from('gamedata')
-				.insert([{ userid: uuid, wins: win ? 1 : 0, losses: win ? 0 : 1 }]);
-			if (insertError) {throw insertError}
+				.insert([{userid: uuid, wins: win ? 1 : 0, losses: win ? 0 : 1}]);
+			if (insertError) {
+				throw insertError
+			}
 		}
 	} catch (err) {
 		console.error('Error in addGamedata:', err);
