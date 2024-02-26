@@ -7,6 +7,9 @@ import {useEffect, useState} from "react";
 /**
  * Gets the logged-in user, and is usable in non-async
  * contexts.
+ *
+ * @warning This will cause a 401 error to be logged in the console,
+ * 			but otherwise doesn't do anything.
  */
 export function useUser() {
 	const supabase = createClient();
@@ -20,7 +23,7 @@ export function useUser() {
 		if (data.user) {
 			setUser(data.user);
 		} else {
-			console.log("Cannot get user. No user logged in.");
+			console.log("Error getting user.");
 		}
 	}
 	
