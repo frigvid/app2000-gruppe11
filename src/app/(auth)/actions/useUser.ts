@@ -7,6 +7,15 @@ import {useEffect, useState} from "react";
 /**
  * Gets the logged-in user, and is usable in non-async
  * contexts.
+ *
+ * Example usage:
+ * <pre>
+ *    const user = useUser();
+ *
+ *    if (user) {
+ *       console.log("User is logged in.");
+ *    }
+ * </pre>
  */
 export function useUser() {
 	const supabase = createClient();
