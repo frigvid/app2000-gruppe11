@@ -12,7 +12,7 @@ import Link from "next/link";
 export default async function LoginLogoutButton() {
 	const cookieStore = cookies();
 	const supabase = createClient(cookieStore);
-
+	
 	const {
 		data: {user},
 	} = await supabase.auth.getUser();
