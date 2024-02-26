@@ -3,9 +3,11 @@ import DeleteData from "@ui/chess/delete-data";
 import {Chessboard} from "react-chessboard";
 import {useState, useEffect} from "react";
 import {Chess} from "chess.js";
+import RequireUser from "@/app/(auth)/components/require-user";
+import {useUser} from "@/app/(auth)/actions/useUser";
 
 /**
- * @author qwertyfyr, jarle0, KarstenKebba, oldpopcorn
+ * @author qwertyfyr, jarle0, KarstenKebba, oldpopcorn, frigvid
  */
 export default function PlayChess() {
 	const [game, setGame] = useState(new Chess());
@@ -101,6 +103,8 @@ export default function PlayChess() {
 		setStatus("Game ongoing");
 	}
 	
+	const user = useUser();
+	
 	return (
 		//Container
 		<div className="flex justify-center items-center">
@@ -119,7 +123,10 @@ export default function PlayChess() {
 				>
 					Reset
 				</button>
-				<DeleteData/>
+				{
+					// Only show this button if you're logged in.
+					user ? <DeleteData/> : null
+				}
 			</div>
 			<div className="w-96 h-96">
 				<Chessboard position={game.fen()} onPieceDrop={onDrop}/>
