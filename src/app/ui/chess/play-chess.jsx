@@ -10,6 +10,7 @@ import {useUser} from "@/app/(auth)/actions/useUser";
  * @author qwertyfyr, jarle0, KarstenKebba, oldpopcorn, frigvid
  */
 export default function PlayChess() {
+	const user = useUser();
 	const [game, setGame] = useState(new Chess());
 	const [score, setScore] = useState({wins: 0, losses: 0});
 	
@@ -102,8 +103,6 @@ export default function PlayChess() {
 		setGame(new Chess());
 		setStatus("Game ongoing");
 	}
-	
-	const user = useUser();
 	
 	return (
 		//Container
