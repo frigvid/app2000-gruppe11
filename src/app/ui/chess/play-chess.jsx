@@ -1,10 +1,9 @@
 import {addGamedata} from "@utils/game/add-gamedata";
+import {useUser} from "@/app/(auth)/actions/useUser";
 import DeleteData from "@ui/chess/delete-data";
 import {Chessboard} from "react-chessboard";
 import {useState, useEffect} from "react";
 import {Chess} from "chess.js";
-import RequireUser from "@/app/(auth)/components/require-user";
-import {useUser} from "@/app/(auth)/actions/useUser";
 
 /**
  * @author qwertyfyr, jarle0, KarstenKebba, oldpopcorn, frigvid
