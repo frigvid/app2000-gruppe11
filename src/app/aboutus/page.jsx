@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * Homepage for the application.
+ * About us page for the application.
  *
  * @author KarstenKebba
  */
