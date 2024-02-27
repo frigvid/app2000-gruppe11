@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { FaChessKnight, FaPlay, FaHistory, FaArrowDown } from 'react-icons/fa';
 /**
- * Homepage for the application.
+ * Homepage.
  *
  * @author frigvid, KarstenKebba
  */
