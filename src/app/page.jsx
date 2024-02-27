@@ -10,7 +10,7 @@ export default function Home() {
 	return (
 		<main className="flex flex-col">
 			<div className="flex items-center justify-center h-screen -mt-20 sm:-mt-10 md:mt-0">
-				<div className="space-x-4 flex flex-col sm:flex-row sm:space-x-6 sm:space-y-0 space-y-4">
+				<div className="space-x-4 flex flex-col sm:flex-row sm:space-x-6 sm:space-y-0 space-y-4 text-lg">
 					<div className="text-center">
 						<Link
 							className="flex justify-center items-center bg-blue-500 text-white rounded h-40 w-40 sm:h-48 sm:w-48 hover:bg-blue-600 transition duration-300 ease-in-out"
@@ -18,7 +18,7 @@ export default function Home() {
 						>
 							<FaChessKnight className="text-5xl sm:text-6xl"/>
 						</Link>
-						<p className="mt-2 text-sm text-gray-600">Tren Åpninger</p>
+						<p className="mt-2 text-gray-600">Tren Åpninger</p>
 					</div>
 					<div className="text-center">
 						<Link
@@ -27,7 +27,7 @@ export default function Home() {
 						>
 							<FaPlay className="text-5xl sm:text-6xl"/>
 						</Link>
-						<p className="mt-2 text-sm text-gray-600">Spill Nå</p>
+						<p className="mt-2 text-gray-600">Spill Nå</p>
 					</div>
 					<div className="text-center">
 						<Link
@@ -36,7 +36,7 @@ export default function Home() {
 						>
 							<FaHistory className="text-5xl sm:text-6xl"/>
 						</Link>
-						<p className="mt-2 text-sm text-gray-600">Din Historikk</p>
+						<p className="mt-2 text-gray-600">Din Historikk</p>
 					</div>
 				</div>
 				<div className="absolute bottom-5 w-full text-center">
