@@ -43,10 +43,10 @@ export default function Home() {
 					<FaArrowDown className="animate-bounce mx-auto text-2xl"/>
 				</div>
 			</div>
-			<div className="flex flex-col items-center px-4 py-8 mb-20 text-lg">
-				<section className="max-w-4xl text-center space-y-4">
+			<div className="flex flex-col items-center text-center px-4 py-8 mb-20 text-lg">
+				<section className="max-w-4xl text-justify space-y-4 space-x-12">
 					<h1 className="text-4xl font-bold text-center mb-6">Om Chess Buddy</h1>
-					<p className="text-center">
+					<p>
 						Chess Buddy er en innovativ webapplikasjon designet for å styrke dine sjakkåpninger og forbedre ditt
 						generelle spill.
 					</p>
@@ -61,11 +61,11 @@ export default function Home() {
 						AI for å teste ut nye åpninger i realistiske scenarier. Chess Buddy er ikke bare et verktøy for
 						læring; det er en partner i din sjakkutvikling.
 					</p>
-					<p>
+					<p className="text-center pt-4">
 						Du kan også lese mer <Link className="text-xl font-semibold leading-6 hover:underline hover:underline-offset-8" href="/aboutus">om oss her</Link>.
 					</p>
 				</section>
-				<section className="max-w-4xl mt-10">
+				<section className="max-w-4xl mt-10 text-justify space-y-4 space-x-12">
 					<h2 className="text-3xl font-bold text-center mb-6">Hvordan Chess Buddy Hjelper Deg</h2>
 					<ul className="list-disc space-y-2 pl-5">
 						<li>Tilpassede læringsstier som matcher ditt ferdighetsnivå og læringsmål.</li>
