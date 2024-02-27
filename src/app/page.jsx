@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FaChessKnight, FaPlay, FaHistory } from 'react-icons/fa';
+import { FaChessKnight, FaPlay, FaHistory, FaArrowDown } from 'react-icons/fa';
 /**
  * Homepage for the application.
  *
@@ -9,7 +9,7 @@ import { FaChessKnight, FaPlay, FaHistory } from 'react-icons/fa';
 
 export default function Home() {
 	return (
-		<div className="flex flex-col bg-gray-100">
+		<main className="flex flex-col bg-gray-100">
 			<div className="flex items-center justify-center h-screen -mt-20 sm:-mt-10 md:mt-0">
 				<div className="space-x-4 flex flex-col sm:flex-row sm:space-x-6 sm:space-y-0 space-y-4">
 					<div className="text-center">
@@ -40,6 +40,9 @@ export default function Home() {
 						<p className="mt-2 text-sm text-gray-600">Din Historikk</p>
 					</div>
 				</div>
+				<div className="absolute bottom-5 w-full text-center">
+					<FaArrowDown className="animate-bounce mx-auto text-2xl" />
+				</div>
 			</div>
 
 			<div className="flex flex-col items-center px-4 py-8">
@@ -61,11 +64,11 @@ export default function Home() {
 					<ul className="list-disc space-y-2 pl-5">
 						<li className="text-lg">Tilpassede læringsstier som matcher ditt ferdighetsnivå og læringsmål.</li>
 						<li className="text-lg">Interaktive leksjoner som dyptgående forklarer hver åpning og dens variabler.</li>
-						<li className="text-lg">Utfordinger og spill mot AI for å praktisere og forsterke læringen.</li>
+						<li className="text-lg">Utfordringer og spill mot AI for å praktisere og forsterke læringen.</li>
 						<li className="text-lg">Feedback og analyser som hjelper deg å forstå dine styrker og svakheter.</li>
 					</ul>
 				</section>
 			</div>
-		</div>
-	)
+		</main>
+	);
 }
