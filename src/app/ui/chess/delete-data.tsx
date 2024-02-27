@@ -1,12 +1,13 @@
 import removeGamedata from "@utils/game/remove-gamedata";
+import {useUser} from "@/app/(auth)/actions/useUser";
 
 export default function DeleteData() {
-
+	const user = useUser();
+	
 	const deleteData = async () => {
-		//"use server";
-		removeGamedata("dfe83755-0afa-438d-8740-b980ea59d5a4").then(r => console.log("Added data to database."))
-	}
-
+		removeGamedata(user.id).then(r => console.log("Removed data from database."));
+	};
+	
 	return (
 		<>
 			<div className="flex items-center gap-4">
@@ -19,5 +20,5 @@ export default function DeleteData() {
 				</form>
 			</div>
 		</>
-	)
+	);
 }

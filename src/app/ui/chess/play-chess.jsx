@@ -1,13 +1,15 @@
 import {addGamedata} from "@utils/game/add-gamedata";
+import {useUser} from "@/app/(auth)/actions/useUser";
 import DeleteData from "@ui/chess/delete-data";
 import {Chessboard} from "react-chessboard";
 import {useState, useEffect} from "react";
 import {Chess} from "chess.js";
 
 /**
- * @author qwertyfyr, jarle0, KarstenKebba, oldpopcorn
+ * @author qwertyfyr, jarle0, KarstenKebba, oldpopcorn, frigvid
  */
 export default function PlayChess() {
+	const user = useUser();
 	const [game, setGame] = useState(new Chess());
 	const [score, setScore] = useState({wins: 0, losses: 0});
 	
@@ -70,15 +72,17 @@ export default function PlayChess() {
 	const updateScore = (winner) => {
 		if (winner === "Black") {
 			setScore({...score, losses: score.losses + 1});
-			// FIXME: Hard-coding the user UUID is a temporary measure for this obligatory task specifically.
-			addGamedata("dfe83755-0afa-438d-8740-b980ea59d5a4", false).then(r => console.log("Added data to database."));
+			if (user) {
+				addGamedata(user.id, false).then(r => console.log("Added data to database."));
+			}
 			
 			//adds loss to user history
 		} else {
 			//adds win to user history
 			setScore({...score, wins: score.wins + 1});
-			// FIXME: Hard-coding the user UUID is a temporary measure for this obligatory task specifically.
-			addGamedata("dfe83755-0afa-438d-8740-b980ea59d5a4", true).then(r => console.log("Added data to database."));
+			if (user) {
+				addGamedata(user.id, true).then(r => console.log("Added data to database."));
+			}
 		}
 	};
 	
@@ -119,7 +123,10 @@ export default function PlayChess() {
 				>
 					Reset
 				</button>
-				<DeleteData/>
+				{
+					// Only show this button if you're logged in.
+					user ? <DeleteData/> : null
+				}
 			</div>
 			<div className="w-96 h-96">
 				<Chessboard position={game.fen()} onPieceDrop={onDrop}/>

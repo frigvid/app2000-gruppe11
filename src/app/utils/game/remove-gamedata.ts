@@ -3,21 +3,14 @@ import {createClient} from "@utils/supabase/client";
 /**
  * This function is used to remove data from the public.gamedata table
  * on matching UUIDs.
- *
- * Currently, it's hard-coded to a user if no input is given.
  */
 async function removeGamedata(uuid?: string): Promise<void> {
 	const supabase = createClient();
-	//const {data: {user}} = await supabase.auth.getUser().then((user) => {return user});
-	let userId: string;
+	let userId: string = uuid;
 	
-	// Validate input.
-	if (!uuid) {
-		//userId = user.id;
-		userId = "dfe83755-0afa-438d-8740-b980ea59d5a4";
+	// Validate input. Should never be thrown.
+	if (!userId) {
 		throw new Error("User not logged in!")
-	} else {
-		userId = uuid;
 	}
 	
 	try {
