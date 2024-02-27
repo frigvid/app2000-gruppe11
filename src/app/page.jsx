@@ -8,7 +8,7 @@ import {FaChessKnight, FaPlay, FaHistory, FaArrowDown} from 'react-icons/fa';
  */
 export default function Home() {
 	return (
-		<main className="flex flex-col bg-gray-100">
+		<main className="flex flex-col">
 			<div className="flex items-center justify-center h-screen -mt-20 sm:-mt-10 md:mt-0">
 				<div className="space-x-4 flex flex-col sm:flex-row sm:space-x-6 sm:space-y-0 space-y-4">
 					<div className="text-center">
