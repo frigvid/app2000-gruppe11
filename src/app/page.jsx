@@ -44,8 +44,7 @@ export default function Home() {
 					<FaArrowDown className="animate-bounce mx-auto text-2xl" />
 				</div>
 			</div>
-
-			<div className="flex flex-col items-center px-4 py-8">
+			<div className="flex flex-col items-center px-4 py-8 mb-20">
 				<section className="max-w-4xl text-center">
 					<h1 className="text-4xl font-bold text-center mb-6">Om Chess Buddy</h1>
 					<p className="text-lg text-center mb-4">
