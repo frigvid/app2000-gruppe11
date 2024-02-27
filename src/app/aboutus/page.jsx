@@ -9,15 +9,15 @@ import React from 'react';
 export default function AboutUs() {
 	return (
 		<main className="flex flex-col items-center px-4 py-8">
-			<section className="max-w-4xl text-center">
+			<section className="max-w-4xl text-center space-y-4">
 				<h1 className="text-4xl font-bold mb-6">Velkommen til Chess Buddy</h1>
-				<p className="text-lg mb-4">
+				<p className="text-lg">
 					Her hos Chess Buddy, er vi drevet av en enkel visjon: Å gjøre sjakkundervisning av høy kvalitet
 					tilgjengelig for alle. Vår lidenskap for sjakk og en klar forståelse av markedets behov inspirerte oss
 					til å skape et verktøy som spesifikt fokuserer på åpningstrekk - en vital, men ofte undervurdert, del av
 					spillet.
 				</p>
-				<p className="text-lg mb-4">
+				<p className="text-lg">
 					Vi anerkjente et gap i markedet for et dedikert verktøy som kunne tilby dypere innsikt og praktisk
 					trening i sjakkåpninger. Dette førte oss til å utvikle Chess Buddy, en plattform som kombinerer den
 					nyeste teknologien med omfattende sjakkekspertise for å tilby en unik læringsopplevelse.
@@ -28,7 +28,7 @@ export default function AboutUs() {
 					generelle spill.
 				</p>
 			</section>
-			<section className="max-w-4xl mt-10 text-center">
+			<section className="max-w-4xl mt-10 text-center space-y-4">
 				<h2 className="text-3xl font-bold mb-6">Vår Visjon</h2>
 				<p className="text-lg">
 					Vår visjon er å fremme sjakkundervisning ved å fokusere på åpningsstrategier. Med Chess Buddy strever vi
