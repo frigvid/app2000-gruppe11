@@ -44,13 +44,13 @@ export default function Home() {
 				</div>
 			</div>
 			<div className="flex flex-col items-center px-4 py-8 mb-20">
-				<section className="max-w-4xl text-center">
+				<section className="max-w-4xl text-center space-y-4">
 					<h1 className="text-4xl font-bold text-center mb-6">Om Chess Buddy</h1>
-					<p className="text-lg text-center mb-4">
+					<p className="text-lg text-center">
 						Chess Buddy er en innovativ webapplikasjon designet for å styrke dine sjakkåpninger og forbedre ditt
 						generelle spill.
 					</p>
-					<p className="text-lg mb-4">
+					<p className="text-lg">
 						Ved å bruke Chess Buddy, kan spillere av alle nivåer utforske et bredt spekter av sjakkåpninger, lære
 						seg strategiene bak dem, og øve på å implementere dem i sine egne spill. Vår applikasjon er bygget med
 						en intuitiv forståelse for sjakkspilleres behov, og tilbyr personlig tilpassede læringsstier som gjør
