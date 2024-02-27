@@ -14,7 +14,7 @@ export default function AboutUs() {
 				<p className="text-lg">
 					Her hos Chess Buddy, er vi drevet av en enkel visjon: Å gjøre sjakkundervisning av høy kvalitet
 					tilgjengelig for alle. Vår lidenskap for sjakk og en klar forståelse av markedets behov inspirerte oss
-					til å skape et verktøy som spesifikt fokuserer på åpningstrekk - en vital, men ofte undervurdert, del av
+					til å skape et verktøy som spesifikt fokuserer på åpningstrekk; en vital, men ofte undervurdert, del av
 					spillet.
 				</p>
 				<p className="text-lg">
