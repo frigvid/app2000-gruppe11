@@ -61,6 +61,9 @@ export default function Home() {
 						AI for å teste ut nye åpninger i realistiske scenarier. Chess Buddy er ikke bare et verktøy for
 						læring; det er en partner i din sjakkutvikling.
 					</p>
+					<p className="text-lg">
+						Du kan også lese mer <Link className="text-xl font-semibold leading-6 hover:underline hover:underline-offset-8" href="/aboutus">om oss her</Link>.
+					</p>
 				</section>
 				<section className="max-w-4xl mt-10">
 					<h2 className="text-3xl font-bold text-center mb-6">Hvordan Chess Buddy Hjelper Deg</h2>
