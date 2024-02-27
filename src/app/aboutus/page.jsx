@@ -4,6 +4,7 @@ import React from 'react';
  * About us page.
  *
  * @author KarstenKebba
+ * @contributor frigvid
  */
 export default function AboutUs() {
 	return (
