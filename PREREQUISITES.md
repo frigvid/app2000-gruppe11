@@ -1,5 +1,17 @@
 # Prerequisites
-## Supabase
+## Environment file
+
+1. Create a `.env.local` file in the root directory.
+2. Grab your Supabase URL and add it as the value of `NEXT_PUBLIC_SUPABASE_URL`.
+3. Grab your Supabase anonymous API key and add it as the value of `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+
+It'll look something like this:
+```environment
+NEXT_PUBLIC_SUPABASE_URL=https://somesubdomain.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=some kind of secret here
+```
+
+## Supabase tables
 
 While the project _could_ create the tables necessary to run properly automatically, we've chosen not to do so. When comparing the effort required to make sure that the tables are created once, and only once, in a proper way versus just copy-pasting the below SQL code into Supabase's SQL Editor, it won out. Without time constraints, it wouldn't be an issue.
 
