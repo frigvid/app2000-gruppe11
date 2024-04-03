@@ -84,4 +84,16 @@ CREATE POLICY "News are viewable by everyone." ON news FOR
 SELECT
 	TO authenticated, anon
 	USING (TRUE);
+
+-- Functions
+
+CREATE OR REPLACE FUNCTION delete_user()
+	RETURNS VOID
+	LANGUAGE SQL SECURITY DEFINER
+AS $$
+DELETE FROM public.gamedata WHERE userid = auth.uid();
+DELETE FROM public.profiles WHERE id = auth.uid();
+DELETE FROM public.settings WHERE id = auth.uid();
+DELETE FROM auth.users WHERE id = auth.uid();
+$$;
 ```
