@@ -27,7 +27,7 @@ export const deleteUserAccount = async () => {
 			 * Full error: "TS2345: Argument of type `string` is not assignable to parameter of type `never`"
 			 */
 			// @ts-ignore
-			await supabase.rpc("delete_user");
+			await supabase.rpc("user_delete");
 		}
 	} catch (error) {
 		throw error;
