@@ -28,6 +28,9 @@ const signUpSA = async (formData: FormData) => {
 		password,
 		options: {
 			//emailRedirectTo: `${origin}/auth/callback`,
+			data: {
+				elo_rank: 400
+			}
 		},
 	});
 	
