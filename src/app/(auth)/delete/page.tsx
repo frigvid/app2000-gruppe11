@@ -13,18 +13,6 @@ export default function DeleteAccount() {
 	const supabase = createClient();
 	//const user = useUser();
 	
-	//useEffect(() => {
-	//	const deleteAccount = async () => {
-	//		try {
-	//			await deleteUserAccount();
-	//			router.push("/sign-out");
-	//		} catch (error) {
-	//			console.error("Error deleting user account:", error);
-	//		}
-	//	};
-	//
-	//	deleteAccount();
-	//}, [user]);
 	
 	useEffect(() => {
 		const deleteAccount = async () => {
