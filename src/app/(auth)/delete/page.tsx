@@ -11,10 +11,15 @@ import {createClient} from "@utils/supabase/client";
 export default function DeleteAccount() {
 	const router = useRouter();
 	const supabase = createClient();
-	//const user = useUser();
+	const user = useUser();
 	
 	
 	useEffect(() => {
+		// If the user is not logged in, do nothing.
+		if (!user) {
+			return;
+		}
+		
 		const deleteAccount = async () => {
 			try {
 				const {error: sessionError} = await supabase.auth.getUser();
