@@ -1,12 +1,11 @@
 "use client";
 
-import {useRouter} from "next/navigation";
-import {useEffect} from "react";
 import {deleteUserAccount} from "@/app/(auth)/delete/actions/delete-account-sa";
 import {useUser} from "@/app/(auth)/actions/useUser";
-import ProtectContent from "@/app/(auth)/components/protect-page";
-import logman from "@utils/logman";
 import {createClient} from "@utils/supabase/client";
+import {useRouter} from "next/navigation";
+import logman from "@utils/logman";
+import {useEffect} from "react";
 
 export default function DeleteAccount() {
 	const router = useRouter();
