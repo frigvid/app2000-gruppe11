@@ -5,6 +5,9 @@
  *
  * @author frigvid
  */
+import React from 'react';
+import LanguageSwitcher from 'LanguageSwitcher.jsx';
+
 export default function Footer() {
 	return (
 		<footer className="bg-main p-4">
