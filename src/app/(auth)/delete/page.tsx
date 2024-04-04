@@ -42,7 +42,7 @@ export default function DeleteAccount() {
 			router.push("/");
 		}
 		
-		deleteAccount().then(() => logman("User has signed out."));
+		deleteAccount().then(() => logman("User has been deleted."));
 	}, [router, supabase.auth])
 	
 	return (
