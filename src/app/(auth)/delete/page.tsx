@@ -1,6 +1,7 @@
 "use client";
 
 import {deleteUserAccount} from "@/app/(auth)/delete/actions/delete-account-sa";
+import ProtectClientContent from "@/app/(auth)/components/protect-client-content";
 import {useUser} from "@/app/(auth)/actions/useUser";
 import {createClient} from "@utils/supabase/client";
 import {useRouter} from "next/navigation";
@@ -46,7 +47,9 @@ export default function DeleteAccount() {
 	
 	return (
 		<div className="flex items-center justify-center">
-			<h1 className="text-3xl font-medium mr-5 p-0">Deleting your account...</h1>
+			<ProtectClientContent showError={true}>
+				<h1 className="text-3xl font-medium mr-5 p-0">Deleting your account...</h1>
+			</ProtectClientContent>
 		</div>
 	);
 }
