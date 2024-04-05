@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS
 CREATE TABLE IF NOT EXISTS
 	history (
 		id UUID PRIMARY KEY,
-		timestamp timestamptz NOT NULL DEFAULT NOW() at time zone 'utc',
+		timestamp timestamptz NOT NULL DEFAULT (timezone('utc', now())),
 		fen text NOT NULL, -- https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation
 		result smallint NOT NULL, -- 0 = loss, 1 = win, 2 = draw.
 		FOREIGN KEY (id) REFERENCES auth.users (id)
@@ -62,12 +62,42 @@ CREATE TABLE IF NOT EXISTS
 
 CREATE TABLE IF NOT EXISTS
 	openings (
+		id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+		name text NOT NULL,
+		desc text NOT NULL,
+		pgn text NOT NULL,
+		timestamp timestamptz NOT NULL DEFAULT (timezone('utc', now()))
+	);
+
+CREATE TABLE IF NOT EXISTS
+	user_openings (
+		id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+		created_by uuid NOT NULL,
+		name text NOT NULL,
+		desc text,
+		pgn jsonb,
+		timestamp timestamptz NOT NULL DEFAULT (timezone('utc', now())),
+		FOREIGN KEY (created_by) REFERENCES auth.users (id)
+	);
+
+CREATE TABLE IF NOT EXISTS
+	repertoire (
+		id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+		usr uuid,
+		timestamp timestamptz,
+		openings jsonb, -- Array with opening IDs.
+		FOREIGN KEY (usr) REFERENCES auth.users (id)
+	);
+
+CREATE TABLE IF NOT EXISTS
+	openings (
 		id UUID,
 		name text,
 		pgn jsonb,
-		timestamp timestamptz NOT NULL DEFAULT NOW() at time zone 'utc',
+		timestamp timestamptz NOT NULL DEFAULT (timezone('utc', now())),
 		PRIMARY KEY (id, name, pgn, timestamp),
-		FOREIGN KEY (id) REFERENCES auth.users (id)
+		FOREIGN KEY (id) REFERENCES auth.users (id),
+		UNIQUE (id, name) -- Constrain id-name.
 	);
 
 CREATE TABLE IF NOT EXISTS
@@ -159,5 +189,26 @@ BEGIN
 
 	RETURN NEW;
 END;
+$$;
+
+CREATE OR REPLACE FUNCTION public.opening_create(
+	opn_name text,
+	opn_moves jsonb
+)
+	RETURNS void
+	LANGUAGE SQL
+AS $$
+	INSERT INTO public.openings (id, name, pgn)
+	VALUES (auth.uid(), opn_name, opn_moves);
+$$;
+
+CREATE OR REPLACE FUNCTION public.opening_delete(
+	opn_name text DEFAULT NULL
+)
+	RETURNS void
+	LANGUAGE SQL
+AS $$
+	DELETE FROM public.openings
+	WHERE id = auth.uid() AND name = opn_name;
 $$;
 ```
