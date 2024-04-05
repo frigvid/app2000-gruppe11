@@ -1,5 +1,6 @@
-import { createClient } from '@utils/supabase/client';
+import Buffering from "@/app/(auth)/components/fragment/Buffering";
 import UnauthorizedError from '@ui/error/401_unauthorized';
+import { createClient } from '@utils/supabase/client';
 import React, {useEffect, useState} from 'react';
 import Link from 'next/link';
 
@@ -37,24 +38,32 @@ interface ProtectClientContentProps {
  * @created 2024-04-04
  * @param {boolean} showError If true, show a 401 error when unauthorized. If false, just hide the content.
  * @param children The content to protect or hide.
- * @returns {Promise<*>} The protected or hidden content.
+ * @returns {React.ReactElement} The protected or hidden content.
  */
 export default function ProtectClientContent({ showError, children }: ProtectClientContentProps): React.ReactElement {
-	const [authorized, setAuthorized] = useState(false);
 	const supabase = createClient();
+	const [authorized, setAuthorized] = useState(false);
+	const [loading, setLoading] = useState(true);
 	
 	useEffect(() => {
 		const checkAuth = async () => {
 			const { data, error } = await supabase.auth.getUser();
+			
 			if (error || !data?.user) {
 				setAuthorized(false);
 			} else {
 				setAuthorized(true);
 			}
+			
+			setLoading(false);
 		};
 		
 		checkAuth().then(r => console.log("Content protected."));
 	}, [supabase.auth]);
+	
+	if (loading) {
+		return <Buffering/>;
+	}
 	
 	if (!authorized) {
 		if (showError) {
@@ -77,4 +86,3 @@ export default function ProtectClientContent({ showError, children }: ProtectCli
 	
 	return <>{children}</>;
 }
-
