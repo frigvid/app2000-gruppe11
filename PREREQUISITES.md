@@ -49,6 +49,16 @@ CREATE TABLE IF NOT EXISTS
 		losses BIGINT,
 		draws BIGINT,
 		FOREIGN KEY (userid) REFERENCES auth.users (id)
+);
+
+CREATE TABLE IF NOT EXISTS
+	openings (
+		id UUID,
+		name text,
+		pgn jsonb,
+		timestamp timestamptz NOT NULL DEFAULT NOW() at time zone 'utc',
+		PRIMARY KEY (id, name, pgn, timestamp),
+		FOREIGN KEY (id) REFERENCES auth.users (id)
 	);
 
 CREATE TABLE IF NOT EXISTS
