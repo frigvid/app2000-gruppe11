@@ -43,6 +43,15 @@ CREATE TABLE IF NOT EXISTS
 	);
 
 CREATE TABLE IF NOT EXISTS
+	history (
+		id UUID PRIMARY KEY,
+		timestamp timestamptz NOT NULL DEFAULT NOW() at time zone 'utc',
+		fen text NOT NULL, -- https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation
+		result smallint NOT NULL, -- 0 = loss, 1 = win, 2 = draw.
+		FOREIGN KEY (id) REFERENCES auth.users (id)
+	);
+
+CREATE TABLE IF NOT EXISTS
 	gamedata (
 		id UUID PRIMARY KEY,
 		wins BIGINT,
@@ -82,6 +91,7 @@ SET
 -- RLS.
 ALTER TABLE settings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
+ALTER TABLE history ENABLE ROW LEVEL SECURITY;
 -- ALTER TABLE gamedata ENABLE ROW LEVEL SECURITY;
 ALTER TABLE news ENABLE ROW LEVEL SECURITY;
 
