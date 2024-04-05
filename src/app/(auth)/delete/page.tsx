@@ -24,67 +24,13 @@ export default function DeleteAccount() {
 				router.push("/delete/error/401")
 			}
 			
-			//window.location.reload();
-			
 			// Redirect to the Home after deleting account and reloading window.
 			router.push("/");
+			
+			// Reload the page to ensure the header updates.
+			router.refresh();
 		}
 	}
-	
-	//const deleteAccount = async () => {
-	//	if (user) {
-	//		try {
-	//			//const {error: sessionError} = await supabase.auth.getUser();
-	//			//
-	//			//if (sessionError) {
-	//			//	logman("A session error occurred: " + sessionError);
-	//			//	throw sessionError;
-	//			//}
-	//
-	//			await deleteUserAccount();
-	//		} catch (error) {
-	//			// FIXME: Exception is caught locally.
-	//			console.error(error);
-	//			router.push("/delete/error/401")
-	//		}
-	//
-	//		window.location.reload();
-	//
-	//		// Redirect to the Home after deleting account and reloading window.
-	//		router.push("/");
-	//	}
-	//}
-	
-	//useEffect(() => {
-	//	// If the user is not logged in, do nothing.
-	//	if (!user) {
-	//		return;
-	//	}
-	//
-	//	const deleteAccount = async () => {
-	//		try {
-	//			const {error: sessionError} = await supabase.auth.getUser();
-	//
-	//			if (sessionError) {
-	//				logman("A session error occurred: " + sessionError);
-	//				throw sessionError;
-	//			}
-	//
-	//			await deleteUserAccount();
-	//		} catch (error) {
-	//			// FIXME: Exception is caught locally.
-	//			console.error(error);
-	//			router.push("/delete/error/401")
-	//		}
-	//
-	//		window.location.reload();
-	//
-	//		// Redirect to the Home after deleting account and reloading window.
-	//		router.push("/");
-	//	}
-	//
-	//	deleteAccount().then(() => logman("User has been deleted."));
-	//}, [router, supabase.auth])
 	
 	return (
 		<main className="flex flex-col justify-center items-center space-y-4">
