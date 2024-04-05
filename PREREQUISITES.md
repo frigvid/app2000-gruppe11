@@ -37,19 +37,19 @@ CREATE TABLE IF NOT EXISTS
 CREATE TABLE IF NOT EXISTS
 	profiles (
 		id UUID PRIMARY KEY,
-		updated_at TIMESTAMP WITH TIME ZONE NULL,
+		updated_at timestamptz NULL,
 		display_name TEXT NULL,
 		FOREIGN KEY (id) REFERENCES auth.users (id)
 	);
 
 CREATE TABLE IF NOT EXISTS
 	gamedata (
-		userid UUID PRIMARY KEY UNIQUE,
+		id UUID PRIMARY KEY,
 		wins BIGINT,
 		losses BIGINT,
 		draws BIGINT,
-		FOREIGN KEY (userid) REFERENCES auth.users (id)
-);
+		FOREIGN KEY (id) REFERENCES auth.users (id)
+	);
 
 CREATE TABLE IF NOT EXISTS
 	openings (
@@ -118,7 +118,7 @@ CREATE OR REPLACE FUNCTION public.user_delete()
 	LANGUAGE SQL SECURITY DEFINER
 AS $$
 	-- Public.
-	DELETE FROM public.gamedata WHERE userid = auth.uid();
+	DELETE FROM public.gamedata WHERE id = auth.uid();
 	DELETE FROM public.profiles WHERE id = auth.uid();
 	DELETE FROM public.settings WHERE id = auth.uid();
 
@@ -137,7 +137,7 @@ CREATE OR REPLACE FUNCTION user_init()
 	LANGUAGE plpgsql SECURITY DEFINER
 AS $$
 BEGIN
-	INSERT INTO public.gamedata (userid, wins, losses, draws)
+	INSERT INTO public.gamedata (id, wins, losses, draws)
 	VALUES (NEW.id, 0, 0, 0);
 
 	INSERT INTO public.profiles (id, updated_at, display_name)
