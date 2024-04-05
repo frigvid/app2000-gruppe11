@@ -3,16 +3,10 @@
 import {deleteUserAccount} from "@/app/(auth)/delete/actions/delete-account-sa";
 import ProtectClientContent from "@/app/(auth)/components/protect-client-content";
 import {useUser} from "@/app/(auth)/actions/useUser";
-import {createClient} from "@utils/supabase/client";
-import {redirect, useRouter} from "next/navigation";
-import logman from "@utils/logman";
-import {useEffect} from "react";
-import ForbiddenError from "@ui/error/403_forbidden";
-import Link from "next/link";
+import {useRouter} from "next/navigation";
 
 export default function DeleteAccount() {
 	const router = useRouter();
-	const supabase = createClient();
 	const user = useUser();
 	
 	async function deleteAccount() {
