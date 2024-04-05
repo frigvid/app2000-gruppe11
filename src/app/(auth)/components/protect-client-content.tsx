@@ -17,6 +17,9 @@ interface ProtectClientContentProps {
  * Using this is as simple as wrapping the content inside the
  * return statement, in a ProtectClientContent component.
  *
+ * Note that if you'd like to protect more than one element, you
+ * can simply wrap them in a React.Fragment (<pre><></></pre>).
+ *
  * @example
  * import ProtectOrHideContent from "@app/(auth)/components/protect-client-content";
  *
