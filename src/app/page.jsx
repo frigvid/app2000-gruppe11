@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import Link from "next/link";
 import { FaChessKnight, FaPlay, FaHistory, FaArrowDown } from 'react-icons/fa';
@@ -44,7 +44,8 @@ export default function Home() {
 					<p>{t('chess_buddy_description_2')}</p>
 					<p>{t('chess_buddy_description_3')}</p>
 					<p className="text-center pt-4">
-						{t('Home_link')} <Link href="/aboutus" className="text-xl font-semibold leading-6 hover:underline hover:underline-offset-8">{t('about_us_here')}</Link>.
+						{t('Home_link')} <Link href="/aboutus"
+													  className="text-xl font-semibold leading-6 hover:underline hover:underline-offset-8">{t('about_us_here')}</Link>.
 					</p>
 				</section>
 				<section className="max-w-4xl mt-10 text-justify space-y-4 space-x-12">
