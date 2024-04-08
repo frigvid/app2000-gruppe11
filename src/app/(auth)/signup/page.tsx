@@ -1,6 +1,6 @@
 "use client";
 
-import PasswordDetails from "@/app/(auth)/components/password-details";
+import PasswordDetails from "@auth/components/fragment/password-details";
 import signUpSA from "@/app/(auth)/signup/actions/sign-up-sa";
 import Link from "next/link";
 
