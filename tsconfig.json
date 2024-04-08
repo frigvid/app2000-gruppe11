@@ -2,6 +2,7 @@
 	"compilerOptions": {
 		"paths": {
 			"@utils/*": ["./src/app/utils/*"],
+			"@auth/*": ["./src/app/(auth)/*"],
 			"@lib/*": ["./src/app/lib/*"],
 			"@ui/*": ["./src/app/ui/*"],
 			"@/*": [
