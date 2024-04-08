@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import {useState, useEffect} from 'react';
-import {useUser} from '@/app/(auth)/actions/useUser';
+import {useUser} from '@auth/actions/useUser';
 import Image from 'next/image';
 import Link from "next/link";
 import {createClient} from "@utils/supabase/client";
@@ -21,31 +21,11 @@ import Person from '@mui/icons-material/Person';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 
-export default function LoginLogoutButton() {
+export default function AccountMenu() {
 	const user = useUser();
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const supabase = createClient();
 	const router = useRouter();
-	
-	//useEffect(() => {
-	//	const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-	//		if (event === 'SIGNED_IN') {
-	//			// Handle user sign in
-	//			console.log('SIGNED_IN', session);
-	//			router.refresh();
-	//			//window.location.reload();
-	//		} else if (event === 'SIGNED_OUT') {
-	//			console.log('SIGNED_OUT');
-	//			//window.location.reload();
-	//			router.refresh();
-	//		}
-	//	});
-	//
-	//	// Cleanup function to remove the listener when the component is unmounted
-	//	return () => {
-	//		authListener.subscription.unsubscribe();
-	//	};
-	//}, []);
 	
 	const logout = async () => {
 		const { error } = await supabase.auth.signOut();
@@ -55,24 +35,6 @@ export default function LoginLogoutButton() {
 			window.location.reload();
 		}
 	};
-	
-	//const handleClick = (event) => {
-	//	setAnchorEl(event.currentTarget);
-	//};
-	
-	
-	//<Image src={user.user_metadata.avatar_url} alt="User Image" onClick={handleClick} />
-	//<Menu
-	//	id="simple-menu"
-	//	anchorEl={anchorEl}
-	//	keepMounted
-	//	open={Boolean(anchorEl)}
-	//	onClose={() => setAnchorEl(null)}
-	//>
-	//	<MenuItem onClick={() => { setAnchorEl(null); router.push(`/profile/${user.id}`); }}>Profile</MenuItem>
-	//	<MenuItem onClick={() => { setAnchorEl(null); router.push('/settings'); }}>Settings</MenuItem>
-	//	<MenuItem onClick={logout}>Logout</MenuItem>
-	//</Menu>
 	
 	function ClockIcon() {
 		return (
