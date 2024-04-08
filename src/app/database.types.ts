@@ -73,23 +73,52 @@ export type Database = {
 					},
 				]
 			}
+			openings: {
+				Row: {
+					desc: string | null
+					id: string
+					name: string
+					pgn: Json
+					timestamp: string
+				}
+				Insert: {
+					desc?: string | null
+					id: string
+					name: string
+					pgn: Json
+					timestamp?: string
+				}
+				Update: {
+					desc?: string | null
+					id?: string
+					name?: string
+					pgn?: Json
+					timestamp?: string
+				}
+				Relationships: [
+					{
+						foreignKeyName: "openings_id_fkey"
+						columns: ["id"]
+						isOneToOne: false
+						referencedRelation: "users"
+						referencedColumns: ["id"]
+					},
+				]
+			}
 			profiles: {
 				Row: {
 					display_name: string | null
 					id: string
-					settings_id: string | null
 					updated_at: string | null
 				}
 				Insert: {
 					display_name?: string | null
 					id: string
-					settings_id?: string | null
 					updated_at?: string | null
 				}
 				Update: {
 					display_name?: string | null
 					id?: string
-					settings_id?: string | null
 					updated_at?: string | null
 				}
 				Relationships: [
@@ -100,33 +129,23 @@ export type Database = {
 						referencedRelation: "users"
 						referencedColumns: ["id"]
 					},
-					{
-						foreignKeyName: "profiles_settings_id_fkey"
-						columns: ["settings_id"]
-						isOneToOne: false
-						referencedRelation: "settings"
-						referencedColumns: ["id"]
-					},
 				]
 			}
 			settings: {
 				Row: {
 					country: string | null
-					display_name: string | null
 					id: string
 					profile_is_public: boolean | null
 					user_image: string | null
 				}
 				Insert: {
 					country?: string | null
-					display_name?: string | null
 					id: string
 					profile_is_public?: boolean | null
 					user_image?: string | null
 				}
 				Update: {
 					country?: string | null
-					display_name?: string | null
 					id?: string
 					profile_is_public?: boolean | null
 					user_image?: string | null
@@ -146,7 +165,31 @@ export type Database = {
 			[_ in never]: never
 		}
 		Functions: {
-			[_ in never]: never
+			opening_create: {
+				Args: {
+					opn_name: string
+					opn_moves: Json
+				}
+				Returns: undefined
+			}
+			opening_delete: {
+				Args: {
+					opn_name?: string
+				}
+				Returns: undefined
+			}
+			user_create: {
+				Args: {
+					email: string
+					password: string
+					isadmin: boolean
+				}
+				Returns: undefined
+			}
+			user_delete: {
+				Args: Record<PropertyKey, never>
+				Returns: undefined
+			}
 		}
 		Enums: {
 			[_ in never]: never
