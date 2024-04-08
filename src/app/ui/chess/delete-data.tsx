@@ -1,5 +1,5 @@
 import removeGamedata from "@utils/game/remove-gamedata";
-import {useUser} from "@/app/(auth)/actions/useUser";
+import {useUser} from "@auth/actions/useUser";
 
 export default function DeleteData() {
 	const user = useUser();

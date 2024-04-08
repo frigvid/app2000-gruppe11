@@ -1,4 +1,4 @@
-import {SignInSA} from "@/app/(auth)/signin/actions/sign-in-sa";
+import {SignInSA} from "@auth/signin/actions/sign-in-sa";
 import Link from "next/link";
 
 /**

@@ -1,8 +1,8 @@
 "use client";
 
-import ProtectClientContent from "@/app/(auth)/components/protect-client-content";
-import {deleteUserAccount} from "@/app/(auth)/delete/actions/delete-account-sa";
-import {useUser} from "@/app/(auth)/actions/useUser";
+import ProtectClientContent from "@auth/components/protect-client-content";
+import {deleteUserAccount} from "@auth/delete/actions/delete-account-sa";
+import {useUser} from "@auth/actions/useUser";
 import {useRouter} from "next/navigation";
 
 export default function DeleteAccount() {
