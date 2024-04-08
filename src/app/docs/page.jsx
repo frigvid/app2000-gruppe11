@@ -26,10 +26,6 @@ export default function App() {
 					<p>{t('faq1_answer')}</p>
 				</div>
 				<div className="p-4 border rounded-lg shadow">
-					<p>{t('faq1_question')}</p>
-					<p>{t('faq1_answer')}</p>
-				</div>
-				<div className="p-4 border rounded-lg shadow">
 					<p>{t('faq2_question')}</p>
 					<p>{t('faq2_answer')}</p>
 				</div>

@@ -7,6 +7,9 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
 	en: {
 		translation: {
+			"home": "Home",
+			"news": "News",
+			"docs": "Docs",
 			"title": "Chess Buddy",
 			"train_openings": "Train Openings",
 			"play_now": "Play Now",
@@ -65,6 +68,9 @@ const resources = {
 	},
 	no: {
 		translation: {
+			"home": "Hjem",
+			"news": "Nyheter",
+			"docs": "Dokumentasjon",
 			"title": "Chess Buddy",
 			"train_openings": "Tren Åpninger",
 			"play_now": "Spill Nå",
