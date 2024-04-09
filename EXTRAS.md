@@ -24,6 +24,11 @@ SELECT
 
 Function:
 ```postgresql
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-04
+ * Description: Create a user account manually.
+ * ============================================= */
 CREATE OR REPLACE FUNCTION public.user_create(
     email text,
     password text,

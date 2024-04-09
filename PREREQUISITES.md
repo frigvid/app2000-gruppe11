@@ -29,6 +29,11 @@ Note that while you can create custom schemas, Chess Buddy is designed to use th
 SET
 	search_path TO public;
 
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-02
+ * Description: User settings table.
+ * ============================================= */
 CREATE TABLE IF NOT EXISTS
 	settings (
 		id UUID PRIMARY KEY,
@@ -40,6 +45,11 @@ CREATE TABLE IF NOT EXISTS
 		FOREIGN KEY (id) REFERENCES auth.users (id)
 	);
 
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-02
+ * Description: User profile table.
+ * ============================================= */
 CREATE TABLE IF NOT EXISTS
 	profiles (
 		id UUID PRIMARY KEY,
@@ -50,6 +60,12 @@ CREATE TABLE IF NOT EXISTS
 		FOREIGN KEY (id) REFERENCES auth.users (id)
 	);
 
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-05
+ * Description: Contains individual chess games,
+ *              1 per row, by user.
+ * ============================================= */
 CREATE TABLE IF NOT EXISTS
 	history (
 		id UUID PRIMARY KEY,
@@ -59,6 +75,11 @@ CREATE TABLE IF NOT EXISTS
 		FOREIGN KEY (id) REFERENCES auth.users (id)
 	);
 
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-02
+ * Description: Contains game data totals.
+ * ============================================= */
 CREATE TABLE IF NOT EXISTS
 	gamedata (
 		id UUID PRIMARY KEY,
@@ -68,6 +89,11 @@ CREATE TABLE IF NOT EXISTS
 		FOREIGN KEY (id) REFERENCES auth.users (id)
 	);
 
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-05
+ * Description: WIP
+ * ============================================= */
 CREATE TABLE IF NOT EXISTS
 	openings (
 		id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -77,6 +103,11 @@ CREATE TABLE IF NOT EXISTS
 		timestamp timestamptz NOT NULL DEFAULT (timezone('utc', now()))
 	);
 
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-05
+ * Description: WIP
+ * ============================================= */
 CREATE TABLE IF NOT EXISTS
 	user_openings (
 		id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -88,6 +119,13 @@ CREATE TABLE IF NOT EXISTS
 		FOREIGN KEY (created_by) REFERENCES auth.users (id)
 	);
 
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-05
+ * Description: Contains groups of openings as
+ *              an opening repetoire to train
+ *              against.
+ * ============================================= */
 CREATE TABLE IF NOT EXISTS
 	repertoire (
 		id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -97,6 +135,11 @@ CREATE TABLE IF NOT EXISTS
 		FOREIGN KEY (usr) REFERENCES auth.users (id)
 	);
 
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-05
+ * Description: Contains chess openings/strategies.
+ * ============================================= */
 CREATE TABLE IF NOT EXISTS
 	openings (
 		id UUID,
@@ -108,6 +151,11 @@ CREATE TABLE IF NOT EXISTS
 		UNIQUE (id, name) -- Constrain id-name.
 	);
 
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-02
+ * Description: Contains admin-created news.
+ * ============================================= */
 CREATE TABLE IF NOT EXISTS
 	news (
 		id UUID PRIMARY KEY,
@@ -162,6 +210,12 @@ See [the extras document](./EXTRAS.md) for other functions and the like that may
 SET
 	search_path TO public;
 
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-04
+ * Description: Delete's a given user's data, and
+ *              their account when done.
+ * ============================================= */
 CREATE OR REPLACE FUNCTION public.user_delete()
 	RETURNS void
 	LANGUAGE SQL SECURITY DEFINER
@@ -181,6 +235,11 @@ AS $$
 	DELETE FROM auth.identities WHERE id = auth.uid();
 $$;
 
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-04
+ * Description: Initializes a user's required data.
+ * ============================================= */
 CREATE OR REPLACE FUNCTION user_init()
 	RETURNS TRIGGER
 	LANGUAGE plpgsql SECURITY DEFINER
@@ -199,6 +258,12 @@ BEGIN
 END;
 $$;
 
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-09
+ * Description: Creates, or updates, a user's
+ *              profile.
+ * ============================================= */
 CREATE OR REPLACE FUNCTION public.opening_create(
 	opn_name text,
 	opn_moves jsonb
