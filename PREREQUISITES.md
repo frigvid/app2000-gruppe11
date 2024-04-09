@@ -39,6 +39,8 @@ CREATE TABLE IF NOT EXISTS
 		id UUID PRIMARY KEY,
 		updated_at timestamptz NULL,
 		display_name TEXT NULL,
+		elo_rank INT NULL,
+		avatar_url TEXT NULL,
 		FOREIGN KEY (id) REFERENCES auth.users (id)
 	);
 
