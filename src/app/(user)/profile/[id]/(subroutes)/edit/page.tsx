@@ -47,7 +47,7 @@ export default function EditUserProfile() {
 							<label
 								className="block text-gray-700 text-sm font-bold mb-2"
 								htmlFor="avatar_url">
-								Avatar url
+								Avatar URL
 							</label>
 							<input
 								className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
@@ -106,7 +106,7 @@ export default function EditUserProfile() {
 							<button
 								className="bg-buttoncolor mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
 								formAction={submitForm}>
-								Sign up
+								Save details
 							</button>
 						</div>
 					</form>
