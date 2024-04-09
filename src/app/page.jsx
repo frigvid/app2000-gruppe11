@@ -1,11 +1,24 @@
 'use client'
 
+
+import React, { useState, useEffect } from 'react';
 import Link from "next/link";
 import { FaChessKnight, FaPlay, FaHistory, FaArrowDown } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 
 export default function Home() {
-	const { t } = useTranslation();
+	const { t, ready } = useTranslation();
+	const [loaded, setLoaded] = useState(false);
+
+	useEffect(() => {
+		if (ready) {
+			setLoaded(true);
+		}
+	}, [ready]);
+
+	if (!loaded) {
+		return null;
+	}
 
 	return (
 		<main className="flex flex-col">

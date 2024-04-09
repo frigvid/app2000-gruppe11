@@ -29,7 +29,7 @@ export const metadata = {
  */
 export default function RootLayout({children}) {
 	return (
-		<html lang="en" suppressHydrationWarning={true}>
+		<html lang="en">
 			<body className={`${inter.className} antialised grid h-screen grid-cols-1 grid-rows-[auto,1fr,auto]`}>
 				<Header/>
 				{children}
