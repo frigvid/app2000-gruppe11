@@ -1,3 +1,9 @@
+<head>
+	<title>PREREQUISITES</title>
+	<meta name="author" content="frigvid"/>
+	<meta name="date-created" content="2024-04-02"/>
+</head>
+
 # Prerequisites
 ## Environment file
 

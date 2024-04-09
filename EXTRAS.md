@@ -1,3 +1,9 @@
+<head>
+	<title>EXTRAS</title>
+	<meta name="author" content="frigvid"/>
+	<meta name="date-created" content="2024-04-04"/>
+</head>
+
 # Extras
 
 This document serves to describe some utility functions that are nice to have when developing, maintaining or otherwise testing the database, but otherwise unnecessary for being able to actually get the project up and running. These are not prerequisites, [like those described here](./PREREQUISITES.md), nor as important as installation instructions.
