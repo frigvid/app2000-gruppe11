@@ -28,7 +28,7 @@ export default function DeleteAccount() {
 	
 	return (
 		<main className="flex flex-col justify-center items-center space-y-4">
-			<ProtectClientContent showError={true}>
+			<ProtectClientContent showError={true} noBuffer={false}>
 				<>
 					<h1 className="text-3xl font-medium mr-5 p-0">You are about to delete your account.</h1>
 					<p className="italic">Are you sure?</p>
