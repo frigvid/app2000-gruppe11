@@ -14,8 +14,7 @@ import {cookies} from "next/headers";
  * @param formData The form's data as an object.
  */
 export default async function editUserProfileSA(formData: FormData) {
-	const cookieStore = cookies();
-	const supabase = createClient(cookieStore);
+	const supabase = createClient(cookies());
 	const {data: {user}} = await supabase.auth.getUser();
 	
 	void await supabase.rpc("user_profile_modify", {

@@ -35,8 +35,7 @@ import Link from "next/link";
  * 			a Component, so, you know; cognitohazard warning.
  */
 export default async function ProtectPage(Component: any): Promise<any> {
-	const cookieStore = cookies();
-	const supabase = createClient(cookieStore);
+	const supabase = createClient(cookies());
 	const {data, error} = await supabase.auth.getUser();
 	
 	// Show 401 if unauthorized or if an error occurred.

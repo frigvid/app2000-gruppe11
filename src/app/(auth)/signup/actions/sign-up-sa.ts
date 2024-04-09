@@ -17,8 +17,7 @@ const signUpSA = async (formData: FormData) => {
 	const origin = headers().get("origin");
 	const email = formData.get("email") as string;
 	const password = formData.get("password") as string;
-	const cookieStore = cookies();
-	const supabase = createClient(cookieStore);
+	const supabase = createClient(cookies());
 	
 	// Additional metadata can be added to `options`.
 	// NOTE: Type-casting is here for convenience.

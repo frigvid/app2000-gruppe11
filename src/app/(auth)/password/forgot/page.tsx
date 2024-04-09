@@ -22,8 +22,7 @@ export default function Forgot() {
 		"use server";
 		
 		const email = formData.get("email") as string;
-		const cookieStore = cookies();
-		const supabase = createClient(cookieStore);
+		const supabase = createClient(cookies());
 		
 		const {data, error} = await supabase.auth
 			.resetPasswordForEmail(email)

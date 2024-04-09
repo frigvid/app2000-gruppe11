@@ -13,8 +13,7 @@ import {cookies} from "next/headers";
  * @created 2024-02-13
  */
 export async function signInSA(formData: FormData) {
-	const cookieStore = cookies();
-	const supabase = createClient(cookieStore);
+	const supabase = createClient(cookies());
 	
 	// NOTE: Type-casting is here for convenience.
 	// FIXME: Supabase already validates inputs, but for safety's sake, we should validate inputs.
