@@ -56,7 +56,7 @@ export default function SignUp() {
 				</div>
 				<div className="pb-1 pt-1 text-center">
 					<Link href="/signin" className="bg-buttoncolor mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal">
-						Back to log in
+						Back to login
 					</Link>
 				</div>
 			</div>
