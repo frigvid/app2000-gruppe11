@@ -12,7 +12,7 @@ import {cookies} from "next/headers";
  * @author frigvid
  * @created 2024-02-13
  */
-export async function SignInSA(formData: FormData) {
+export async function signInSA(formData: FormData) {
 	const cookieStore = cookies();
 	const supabase = createClient(cookieStore);
 	
