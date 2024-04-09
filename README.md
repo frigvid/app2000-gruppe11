@@ -54,8 +54,11 @@ The project is developed using:
 - TailwindCSS.
 
 # Getting started
-## Pre-requisites
-Getting the project up and running is rather easy, you just need to clone this repository and then follow the instructions below.
+## Prerequisites
+
+Getting this project up and running is rather easy.
+
+You just need to clone this repository, follow the [prerequisites](./PREREQUISITES.md) and then the instructions below.
 
 Do note that our developer documentation is available through [GitHub's repository-level Wiki](https://github.com/frigvid/app2000-gruppe11/wiki).
 
