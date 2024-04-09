@@ -42,7 +42,11 @@ interface ProtectClientContentProps {
  * @param children The content to protect or hide.
  * @returns {React.ReactElement} The protected or hidden content.
  */
-export default function ProtectClientContent({ showError, noBuffer, children }: ProtectClientContentProps): React.ReactElement {
+export default function ProtectClientContent({
+	showError,
+	noBuffer,
+	children
+}: ProtectClientContentProps): React.ReactElement {
 	const supabase = createClient();
 	const [authorized, setAuthorized] = useState(false);
 	const [loading, setLoading] = useState(true);

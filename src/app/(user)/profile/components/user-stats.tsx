@@ -20,7 +20,14 @@ interface UserStatsProps {
  * @author frigvid
  * @created 2024-04-03
  */
-export default function UserStats({elo_rank, games_played, games_won, games_lost, games_drawn, nationality}: UserStatsProps) {
+export default function UserStats({
+	elo_rank,
+	games_played,
+	games_won,
+	games_lost,
+	games_drawn,
+	nationality
+}: UserStatsProps) {
 	return (
 		<div className="flex justify-around text-center space-x-4">
 			<div>
