@@ -125,30 +125,6 @@ BEGIN
 END $$;
 ```
 
-Function:
-```postgresql
-CREATE OR REPLACE FUNCTION public.user_delete(
-    input_id uuid DEFAULT NULL
-) RETURNS void
-AS $$
-BEGIN
-    -- Public.
-    DELETE FROM public.gamedata WHERE userid = input_id;
-    DELETE FROM public.profiles WHERE id = input_id;
-    DELETE FROM public.settings WHERE id = input_id;
-
-    -- Storage.
-    -- DELETE FROM storage.buckets WHERE id = input_id;
-    -- DELETE FROM storage.migrations WHERE id = input_id;
-    -- DELETE FROM storage.objects WHERE id = input_id;
-
-    -- Auth.
-    DELETE FROM auth.users WHERE id = input_id;
-    DELETE FROM auth.identities WHERE id = input_id;
-END;
-$$ LANGUAGE plpgsql;
-```
-
 ### Remove all sessions for a user
 
 ```postgresql
