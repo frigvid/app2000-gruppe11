@@ -1,4 +1,4 @@
-import ProtectContent from "@auth/components/protect-page";
+import ProtectPage from "@auth/components/protect-page";
 
 /**
  * Stub page for user settings.
@@ -10,7 +10,7 @@ import ProtectContent from "@auth/components/protect-page";
  */
 export default function UserSettings() {
 	return (
-		ProtectContent(
+		ProtectPage(
 			<main className="flex justify-center items-center">
 				<p>Settings</p>
 			</main>

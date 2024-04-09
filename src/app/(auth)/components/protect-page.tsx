@@ -13,7 +13,7 @@ import Link from "next/link";
  *
  * Example usage:
  * <pre>
- * import Protect from "@utils/withAuth";
+ * import ProtectPage from "@auth/components/protect-page";
  *
  * export default function FancyPancyPage() {
  *    return (
@@ -30,10 +30,11 @@ import Link from "next/link";
  * @created 2024-02-17
  * @param Component The page contents to protect.
  * @returns {Promise<*>} The protected page.
+ * @note		This is unable to be called during initial render.
  * @warning This is kind of an abomination of a Server Action crossed with
  * 			a Component, so, you know; cognitohazard warning.
  */
-export default async function ProtectContent(Component: any): Promise<any> {
+export default async function ProtectPage(Component: any): Promise<any> {
 	const cookieStore = cookies();
 	const supabase = createClient(cookieStore);
 	const {data, error} = await supabase.auth.getUser();
