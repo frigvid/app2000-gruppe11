@@ -19,7 +19,7 @@ export default function SignUpError() {
 			<Link href="/signup"
 					className="bg-buttoncolor inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
 			>
-				Return to signup
+				Return to sign up
 			</Link>
 		</main>
 	);

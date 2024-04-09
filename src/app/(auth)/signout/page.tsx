@@ -42,8 +42,7 @@ export default function SignOut() {
 				 * - [Server-context client]{@link @utils/supabase/server.ts}.
 				 * - [Middleware]{@link @/app/middleware.ts}.
 				 *
-				 * @author frigvid
-				 * @created 2024-02-13
+				 * @added 2024-02-13
 				 * @note This currently only grabs error data, but does not grab the user data object.
 				 * 		Given my limited understanding of the exact process, due to lacking documentation,
 				 * 		I'm not sure if this will cause issues with guaranteeing that the Auth token is

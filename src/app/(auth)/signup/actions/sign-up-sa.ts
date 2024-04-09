@@ -28,11 +28,17 @@ const signUpSA = async (formData: FormData) => {
 		password,
 		options: {
 			//emailRedirectTo: `${origin}/auth/callback`,
+			data: {
+				elo_rank: 400
+			}
 		},
 	});
 	
 	// NOTE: A more elegant solution should probably be cooked up for these two returns, eventually.
 	if (error) {
+		// Even though it only logs locally, and not in the browser,
+		// at least you can see the error in a development environment.
+		console.log(error);
 		return redirect("/signup/error");
 	}
 	
