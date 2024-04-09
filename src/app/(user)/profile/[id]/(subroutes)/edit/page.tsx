@@ -9,39 +9,18 @@ import React, {useState} from "react";
  * Basic, if somewhat crude and simplistic, page to edit a user's profile details.
  *
  * @author frigvid
- * @created 2024-04-08
+ * @created 2024-04-09
  * @note The user must be authenticated to see this page.
  */
 export default function EditUserProfile() {
 	// NOTE: This useState cannot be null as its initial state, due to how the value prop of CountryDropdown works.
 	const [nationality, setNationality] = useState("");
 	
-	/**
-	 * Anonymous handler function for the form, due to the nationality drop-down menu
-	 * not being a part of the form itself.
-	 *
-	 * A workaround, if you will.
-	 *
-	 * @author frigvid
-	 * @created 2024-04-08
-	 * @param form The form whose data will be used sent to {@link editUserProfileSA}.
-	 */
-	const submitForm = (form: any): void => {
-		form.preventDefault();
-		
-		// Get the form's data, and append nationality.
-		const formData = new FormData(form.target);
-		formData.append('nationality', nationality);
-		
-		// Ignore promise.
-		void editUserProfileSA(formData);
-	}
-	
 	return (
 		<ProtectClientContent showError={true} noBuffer={false}>
 			<main className="flex flex-col items-center justify-center bg-[#fffbf3] text-[#333] font-sans">
 				<div className="bg-white max-w-[800px] min-w-[500px] m-5 p-5 shadow-md">
-					<form action={submitForm}>
+					<form action={editUserProfileSA}>
 						{/* Avatar. */}
 						<div className="mb-4">
 							<label
@@ -54,7 +33,6 @@ export default function EditUserProfile() {
 								type="url"
 								name="avatar_url"
 								placeholder="https://example.com/my-fancy-avatar"
-								required
 							/>
 						</div>
 						{/* Display name. */}
@@ -83,7 +61,6 @@ export default function EditUserProfile() {
 								className="shadow appearance-none border rounded w-full h-48 py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
 								name="about_me"
 								placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-								required
 							/>
 						</div>
 						{/* Nationality. */}
@@ -94,7 +71,8 @@ export default function EditUserProfile() {
 								Nationality
 							</label>
 							<div
-								className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
+								className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+							>
 								<CountryDropdown
 									classes="w-full"
 									value={nationality}
@@ -105,7 +83,7 @@ export default function EditUserProfile() {
 						<div className="mb-2 pb-1 pt-1 text-center">
 							<button
 								className="bg-buttoncolor mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
-								formAction={submitForm}>
+								formAction={editUserProfileSA}>
 								Save details
 							</button>
 						</div>
