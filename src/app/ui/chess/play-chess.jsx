@@ -10,6 +10,7 @@ export default function PlayChess() {
 	const [game, setGame] = useState(new Chess());
 	const [score, setScore] = useState({ wins: 0, losses: 0 });
 	const [status, setStatus] = useState("Game ongoing");
+	const [isGameStatusOpen, setGameStatusOpen] = useState(false);
 
 	function makeAMove(move) {
 		const gameCopy = new Chess(game.fen());
@@ -93,29 +94,44 @@ export default function PlayChess() {
 	}
 
 	return (
-		<div className="flex flex-col md:flex-row justify-center items-center">
+		<div className="flex flex-col md:flex-row justify-center items-center relative">
 			<div className="md:mr-8 md:order-1 order-2 p-3 px-8 md:max-w-sm bg-gray-200 rounded-lg border border-gray-200 shadow-md md:mb-0 mb-4">
 				<h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
 					Game Status
 				</h5>
-				<p>{status}</p>
-				<p>Wins: {score.wins}</p>
-				<p>Losses: {score.losses}</p>
+				{isGameStatusOpen && (
+					<div>
+						<p>{status}</p>
+						<p>Wins: {score.wins}</p>
+						<p>Losses: {score.losses}</p>
+						<button
+							className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+							onClick={resetBoard}
+						>
+							Reset
+						</button>
+						{user && <DeleteData />}
+					</div>
+				)}
 				<button
 					className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-					onClick={resetBoard}
+					onClick={() => setGameStatusOpen(!isGameStatusOpen)}
 				>
-					Reset
+					{isGameStatusOpen ? "Hide Game Status" : "Show Game Status"}
 				</button>
-				{user && <DeleteData />}
 			</div>
-			<div className="w-full md:w-96 md:order-2 order-1 mt-4 md:mt-0 mb-4 md:mb-0">
+			<div className="w-full md:w-96 md:order-2 order-1 mt-4 md:mt-0 mb-4 md:mb-0 relative">
 				<Chessboard position={game.fen()} onPieceDrop={onDrop} />
 			</div>
-			{/* Footer section can be added here */}
 		</div>
 	);
 }
+
+
+
+
+
+
 
 
 
