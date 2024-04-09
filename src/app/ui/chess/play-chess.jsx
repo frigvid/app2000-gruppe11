@@ -12,14 +12,33 @@ export default function PlayChess() {
 	const [game, setGame] = useState(new Chess());
 	const [score, setScore] = useState({ wins: 0, losses: 0 });
 	const [boardPosition, setBoardPosition] = useState(game.fen());
+	const [mode, setMode] = useState(""); //Decides whether it's a mode for practice or playing a full game
 
 	const [status, setStatus] = useState("Game ongoing");
+	const [turn, setTurn] = useState(0);
+
+	const opening = [{from: "e2", to: "e4", promotion: "p"}, {from: "e7" ,to:"e5", promotion: "p"}, {} ];
+
+
+
+	// 1. Check if move is in opening. 2.make opponent use its assigned move from the opening array.
+
 
 	//code is an altered version from react-chessboard example with added error handling
 	function makeAMove(move) {
 		try {
-			game.move(move);
+			//if (move == opening[turn]) {
+				game.move(move);
+				const checkOpening = Object.keys(opening[turn]).every((key) => {
+					return move[key] === opening[turn][key]
+					}
+				  )
+			//} else 
+			console.log(checkOpening);
+			//console.log(opening[turn].from == move.from && opening[turn].to == move.to && opening[turn].piece == move.promotion); // :( .all returns undefined
+			setTurn(turn + 1);
 		} catch (e) {
+			console.log(e);
 			return null;
 		}
 		setGame(game);
