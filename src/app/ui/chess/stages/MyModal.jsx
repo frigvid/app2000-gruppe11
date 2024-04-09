@@ -2,7 +2,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import Link from 'next/link'
 import { Fragment, useState } from 'react'
 
-export default function MyModal({title, details}) {
+export default function MyModal({title, details, id}) {
   let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
@@ -66,7 +66,7 @@ export default function MyModal({title, details}) {
                   <div className="mt-4">
                     <Link
                       className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      href={'/chess/train'}
+                      href={`/chess/train/${id}`}
                     >
                       Practice {title}!
                     </Link>
