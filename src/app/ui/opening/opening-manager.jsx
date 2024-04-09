@@ -1,22 +1,19 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Chessboard } from 'react-chessboard';
 import { Chess } from 'chess.js';
 import {createClient} from "@utils/supabase/client";
 import {useUser} from "@/app/(auth)/actions/useUser";
-
+import Buffering from "@/app/(auth)/components/fragment/Buffering";
 
 /**
- * bana
+ * Chess opening react component
  *
- * @example
- *
- * @author
- * @param onSave
- * @returns {Element}
- * @constructor
+ * @author KarstenKebba
+ * @contributor frigvid
  */
+
 export function OpeningManager() {
 	const [game, setGame] = useState(new Chess());
 	const [moves, setMoves] = useState([]);
@@ -24,6 +21,22 @@ export function OpeningManager() {
 	const [openingDescription, setOpeningDescription] = useState(''); // Definerer tilstanden for åpningens beskrivelse
 	const supabase = createClient();
 	const user = useUser();
+	const [feedbackMsg, setFeedbackMsg] = useState('');
+	const [isFeedbackVisible, setIsFeedbackVisible] = useState(false);
+	const [feedbackType, setFeedbackType] = useState(''); // 'success' eller 'error'
+	const [loading, setLoading] = useState(true); // Tilstand for å håndtere lastestatus
+
+
+	useEffect(() => {
+		// Anta at lastingen er ferdig når sjakkbrettet er klar til bruk.
+		// Dette er et eksempel, og du må tilpasse dette basert på din faktiske lastingslogikk.
+		const timer = setTimeout(() => setLoading(false), 1000); // For eksempel, fjerner loading etter 1 sekund
+		return () => clearTimeout(timer);
+	}, []);
+
+	if (loading) {
+		return <Buffering />;
+	}
 
 	function onDrop(sourceSquare, targetSquare, piece) {
 		const move = {from: sourceSquare, to: targetSquare, promotion: piece[1].toLowerCase() ?? 'q'};
@@ -52,7 +65,9 @@ export function OpeningManager() {
 	 */
 	async function saveOpening() {
 		if (!openingName.trim() || moves.length === 0) {
-			console.error('Please enter a name for the opening and make at least one move.');
+			setFeedbackMsg('Please enter a name for the opening and make at least one move.');
+			setFeedbackType('error');
+			setIsFeedbackVisible(true);
 			return;
 		}
 
@@ -61,17 +76,25 @@ export function OpeningManager() {
 			.insert({id: user.id, name: openingName, desc: openingDescription, pgn: JSON.stringify(moves)});
 
 		if (error) {
-			console.error('An error occurred while saving to the database:', error);
+			setFeedbackMsg('An error occurred while saving to the database.');
+			setFeedbackType('error');
 		} else {
-			console.log('New opening saved:', data);
+			setFeedbackMsg('New opening saved successfully.');
+			setFeedbackType('success');
 		}
+
+		setIsFeedbackVisible(true);
 
 		// Clears data.
 		setOpeningName('');
 		setOpeningDescription('');
 		setMoves([]);
 		setGame(new Chess());
+
+		// Skjuler tilbakemeldingen etter noen sekunder
+		setTimeout(() => setIsFeedbackVisible(false), 5000);
 	}
+
 
 	return (
 		<div
@@ -93,15 +116,23 @@ export function OpeningManager() {
 				/>
 			</div>
 			<div>
-			<button onClick={saveOpening}
-					  className="w-full bg-buttoncolor mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal">Save
-				Opening
-			</button>
-			<Chessboard
-				position={game.fen()}
-				onPieceDrop={onDrop}
-				boardWidth={400}
-			/>
+				<button onClick={saveOpening}
+						  className="w-full bg-buttoncolor mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal">Save
+					Opening
+				</button>
+				<Chessboard
+					position={game.fen()}
+					onPieceDrop={onDrop}
+					boardWidth={400}
+				/>
+			</div>
+			<div>
+				{isFeedbackVisible && (
+					<div
+						className={`w-full max-w-md p-2 rounded ${feedbackType === 'error' ? 'bg-red-500' : 'bg-green-500'} text-white text-center`}>
+						{feedbackMsg}
+					</div>
+				)}
 			</div>
 
 		</div>
