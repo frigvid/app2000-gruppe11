@@ -2,8 +2,13 @@
 
 import React, { useState } from 'react';
 import { OpeningManager } from "@ui/opening/opening-manager";
-import { createClient } from '@utils/supabase/client';
-import {useUser} from "@/app/(auth)/actions/useUser";
+
+/**
+ * chess opening test site
+ *
+ * @author KarstenKebba
+ * @contributor frigvid
+ */
 
 export default function OpeningPage() {
 

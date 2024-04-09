@@ -39,12 +39,28 @@ export function OpeningManager() {
 	}
 
 	function onDrop(sourceSquare, targetSquare, piece) {
-		const move = {from: sourceSquare, to: targetSquare, promotion: piece[1].toLowerCase() ?? 'q'};
-		const result = game.move(move);
-		if (result === null) return false;
-		setMoves([...moves, result.san]);
+		// Justerer hvordan et trekk lagres basert på sjakk.js dokumentasjon
+		const move = game.move({
+			from: sourceSquare,
+			to: targetSquare,
+			promotion: 'q' // Antar promosjon til dronning som standard
+		});
+
+		if (move === null) return false; // Ugyldig trekk
+
+		// Legger til trekket i listen over trekk
+		setMoves(previousMoves => [
+			...previousMoves,
+			{
+				from: move.from,
+				to: move.to,
+				promotion: move.promotion,
+				san: move.san // SAN (Standard Algebraic Notation) for trekket, om nødvendig
+			}
+		]);
 		return true;
 	}
+
 
 	/**
 	 async function deleteOpening(name) {
