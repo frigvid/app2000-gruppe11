@@ -2,7 +2,9 @@
 
 import PasswordDetails from "@auth/components/fragment/password-details";
 import signUpSA from "@auth/signup/actions/sign-up-sa";
+import WordDivider from "@ui/word-divider";
 import Link from "next/link";
+import React from "react";
 
 /**
  * Sign up page.
@@ -51,9 +53,7 @@ export default function SignUp() {
 						<PasswordDetails/>
 					</div>
 				</form>
-				<div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
-					<p className="mx-4 mb-0 text-center font-semibold">Or</p>
-				</div>
+				<WordDivider/>
 				<div className="pb-1 pt-1 text-center">
 					<Link href="/signin" className="bg-buttoncolor mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal">
 						Back to login

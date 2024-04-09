@@ -1,5 +1,7 @@
 import {signInSA} from "@auth/signin/actions/sign-in-sa";
+import WordDivider from "@ui/word-divider";
 import Link from "next/link";
+import React from "react";
 
 /**
  * Login page.
@@ -48,9 +50,7 @@ export default function SignIn() {
 						<Link href="/password/forgot" className="hover:text-blue-800">Forgot password?</Link>
 					</div>
 				</form>
-				<div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
-					<p className="mx-4 mb-0 text-center font-semibold">Or</p>
-				</div>
+				<WordDivider/>
 				<div className="flex items-center justify-between pb-6">
 					{/* Don't change "Don&#39;t" to "Don't", it will literally cause npm run build to fail. */}
 					<p className="mb-0 mr-2">Don&#39;t have an account?</p>
