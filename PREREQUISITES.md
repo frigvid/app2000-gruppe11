@@ -284,4 +284,40 @@ AS $$
 	DELETE FROM public.openings
 	WHERE id = auth.uid() AND name = opn_name;
 $$;
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-09
+ * Description: Creates, or updates, a user's
+ *              profile.
+ * ============================================= */
+CREATE OR REPLACE FUNCTION public.user_profile(
+	usr_avatar_url text,
+	usr_display_name text,
+	usr_about_me text,
+	usr_nationality text
+)
+	RETURNS void
+	LANGUAGE plpgsql
+AS $$
+BEGIN
+	INSERT INTO public.profiles (
+		id,
+		updated_at,
+		display_name,
+		/*elo_rank, This shouldn't be handled here. */
+		avatar_url,
+		about_me,
+		nationality
+	)
+	VALUES (
+				 auth.uid(),
+				 NOW(),
+				 usr_display_name,
+				 usr_avatar_url,
+				 usr_about_me,
+				 usr_nationality
+			 );
+END;
+$$;
 ```
