@@ -76,7 +76,7 @@ export default function StagesModal({title, details, id, pgn}) {
 									<StagesChessboardThumbnail pgn={pgn} width={300}/>
 									<div className="mt-4">
 										<Link
-											className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+											className="inline-flex justify-center rounded-md border border-transparent bg-buttoncolor px-4 py-2 text-sm font-medium text-black hover:text-white hover:bg-[#9c8064] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
 											href={`/chess/train/${id}`}
 										>
 											Practice {title}!
