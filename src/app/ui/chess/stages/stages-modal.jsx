@@ -2,7 +2,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import Link from 'next/link'
 import { Fragment, useState } from 'react'
 
-export default function MyModal({title, details, id}) {
+export default function StagesModal({title, details, id}) {
   let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {

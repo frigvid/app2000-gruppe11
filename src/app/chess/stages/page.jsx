@@ -1,7 +1,7 @@
 "use client";
 
 import {fetchOpenings} from "@utils/game/get-gamedata";
-import MyModal from "@ui/chess/stages/MyModal";
+import StagesModal from "@ui/chess/stages/stages-modal";
 import {useEffect, useState} from "react";
 
 /**
@@ -35,7 +35,7 @@ export default function Stages() {
 						return (
 							<div key={(opening.name + opening.desc + opening.id)} className='p-4 bg-red-400 rounded-md max-h-32'>
 								<h2>{opening.name}</h2>
-								<MyModal title={opening.name} details={opening.desc} id={opening.id}/>
+								<StagesModal title={opening.name} details={opening.desc} id={opening.id}/>
 							</div>
 						)
 					})}
