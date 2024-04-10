@@ -1,15 +1,22 @@
 "use client";
 import MyModal from '@ui/chess/stages/MyModal'
-import { getOpenings } from '@utils/game/get-gamedata';
+import { fetchOpenings } from '@utils/game/get-gamedata';
 import { useEffect, useState } from 'react';
-import { createClient } from "@utils/supabase/client";
 
 export default function App() {
 
 
 const [opening, setOpening] = useState([]); 
-setOpening(getOpenings);
 console.log(opening);
+
+useEffect(() => {
+  async function getOpenings() {
+    const fetchedData = await fetchOpenings();
+    setOpening(fetchedData);
+  }
+
+  getOpenings();
+}, []);
 
   return (
     <>
