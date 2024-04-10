@@ -9,6 +9,8 @@ import Link from "next/link";
  * Only used in root-layout.
  *
  * @author frigvid
+ * @warning There's a known issue of including this in the root layout, as it rarely re-draws, which makes the
+ * 			{@link #AccountMenu} slow to update.
  */
 export default function Header() {
 	return (
