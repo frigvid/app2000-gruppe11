@@ -100,10 +100,8 @@ export default function OpeningCreator() {
 	}
 	
 	return (
-		<div
-			className="flex flex-col items-center space-y-4">
-			<div
-				className="flex flex-col w-full max-w-md space-y-2">
+		<div className="flex flex-col items-center space-y-4">
+			<div className="flex flex-col w-full max-w-md space-y-2">
 				<input
 					type="text"
 					value={openingName}
@@ -119,9 +117,11 @@ export default function OpeningCreator() {
 				/>
 			</div>
 			<div>
-				<button onClick={saveOpening}
-						  className="w-full bg-buttoncolor mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal">Save
-					Opening
+				<button
+					onClick={saveOpening}
+					className="w-full bg-buttoncolor mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
+				>
+					Save Opening
 				</button>
 				<Chessboard
 					position={game.fen()}
