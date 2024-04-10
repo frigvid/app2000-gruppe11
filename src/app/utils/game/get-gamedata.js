@@ -13,7 +13,7 @@ export async function fetchOpenings() {
         //get data
         const {data, error} = await supabase
             .from('openings')
-            .select('name, desc, id');
+            .select('name, desc, id, pgn');
             return data;
 
     } catch (e) {
