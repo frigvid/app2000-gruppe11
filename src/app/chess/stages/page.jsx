@@ -1,7 +1,8 @@
 "use client";
 
-import {fetchOpenings} from "@utils/game/get-gamedata";
+import StagesChessboardThumbnail from "@ui/chess/stages-chessboard-thumbnail";
 import StagesModal from "@ui/chess/stages/stages-modal";
+import {fetchOpenings} from "@utils/game/get-gamedata";
 import {useEffect, useState} from "react";
 
 /**
@@ -33,9 +34,17 @@ export default function Stages() {
 				<div className='grid grid-cols-4 gap-4'>
 					{opening.map((opening) => {
 						return (
-							<div key={(opening.name + opening.desc + opening.id)} className='p-4 bg-red-400 rounded-md max-h-32'>
-								<h2>{opening.name}</h2>
-								<StagesModal title={opening.name} details={opening.desc} id={opening.id}/>
+							<div
+								key={(opening.name + opening.desc + opening.id)}
+								className='p-4 bg-[#976646] rounded-md w-64 h-64 flex flex-col justify-between items-center text-white'
+							>
+								<h2 className='font-semibold'>{opening.name}</h2>
+								<div>
+									<StagesChessboardThumbnail opening={opening}/>
+								</div>
+								<div className=''>
+									<StagesModal title={opening.name} details={opening.desc} id={opening.id}/>
+								</div>
 							</div>
 						)
 					})}
