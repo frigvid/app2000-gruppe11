@@ -8,29 +8,22 @@ import {Chessboard} from "react-chessboard";
 import {Chess} from "chess.js";
 
 /**
- * The `OpeningManager` component provides an interactive chessboard interface allowing users to create and store their own chess openings.
- * It utilizes the `Chessboard` component from `react-chessboard` and `Chess.js` for chess game logic. Upon successful creation,
- * the openings are saved to a Supabase database with relevant details such as the opening name, description, and the sequence of moves (PGN format).
+ * This component provides a way for end-users to register custom chess openings.
  *
- * This component integrates user authentication via the `useUser` hook, ensuring that each saved opening is associated with a specific user.
- * It features a loading state to enhance user experience while waiting for the chessboard to be ready or data to be loaded.
- * Feedback messages are displayed to inform the user about the result of save operations, leveraging a feedback mechanism with success and error messages.
+ * Created openings are stored in the database, and attached to the user's user id.
  *
  * @example
- * <OpeningManager />
+ * import OpeningManager from "@ui/opening/opening-manager";
  *
- * @param {function} onSave - The callback function to be executed when the "Save Opening" button is clicked. It captures the current state of the chessboard, including moves made, and attempts to save the opening to the database.
- *
- * @returns {React.JSX.Element} A component rendering a chessboard for creating openings, input fields for opening name and description, and a button to save the opening.
- *
- * @see {@link https://react-chessboard.com/} for `Chessboard` component details.
- * @see {@link https://github.com/jhlywa/chess.js} for `Chess.js` library details.
- * @see `Buffering` component for the loading state implementation.
- *
- * Note: The component requires `@utils/supabase/client` for database interactions and `@app/(auth)/actions/useUser` for user authentication context.
+ * export function OpeningManager() {
+ * 	return (
+ * 			<OpeningManager />
+ * 	);
+ * }
  *
  * @author KarstenKebba
  * @contributor frigvid
+ * @returns {React.Element} The opening manager component.
  */
 export default function OpeningManager() {
 	const [game, setGame] = useState(new Chess());
