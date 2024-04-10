@@ -1,18 +1,20 @@
 import {Dialog, Transition} from "@headlessui/react";
 import {Fragment, useState} from "react";
 import Link from "next/link";
+import StagesChessboardThumbnail from "@ui/chess/stages-chessboard-thumbnail";
 
 /**
  * Component that creates a modal for the stages.
  *
  * @author qwertyfyr
+ * @contributor frigvid
  * @param title The title of the stage.
  * @param details The details of the stage.
  * @param id The id of the stage.
  * @return {JSX.Element} The StagesModal component.
  * @constructor
  */
-export default function StagesModal({title, details, id}) {
+export default function StagesModal({title, details, id, pgn}) {
 	let [isOpen, setIsOpen] = useState(false)
 	
 	function closeModal() {
@@ -34,7 +36,6 @@ export default function StagesModal({title, details, id}) {
 					Read more
 				</button>
 			</div>
-			
 			<Transition appear show={isOpen} as={Fragment}>
 				<Dialog as="div" className="relative z-10" onClose={closeModal}>
 					<Transition.Child
@@ -60,7 +61,7 @@ export default function StagesModal({title, details, id}) {
 								leaveFrom="opacity-100 scale-100"
 								leaveTo="opacity-0 scale-95"
 							>
-								<Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+								<Dialog.Panel className="w-[60rem] h-[40rem] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
 									<Dialog.Title
 										as="h3"
 										className="text-lg font-medium leading-6 text-gray-900"
@@ -72,7 +73,7 @@ export default function StagesModal({title, details, id}) {
 											{details}
 										</p>
 									</div>
-									
+									<StagesChessboardThumbnail pgn={pgn} width={300}/>
 									<div className="mt-4">
 										<Link
 											className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
