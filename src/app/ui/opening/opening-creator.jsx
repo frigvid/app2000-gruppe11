@@ -39,7 +39,7 @@ export default function OpeningCreator() {
 
 
 	useEffect(() => {
-		const timer = setTimeout(() => setLoading(false), 1000); // For eksempel, fjerner loading etter 1 sekund
+		const timer = setTimeout(() => setLoading(false), 1000);
 		return () => clearTimeout(timer);
 	}, []);
 
