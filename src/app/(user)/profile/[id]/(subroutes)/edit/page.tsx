@@ -3,7 +3,9 @@
 import editUserProfileSA from "@/app/(user)/profile/actions/edit-user-profile-sa";
 import ProtectClientContent from "@auth/components/protect-client-content";
 import {CountryDropdown} from 'react-country-region-selector';
+import WordDivider from "@ui/word-divider";
 import React, {useState} from "react";
+import Link from "next/link";
 
 /**
  * Basic, if somewhat crude and simplistic, page to edit a user's profile details.
@@ -47,7 +49,6 @@ export default function EditUserProfile() {
 								type="text"
 								name="display_name"
 								placeholder="Fancy Name"
-								required
 							/>
 						</div>
 						{/* About me. */}
@@ -58,7 +59,7 @@ export default function EditUserProfile() {
 								About me
 							</label>
 							<textarea
-								className="shadow appearance-none border rounded w-full h-48 py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+								className="shadow appearance-none border rounded w-full h-48 py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline whitespace-pre-wrap"
 								name="about_me"
 								placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 							/>
@@ -81,11 +82,19 @@ export default function EditUserProfile() {
 							</div>
 						</div>
 						<div className="mb-2 pb-1 pt-1 text-center">
+							{/* Albeit these were using bg-buttoncolor, I think it's more intuitive color-coding the buttons. */}
 							<button
-								className="bg-buttoncolor mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
+								className="bg-green-400 mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
 								formAction={editUserProfileSA}>
 								Save details
 							</button>
+							<WordDivider/>
+							<Link
+								className="bg-red-400 mb-2 mt-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
+								href="."
+							>
+								Cancel
+							</Link>
 						</div>
 					</form>
 				</div>
