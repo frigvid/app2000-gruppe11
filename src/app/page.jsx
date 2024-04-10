@@ -1,5 +1,6 @@
-import Link from "next/link";
 import {FaChessKnight, FaPlay, FaHistory, FaArrowDown} from 'react-icons/fa';
+import firstTimeSetup from "@utils/first-time-setup";
+import Link from "next/link";
 
 /**
  * Homepage.
@@ -7,6 +8,10 @@ import {FaChessKnight, FaPlay, FaHistory, FaArrowDown} from 'react-icons/fa';
  * @author frigvid, KarstenKebba
  */
 export default function Home() {
+	if (process.env.FIRST_TIME_SETUP) {
+		firstTimeSetup();
+	}
+	
 	return (
 		<main className="flex flex-col">
 			<div className="flex items-center justify-center h-screen -mt-20 sm:-mt-10 md:mt-0">
