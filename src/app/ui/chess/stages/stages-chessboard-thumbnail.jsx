@@ -20,11 +20,17 @@ export default function StagesChessboardThumbnail({pgn, width = 128}) {
 	});
 	
 	return (
-		<Chessboard
-			allowDragOutsideBoard={false}
-			arePiecesDraggable={false}
-			boardWidth={width}
-			position={chess.fen()}
-		/>
+		<>
+			<picture>
+				<Chessboard
+					id={self.crypto.randomUUID()}
+					allowDragOutsideBoard={false}
+					arePiecesDraggable={false}
+					boardWidth={width}
+					position={chess.fen()}
+				/>
+			</picture>
+			{() => {chess.reset(); chess.clear();}}
+		</>
 	)
 }
