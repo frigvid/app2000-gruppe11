@@ -2,6 +2,16 @@ import {Dialog, Transition} from "@headlessui/react";
 import {Fragment, useState} from "react";
 import Link from "next/link";
 
+/**
+ * Component that creates a modal for the stages.
+ *
+ * @author qwertyfyr
+ * @param title The title of the stage.
+ * @param details The details of the stage.
+ * @param id The id of the stage.
+ * @return {JSX.Element} The StagesModal component.
+ * @constructor
+ */
 export default function StagesModal({title, details, id}) {
 	let [isOpen, setIsOpen] = useState(false)
 	
