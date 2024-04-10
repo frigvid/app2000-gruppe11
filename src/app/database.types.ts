@@ -114,6 +114,7 @@ export type Database = {
           id: string
           nationality: string | null
           updated_at: string | null
+          visibility: boolean
         }
         Insert: {
           about_me?: string | null
@@ -123,6 +124,7 @@ export type Database = {
           id: string
           nationality?: string | null
           updated_at?: string | null
+          visibility?: boolean
         }
         Update: {
           about_me?: string | null
@@ -132,6 +134,7 @@ export type Database = {
           id?: string
           nationality?: string | null
           updated_at?: string | null
+          visibility?: boolean
         }
         Relationships: [
           {
@@ -190,6 +193,32 @@ export type Database = {
         }
         Returns: undefined
       }
+      profile_get: {
+        Args: {
+          usr_id: string
+        }
+        Returns: {
+          display_name: string
+          elo_rank: number
+          avatar_url: string
+          about_me: string
+          nationality: string
+          usr_visibility: boolean
+          wins: number
+          losses: number
+          draws: number
+        }[]
+      }
+      profile_modify: {
+        Args: {
+          usr_avatar_url: string
+          usr_display_name: string
+          usr_about_me: string
+          usr_nationality: string
+          usr_visibility: boolean
+        }
+        Returns: undefined
+      }
       user_create: {
         Args: {
           email: string
@@ -210,30 +239,6 @@ export type Database = {
           userid: string
           wins: number | null
         }[]
-      }
-      user_profile_get: {
-        Args: {
-          usr_id: string
-        }
-        Returns: {
-          display_name: string
-          elo_rank: number
-          avatar_url: string
-          about_me: string
-          nationality: string
-          wins: number
-          losses: number
-          draws: number
-        }[]
-      }
-      user_profile_modify: {
-        Args: {
-          usr_avatar_url: string
-          usr_display_name: string
-          usr_about_me: string
-          usr_nationality: string
-        }
-        Returns: undefined
       }
     }
     Enums: {

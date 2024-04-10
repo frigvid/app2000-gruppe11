@@ -1,7 +1,7 @@
 "use server";
 
 import {createClient} from "@utils/supabase/server";
-import {redirect} from "next/navigation";
+import {redirect, RedirectType} from "next/navigation";
 import {cookies} from "next/headers";
 
 /**
@@ -17,16 +17,13 @@ export default async function editUserProfileSA(formData: FormData) {
 	const supabase = createClient(cookies());
 	const {data: {user}} = await supabase.auth.getUser();
 	
-	void await supabase.rpc("user_profile_modify", {
+	void await supabase.rpc("profile_modify", {
 		usr_avatar_url: formData.get("avatar_url").toString(),
 		usr_display_name: formData.get("display_name").toString(),
 		usr_about_me: formData.get("about_me").toString(),
-		usr_nationality: formData.get("rcrs-country").toString()
+		usr_nationality: formData.get("nationality").toString(),
+		usr_visibility: JSON.parse(formData.get("visibility").toString())
 	});
 	
-	for (const [key, value] of formData) {
-		console.log("KEY: " + key, "VALUE: " + value);
-	}
-	
-	return redirect("/profile/" + user.id);
+	return redirect("/profile/" + user.id, RedirectType.push);
 };

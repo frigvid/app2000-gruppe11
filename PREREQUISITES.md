@@ -291,7 +291,7 @@ $$;
  * Create date: 2024-04-09
  * Description: Updates a user's profile data.
  * ============================================= */
-CREATE OR REPLACE FUNCTION public.user_profile_modify(
+CREATE OR REPLACE FUNCTION public.profile_modify(
 	usr_avatar_url text,
 	usr_display_name text,
 	usr_about_me text,
@@ -318,7 +318,7 @@ $$;
  *              profile page. Currently joins
  *              profiles and gamedata together.
  * ============================================= */
-CREATE OR REPLACE FUNCTION public.user_profile_get(
+CREATE OR REPLACE FUNCTION public.profile_get(
 	usr_id uuid
 )
 	RETURNS TABLE(

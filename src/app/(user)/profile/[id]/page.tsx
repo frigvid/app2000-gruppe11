@@ -29,7 +29,7 @@ export default function UserProfile() {
 	useEffect(() => {
 		const fetchData = async () => {
 			const supabase = createClient();
-			const {data, error: PostgrestError} = await supabase.rpc("user_profile_get", {usr_id: staticUserId});
+			const {data, error: PostgrestError} = await supabase.rpc("profile_get", {usr_id: staticUserId});
 			const {data: {user}, error: AuthError} = await supabase.auth.getUser();
 			
 			if (PostgrestError) {
