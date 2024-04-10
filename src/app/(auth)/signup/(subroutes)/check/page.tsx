@@ -16,7 +16,7 @@ export default function SignUpCheckEmail() {
 				<div className="pb-1 pt-1 text-center">
 					<p>Check email to continue the sign up process.</p>
 					<div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300"></div>
-					<Link href="/public" className="bg-buttoncolor mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal">
+					<Link href="/" className="bg-buttoncolor mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal">
 						Back to home
 					</Link>
 				</div>
