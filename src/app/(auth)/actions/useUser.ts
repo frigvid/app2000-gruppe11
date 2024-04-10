@@ -16,6 +16,9 @@ import {useEffect, useState} from "react";
  *       console.log("User is logged in.");
  *    }
  * </pre>
+ *
+ * @author frigvid
+ * @created 2024-02-26
  */
 export function useUser() {
 	const supabase = createClient();
