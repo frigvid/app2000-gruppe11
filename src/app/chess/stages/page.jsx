@@ -3,7 +3,9 @@
 import StagesChessboardThumbnail from "@ui/chess/stages-chessboard-thumbnail";
 import StagesModal from "@ui/chess/stages/stages-modal";
 import {fetchOpenings} from "@utils/game/get-gamedata";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
+import ProtectClientContent from "@/app/(auth)/components/protect-client-content";
+import StagesCreateOpeningModal from "@ui/chess/stages/stages-create-opening-modal";
 
 /**
  * Route for the game's stages.
@@ -17,7 +19,7 @@ import {useEffect, useState} from "react";
  */
 export default function Stages() {
 	const [opening, setOpening] = useState([]);
-	console.log(opening);
+	const [createOpening, setCreateOpening] = useState(false);
 	
 	useEffect(() => {
 		async function getOpenings() {
@@ -30,7 +32,13 @@ export default function Stages() {
 	
 	return (
 		<>
-			<div className='flex justify-center items-center'>
+			<div className='flex justify-center items-center flex-col space-y-16'>
+				<ProtectClientContent showError={false} noBuffer={true}>
+					<div className="flex flex-col">
+						<p className="mb-3">You can also create your own openings.</p>
+						<StagesCreateOpeningModal/>
+					</div>
+				</ProtectClientContent>
 				<div className='grid grid-cols-4 gap-4'>
 					{opening.map((opening) => {
 						return (
