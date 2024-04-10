@@ -14,7 +14,7 @@ export default function Home() {
 					<div className="text-center">
 						<Link
 							className="flex justify-center items-center bg-blue-500 text-white rounded h-40 w-40 sm:h-48 sm:w-48 hover:bg-blue-600 transition duration-300 ease-in-out"
-							href="/chess/train"
+							href="/chess/stages"
 						>
 							<FaChessKnight className="text-5xl sm:text-6xl"/>
 						</Link>

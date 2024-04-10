@@ -160,6 +160,7 @@ export default function OpeningCreator() {
 					</button>
 				}
 				<Chessboard
+					id={self.crypto.randomUUID()}
 					position={game.fen()}
 					onPieceDrop={onDrop}
 					boardWidth={400}
