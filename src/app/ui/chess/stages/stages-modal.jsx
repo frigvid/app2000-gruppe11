@@ -1,7 +1,7 @@
 import {Dialog, Transition} from "@headlessui/react";
 import {Fragment, useState} from "react";
 import Link from "next/link";
-import StagesChessboardThumbnail from "@ui/chess/stages-chessboard-thumbnail";
+import StagesChessboardThumbnail from "@ui/chess/stages/stages-chessboard-thumbnail";
 
 /**
  * Component that creates a modal for the stages.

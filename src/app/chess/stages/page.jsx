@@ -2,7 +2,7 @@
 
 import StagesCreateOpeningModal from "@ui/chess/stages/stages-create-opening-modal";
 import ProtectClientContent from "@/app/(auth)/components/protect-client-content";
-import StagesChessboardThumbnail from "@ui/chess/stages-chessboard-thumbnail";
+import StagesChessboardThumbnail from "@ui/chess/stages/stages-chessboard-thumbnail";
 import StagesModal from "@ui/chess/stages/stages-modal";
 import {fetchOpenings} from "@utils/game/get-gamedata";
 import React, {useEffect, useState} from "react";
