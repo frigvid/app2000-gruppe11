@@ -42,7 +42,7 @@ export default function Stages() {
 								<div>
 									<StagesChessboardThumbnail pgn={opening.pgn}/>
 								</div>
-								<div className=''>
+								<div>
 									<StagesModal title={opening.name} details={opening.desc} id={opening.id} pgn={opening.pgn}/>
 								</div>
 							</div>
