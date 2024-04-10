@@ -5,8 +5,14 @@
  *
  * @author frigvid
  */
+
+
+/**
+ * It contains a language switcher component for changing the application's language.
+ * Author:oldpopcorn / Ro
+ */
 import React from 'react';
-import LanguageSwitcher from '@ui/LanguageSwitcher'; // Make sure the path is correct
+import LanguageSwitcher from '@ui/LanguageSwitcher';
 
 export default function Footer() {
 	return (

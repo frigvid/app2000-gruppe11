@@ -5,17 +5,24 @@ import React, { useState, useEffect } from 'react';
 import Link from "next/link";
 import { FaChessKnight, FaPlay, FaHistory, FaArrowDown } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
-
+/**
+ * It uses the `useTranslation` hook from `react-i18next` for internationalization,
+ * allowing for dynamic content translation based on the user's selected language.
+ * The component waits for the translation resources to be ready before rendering
+ * its content to prevent hydration errors in SSR (Server-Side Rendering) environments.
+ * author oldpopcorn / Ro
+ */
 export default function Home() {
 	const { t, ready } = useTranslation();
 	const [loaded, setLoaded] = useState(false);
 
+	// Effect hook to set loaded state once translations are ready
 	useEffect(() => {
 		if (ready) {
 			setLoaded(true);
 		}
 	}, [ready]);
-
+	// Renders null to match server-side rendered content before translations are loaded
 	if (!loaded) {
 		return null;
 	}

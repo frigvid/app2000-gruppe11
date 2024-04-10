@@ -2,11 +2,23 @@
 
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+/**
+ * A mapping of language codes to translation resources.
+ *
+ * This object contains translation strings for each supported language in the application.
+ * Each language is represented by a language code (e.g., 'en' for English, 'no' for Norwegian),
+ * and contains an object with translation keys and their corresponding text.
+ *
+ * @type {Object<string, Object>}
+ *
+ * Author:oldpopcorn /Ro
+ */
+
 
 
 const resources = {
 	en: {
-		translation: {
+		translation: {// Translation keys and their English text
 			"home": "Home",
 			"news": "News",
 			"docs": "Docs",
@@ -67,7 +79,7 @@ const resources = {
 		}
 	},
 	no: {
-		translation: {
+		translation: {// Translation keys and their Norwegian text
 			"home": "Hjem",
 			"news": "Nyheter",
 			"docs": "Dokumentasjon",
@@ -128,15 +140,23 @@ const resources = {
 		}
 	}
 	};
+/**
+ * Initializes i18next with the translation resources and configuration.
+ *
+ * This setup uses the `initReactI18next` plugin to integrate i18next with React.
+ * It specifies the initial language to be Norwegian ('no') and sets English ('en') as the fallback language.
+ * Interpolation configuration ensures that values inserted into translation strings are not escaped,
+ * which is important for inserting dynamic content.
+ */
 
 i18n
-	.use(initReactI18next)
+	.use(initReactI18next) // uses initReactI18next module to init i18next
 	.init({
-		resources,
+		resources, // the resources used for Trantslation
 		lng: "no", // Initial language
-		fallbackLng: "en",
+		fallbackLng: "en", // Fallback language if the first language translation are not found or not functioning.
 		interpolation: {
-			escapeValue: false
+			escapeValue: false //prevents the inserted values from escaping.
 		}
 	});
 

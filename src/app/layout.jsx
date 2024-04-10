@@ -2,7 +2,7 @@ import {Inter} from 'next/font/google'
 import Header from "@ui/header";
 import Footer from "@ui/footer";
 import "@/app/globals.css";
-import i18n from '@/app/i18next.js';// Ikke fjern, blir brukt til oversettelse
+import i18n from '@/app/i18next.js'; // Do not remove, is in use when starting the translation.
 
 
 const inter = Inter({subsets: ['latin']})

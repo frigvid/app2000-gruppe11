@@ -1,6 +1,20 @@
 'use client';
 
 import { useTranslation } from 'react-i18next';
+/**
+* Represents the main FAQ application component.
+*
+* This component renders a Frequently Asked Questions (FAQ) section
+* using internationalization for supporting multiple languages.
+* It leverages the `useTranslation` hook from `react-i18next` to dynamically
+* translate the content based on the user's selected language.
+*
+* Each FAQ item is displayed in a grid layout that adapts based on the screen size,
+* showcasing responsiveness across different devices.
+*
+ @author oldpopcorn /Ro
+* @returns {React.Component} The App component rendering the FAQ section.
+*/
 
 export default function App() {
 	const { t } = useTranslation();
