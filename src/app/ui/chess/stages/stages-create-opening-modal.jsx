@@ -3,9 +3,11 @@ import {Dialog, Transition} from "@headlessui/react";
 import {Fragment, useState} from "react";
 
 /**
- * Component that creates a modal for the stages.
+ * Component that opens up the opening creator dialog
+ * for authenticated users.
  *
  * @author frigvid
+ * @created 2024-04-10
  * @return {JSX.Element} The StagesModal component.
  * @constructor
  */

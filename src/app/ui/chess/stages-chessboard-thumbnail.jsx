@@ -7,8 +7,9 @@ import {Chess} from "chess.js";
  * Component that creates a "thumbnail" of the chessboard.
  *
  * @author frigvid
+ * @created 2024-04-10
  * @param {Object} opening The opening to create a thumbnail for.
- * @return
+ * @return {JSX.Element} The StagesChessboardThumbnail component.
  * @note This is a rather heavy-handed approach to generating "thumbnails" for the openings.
  * 		However, it *does* work. I'm just not sure if it's very performant at scale.
  */
