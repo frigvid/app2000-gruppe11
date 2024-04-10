@@ -57,6 +57,8 @@ CREATE TABLE IF NOT EXISTS
 		display_name TEXT NULL,
 		elo_rank INT NULL,
 		avatar_url TEXT NULL,
+		about_me TEXT NULL,
+		nationality TEXT NULL,
 		FOREIGN KEY (id) REFERENCES auth.users (id)
 	);
 
@@ -261,8 +263,7 @@ $$;
 /* =============================================
  * Author:      frigvid
  * Create date: 2024-04-09
- * Description: Creates, or updates, a user's
- *              profile.
+ * Description: Create an opening.
  * ============================================= */
 CREATE OR REPLACE FUNCTION public.opening_create(
 	opn_name text,
@@ -288,10 +289,9 @@ $$;
 /* =============================================
  * Author:      frigvid
  * Create date: 2024-04-09
- * Description: Creates, or updates, a user's
- *              profile.
+ * Description: Updates a user's profile data.
  * ============================================= */
-CREATE OR REPLACE FUNCTION public.user_profile(
+CREATE OR REPLACE FUNCTION public.user_profile_modify(
 	usr_avatar_url text,
 	usr_display_name text,
 	usr_about_me text,
@@ -301,23 +301,55 @@ CREATE OR REPLACE FUNCTION public.user_profile(
 	LANGUAGE plpgsql
 AS $$
 BEGIN
-	INSERT INTO public.profiles (
-		id,
-		updated_at,
-		display_name,
-		/*elo_rank, This shouldn't be handled here. */
-		avatar_url,
-		about_me,
-		nationality
+	UPDATE public.profiles
+	SET
+		display_name = usr_display_name,
+		avatar_url = usr_avatar_url,
+		about_me = usr_about_me,
+		nationality = usr_nationality
+	WHERE id = auth.uid();
+END;
+$$;
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-09
+ * Description: Gets data related to the user's
+ *              profile page. Currently joins
+ *              profiles and gamedata together.
+ * ============================================= */
+CREATE OR REPLACE FUNCTION public.user_profile_get(
+	usr_id uuid
+)
+	RETURNS TABLE(
+		display_name text,
+		elo_rank integer,
+		avatar_url text,
+		about_me text,
+		nationality text,
+		wins bigint,
+		losses bigint,
+		draws bigint
 	)
-	VALUES (
-				 auth.uid(),
-				 NOW(),
-				 usr_display_name,
-				 usr_avatar_url,
-				 usr_about_me,
-				 usr_nationality
-			 );
+	LANGUAGE plpgsql
+AS $$
+BEGIN
+	RETURN QUERY
+	SELECT
+		p.display_name,
+		p.elo_rank,
+		p.avatar_url,
+		p.about_me,
+		p.nationality,
+		g.wins,
+		g.losses,
+		g.draws
+	FROM
+   	public.profiles p
+	JOIN
+		public.gamedata g ON p.id = g.userid
+	WHERE
+		p.id = usr_id;
 END;
 $$;
 ```
