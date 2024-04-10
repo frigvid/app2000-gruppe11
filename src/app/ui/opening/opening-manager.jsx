@@ -32,8 +32,7 @@ import Buffering from "@/app/(auth)/components/fragment/Buffering";
  * @author KarstenKebba
  * @contributor frigvid
  */
-
-export function OpeningManager() {
+export default function OpeningManager() {
 	const [game, setGame] = useState(new Chess());
 	const [moves, setMoves] = useState([]);
 	const [openingName, setOpeningName] = useState('');
