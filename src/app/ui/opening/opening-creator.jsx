@@ -90,9 +90,10 @@ export default function OpeningCreator() {
 	 */
 	async function saveOpening() {
 		if (!openingName.trim() || moves.length === 0) {
-			setFeedbackMsg('Please enter a name for the opening and make at least one move.');
+			setFeedbackMsg('Missing name, description or move');
 			setFeedbackType('error');
 			setIsFeedbackVisible(true);
+			setTimeout(() => setIsFeedbackVisible(false), 2500);
 			return;
 		}
 
@@ -100,14 +101,21 @@ export default function OpeningCreator() {
 		// TODO: Switch it out for an RPC call using a database function instead.
 		const {data, error} = await supabase
 			.from('openings')
-			.insert({id: user.id, name: openingName, desc: openingDescription, pgn: JSON.stringify(moves)});
-
+			.insert({
+				id: user.id,
+				name: openingName,
+				desc: openingDescription,
+				pgn: JSON.stringify(moves)
+			});
+		
 		if (error) {
-			setFeedbackMsg('An error occurred while saving to the database.');
+			setFeedbackMsg('An error occurred while saving to the database');
 			setFeedbackType('error');
+			setTimeout(() => setIsFeedbackVisible(false), 2500);
 		} else {
-			setFeedbackMsg('New opening saved successfully.');
+			setFeedbackMsg('New opening saved successfully');
 			setFeedbackType('success');
+			setTimeout(() => setIsFeedbackVisible(false), 2000);
 		}
 
 		setIsFeedbackVisible(true);
@@ -117,8 +125,6 @@ export default function OpeningCreator() {
 		setOpeningDescription('');
 		setMoves([]);
 		setGame(new Chess());
-
-		setTimeout(() => setIsFeedbackVisible(false), 5000);
 	}
 	
 	return (
@@ -139,25 +145,25 @@ export default function OpeningCreator() {
 				/>
 			</div>
 			<div>
-				<button
-					onClick={saveOpening}
-					className="w-full bg-buttoncolor mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
-				>
-					Save Opening
-				</button>
+				{isFeedbackVisible ?
+					<div
+						className={`w-full mb-3 max-w-md px-6 pb-2 pt-2.5 rounded ${feedbackType === 'error' ? 'bg-red-500' : 'bg-green-500'} text-xs font-medium text-white text-center uppercase leading-normal`}
+					>
+						{feedbackMsg}
+					</div>
+					:
+					<button
+						onClick={saveOpening}
+						className="w-full bg-buttoncolor mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
+					>
+						Save Opening
+					</button>
+				}
 				<Chessboard
 					position={game.fen()}
 					onPieceDrop={onDrop}
 					boardWidth={400}
 				/>
-			</div>
-			<div>
-				{isFeedbackVisible && (
-					<div
-						className={`w-full max-w-md p-2 rounded ${feedbackType === 'error' ? 'bg-red-500' : 'bg-green-500'} text-white text-center`}>
-						{feedbackMsg}
-					</div>
-				)}
 			</div>
 		</div>
 	);
