@@ -36,8 +36,12 @@ export default function OpeningCreator() {
 	const [loading, setLoading] = useState(true);
 	const supabase = createClient();
 	const user = useUser();
-
-
+	
+	/**
+	 * Sets a timeout to simulate loading.
+	 *
+	 * This is to avoid "popping" of elements when the page loads.
+	 */
 	useEffect(() => {
 		const timer = setTimeout(() => setLoading(false), 1000);
 		return () => clearTimeout(timer);
@@ -46,8 +50,15 @@ export default function OpeningCreator() {
 	if (loading) {
 		return <Buffering />;
 	}
-
-	function onDrop(sourceSquare, targetSquare, piece) {
+	
+	/**
+	 * Handles the drop event on the chessboard.
+	 *
+	 * @param sourceSquare The square you're moving from.
+	 * @param targetSquare The square you're moving to.
+	 * @return {boolean} Whether the move was successful or not.
+	 */
+	function onDrop(sourceSquare, targetSquare) {
 		const move = game.move({
 			from: sourceSquare,
 			to: targetSquare,
@@ -65,9 +76,18 @@ export default function OpeningCreator() {
 				san: move.san
 			}
 		]);
+		
 		return true;
 	}
-
+	
+	/**
+	 * Uses the data from the input, textarea and chessboard,
+	 * and saves it to the database.
+	 *
+	 * @author KarstenKebba
+	 * @contributor frigvid
+	 * @return {Promise<void>} The result of the save operation.
+	 */
 	async function saveOpening() {
 		if (!openingName.trim() || moves.length === 0) {
 			setFeedbackMsg('Please enter a name for the opening and make at least one move.');
@@ -76,6 +96,8 @@ export default function OpeningCreator() {
 			return;
 		}
 
+		// Insert data to database.
+		// TODO: Switch it out for an RPC call using a database function instead.
 		const {data, error} = await supabase
 			.from('openings')
 			.insert({id: user.id, name: openingName, desc: openingDescription, pgn: JSON.stringify(moves)});
