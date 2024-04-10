@@ -101,7 +101,7 @@ export default function OpeningCreator() {
 	
 	return (
 		<div className="flex flex-col items-center space-y-4">
-			<div className="flex flex-col w-full max-w-md space-y-2">
+			<div className="flex flex-col w-full max-w-[400px] space-y-2">
 				<input
 					type="text"
 					value={openingName}
