@@ -1,11 +1,11 @@
 "use client";
 
+import StagesCreateOpeningModal from "@ui/chess/stages/stages-create-opening-modal";
+import ProtectClientContent from "@/app/(auth)/components/protect-client-content";
 import StagesChessboardThumbnail from "@ui/chess/stages-chessboard-thumbnail";
 import StagesModal from "@ui/chess/stages/stages-modal";
 import {fetchOpenings} from "@utils/game/get-gamedata";
 import React, {useEffect, useState} from "react";
-import ProtectClientContent from "@/app/(auth)/components/protect-client-content";
-import StagesCreateOpeningModal from "@ui/chess/stages/stages-create-opening-modal";
 
 /**
  * Route for the game's stages.
@@ -19,7 +19,6 @@ import StagesCreateOpeningModal from "@ui/chess/stages/stages-create-opening-mod
  */
 export default function Stages() {
 	const [opening, setOpening] = useState([]);
-	const [createOpening, setCreateOpening] = useState(false);
 	
 	useEffect(() => {
 		async function getOpenings() {
