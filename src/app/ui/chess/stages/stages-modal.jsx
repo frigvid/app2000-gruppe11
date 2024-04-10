@@ -79,7 +79,7 @@ export default function StagesModal({title, details, id, pgn}) {
 											className="inline-flex justify-center rounded-md border border-transparent bg-buttoncolor px-4 py-2 text-sm font-medium text-black hover:text-white hover:bg-[#9c8064] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
 											href={`/chess/train/${id}`}
 										>
-											Practice {title}!
+											Practice &apos;{title}&apos;!
 										</Link>
 									</div>
 								</Dialog.Panel>
