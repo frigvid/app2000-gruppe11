@@ -23,7 +23,7 @@ export default function App() {
 				<div className='grid grid-cols-4 gap-4'>
 					{opening.map((opening) => {
 						return (
-							<div key={opening} className='p-4 bg-red-400 rounded-md max-h-32'>
+							<div key={(opening.name + opening.desc + opening.id)} className='p-4 bg-red-400 rounded-md max-h-32'>
 								<h2>{opening.name}</h2>
 								<p></p>
 								<MyModal title={opening.name} details={opening.desc} id={opening.id}/>
