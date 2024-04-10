@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { Chessboard } from 'react-chessboard';
-import { Chess } from 'chess.js';
-import {createClient} from "@utils/supabase/client";
-import {useUser} from "@/app/(auth)/actions/useUser";
 import Buffering from "@/app/(auth)/components/fragment/Buffering";
+import {useUser} from "@/app/(auth)/actions/useUser";
+import {createClient} from "@utils/supabase/client";
+import React, {useState, useEffect} from "react";
+import {Chessboard} from "react-chessboard";
+import {Chess} from "chess.js";
 
 /**
  * The `OpeningManager` component provides an interactive chessboard interface allowing users to create and store their own chess openings.
