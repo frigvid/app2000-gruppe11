@@ -3,6 +3,7 @@
 		"paths": {
 			"@utils/*": ["./src/app/utils/*"],
 			"@auth/*": ["./src/app/(auth)/*"],
+			"@user/*": ["./src/app/(user)/*"],
 			"@lib/*": ["./src/app/lib/*"],
 			"@ui/*": ["./src/app/ui/*"],
 			"@/*": [
