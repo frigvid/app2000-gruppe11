@@ -4,7 +4,17 @@ import {fetchOpenings} from "@utils/game/get-gamedata";
 import MyModal from "@ui/chess/stages/MyModal";
 import {useEffect, useState} from "react";
 
-export default function App() {
+/**
+ * Route for the game's stages.
+ *
+ * Stages are fetched from the database, and displayed in a grid.
+ *
+ * @author qwertyfyr
+ * @contributor frigvid
+ * @return {JSX.Element} The Stages component.
+ * @constructor
+ */
+export default function Stages() {
 	const [opening, setOpening] = useState([]);
 	console.log(opening);
 	
