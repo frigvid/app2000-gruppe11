@@ -98,8 +98,7 @@ export default function OpeningManager() {
 
 		setTimeout(() => setIsFeedbackVisible(false), 5000);
 	}
-
-
+	
 	return (
 		<div
 			className="flex flex-col items-center space-y-4">
@@ -138,7 +137,6 @@ export default function OpeningManager() {
 					</div>
 				)}
 			</div>
-
 		</div>
 	);
 }
