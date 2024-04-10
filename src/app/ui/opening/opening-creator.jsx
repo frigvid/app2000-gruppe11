@@ -25,7 +25,7 @@ import {Chess} from "chess.js";
  * @contributor frigvid
  * @returns {React.Element} The opening manager component.
  */
-export default function OpeningManager() {
+export default function OpeningCreator() {
 	const [game, setGame] = useState(new Chess());
 	const [moves, setMoves] = useState([]);
 	const [openingName, setOpeningName] = useState('');
