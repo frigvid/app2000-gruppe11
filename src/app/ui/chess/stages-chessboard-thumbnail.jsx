@@ -12,9 +12,9 @@ import {Chess} from "chess.js";
  * @note This is a rather heavy-handed approach to generating "thumbnails" for the openings.
  * 		However, it *does* work. I'm just not sure if it's very performant at scale.
  */
-export default function StagesChessboardThumbnail({opening}) {
+export default function StagesChessboardThumbnail({pgn, width = 128}) {
 	const chess = new Chess();
-	JSON.parse(opening.pgn).forEach(move => {
+	JSON.parse(pgn).forEach(move => {
 		chess.move(move);
 	});
 	
@@ -22,7 +22,7 @@ export default function StagesChessboardThumbnail({opening}) {
 		<Chessboard
 			allowDragOutsideBoard={false}
 			arePiecesDraggable={false}
-			boardWidth={128}
+			boardWidth={width}
 			position={chess.fen()}
 		/>
 	)

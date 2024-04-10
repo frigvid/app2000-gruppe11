@@ -40,7 +40,7 @@ export default function Stages() {
 							>
 								<h2 className='font-semibold'>{opening.name}</h2>
 								<div>
-									<StagesChessboardThumbnail opening={opening}/>
+									<StagesChessboardThumbnail pgn={opening.pgn}/>
 								</div>
 								<div className=''>
 									<StagesModal title={opening.name} details={opening.desc} id={opening.id}/>
