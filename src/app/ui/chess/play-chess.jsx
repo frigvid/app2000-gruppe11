@@ -1,8 +1,9 @@
-import { addGamedata } from "@utils/game/add-gamedata";
-import { useUser } from "@/app/(auth)/actions/useUser";
-import { Chessboard } from "react-chessboard";
-import { useState, useEffect } from "react";
-import { Chess } from "chess.js";
+import {addGamedata} from "@utils/game/add-gamedata";
+import {useUser} from "@/app/(auth)/actions/useUser";
+import DeleteData from "@ui/chess/delete-data";
+import {Chessboard} from "react-chessboard";
+import {useState} from "react";
+import {Chess} from "chess.js";
 
 /**
  * @author qwertyfyr, jarle0, KarstenKebba, oldpopcorn, frigvid
@@ -147,7 +148,7 @@ export default function PlayChess() {
 				</button>
 				{
 					// Only show this button if you're logged in.
-					user ? <DeleteData /> : null
+					user ? <DeleteData/> : null
 				}
 			</div>
 			<div className="w-96 h-96">
