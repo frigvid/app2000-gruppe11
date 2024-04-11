@@ -18,6 +18,7 @@ interface EditUserProfileModalProps {
 	about_me: string;
 	nationality: string;
 	visibility: boolean;
+	visibility_friends: boolean;
 }
 
 /**
@@ -32,7 +33,8 @@ export default function EditUserProfileModal({
 	display_name,
 	about_me,
 	nationality,
-	visibility
+	visibility,
+	visibility_friends
 }: EditUserProfileModalProps) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [nation, setNation] = useState(nationality);
@@ -40,6 +42,7 @@ export default function EditUserProfileModal({
 	const [displayName, setDisplayName] = useState(display_name);
 	const [aboutMe, setAboutMe] = useState(about_me);
 	const [visibilityStatus, setVisibilityStatus] = useState(String(visibility));
+	const [visibilityFriendsStatus, setVisibilityFriendsStatus] = useState(String(visibility_friends));
 	const router = useRouter();
 	
 	function closeModal() {
@@ -100,7 +103,7 @@ export default function EditUserProfileModal({
 								leaveTo="opacity-0 scale-95"
 							>
 								<Dialog.Panel
-									className="xs:w-full xs:h-full lg:w-[40rem] lg:h-[47rem] transform overflow-hidden lg:rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+									className="xs:w-full xs:h-full lg:w-[40rem] lg:h-[52rem] transform overflow-hidden lg:rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
 								>
 									<Dialog.Title
 										as="h3"
@@ -206,6 +209,27 @@ export default function EditUserProfileModal({
 													>
 														<option value="true">Yes, I want my profile to be visible to others</option>
 														<option value="false">No, I do not want my profile to be visible to others</option>
+													</NativeSelect>
+												</div>
+											</div>
+											{/* Friend list visibility. */}
+											<div className="mb-3">
+												<label
+													className="block text-gray-700 text-sm font-bold mb-2"
+													htmlFor="visibility_friends_list"
+												>
+													Friend list visibility
+												</label>
+												<div className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
+													<NativeSelect
+														name="visibility_friends_list"
+														className="w-full"
+														defaultValue={visibilityFriendsStatus}
+														/* Parse text to boolean. */
+														onChange={(e) => setVisibilityFriendsStatus(JSON.parse(e.target.value))}
+													>
+														<option value="true">Yes, I want my friends list to be visible to others</option>
+														<option value="false">No, I do not want my friends list to be visible to others</option>
 													</NativeSelect>
 												</div>
 											</div>
