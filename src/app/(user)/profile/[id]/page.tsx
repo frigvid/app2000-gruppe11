@@ -75,12 +75,12 @@ export default function UserProfile() {
 									? (
 										// @ts-ignore
 										<UserProfileEditor
-										avatar_url={data.avatar_url}
-										display_name={data.display_name}
-										about_me={data.about_me}
-										nationality={data.nationality}
-										visibility={data.visibility}
-										visibility_friends={data.visibility_friends}
+											avatar_url={data.avatar_url}
+											display_name={data.display_name}
+											about_me={data.about_me}
+											nationality={data.nationality}
+											visibility={data.visibility}
+											visibility_friends={data.visibility_friends}
 										/>
 									)
 									: null
