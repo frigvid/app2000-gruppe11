@@ -68,14 +68,22 @@ export default function UserProfile() {
 					<div className="bg-[#a1887f] text-white text-center p-5">
 						<ProtectClientContent showError={false} noBuffer={true}>
 							{
-								// @ts-ignore
-								<EditUserProfileModal
-									avatar_url={data.avatar_url}
-									display_name={data.display_name}
-									about_me={data.about_me}
-									nationality={data.nationality}
-									visibility={data.visibility}
-								/>
+								(
+									user !== null &&
+									staticUserId == user.id
+								)
+									? (
+										// @ts-ignore
+										<EditUserProfileModal
+										avatar_url={data.avatar_url}
+										display_name={data.display_name}
+										about_me={data.about_me}
+										nationality={data.nationality}
+										visibility={data.visibility}
+										visibility_friends={data.visibility_friends}
+										/>
+									)
+									: null
 							}
 						</ProtectClientContent>
 						<div className="w-24 h-24 bg-[#a1887f] rounded-full mx-auto">
