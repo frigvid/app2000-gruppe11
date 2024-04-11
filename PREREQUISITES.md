@@ -59,6 +59,8 @@ CREATE TABLE IF NOT EXISTS
 		avatar_url TEXT NULL,
 		about_me TEXT NULL,
 		nationality TEXT NULL,
+		visibility BOOLEAN DEFAULT FALSE,
+		visibility_friends BOOLEAN DEFAULT TRUE,
 		FOREIGN KEY (id) REFERENCES auth.users (id)
 	);
 
