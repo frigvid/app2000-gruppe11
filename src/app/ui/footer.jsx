@@ -21,7 +21,7 @@ export default function Footer() {
 				<p className="text-white mb-4">© 2024 Chess Buddy. All rights reserved.</p>
 			</div>
 			<div>
-				<LanguageSwitcher />
+				<LanguageSwitcher/>
 			</div>
 		</footer>
 	);

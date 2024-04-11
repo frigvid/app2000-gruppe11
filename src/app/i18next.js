@@ -2,6 +2,7 @@
 
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+
 /**
  * A mapping of language codes to translation resources.
  *
@@ -11,7 +12,7 @@ import { initReactI18next } from 'react-i18next';
  *
  * @type {Object<string, Object>}
  *
- * Author:oldpopcorn /Ro
+ * Author:Oldpopcorn/Ro
  */
 
 
@@ -22,6 +23,7 @@ const resources = {
 			"home": "Home",
 			"news": "News",
 			"docs": "Docs",
+			"chess_buddy_logo": "Chess Buddy logo image.",
 			"title": "Chess Buddy",
 			"train_openings": "Train Openings",
 			"play_now": "Play Now",
@@ -83,6 +85,7 @@ const resources = {
 			"home": "Hjem",
 			"news": "Nyheter",
 			"docs": "Dokumentasjon",
+			"chess_buddy_logo": "Sjakkvenn logo bilde.",
 			"title": "Chess Buddy",
 			"train_openings": "Tren Åpninger",
 			"play_now": "Spill Nå",
