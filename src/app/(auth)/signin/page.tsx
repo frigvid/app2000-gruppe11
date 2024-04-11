@@ -1,16 +1,17 @@
-'use client'
+"use client";
 
 import {SignInSA} from "@/app/(auth)/signin/actions/sign-in-sa";
+import withI18next from "@ui/lang/with-i18next";
+import {useTranslation} from "react-i18next";
 import Link from "next/link";
-import { useTranslation } from 'react-i18next';
 
 /**
  * Login page.
  *
  * @author frigvid
  */
-export default function SignIn() {
-	const { t } = useTranslation();
+function SignIn() {
+	const {t} = useTranslation();
 
 	return (
 		<main className="flex justify-center items-center">
@@ -18,15 +19,15 @@ export default function SignIn() {
 				<form action={SignInSA}>
 					<div className="mb-4">
 						<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-							{t('username_label')}
+							{t('email_label')}
 						</label>
-						<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" name="email" placeholder={t('username_placeholder')} required />
+						<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" name="email" placeholder={t('email_placeholder')} required />
 					</div>
 					<div className="mb-2">
 						<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
 							{t('password_label')}
 						</label>
-						<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type="password" name="password" placeholder={t('password_placeholder')} required />
+						<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type="password" name="password" placeholder="••••••••" required />
 					</div>
 					<div className="mb-2 pb-1 pt-1 text-center">
 						<button className="bg-buttoncolor mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal" formAction={SignInSA}>
@@ -46,3 +47,5 @@ export default function SignIn() {
 		</main>
 	);
 }
+
+export default withI18next(SignIn);

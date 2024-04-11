@@ -3,6 +3,8 @@
 import PasswordDetails from "@/app/(auth)/components/password-details";
 import {FC, FormEvent, useEffect, useState} from "react";
 import {createClient} from "@utils/supabase/client";
+import withI18next from "@ui/lang/with-i18next";
+import {useTranslation} from "react-i18next";
 import {useRouter} from "next/navigation";
 
 /**
@@ -17,6 +19,7 @@ const PasswordUpdateForm: FC = () => {
 	const [error, setError] = useState<string>('');
 	const [success, setSuccess] = useState<string>('');
 	
+	const {t} = useTranslation();
 	const supabase = createClient();
 	const router = useRouter();
 	
@@ -60,7 +63,7 @@ const PasswordUpdateForm: FC = () => {
 							className="block text-gray-700 text-sm font-bold mb-2"
 							htmlFor="newPassword"
 						>
-							New password
+							{t("password_change.title2")}
 						</label>
 						<input
 							className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
@@ -69,7 +72,7 @@ const PasswordUpdateForm: FC = () => {
 							type="password"
 							value={newPassword}
 							onChange={(e) => setNewPassword(e.target.value)}
-							placeholder=""
+							placeholder="••••••••"
 							required
 						/>
 					</div>
@@ -78,7 +81,7 @@ const PasswordUpdateForm: FC = () => {
 							className="block text-gray-700 text-sm font-bold mb-2"
 							htmlFor="confirmPassword"
 						>
-							Verify new password
+							{t("password_change.title1")}
 						</label>
 						<input
 							className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
@@ -87,7 +90,7 @@ const PasswordUpdateForm: FC = () => {
 							type="password"
 							value={confirmPassword}
 							onChange={(e) => setConfirmPassword(e.target.value)}
-							placeholder=""
+							placeholder="••••••••"
 							required
 						/>
 						{/* FIXME: This should be handled better to avoid making the page reflow when status returns. */}
@@ -107,7 +110,7 @@ const PasswordUpdateForm: FC = () => {
 							className="bg-buttoncolor mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
 							type="submit"
 						>
-							Change password
+							{t("password_change.button")}
 						</button>
 					</div>
 				</form>
@@ -118,4 +121,4 @@ const PasswordUpdateForm: FC = () => {
 	);
 };
 
-export default PasswordUpdateForm;
+export default withI18next(PasswordUpdateForm);
