@@ -180,6 +180,17 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_is_admin:
+        | {
+            Args: Record<PropertyKey, never>
+            Returns: boolean
+          }
+        | {
+            Args: {
+              usr_id: string
+            }
+            Returns: boolean
+          }
       opening_create: {
         Args: {
           opn_name: string
