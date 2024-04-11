@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
+import {initReactI18next} from "react-i18next";
+import i18n from "i18next";
 
 /**
  * A mapping of language codes to translation resources.
@@ -10,13 +10,10 @@ import { initReactI18next } from 'react-i18next';
  * Each language is represented by a language code (e.g., 'en' for English, 'no' for Norwegian),
  * and contains an object with translation keys and their corresponding text.
  *
- * @type {Object<string, Object>}
- *
- * Author:Oldpopcorn/Ro
+ * @author oldpopcorn
+ * @created 2024-04-06
+ * @type {Object<string, Object>} An object mapping language codes to translation resources.
  */
-
-
-
 const resources = {
 	en: {
 		translation: {// Translation keys and their English text
@@ -143,6 +140,7 @@ const resources = {
 		}
 	}
 	};
+
 /**
  * Initializes i18next with the translation resources and configuration.
  *
@@ -151,16 +149,14 @@ const resources = {
  * Interpolation configuration ensures that values inserted into translation strings are not escaped,
  * which is important for inserting dynamic content.
  */
-
-i18n
-	.use(initReactI18next) // uses initReactI18next module to init i18next
-	.init({
-		resources, // the resources used for Trantslation
-		lng: "no", // Initial language
-		fallbackLng: "en", // Fallback language if the first language translation are not found or not functioning.
-		interpolation: {
-			escapeValue: false //prevents the inserted values from escaping.
-		}
-	});
+void i18n.use(initReactI18next) // Uses initReactI18next module to init i18next.
+			.init({
+				resources, // The resources used for translation.
+				lng: "no", // Initial language.
+				fallbackLng: "en", // Fallback language if the first language translation are not found or not functioning.
+				interpolation: {
+					escapeValue: false // Prevents the inserted values from escaping.
+				}
+			});
 
 export default i18n;
