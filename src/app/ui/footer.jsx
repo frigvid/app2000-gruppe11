@@ -1,5 +1,5 @@
-import LanguageSwitcher from '@ui/language-switcher';
-import React from 'react';
+import LanguageSwitcher from "@ui/language-switcher";
+import React from "react";
 
 /**
  * Footer component.
