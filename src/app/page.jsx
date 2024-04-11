@@ -33,7 +33,11 @@ export default function Home() {
 				<div className="space-x-4 flex flex-col sm:flex-row sm:space-x-6 sm:space-y-0 space-y-4 text-lg">
 					{/* Train Openings */}
 					<div className="text-center">
-						<Link href="/chess/train" className="flex justify-center items-center bg-blue-500 text-white rounded h-40 w-40 sm:h-48 sm:w-48 hover:bg-blue-600 transition duration-300 ease-in-out">
+
+						<Link
+							className="flex justify-center items-center bg-blue-500 text-white rounded h-40 w-40 sm:h-48 sm:w-48 hover:bg-blue-600 transition duration-300 ease-in-out"
+							href="/chess/stages"
+						>
 							<FaChessKnight className="text-5xl sm:text-6xl"/>
 						</Link>
 						<p className="mt-2 text-gray-600">{t('train_openings')}</p>
