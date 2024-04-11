@@ -56,7 +56,7 @@ export default function UserStats({
 				<h3 className="text-lg font-bold">Nationality</h3>
 				{/* FIXME: Unicode country codes does not render as an emoji. Might be prudent to switch to SVG. */}
 				{
-					(nationality === null)
+					(nationality === "Select Country")
 						? <p>?</p>
 						: <p>{flag(nationality)}</p>
 				}
