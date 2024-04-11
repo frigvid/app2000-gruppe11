@@ -1,19 +1,14 @@
+import LanguageSwitcher from '@ui/LanguageSwitcher';
+import React from 'react';
+
 /**
  * Footer component.
  *
  * Only used in root-layout.
  *
  * @author frigvid
+ * @created 2024-01-31
  */
-
-
-/**
- * It contains a language switcher component for changing the application's language.
- * Author:oldpopcorn / Ro
- */
-import React from 'react';
-import LanguageSwitcher from '@ui/LanguageSwitcher';
-
 export default function Footer() {
 	return (
 		<footer className="bg-main p-4 flex items-center justify-between">
@@ -21,7 +16,7 @@ export default function Footer() {
 				<p className="text-white mb-4">© 2024 Chess Buddy. All rights reserved.</p>
 			</div>
 			<div>
-				<LanguageSwitcher />
+				<LanguageSwitcher/>
 			</div>
 		</footer>
 	);
