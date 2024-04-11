@@ -101,7 +101,9 @@ export default function UserProfile() {
 						{
 							// Checks if the user has added any data yet.
 							(data.about_me !== null)
-								? ((data.about_me !== "") ? data.about_me.split('\r\n').map((line: any, i: any) => <span key={i}>{line}<br/></span>) : null)
+								? ((data.about_me !== "")
+									? data.about_me.split('\r\n').map((line: any, i: any) => <span key={i}>{line}<br/></span>)
+									: null)
 								: null
 						}
 						</p>
