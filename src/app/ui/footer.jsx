@@ -1,4 +1,4 @@
-import LanguageSwitcher from '@ui/LanguageSwitcher';
+import LanguageSwitcher from '@ui/language-switcher';
 import React from 'react';
 
 /**
