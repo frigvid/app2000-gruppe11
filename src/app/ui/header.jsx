@@ -12,7 +12,6 @@ import Link from "next/link";
  * @author frigvid
  */
 export default function Header() {
-
 	return (
 		<header className="bg-main">
 			{/* You can remove "max-w-7xl" to remove buffers on the sides. */}
