@@ -242,6 +242,7 @@ export default function EditUserProfileModal({
 												>
 													Save details
 												</button>
+												<span className="text-xs">(Saving will reload the page)</span>
 											</div>
 										</form>
 									</div>
