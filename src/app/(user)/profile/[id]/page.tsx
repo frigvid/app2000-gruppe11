@@ -93,7 +93,12 @@ export default function UserProfile() {
 					<div className="p-5">
 						<h2 className="border-b-2 border-[#a1887f] pb-1 font-bold">About Me</h2>
 						<p className="mt-2">
-							{data.about_me.split('\r\n').map((line: any, i: any) => <span key={i}>{line}<br/></span>)}
+						{
+							// Checks if the user has added any data yet.
+							(data.about_me !== null || data.about_me !== "")
+								? null
+								: data.about_me.split('\r\n').map((line: any, i: any) => <span key={i}>{line}<br/></span>)
+						}
 						</p>
 					</div>
 					{/* Body: Friend's list. */}

@@ -1,6 +1,7 @@
 "use client";
 
 import {flag} from "country-emoji"
+import React from "react";
 
 /**
  * User profile's stat prop types.
@@ -54,7 +55,11 @@ export default function UserStats({
 			<div>
 				<h3 className="text-lg font-bold">Nationality</h3>
 				{/* FIXME: Unicode country codes does not render as an emoji. Might be prudent to switch to SVG. */}
-				<p>{flag(nationality)}</p>
+				{
+					(nationality === null)
+						? <p>?</p>
+						: <p>{flag(nationality)}</p>
+				}
 			</div>
 		</div>
 	);
