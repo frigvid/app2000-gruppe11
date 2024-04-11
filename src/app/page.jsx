@@ -1,28 +1,29 @@
-'use client'
+"use client";
 
-
-import React, { useState, useEffect } from 'react';
+import {FaChessKnight, FaPlay, FaHistory, FaArrowDown} from "react-icons/fa";
+import React, {useState, useEffect} from "react";
+import { useTranslation } from "react-i18next";
 import Link from "next/link";
-import { FaChessKnight, FaPlay, FaHistory, FaArrowDown } from 'react-icons/fa';
-import { useTranslation } from 'react-i18next';
+
 /**
- * It uses the `useTranslation` hook from `react-i18next` for internationalization,
- * allowing for dynamic content translation based on the user's selected language.
- * The component waits for the translation resources to be ready before rendering
- * its content to prevent hydration errors in SSR (Server-Side Rendering) environments.
- * author oldpopcorn / Ro
+ * Homepage route.
+ *
+ * @author frigvid, KarstenKebba
+ * @contributor oldpopcorn
+ * @created 2024-01-15
  */
 export default function Home() {
-	const { t, ready } = useTranslation();
+	const {t, ready} = useTranslation();
 	const [loaded, setLoaded] = useState(false);
 
-	// Effect hook to set loaded state once translations are ready
+	// Effect hook to set loaded state once translations are ready.
 	useEffect(() => {
 		if (ready) {
 			setLoaded(true);
 		}
 	}, [ready]);
-	// Renders null to match server-side rendered content before translations are loaded
+	
+	// Renders null to match server-side rendered content before translations are loaded.
 	if (!loaded) {
 		return null;
 	}
@@ -33,7 +34,6 @@ export default function Home() {
 				<div className="space-x-4 flex flex-col sm:flex-row sm:space-x-6 sm:space-y-0 space-y-4 text-lg">
 					{/* Train Openings */}
 					<div className="text-center">
-
 						<Link
 							className="flex justify-center items-center bg-blue-500 text-white rounded h-40 w-40 sm:h-48 sm:w-48 hover:bg-blue-600 transition duration-300 ease-in-out"
 							href="/chess/stages"
@@ -44,14 +44,20 @@ export default function Home() {
 					</div>
 					{/* Play Now */}
 					<div className="text-center">
-						<Link href="/chess" className="flex justify-center items-center bg-green-500 text-white rounded h-40 w-40 sm:h-48 sm:w-48 hover:bg-green-600 transition duration-300 ease-in-out">
+						<Link
+							href="/chess"
+							className="flex justify-center items-center bg-green-500 text-white rounded h-40 w-40 sm:h-48 sm:w-48 hover:bg-green-600 transition duration-300 ease-in-out"
+						>
 							<FaPlay className="text-5xl sm:text-6xl"/>
 						</Link>
 						<p className="mt-2 text-gray-600">{t('play_now')}</p>
 					</div>
 					{/* Your History */}
 					<div className="text-center">
-						<Link href="/chess/history" className="flex justify-center items-center bg-red-500 text-white rounded h-40 w-40 sm:h-48 sm:w-48 hover:bg-red-600 transition duration-300 ease-in-out">
+						<Link
+							href="/chess/history"
+							className="flex justify-center items-center bg-red-500 text-white rounded h-40 w-40 sm:h-48 sm:w-48 hover:bg-red-600 transition duration-300 ease-in-out"
+						>
 							<FaHistory className="text-5xl sm:text-6xl"/>
 						</Link>
 						<p className="mt-2 text-gray-600">{t('your_history')}</p>
@@ -68,17 +74,22 @@ export default function Home() {
 					<p>{t('chess_buddy_description_2')}</p>
 					<p>{t('chess_buddy_description_3')}</p>
 					<p className="text-center pt-4">
-						{t('Home_link')} <Link href="/aboutus"
-													  className="text-xl font-semibold leading-6 hover:underline hover:underline-offset-8">{t('about_us_here')}</Link>.
+						{t('home_link')}
+						<Link
+							href="/aboutus"
+							className="text-xl font-semibold leading-6 hover:underline hover:underline-offset-8"
+						>
+							{t('about_us_here')}
+						</Link>.
 					</p>
 				</section>
 				<section className="max-w-4xl mt-10 text-justify space-y-4 space-x-12">
-					<h2 className="text-3xl font-bold text-center mb-6">{t('Ch_help_you1')}</h2>
+					<h2 className="text-3xl font-bold text-center mb-6">{t('ch_help_you1')}</h2>
 					<ul className="list-disc space-y-2 pl-5">
-						<li>{t('Ch_help_you2')}</li>
-						<li>{t('Ch_help_you3')}</li>
-						<li>{t('Ch_help_you4')}</li>
-						<li>{t('Ch_help_you5')}</li>
+						<li>{t('ch_help_you2')}</li>
+						<li>{t('ch_help_you3')}</li>
+						<li>{t('ch_help_you4')}</li>
+						<li>{t('ch_help_you5')}</li>
 					</ul>
 				</section>
 			</div>
