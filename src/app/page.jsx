@@ -8,7 +8,13 @@ import Link from "next/link";
  * @author frigvid, KarstenKebba
  */
 export default function Home() {
-	if (process.env.FIRST_TIME_SETUP) {
+	/**
+	 * It shouldn't really be necessary to parse it, and check
+	 * against a boolean like this, however, I've observed
+	 * some occasional misfire. This is overkill, but it ensures
+	 * that it'll work correctly.
+	 */
+	if (JSON.parse(process.env.FIRST_TIME_SETUP) === true) {
 		firstTimeSetup();
 	}
 	
