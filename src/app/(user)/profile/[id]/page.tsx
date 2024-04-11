@@ -13,10 +13,14 @@ import Link from "next/link";
 import FriendList from "@user/profile/components/friend-list";
 
 /**
- * Stub page for user profiles.
+ * A given user's profile.
  *
- * Currently not accessible without manually
- * inputting the link.
+ * It's available to everyone if the preference
+ * `visibility` is set to `true`. Otherwise it's
+ * only available to the given user.
+ *
+ * Friends are separately togglable in terms of
+ * public/private visibility.
  *
  * @author frigvid
  * @created 2024-04-03
