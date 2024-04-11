@@ -14,6 +14,8 @@ import Link from "next/link";
  * 		 and lets you essentially use it as an email-login.
  * 		 This should be changed.
  *
+ * TODO: Needs translation. But gets a 'function not found' error.
+ *
  * @author frigvid
  */
 export default function Forgot() {
