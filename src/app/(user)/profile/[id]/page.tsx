@@ -95,9 +95,9 @@ export default function UserProfile() {
 						<p className="mt-2">
 						{
 							// Checks if the user has added any data yet.
-							(data.about_me !== null || data.about_me !== "")
-								? null
-								: data.about_me.split('\r\n').map((line: any, i: any) => <span key={i}>{line}<br/></span>)
+							(data.about_me !== null)
+								? ((data.about_me !== "") ? data.about_me.split('\r\n').map((line: any, i: any) => <span key={i}>{line}<br/></span>) : null)
+								: null
 						}
 						</p>
 					</div>
