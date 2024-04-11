@@ -5,7 +5,6 @@ import "@/app/globals.css";
 // Do not remove, is in use when starting the translation.
 import i18n from '@/app/i18next.js';
 
-
 const inter = Inter({subsets: ['latin']})
 
 /**

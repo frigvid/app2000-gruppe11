@@ -1,12 +1,13 @@
+import {useTranslation} from "react-i18next";
+import React from "react";
+
 /**
  * Re-usable component that describes password
  * requirements for signing up a new user.
  *
  * @author frigvid
+ * @created 2024-01-26
  */
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-
 export default function PasswordDetails() {
 	const { t } = useTranslation();
 

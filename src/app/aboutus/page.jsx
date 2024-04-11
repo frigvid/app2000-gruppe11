@@ -1,13 +1,14 @@
-'use client'
+"use client";
+
+import {useTranslation} from "react-i18next";
+import React from "react";
+
 /**
  * About us page.
  *
  * @author KarstenKebba
  * @contributor frigvid
  */
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-
 export default function AboutUs() {
 	const { t } = useTranslation();
 

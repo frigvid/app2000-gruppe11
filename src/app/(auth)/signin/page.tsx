@@ -9,6 +9,7 @@ import Link from "next/link";
  * Login page.
  *
  * @author frigvid
+ * @created 2024-01-23
  */
 function SignIn() {
 	const {t} = useTranslation();

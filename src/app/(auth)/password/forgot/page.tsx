@@ -17,6 +17,7 @@ import Link from "next/link";
  * TODO: Needs translation. But gets a 'function not found' error.
  *
  * @author frigvid
+ * @creatd 2024-01-26
  */
 export default function Forgot() {
 	const resetPasswordEmail = async (formData: FormData) => {

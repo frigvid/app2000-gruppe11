@@ -12,6 +12,7 @@ import {useRouter} from "next/navigation";
  * perform a password change using Supabase.
  *
  * @author frigvid
+ * @created 2024-01-26
  */
 const PasswordUpdateForm: FC = () => {
 	const [newPassword, setNewPassword] = useState<string>('');

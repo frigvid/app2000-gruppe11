@@ -1,7 +1,7 @@
 "use client";
 
-import {useTranslation} from "react-i18next";
 import React, {useState, useEffect} from "react";
+import {useTranslation} from "react-i18next";
 
 /**
  * LanguageSwitcher component allows users to switch languages.
