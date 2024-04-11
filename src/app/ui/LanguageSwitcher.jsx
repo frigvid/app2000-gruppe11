@@ -1,30 +1,28 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-/**
-Author:oldpopcorn /Ro
- */
-/**
- * A list of languages supported by the application.
- */
-const languages = [
-	{ code: 'en', name: 'English' },
-	{ code: 'no', name: 'Norsk' }
-];
 
 /**
- * LanguageSwitcher component that allows users to switch languages.
- * It displays a button that, when clicked, shows a drop-up menu with the available languages.
+ * Author: Oldpopcorn/Ro
+ * LanguageSwitcher component allows users to switch languages.
+ * Displays a button that, when clicked, shows a drop-up menu with the available languages.
  * Selecting a language changes the application's current language and closes the menu.
  *
  * Utilizes the `useTranslation` hook from `react-i18next` for language switching functionality.
- *
- * @returns {React.Component} The LanguageSwitcher component.
+ * Delays rendering until after the client-side hydration to prevent hydration errors.
  */
 const LanguageSwitcher = () => {
 	const { i18n } = useTranslation();
 	const [showDropUp, setShowDropUp] = useState(false);
+	// New state to track if the component has mounted on the client
+	const [isClient, setIsClient] = useState(false);
+
+	// Define the languages array inside the component to ensure it's in scope
+	const languages = [
+		{ code: 'en', name: 'English' },
+		{ code: 'no', name: 'Norsk' }
+	];
 
 	/**
 	 * Changes the application's current language and closes the language selection menu.
@@ -35,6 +33,16 @@ const LanguageSwitcher = () => {
 		i18n.changeLanguage(lng);
 		setShowDropUp(false); // Close menu after selection
 	};
+
+	// useEffect hook to set isClient to true after the component mounts
+	useEffect(() => {
+		setIsClient(true);
+	}, []);
+
+	// Render null if not yet client-side
+	if (!isClient) {
+		return null;
+	}
 
 	return (
 		<div className="relative">
