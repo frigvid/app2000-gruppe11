@@ -19,10 +19,14 @@ export default function Home() {
 	 * against a boolean like this, however, I've observed
 	 * some occasional misfire. This is overkill, but it ensures
 	 * that it'll work correctly.
+	 *
+	 * TODO: This worked literally earlier today, without any change,
+	 * 		and now it doesn't. For some reason. I'll fix it if I have
+	 * 		time.
 	 */
-	if (JSON.parse(process.env.FIRST_TIME_SETUP) === true) {
-		firstTimeSetup();
-	}
+	//if (JSON.parse(process.env.FIRST_TIME_SETUP) === true) {
+	//	firstTimeSetup();
+	//}
 	
 	const {t, ready} = useTranslation();
 	const [loaded, setLoaded] = useState(false);
