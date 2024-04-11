@@ -2,7 +2,8 @@ import {Inter} from 'next/font/google'
 import Header from "@ui/header";
 import Footer from "@ui/footer";
 import "@/app/globals.css";
-
+// Do not remove, is in use when starting the translation.
+import i18n from '@/app/i18next.js';
 
 const inter = Inter({subsets: ['latin']})
 
@@ -25,6 +26,8 @@ export const metadata = {
  * page respectively.
  *
  * @author frigvid
+ * @created 2024-01-15
+ * @param children The children to render within the layout.
  */
 export default function RootLayout({children}) {
 	return (
