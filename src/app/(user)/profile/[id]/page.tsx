@@ -133,22 +133,28 @@ export default function UserProfile() {
 	 * The process goes like this:
 	 * 1. Return the profile layout if the user's profile visibility is public (true).
 	 * 2. If the user's profile visibility is private (false), check if the user is logged in.
-	 *    2.1. If the `user` object is null, and if not, if the `staticUserId` is *not* equal to
-	 *    	  the `user.id` of the authenticated user, return a 401 error.
-	 *    2.2. If a user *is* logged in, and the `staticUserId` is equal to the `user.id`, it
-	 *         returns the profile layout.
+	 *    2.1. If the `user` object is not null, AND, if the `staticUserId` is equal to the
+	 *         `user.id` of the authenticated user, return the profile layout.
+	 *    2.2. If the `user` object is null, or if the `staticUserId` is NOT equal to the
+	 *         `user.id` of the authenticated user, return a 401 error.
 	 */
-	if (data.usr_visibility) {
+	if (data.visibility) {
 		return (
 			<>
 				{profileLayout()}
 			</>
 		);
-	} else if (!data.usr_visibility) {
+	} else if (!data.visibility) {
 		if (
-			user == null ||
-			!staticUserId == user.id
+			user !== null &&
+			staticUserId == user.id
 		) {
+			return (
+				<>
+					{profileLayout()}
+				</>
+			)
+		} else {
 			return (
 				<main className="flex flex-col justify-center items-center">
 					<div className="mb-8">
@@ -161,12 +167,6 @@ export default function UserProfile() {
 						Return to Home
 					</Link>
 				</main>
-			)
-		} else {
-			return (
-				<>
-					{profileLayout()}
-				</>
 			)
 		}
 	};
