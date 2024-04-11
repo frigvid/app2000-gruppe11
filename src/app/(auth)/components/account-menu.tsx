@@ -26,7 +26,23 @@ export default function AccountMenu() {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const supabase = createClient();
 	const router = useRouter();
-	
+	const [isAdmin, setIsAdmin] = useState(null);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const supabase = createClient();
+			const {data, error} = await supabase.rpc("admin_is_admin");
+
+			if (error) {
+				console.error("Supabase RPC error: " + error);
+			} else {
+				setIsAdmin(data);
+			}
+		};
+
+		void fetchData();
+	}, []);
+
 	const logout = async () => {
 		const { error } = await supabase.auth.signOut();
 		if (error) {
@@ -112,6 +128,17 @@ export default function AccountMenu() {
 					</ListItemIcon>
 					Settings
 				</MenuItem>
+				{
+					isAdmin ?
+						<MenuItem onClick={() => {router.push('/settings');}}>
+							<ListItemIcon>
+								<Settings fontSize="small"/>
+							</ListItemIcon>
+							Dashboard
+						</MenuItem>
+						:
+						null
+				}
 				<MenuItem onClick={logout}>
 					<ListItemIcon>
 						<Logout fontSize="small" />
