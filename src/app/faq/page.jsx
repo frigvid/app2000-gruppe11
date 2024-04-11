@@ -14,6 +14,7 @@ import {useTranslation} from "react-i18next";
  * showcasing responsiveness across different devices.
  *
  * @author oldpopcorn
+ * @created 2024-04-06
  * @returns {JSX.Element} The FAQ component rendering the FAQ section.
  */
 export default function FAQ() {
