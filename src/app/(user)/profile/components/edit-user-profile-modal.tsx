@@ -39,7 +39,7 @@ export default function EditUserProfileModal({
 	const [avatarUrl, setAvatarUrl] = useState(avatar_url);
 	const [displayName, setDisplayName] = useState(display_name);
 	const [aboutMe, setAboutMe] = useState(about_me);
-	const [visibilityStatus, setVisibilityStatus] = useState(visibility);
+	const [visibilityStatus, setVisibilityStatus] = useState(String(visibility));
 	const router = useRouter();
 	
 	function closeModal() {
@@ -122,7 +122,7 @@ export default function EditUserProfileModal({
 													type="url"
 													name="avatar_url"
 													placeholder="https://example.com/my-fancy-avatar"
-													value={avatarUrl}
+													value={avatarUrl ? avatarUrl : ""}
 													onChange={(e) => setAvatarUrl(e.target.value)}
 												/>
 											</div>
@@ -139,7 +139,7 @@ export default function EditUserProfileModal({
 													type="text"
 													name="display_name"
 													placeholder="Fancy Name"
-													value={displayName}
+													value={displayName ? displayName : ""}
 													onChange={(e) => setDisplayName(e.target.value)}
 												/>
 											</div>
@@ -155,7 +155,7 @@ export default function EditUserProfileModal({
 													className="shadow appearance-none border rounded w-full h-48 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline whitespace-pre-wrap"
 													name="about_me"
 													placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-													value={aboutMe}
+													value={aboutMe ? aboutMe : ""}
 													onChange={(e) => setAboutMe(e.target.value)}
 												/>
 											</div>

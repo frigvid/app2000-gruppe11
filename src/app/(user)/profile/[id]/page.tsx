@@ -69,7 +69,7 @@ export default function UserProfile() {
 									display_name={data.display_name}
 									about_me={data.about_me}
 									nationality={data.nationality}
-									visibility={true}
+									visibility={data.visibility}
 								/>
 							}
 						</ProtectClientContent>

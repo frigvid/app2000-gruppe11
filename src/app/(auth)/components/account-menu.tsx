@@ -25,22 +25,34 @@ import AdminPanelSettings from '@mui/icons-material/AdminPanelSettings';
 export default function AccountMenu() {
 	const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
 	const [isAdmin, setIsAdmin] = useState(null);
+	const [profileData, setProfileData] = useState(null);
+	const [user, setUser] = useState(null);
 	const supabase = createClient();
 	const router = useRouter();
 	const open = Boolean(menuAnchor);
-	const user = useUser();
 	
 	/**
 	 * Fetch the user's administrator status.
 	 */
 	useEffect(() => {
 		const fetchData = async () => {
-			const {data, error} = await supabase.rpc("admin_is_admin");
-
-			if (error) {
-				console.error("Supabase RPC error: " + error);
-			} else {
-				setIsAdmin(data);
+			const {data: isAdminBool, error: isAdminError} = await supabase.rpc("admin_is_admin");
+			const {data: {user}, error: getUserError} = await supabase.auth.getUser();
+			
+			if (user) {
+				const {data, error: profileDataError} = await supabase.rpc("profile_get", {usr_id: user.id});
+				
+				if (isAdminError) {
+					console.error("Supabase admin RPC postgres error: " + isAdminError);
+				} else if (getUserError) {
+					console.error("Supabase authentication error: " + getUserError);
+				} else if (profileDataError) {
+					console.error("Supabase profile RPC postgres error: " + profileDataError);
+				} else {
+					setIsAdmin(isAdminBool);
+					setUser(user);
+					setProfileData(data.pop());
+				}
 			}
 		};
 
@@ -87,7 +99,11 @@ export default function AccountMenu() {
 						aria-haspopup="true"
 						aria-expanded={open ? 'true' : undefined}
 					>
-						<Avatar sx={{ width: 32, height: 32 }}>{(user.email).charAt(0).toUpperCase()}</Avatar>
+						{
+							(profileData.avatar_url !== null || profileData.avatar_url !== "")
+								? <Avatar src={profileData.avatar_url} sx={{ width: 32, height: 32 }}/>
+								: <Avatar sx={{ width: 32, height: 32 }}>{(user.email).charAt(0).toUpperCase()}</Avatar>
+						}
 					</IconButton>
 				</Tooltip>
 			</Box>
