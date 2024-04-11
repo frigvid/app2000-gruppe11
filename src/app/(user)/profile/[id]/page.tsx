@@ -1,6 +1,6 @@
 "use client";
 
-import EditUserProfileModal from "@user/profile/components/edit-user-profile-modal";
+import UserProfileEditor from "@user/profile/components/user-profile-editor";
 import ProtectClientContent from "@auth/components/protect-client-content";
 import UserStats from "@/app/(user)/profile/components/user-stats";
 import Buffering from "@auth/components/fragment/Buffering";
@@ -74,7 +74,7 @@ export default function UserProfile() {
 								)
 									? (
 										// @ts-ignore
-										<EditUserProfileModal
+										<UserProfileEditor
 										avatar_url={data.avatar_url}
 										display_name={data.display_name}
 										about_me={data.about_me}

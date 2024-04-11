@@ -28,7 +28,7 @@ interface EditUserProfileModalProps {
  * @created 2024-04-10
  * @constructor
  */
-export default function EditUserProfileModal({
+export default function UserProfileEditor({
 	avatar_url,
 	display_name,
 	about_me,
