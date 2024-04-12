@@ -1,20 +1,7 @@
 import Link from "next/link";
 import { FaChessKnight, FaPlay, FaHistory, FaArrowDown } from "react-icons/fa";
 
-/**
- * The Home component represents the landing page of the Chess Buddy web application.
- * It includes buttons for various functionalities and text sections describing the application.
- *
- * Tailwind CSS classes used:
- * 1. Responsive Utilities: Adjust layout based on screen size.
- * 2. Flexbox Utilities: Control layout and alignment of elements.
- * 3. Spacing Utilities: Manage spacing between elements.
- * 4. Color and Background Utilities: Set colors for elements.
- * 5. Size Utilities: Control the size of elements.
- * 6. Hover and Transition Effects: Add hover effects and transitions.
- * 7. Text Style Utilities: Style text elements with various properties.
- * 8. Absolute Positioning: Position elements absolutely within their containers.
- */
+
 export default function Home() {
 	return (
 		<main className="flex flex-col">
