@@ -5,6 +5,7 @@ import {CountryRegionData} from "react-country-region-selector";
 import NativeSelect from "@mui/material/NativeSelect";
 import {Dialog, Transition} from "@headlessui/react";
 import React, {Fragment, useState} from "react";
+import {useTranslation} from "react-i18next";
 import Tooltip from "@mui/material/Tooltip";
 import Edit from "@mui/icons-material/Edit";
 import {useRouter} from "next/navigation";
@@ -45,6 +46,7 @@ export default function UserProfileEditor({
 	const [visibilityStatus, setVisibilityStatus] = useState(String(visibility));
 	const [visibilityFriendsStatus, setVisibilityFriendsStatus] = useState(String(visibility_friends));
 	const router = useRouter();
+	const {t} = useTranslation();
 	
 	function closeModal() {
 		setIsOpen(false);
@@ -76,7 +78,7 @@ export default function UserProfileEditor({
 	
 	return (
 		<>
-			<Tooltip title="User profile editor and profile settings.">
+			<Tooltip title={t("user_profile.editor.tooltip.button")}>
 				<Button
 					variant="outlined"
 					color="inherit"
@@ -110,73 +112,74 @@ export default function UserProfileEditor({
 										as="h3"
 										className="text-lg mb-3 text-center font-semibold leading-6 text-gray-900"
 									>
-										Edit your profile
+										{t("user_profile.editor.label")}
 									</Dialog.Title>
 									<div className="bg-white lg:max-w-[800px] lg:min-w-[500px] lg:m-5 lg:p-5 lg:pl-2 lg:pr-2">
 										<form action={editUserProfileSA}>
 											{/* Avatar. */}
 											<div className="mb-4">
-												<Tooltip title="This is a direct link to some kind of picture or GIF on the internet.">
+												<Tooltip title={t("user_profile.editor.avatar_url.tooltip")}>
 													<label
 														className="block text-gray-700 text-sm font-bold mb-2"
-														htmlFor="avatar_url">
-														Avatar URL
+														htmlFor="avatar_url"
+													>
+														{t("user_profile.editor.avatar_url.label")}
 													</label>
 												</Tooltip>
 												<input
 													className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 													type="url"
 													name="avatar_url"
-													placeholder="https://example.com/my-fancy-avatar"
+													placeholder={t("user_profile.editor.avatar_url.placeholder")}
 													value={avatarUrl ? avatarUrl : ""}
 													onChange={(e) => setAvatarUrl(e.target.value)}
 												/>
 											</div>
 											{/* Display name. */}
 											<div className="mb-3">
-												<Tooltip title="This is the name you display your account with.">
+												<Tooltip title={t("user_profile.editor.display_name.tooltip")}>
 													<label
 														className="block text-gray-700 text-sm font-bold mb-2"
 														htmlFor="display_name"
 													>
-														Display name
+														{t("user_profile.editor.display_name.label")}
 													</label>
 												</Tooltip>
 												<input
 													className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 													type="text"
 													name="display_name"
-													placeholder="Fancy Name"
+													placeholder={t("user_profile.editor.display_name.placeholder")}
 													value={displayName ? displayName : ""}
 													onChange={(e) => setDisplayName(e.target.value)}
 												/>
 											</div>
 											{/* About me. */}
 											<div className="mb-3">
-												<Tooltip title="Here you can write a little about yourself.">
+												<Tooltip title={t("user_profile.editor.about_me.tooltip")}>
 													<label
 														className="block text-gray-700 text-sm font-bold mb-2"
 														htmlFor="about_me"
 													>
-														About me
+														{t("user_profile.editor.about_me.label")}
 													</label>
 												</Tooltip>
 												<textarea
 													className="shadow appearance-none border rounded w-full h-48 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline whitespace-pre-wrap"
 													name="about_me"
-													placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+													placeholder={t("user_profile.editor.about_me.placeholder")}
 													value={aboutMe ? aboutMe : ""}
 													onChange={(e) => setAboutMe(e.target.value)}
 												/>
 											</div>
 											{/* Nationality. */}
 											<div className="mb-3">
-												<Tooltip title="Choose which country flag appears on your profile.">
+												<Tooltip title={t("user_profile.editor.nationality.tooltip")}>
 													<label
 														className="block text-gray-700 text-sm font-bold mb-2"
 														htmlFor="nationality"
 													>
-														Nationality
+														{t("user_profile.editor.nationality.label")}
 													</label>
 												</Tooltip>
 												<div className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
@@ -186,7 +189,7 @@ export default function UserProfileEditor({
 														defaultValue={nation}
 														onChange={(e) => setNation(e.target.value)}
 													>
-														<option>Select Country</option>
+														<option value="none">{t("user_profile.editor.nationality.default")}</option>
 														{CountryRegionData.map((region) => {
 															return (
 																<option
@@ -206,7 +209,7 @@ export default function UserProfileEditor({
 													className="block text-gray-700 text-sm font-bold mb-2"
 													htmlFor="visibility"
 												>
-													Profile visibility
+													{t("user_profile.editor.visibility.label")}
 												</label>
 												<div className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
 													<NativeSelect
@@ -216,8 +219,8 @@ export default function UserProfileEditor({
 														/* Parse text to boolean. */
 														onChange={(e) => setVisibilityStatus(JSON.parse(e.target.value))}
 													>
-														<option value="true">Yes, I want my profile to be visible to others</option>
-														<option value="false">No, I do not want my profile to be visible to others</option>
+														<option value="true">{t("user_profile.editor.visibility.option_true")}</option>
+														<option value="false">{t("user_profile.editor.visibility.option_false")}</option>
 													</NativeSelect>
 												</div>
 											</div>
@@ -227,7 +230,7 @@ export default function UserProfileEditor({
 													className="block text-gray-700 text-sm font-bold mb-2"
 													htmlFor="visibility_friends_list"
 												>
-													Friend list visibility
+													{t("user_profile.editor.visibility_friends_list.label")}
 												</label>
 												<div className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
 													<NativeSelect
@@ -237,8 +240,8 @@ export default function UserProfileEditor({
 														/* Parse text to boolean. */
 														onChange={(e) => setVisibilityFriendsStatus(JSON.parse(e.target.value))}
 													>
-														<option value="true">Yes, I want my friends list to be visible to others</option>
-														<option value="false">No, I do not want my friends list to be visible to others</option>
+														<option value="true">{t("user_profile.editor.visibility_friends_list.option_true")}</option>
+														<option value="false">{t("user_profile.editor.visibility_friends_list.option_false")}</option>
 													</NativeSelect>
 												</div>
 											</div>
@@ -249,9 +252,9 @@ export default function UserProfileEditor({
 													formAction={editUserProfileSA}
 													onClick={closeModalWeirdly}
 												>
-													Save details
+													{t("user_profile.editor.save.label")}
 												</button>
-												<span className="text-xs">(Saving will reload the page)</span>
+												<span className="text-xs">{t("user_profile.editor.save.warning")}</span>
 											</div>
 										</form>
 									</div>

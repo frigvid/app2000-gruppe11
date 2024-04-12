@@ -11,6 +11,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import IconButton from "@mui/material/IconButton";
 import HailIcon from "@mui/icons-material/Hail";
 import ListItem from "@mui/material/ListItem";
+import {useTranslation} from "react-i18next";
 import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
@@ -28,6 +29,7 @@ export default function PendingFriendRequests() {
 	const supabase = createClient();
 	const [isOpen, setIsOpen] = useState(false);
 	const [friendRequests, setFriendRequests] = useState(null);
+	const {t} = useTranslation();
 	
 	useEffect(() => {
 		const fetchRequests = async () => {
@@ -54,7 +56,7 @@ export default function PendingFriendRequests() {
 	if (friendRequests) {
 		return (
 			<>
-				<Tooltip title="Pending friend requests.">
+				<Tooltip title={t("user_profile.friend_requests.tooltip.button")}>
 					<Button
 						variant="outlined"
 						color="inherit"
@@ -88,12 +90,12 @@ export default function PendingFriendRequests() {
 											as="h3"
 											className="text-lg mb-3 text-center font-semibold leading-6 text-gray-900"
 										>
-											Any pending friend requests?
+											{t("user_profile.friend_requests.label")}
 										</Dialog.Title>
 										<section className="flex justify-center items-center flex-col">
 											{
 												(friendRequests.length === 0)
-													? <p className="mt-10">Currently no friend requests pending.</p>
+													? <p className="mt-10">{t("user_profile.friend_requests.no_pending")}</p>
 													: (
 														<Paper style={{overflow: "auto"}}>
 															<List className="w-[30rem] h-[31rem] bg-foreground">
@@ -117,10 +119,10 @@ export default function PendingFriendRequests() {
 																					key={friendRequest.id + friendRequest.display_name}
 																					secondaryAction={
 																						<div className="flex flex-row space-x-8">
-																							<Tooltip title="Reject friend request.">
+																							<Tooltip title={t("user_profile.friend_requests.tooltip.reject")}>
 																								<IconButton
 																									edge="end"
-																									aria-label="delete"
+																									aria-label={t("user_profile.friend_requests.tooltip.reject")}
 																									color="error"
 																									onClick={async () => {
 																										void await supabase.rpc("friend_request_do_with", {
@@ -134,10 +136,10 @@ export default function PendingFriendRequests() {
 																									<PersonAddDisabled/>
 																								</IconButton>
 																							</Tooltip>
-																							<Tooltip title="Accept friend request.">
+																							<Tooltip title={t("user_profile.friend_requests.tooltip.accept")}>
 																								<IconButton
 																									edge="end"
-																									aria-label="add"
+																									aria-label={t("user_profile.friend_requests.tooltip.accept")}
 																									color="success"
 																									onClick={async () => {
 																										void await supabase.rpc("friend_request_do_with", {
@@ -161,7 +163,7 @@ export default function PendingFriendRequests() {
 																								: <Avatar src={friendRequest.avatar_url}/>
 																						}
 																					</ListItemAvatar>
-																					<Tooltip title={"User ID of " + friendRequest.display_name + ": " + friendRequest.id}>
+																					<Tooltip title={t("user_profile.friend_requests.tooltip.user_id") + " " + friendRequest.display_name + ": " + friendRequest.id}>
 																						<ListItemText primary={friendRequest.display_name ? friendRequest.display_name : friendRequest.id}/>
 																					</Tooltip>
 																				</ListItem>,

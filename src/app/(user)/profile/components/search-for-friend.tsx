@@ -4,6 +4,7 @@ import React, {Fragment, useEffect, useState} from "react";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import {Dialog, Transition} from "@headlessui/react";
 import {createClient} from "@utils/supabase/client";
+import {useTranslation} from "react-i18next";
 import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
@@ -20,9 +21,10 @@ export default function SearchForFriend() {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [isOpen, setIsOpen] = useState(false);
 	const [searchStatus, setSearchStatus] = useState(null);
+	const [friendStatus, setFriendStatus] = useState(null);
 	const [searchUser, setSearchUser] = useState(null);
 	const [user, setUser] = useState(null);
-	const [friendStatus, setFriendStatus] = useState(null);
+	const {t} = useTranslation();
 	
 	useEffect(() => {
 		if (searchTerm) {
@@ -118,7 +120,7 @@ export default function SearchForFriend() {
 	
 	return (
 		<>
-			<Tooltip title="Search for users or new friends.">
+			<Tooltip title={t("user_profile.search_users.tooltip.button")}>
 				<Button
 					variant="outlined"
 					color="inherit"
@@ -146,26 +148,26 @@ export default function SearchForFriend() {
 								leaveTo="opacity-0 scale-95"
 							>
 								<Dialog.Panel
-									className="xs:w-full xs:h-full lg:w-[40rem] lg:h-[38rem] transform overflow-hidden lg:rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+									className="xs:w-full xs:h-full lg:w-[40rem] lg:h-[40rem] transform overflow-hidden lg:rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
 								>
 									<Dialog.Title
 										as="h3"
 										className="text-lg mb-3 text-center font-semibold leading-6 text-gray-900"
 									>
-										Want to add some friends?
+										{t("user_profile.search_users.label")}
 									</Dialog.Title>
 									<section className="flex justify-center items-center flex-col space-y-4">
 										<section className="max-w-md text-justify space-y-4 space-x-18 text-lg">
 											<p>
-												<span>You can do that by inputting a user display name <strong>(found under their profile picture)</strong></span>
-												<span> or through their ID (the long text in the link to their profile,</span>
-												<span> e.g. <code>/profile/<strong>00ba54a6-c585-4871-905e-7d53262f05c1</strong></code></span>
+												<span>{t("user_profile.search_users.info.part1")} <strong>{t("user_profile.search_users.info.part2")}</strong></span>
+												<span> {t("user_profile.search_users.info.part3")},</span>
+												<span> {t("user_profile.search_users.info.part4")} <code>/profile/<strong>00ba54a6-c585-4871-905e-7d53262f05c1</strong></code></span>
 											</p>
 										</section>
 										<input
 											id="search-user"
 											type="text"
-											placeholder="Input an ID or display name"
+											placeholder={t("user_profile.search_users.search.hint")}
 											className="border-2 w-[28rem] h-12 text-center bg-foreground"
 											value={searchTerm}
 											onChange={(e) => {
@@ -185,7 +187,7 @@ export default function SearchForFriend() {
 										>
 											{
 												(searchStatus !== true && searchStatus !== null)
-													? <p className="font-bold text-[2rem] uppercase underline decoration-red-500 underline-offset-4">User not found!</p>
+													? <p className="font-bold text-[2rem] uppercase underline decoration-red-500 underline-offset-4">{t("user_profile.search_users.search.user_not_found")}</p>
 													: (
 														<>
 															{searchUser && (
@@ -197,18 +199,18 @@ export default function SearchForFriend() {
 																		}}/>
 																	</div>
 																	<div>
-																		<Tooltip title={"User ID: " + searchUser.id}>
+																		<Tooltip title={t("user_profile.generics.fragment.user_id") + " " + searchUser.id}>
 																			<h2 className="text-center">{searchUser.display_name}</h2>
 																		</Tooltip>
 																	</div>
 																	<div>
 																		{
 																			(user && user.id === searchUser.id)
-																				? <p className="border-2 border-red-500 p-2">Sorry, you cannot befriend yourself.</p>
+																				? <p className="border-2 border-red-500 p-2">{t("user_profile.search_users.search.befriend_self")}</p>
 																				: ((friendRequestStatus === 2)
-																					? <p className="border-2 border-orange-500 p-2">Friend request is sent, but there is no reply yet.</p>
+																					? <p className="border-2 border-orange-500 p-2">{t("user_profile.search_users.search.request_sent")}</p>
 																					: (friendStatus)
-																						? <p className="border-2 border-green-500 p-2">You are already friends.</p>
+																						? <p className="border-2 border-green-500 p-2">{t("user_profile.search_users.search.already_friends")}</p>
 																						: (
 																						<button
 																							className="bg-buttoncolor inline-block rounded px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger"
@@ -222,7 +224,7 @@ export default function SearchForFriend() {
 																								}
 																							}}
 																						>
-																							Send a friend request
+																							{t("user_profile.search_users.search.button")}
 																						</button>
 																					)
 																				)

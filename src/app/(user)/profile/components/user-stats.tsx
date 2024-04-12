@@ -1,5 +1,6 @@
 "use client";
 
+import {useTranslation} from "react-i18next";
 import {flag} from "country-emoji"
 import React from "react";
 
@@ -29,34 +30,36 @@ export default function UserStats({
 	games_drawn,
 	nationality
 }: UserStatsProps) {
+	const {t} = useTranslation();
+	
 	return (
 		<div className="flex justify-around text-center space-x-4">
 			<div>
-				<h3 className="text-lg font-bold">ELO Rating</h3>
+				<h3 className="text-lg font-bold">{t("user_profile.user_stats.elo_rank")}</h3>
 				<p>{elo_rank}</p>
 			</div>
 			<div>
-				<h3 className="text-lg font-bold">Games Played</h3>
+				<h3 className="text-lg font-bold">{t("user_profile.user_stats.games_played")}</h3>
 				<p>{games_played}</p>
 			</div>
 			<div>
-				<h3 className="text-lg font-bold">Wins</h3>
+				<h3 className="text-lg font-bold">{t("user_profile.user_stats.games_won")}</h3>
 				<p>{games_won}</p>
 			</div>
 			<div>
-				<h3 className="text-lg font-bold">Losses</h3>
+				<h3 className="text-lg font-bold">{t("user_profile.user_stats.games_lost")}</h3>
 				<p>{games_lost}</p>
 			</div>
 			<div>
-				<h3 className="text-lg font-bold">Draws</h3>
+				<h3 className="text-lg font-bold">{t("user_profile.user_stats.games_drawn")}</h3>
 				<p>{games_drawn}</p>
 			</div>
 			{/* TODO: If the user does not have a set nationality, hide this. */}
 			<div>
-				<h3 className="text-lg font-bold">Nationality</h3>
+				<h3 className="text-lg font-bold">{t("user_profile.user_stats.nationality")}</h3>
 				{/* FIXME: Unicode country codes does not render as an emoji. Might be prudent to switch to SVG. */}
 				{
-					(nationality === "Select Country")
+					(nationality === "none")
 						? <p>?</p>
 						: <p>{flag(nationality)}</p>
 				}

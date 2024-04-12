@@ -116,6 +116,105 @@ const resources = {
 				"title1": "New password",
 				"title2": "Verify new password",
 				"button": "Change password"
+			},
+			"user_profile": {
+				"generics": {
+					"fragment": {
+						"user_id": "User ID of"
+					},
+					"about_me": "Om meg",
+					"nationality": "Nasjonalitet"
+				},
+				"friend_list": {
+					"label": "Friends",
+					"no_friends": "You do not have any friends.",
+					"tooltip": {
+						"open_profile": "Open profile",
+						"user_id_fragment": "$t(user_profile.generics.fragment.user_id)"
+					}
+				},
+				"friend_requests": {
+					"label": "Any pending friend requests?",
+					"no_pending": "Currently, no friend requests pending.",
+					"tooltip": {
+						"button": "Pending friend requests.",
+						"reject": "Reject friend request.",
+						"accept": "Accept friend request.",
+						"user_id": "$t(user_profile.generics.fragment.user_id)"
+					}
+				},
+				"search_users": {
+					"label": "Want to add some friends?",
+					"info": {
+						"part1": "You can do that by inputting a user display name",
+						"part2": "(found under their profile picture)",
+						"part3": "or through their ID (the long text in the link to their profile",
+						"part4": "e.g."
+					},
+					"search": {
+						"hint": "Input an ID or display name",
+						"user_not_found": "User not found!",
+						"befriend_self": "Sorry, you cannot befriend yourself.",
+						"request_sent": "Friend request is sent, but there is no reply yet.",
+						"already_friends": "You are already friends.",
+						"button": "Send a friend request"
+					},
+					"tooltip": {
+						"button": "Search for users or new friends."
+					}
+				},
+				"editor": {
+					"label": "Edit your profile",
+					"avatar_url": {
+						"label": "Avatar URL",
+						"tooltip": "This is a direct link to some kind of picture or GIF on the internet.",
+						"placeholder": "https://example.com/my-fancy-avatar"
+					},
+					"display_name": {
+						"label": "Display name",
+						"tooltip": "This is the name you display your account with.",
+						"placeholder": "Fancy Name"
+					},
+					"about_me": {
+						"label": "$t(user_profile.generics.about_me)",
+						"tooltip": "Here you can write a little about yourself.",
+						"placeholder": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+					},
+					"nationality": {
+						"label": "$t(user_profile.generics.nationality)",
+						"tooltip": "Choose which country flag appears on your profile.",
+						"default": "Select Country"
+					},
+					"visibility": {
+						"label": "Profile visibility",
+						"option_true": "Yes, I want my profile to be visible to others",
+						"option_false": "No, I do not want my profile to be visible to others"
+					},
+					"visibility_friends_list": {
+						"label": "Friend list visibility",
+						"option_true": "Yes, I want my friends list to be visible to others",
+						"option_false": "No, I do not want my friends list to be visible to others"
+					},
+					"save": {
+						"label": "Save details",
+						"warning": "(Saving will reload the page)"
+					},
+					"tooltip": {
+						"button": "User profile editor and profile settings."
+					}
+				},
+				"user_stats": {
+					"elo_rank": "ELO Rating",
+					"games_played": "Games Played",
+					"games_won": "Wins",
+					"games_lost": "Losses",
+					"games_drawn": "Draws",
+					"nationality": "$t(user_profile.generics.nationality)"
+				},
+				"about_me": "$t(user_profile.generics.about_me)",
+				"error": {
+					"return": "$t(generic.return_somewhere) Home"
+				}
 			}
 		}
 	},
@@ -210,6 +309,105 @@ const resources = {
 				"title1": "Nytt passord",
 				"title2": "Verifiser nytt passord",
 				"button": "Bytt passord"
+			},
+			"user_profile": {
+				"generics": {
+					"fragment": {
+						"user_id": "Bruker ID av"
+					},
+					"about_me": "Om meg",
+					"nationality": "Nasjonalitet"
+				},
+				"friend_list": {
+					"label": "Venner",
+					"no_friends": "Du har ingen venner.",
+					"tooltip": {
+						"open_profile": "Åpne profil",
+						"user_id_fragment": "$t(user_profile.generics.fragment.user_id)"
+					}
+				},
+				"friend_requests": {
+					"label": "Noen ventende venneforespørsler?",
+					"no_pending": "Det er ingen ventende forespørsler akkurat nå.",
+					"tooltip": {
+						"button": "Ventende venneforespørsler.",
+						"reject": "Avslå venneforespørsel.",
+						"accept": "Godta venneforespørsel.",
+						"user_id": "$t(user_profile.generics.fragment.user_id)"
+					}
+				},
+				"search_users": {
+					"label": "Vil du legge til noen venner?",
+					"info": {
+						"part1": "Du kan gjøre det ved å skrive inn en brukers visningsnavn",
+						"part2": "(du finner det under profilbildet)",
+						"part3": "eller gjennom deres ID (den lange teksten i linken til profilen deres",
+						"part4": "f.eks."
+					},
+					"search": {
+						"hint": "Skriv inn en ID eller ett visningsnavn",
+						"user_not_found": "Bruker ikke funnet!",
+						"befriend_self": "Beklager, du kan ikke bli venn med deg selv.",
+						"request_sent": "Venneforespørsel er sent, men det ventes på svar.",
+						"already_friends": "Dere er allerede venner.",
+						"button": "Send en venneforespørsel"
+					},
+					"tooltip": {
+						"button": "Søk etter brukere eller nye venner."
+					}
+				},
+				"editor": {
+					"label": "Rediger profilen din",
+					"avatar_url": {
+						"label": "Profilbilde link",
+						"tooltip": "Dette er en direkte link til ett bilde eller en GIF på internett.",
+						"placeholder": "https://eksempel.no/mitt-kule-profilbilde"
+					},
+					"display_name": {
+						"label": "Visningsnavn",
+						"tooltip": "Dette er navnet du viser på kontoen din.",
+						"placeholder": "Kult navn"
+					},
+					"about_me": {
+						"label": "$t(user_profile.generics.about_me)",
+						"tooltip": "Her kan du skrive litt om deg selv.",
+						"placeholder": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+					},
+					"nationality": {
+						"label": "$t(user_profile.generics.nationality)",
+						"tooltip": "Velg hvilket flagg som skal vises på profilen din.",
+						"default": "Velg land"
+					},
+					"visibility": {
+						"label": "Brukerprofilsynlighet",
+						"option_true": "Ja, jeg vil at profilen min skal være synlig for andre",
+						"option_false": "Nei, jeg vil ikke at profilen min skal være synlig for andre"
+					},
+					"visibility_friends_list": {
+						"label": "Vennelistesynlighet",
+						"option_true": "Ja, jeg vil at vennelisten min skal være synlig for andre",
+						"option_false": "Nei, jeg vil ikke at vennelisten min skal være synlig for andre"
+					},
+					"save": {
+						"label": "Lagre detaljer",
+						"warning": "(Lagring fører til at siden lastes om)"
+					},
+					"tooltip": {
+						"button": "Brukerprofilredaktør og brukerprofilinnstillinger."
+					}
+				},
+				"user_stats": {
+					"elo_rank": "ELO-rangering",
+					"games_played": "Antall spill",
+					"games_won": "Antall vinn",
+					"games_lost": "Antall tap",
+					"games_drawn": "Antall uavgjort",
+					"nationality": "$t(user_profile.generics.nationality)"
+				},
+				"about_me": "$t(user_profile.generics.about_me)",
+				"error": {
+					"return": "$t(generic.return_somewhere) Home"
+				}
 			}
 		}
 	}

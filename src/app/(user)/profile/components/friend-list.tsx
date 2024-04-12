@@ -8,6 +8,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import IconButton from "@mui/material/IconButton";
 import React, {useEffect, useState} from "react";
 import ListItem from "@mui/material/ListItem";
+import {useTranslation} from "react-i18next";
 import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
@@ -25,6 +26,7 @@ export default function FriendList() {
 	const supabase = createClient()
 	const [friends, setFriends] = useState(null);
 	const router = useRouter();
+	const {t} = useTranslation();
 	
 	useEffect(() => {
 		const fetchFriends = async () => {
@@ -43,11 +45,11 @@ export default function FriendList() {
 	if (friends) {
 		return (
 			<section>
-				<h2 className="border-b-2 border-[#a1887f] pb-1 font-bold">Friends</h2>
+				<h2 className="border-b-2 border-[#a1887f] pb-1 font-bold">{t("user_profile.friend_list.label")}</h2>
 				<div className="mt-2">
 					{
 						(friends.length === 0)
-							? <p>You do not have any friends.</p>
+							? <p>{t("user_profile.friend_list.no_friends")}</p>
 							: (
 								<Paper style={{overflow: "auto"}}>
 									<List className="w-full h-[10rem]">
@@ -59,10 +61,10 @@ export default function FriendList() {
 															key={friend.id + friend.display_name}
 															secondaryAction={
 																<div className="flex flex-row space-x-8 mr-4">
-																	<Tooltip title="Open profile">
+																	<Tooltip title={t("user_profile.friend_list.tooltip.open_profile")}>
 																		<IconButton
 																			edge="end"
-																			aria-label="open-profile"
+																			aria-label={t("user_profile.friend_list.tooltip.open_profile")}
 																			className=""
 																			onClick={() => {
 																				router.push("/profile/" + friend.id);
@@ -81,7 +83,7 @@ export default function FriendList() {
 																		: <Avatar src={friend.avatar_url}/>
 																}
 															</ListItemAvatar>
-															<Tooltip title={"User ID of " + friend.display_name + ": " + friend.id}>
+															<Tooltip title={t("user_profile.friend_list.tooltip.user_id_fragment") + " " + friend.display_name + ": " + friend.id}>
 																<ListItemText primary={friend.display_name ? friend.display_name : friend.id}/>
 															</Tooltip>
 														</ListItem>,

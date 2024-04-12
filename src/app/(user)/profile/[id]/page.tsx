@@ -10,6 +10,7 @@ import Buffering from "@auth/components/fragment/Buffering";
 import UnauthorizedError from "@ui/error/401_unauthorized";
 import {createClient} from "@utils/supabase/client";
 import React, {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 import {usePathname} from "next/navigation";
 import Avatar from "@mui/material/Avatar";
 import Link from "next/link";
@@ -32,6 +33,7 @@ export default function UserProfile() {
 	const [data, setData] = useState(null);
 	const [user, setUser] = useState(null);
 	const staticUserId = usePathname().split('/').pop() || '';
+	const {t} = useTranslation();
 	
 	useEffect(() => {
 		const fetchData = async () => {
@@ -109,7 +111,7 @@ export default function UserProfile() {
 					</div>
 					{/* Body: About me. */}
 					<div className="p-5">
-						<h2 className="border-b-2 border-[#a1887f] pb-1 font-bold">About Me</h2>
+						<h2 className="border-b-2 border-[#a1887f] pb-1 font-bold">{t("user_profile.about_me")}</h2>
 						<p className="mt-2">
 						{
 							// Checks if the user has added any data yet.
@@ -177,7 +179,7 @@ export default function UserProfile() {
 						href="/"
 						className="bg-buttoncolor inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
 					>
-						Return to Home
+						{t("user_profile.error.return")}
 					</Link>
 				</main>
 			)

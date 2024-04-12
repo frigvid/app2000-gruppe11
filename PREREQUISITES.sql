@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS
 		elo_rank INT NULL,
 		avatar_url TEXT NULL,
 		about_me TEXT NULL,
-		nationality TEXT NULL,
+		nationality TEXT NULL DEFAULT 'none',
 		visibility BOOLEAN DEFAULT FALSE,
 		visibility_friends BOOLEAN DEFAULT TRUE,
 		FOREIGN KEY (id) REFERENCES auth.users (id)
