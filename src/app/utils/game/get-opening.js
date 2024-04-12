@@ -6,16 +6,16 @@ import { createClient } from "@utils/supabase/client";
  *
  * @return {Promise} The data from the database.
  */
-export async function fetchOpenings() {
+export async function fetchPgn(p_id) {
     const supabase = createClient();
 
     try {
         //get data
         const {data, error} = await supabase
             .from('openings')
-            .select('id, created_by, title, description, pgn');
-
-			return data;
+            .select('title, description, id, pgn')
+				.eq('id', p_id);
+            return data;
 
     } catch (e) {
         console.error('Error in getOpening: ', e);
