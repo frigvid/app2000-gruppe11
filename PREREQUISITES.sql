@@ -7,7 +7,7 @@ SET
 
 /********************************************************************************************
 Author:			frigvid
-Create Date:	2024-04-11
+Create Date:	2024-04-02
 Description:	Copy everything in this file, and paste it into Supabase's SQL Editor, and run
 					it. Once this is done, everything should be ready for the project to run.
 *********************************************************************************************
@@ -80,9 +80,12 @@ CREATE TABLE IF NOT EXISTS
 		id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 		friends_since timestamptz NULL DEFAULT now(),
 		user1 UUID NOT NULL,
-		user2 UUID NULL,
+		user2 UUID NOT NULL,
 		FOREIGN KEY (user1) REFERENCES auth.users (id),
-		UNIQUE (user1, user2)
+		FOREIGN KEY (user2) REFERENCES auth.users (id),
+		/* Ensure any permutation of 2 users are caught. */
+		UNIQUE (user1, user2),
+		UNIQUE (user2, user1)
 );
 
 /* =============================================
@@ -98,7 +101,12 @@ CREATE TABLE IF NOT EXISTS
 		to_user UUID NOT NULL,
 		accepted BOOLEAN NULL DEFAULT NULL,
 		FOREIGN KEY (by_user) REFERENCES auth.users (id),
-		UNIQUE (by_user, to_user)
+		/* Ensure any permutation of 2 users are caught.
+		 * There shouldn't ever be more than 1 friend
+		 * request between two distinct users.
+		 */
+		UNIQUE (by_user, to_user),
+		UNIQUE (to_user, by_user)
 );
 
 /* =============================================
@@ -109,11 +117,14 @@ CREATE TABLE IF NOT EXISTS
  * ============================================= */
 CREATE TABLE IF NOT EXISTS
 	history (
-		id UUID PRIMARY KEY,
-		timestamp timestamptz NOT NULL DEFAULT (timezone('utc', now())),
-		fen text NOT NULL, -- https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation
-		result smallint NOT NULL, -- 0 = loss, 1 = win, 2 = draw.
-		FOREIGN KEY (id) REFERENCES auth.users (id)
+		id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+		datetime timestamptz NOT NULL DEFAULT (timezone('utc', now())),
+		player UUID NOT NULL,
+		/* https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation. */
+		fen jsonb NOT NULL,
+		/* 0 = loss, 1 = win, 2 = draw. */
+		score smallint NOT NULL,
+		FOREIGN KEY (player) REFERENCES auth.users (id)
 	);
 
 /* =============================================
@@ -137,12 +148,12 @@ CREATE TABLE IF NOT EXISTS
  * ============================================= */
 CREATE TABLE IF NOT EXISTS
 	openings (
-		id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-		created_by NULL,
-		title text NOT NULL,
-		description text NOT NULL,
-		pgn jsonb NOT NULL,
-		timestamp timestamptz NOT NULL DEFAULT (timezone('utc', now())),
+		id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+		created_by UUID NULL,
+		title TEXT NOT NULL,
+		description TEXT NOT NULL,
+		pgn JSONB NOT NULL,
+		timestamp TIMESTAMPTZ NOT NULL DEFAULT (timezone('utc', now())),
 		FOREIGN KEY (created_by) REFERENCES auth.users (id)
 	);
 
@@ -151,6 +162,7 @@ CREATE TABLE IF NOT EXISTS
  * Create date: 2024-04-05
  * Description: WIP
  * ============================================= */
+/*
 CREATE TABLE IF NOT EXISTS
 	user_openings (
 		id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -161,6 +173,25 @@ CREATE TABLE IF NOT EXISTS
 		timestamp timestamptz NOT NULL DEFAULT (timezone('utc', now())),
 		FOREIGN KEY (created_by) REFERENCES auth.users (id)
 	);
+*/
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-05
+ * Description: Contains chess openings/strategies.
+ * ============================================= */
+/*
+CREATE TABLE IF NOT EXISTS
+	openings (
+		id UUID,
+		name text,
+		pgn jsonb,
+		timestamp timestamptz NOT NULL DEFAULT (timezone('utc', now())),
+		PRIMARY KEY (id, name, pgn, timestamp),
+		FOREIGN KEY (id) REFERENCES auth.users (id),
+		UNIQUE (id, name) -- Constrain id-name.
+	);
+*/
 
 /* =============================================
  * Author:      frigvid
@@ -176,22 +207,6 @@ CREATE TABLE IF NOT EXISTS
 		timestamp timestamptz,
 		openings jsonb, -- Array with opening IDs.
 		FOREIGN KEY (usr) REFERENCES auth.users (id)
-	);
-
-/* =============================================
- * Author:      frigvid
- * Create date: 2024-04-05
- * Description: Contains chess openings/strategies.
- * ============================================= */
-CREATE TABLE IF NOT EXISTS
-	openings (
-		id UUID,
-		name text,
-		pgn jsonb,
-		timestamp timestamptz NOT NULL DEFAULT (timezone('utc', now())),
-		PRIMARY KEY (id, name, pgn, timestamp),
-		FOREIGN KEY (id) REFERENCES auth.users (id),
-		UNIQUE (id, name) -- Constrain id-name.
 	);
 
 /* =============================================
@@ -336,24 +351,29 @@ $$;
  * Description: Create an opening.
  * ============================================= */
 CREATE OR REPLACE FUNCTION public.opening_create(
-	opn_name text,
+	opn_title text,
 	opn_moves jsonb
 )
 	RETURNS void
 	LANGUAGE SQL
 AS $$
-	INSERT INTO public.openings (id, name, pgn)
-	VALUES (auth.uid(), opn_name, opn_moves);
+	INSERT INTO public.openings (created_by, title, pgn)
+	VALUES (auth.uid(), opn_title, opn_moves);
 $$;
 
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-09
+ * Description: Deletes an opening.
+ * ============================================= */
 CREATE OR REPLACE FUNCTION public.opening_delete(
-	opn_name text DEFAULT NULL
+	opn_id UUID DEFAULT NULL
 )
 	RETURNS void
 	LANGUAGE SQL
 AS $$
 	DELETE FROM public.openings
-	WHERE id = auth.uid() AND name = opn_name;
+	WHERE id = opn_id AND created_by = auth.uid();
 $$;
 
 /* =============================================
@@ -471,3 +491,215 @@ BEGIN
 	END IF;
 END;
 $$;
+
+/* FRIENDSHIPS AND REQUESTS STUFF. */
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-09
+ * Description: Gets data related to the user's
+ *              profile page. Currently joins
+ *              profiles and gamedata together.
+ * ============================================= */
+CREATE OR REPLACE FUNCTION public.friend_get_all_friends()
+	RETURNS TABLE(
+		id uuid,
+		display_name text,
+		elo_rank integer,
+		avatar_url text,
+		nationality text
+	)
+	LANGUAGE plpgsql
+AS $$
+BEGIN
+	RETURN QUERY
+	SELECT
+		p.id,
+		p.display_name,
+		p.elo_rank,
+		p.avatar_url,
+		p.nationality
+	FROM profiles AS p
+	WHERE p.id IN (
+		SELECT f.user2 AS id
+		FROM friends AS f
+		WHERE f.user1 = auth.uid()
+		UNION
+		SELECT f.user1 AS id
+		FROM friends AS f
+		WHERE f.user2 = auth.uid()
+	);
+END;
+$$;
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-12
+ * Description: Returns if authenticated user and
+ *              inputted user are friends, or not.
+ * ============================================= */
+CREATE OR REPLACE FUNCTION public.friend_is_friend(other_user UUID)
+	RETURNS BOOLEAN
+	LANGUAGE plpgsql
+AS $$
+DECLARE
+	status BOOLEAN;
+BEGIN
+   RETURN EXISTS (
+   	SELECT 1
+   	FROM friends
+		/* Overkill check. Table is already constrained for
+		 * this kind of eventaulity. But call me paranoid.
+		 */
+   	WHERE	(user1 = auth.uid() AND user2 = other_user) OR
+   			(user2 = auth.uid() AND user1 = other_user)
+   );
+END;
+$$;
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-11
+ * Description: Get all pending friend requests.
+ * ============================================= */
+CREATE OR REPLACE FUNCTION public.friend_request_get_all()
+RETURNS TABLE(
+	id UUID,
+	display_name TEXT,
+	avatar_url TEXT
+)
+	LANGUAGE plpgsql
+AS $$
+BEGIN
+	RETURN QUERY
+	SELECT
+		p.id,
+		p.display_name,
+		p.avatar_url
+	FROM
+		public.friend_requests AS fr
+	JOIN
+		public.profiles AS p ON fr.by_user = p.id
+	WHERE
+		fr.to_user = auth.uid();
+END;
+$$;
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-11
+ * Description: Send a friend request to a user.
+ * ============================================= */
+CREATE OR REPLACE FUNCTION public.friend_request_send(other_user UUID)
+  RETURNS void
+  LANGUAGE SQL
+AS $$
+  /* Sanity checking.
+   *
+	* The table has dual UNIQUE constraints, so this
+	* shouldn't be necessary anymore. However, it's
+	* not a bad idea to be paranoid either. So I'll
+	* keep it.
+   */
+  IF NOT EXISTS (
+    SELECT 1
+    FROM public.friends
+    WHERE (user1 = auth.uid() AND user2 = other_user) OR
+          (user1 = other_user AND user2 = auth.uid())
+  ) AND NOT EXISTS (
+    SELECT 1
+    FROM public.friend_requests
+    WHERE (by_user = auth.uid() AND to_user = other_user) OR
+          (by_user = other_user AND to_user = auth.uid())
+  ) THEN
+    INSERT INTO public.friend_requests (by_user, to_user)
+    VALUES (auth.uid(), other_user);
+  END IF;
+$$;
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-12
+ * Description: Checks whether a user has an
+ *              active request from another user.
+ * ============================================= */
+CREATE OR REPLACE FUNCTION public.friend_request_status(other_user UUID)
+  RETURNS INTEGER
+  LANGUAGE plpgsql
+AS $$
+BEGIN
+	RETURN (
+   	SELECT CASE
+			/* 2 = NULL. */
+   		WHEN accepted IS NULL THEN 2
+			/* 1 = TRUE, user has accepted. */
+   		WHEN accepted THEN 1
+			/* 0 = FALSE, user has rejected. */
+   		ELSE 0
+   	END
+   	FROM public.friend_requests
+   	WHERE to_user = other_user AND by_user = auth.uid()
+	);
+END;
+$$;
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-12
+ * Description: Accept or reject a friend
+ *              request from another user.
+ * ============================================= */
+CREATE OR REPLACE FUNCTION public.friend_request_do_with(
+	from_user UUID,
+	accept_request BOOLEAN
+	)
+  RETURNS VOID
+  LANGUAGE plpgsql
+AS $$
+BEGIN
+	UPDATE public.friend_requests
+	SET accepted = accept_request
+	WHERE by_user = from_user::UUID AND to_user = auth.uid();
+END;
+$$;
+
+/* ==============================================================
+ * Author:      frigvid
+ * Create date: 2024-04-12
+ * Description: Triggered function for handling friend request
+ *              acceptance or rejection. friend_requests.acceptance
+ *              is NULL by default, to signify that the other user
+ *              has neither accepted nor rejected it.
+ * Usage:       INTERNAL. Hence starting with an underscore.
+ * ============================================================ */
+CREATE OR REPLACE FUNCTION _friend_request_status()
+RETURNS TRIGGER
+AS $$
+BEGIN
+	/* If the accepted column value changes from NULL to FALSE,
+	 * Delete the friend request. The row, in other words.
+	 */
+	IF NEW.accepted IS FALSE THEN
+	   DELETE FROM public.friend_requests
+		WHERE id = NEW.id;
+		
+	/* If the accepted column value changes from NULL to TRUE,
+	 * insert by_user into friends.user1 and to_user into
+	 * friends.user2. And then delete the friend request.
+	 */
+	ELSIF NEW.accepted IS TRUE THEN
+		INSERT INTO public.friends (user1, user2)
+		VALUES (NEW.by_user, NEW.to_user);
+				
+		DELETE FROM public.friend_requests
+		WHERE id = NEW.id;
+	END IF;
+	
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER friend_request_handler
+	AFTER UPDATE OF accepted ON public.friend_requests
+	FOR EACH ROW
+	EXECUTE FUNCTION _friend_request_status();
