@@ -1,12 +1,27 @@
 import Link from "next/link";
 import { FaChessKnight, FaPlay, FaHistory, FaArrowDown } from "react-icons/fa";
 
+/**
+ * The Home component represents the landing page of the Chess Buddy web application.
+ * It includes buttons for various functionalities and text sections describing the application.
+ *
+ * Tailwind CSS classes used:
+ * 1. Responsive Utilities: Adjust layout based on screen size.
+ * 2. Flexbox Utilities: Control layout and alignment of elements.
+ * 3. Spacing Utilities: Manage spacing between elements.
+ * 4. Color and Background Utilities: Set colors for elements.
+ * 5. Size Utilities: Control the size of elements.
+ * 6. Hover and Transition Effects: Add hover effects and transitions.
+ * 7. Text Style Utilities: Style text elements with various properties.
+ * 8. Absolute Positioning: Position elements absolutely within their containers.
+ */
 export default function Home() {
 	return (
 		<main className="flex flex-col">
 			{/* Buttons Section */}
 			<div className="flex flex-col items-center justify-center h-screen -mt-24 md:mt-0">
 				<div className="space-y-4 md:space-y-0 md:flex md:justify-center md:space-x-6 text-lg mt-2 md:mt-0">
+					{/* Chess Training Button */}
 					<div className="text-center">
 						<Link
 							className="flex justify-center items-center bg-blue-500 text-white rounded h-40 w-40 md:h-48 md:w-48 hover:bg-blue-600 transition duration-300 ease-in-out"
@@ -16,6 +31,7 @@ export default function Home() {
 						</Link>
 						<p className="mt-2 text-gray-600">Tren Åpninger</p>
 					</div>
+					{/* Play Chess Button */}
 					<div className="text-center">
 						<Link
 							className="flex justify-center items-center bg-green-500 text-white rounded h-40 w-40 md:h-48 md:w-48 hover:bg-green-600 transition duration-300 ease-in-out"
@@ -25,6 +41,7 @@ export default function Home() {
 						</Link>
 						<p className="mt-2 text-gray-600">Spill Nå</p>
 					</div>
+					{/* Chess History Button */}
 					<div className="text-center">
 						<Link
 							className="flex justify-center items-center bg-red-500 text-white rounded h-40 w-40 md:h-48 md:w-48 hover:bg-red-600 transition duration-300 ease-in-out"
@@ -35,6 +52,7 @@ export default function Home() {
 						<p className="mt-2 text-gray-600">Din Historikk</p>
 					</div>
 				</div>
+				{/* Animated Down Arrow */}
 				<div className="absolute bottom-5 w-full text-center">
 					<FaArrowDown className="animate-bounce mx-auto text-2xl"/>
 				</div>
@@ -42,6 +60,7 @@ export default function Home() {
 
 			{/* Text Sections */}
 			<div className="flex flex-col items-center px-4 py-8 mb-20 text-lg">
+				{/* About Chess Buddy */}
 				<section className="max-w-4xl text-justify space-y-4">
 					<h1 className="text-4xl font-bold text-center mb-6">Om Chess Buddy</h1>
 					<p>
@@ -53,6 +72,7 @@ export default function Home() {
 					<p>
 						Funksjoner inkluderer interaktive leksjoner, praktiske utfordringer, og muligheten til å spille mot en AI for å teste ut nye åpninger i realistiske scenarier. Chess Buddy er ikke bare et verktøy for læring; det er en partner i din sjakkutvikling.
 					</p>
+					{/* About Us Link */}
 					<p className="text-center pt-4">
 						Du kan også lese mer{" "}
 						<Link
@@ -63,6 +83,7 @@ export default function Home() {
 						</Link>.
 					</p>
 				</section>
+				{/* How Chess Buddy Helps Section */}
 				<section className="max-w-4xl mt-10 text-justify space-y-4">
 					<h2 className="text-3xl font-bold text-center mb-6">Hvordan Chess Buddy Hjelper Deg</h2>
 					<ul className="list-disc space-y-2 pl-5">
