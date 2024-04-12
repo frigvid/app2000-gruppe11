@@ -1,8 +1,30 @@
-import LoginLogoutButton from "@ui/auth/login-logout-button";
-import logoIcon from "/public/logo.svg";
-import Image from "next/image";
-import Link from "next/link";
+/**
+ * This file represents the Header component of the application.
+ * It includes navigation links, logo display, and login/logout button.
+ * This component ensures responsiveness by adjusting layout and styles based on screen size.
+ *
+ * TailwindCSS is used to style this component, providing utility classes for responsive design.
+ * Tailwind CSS classes used:
+ * 1. Responsive Utilities: Adjust layout based on screen size.
+ * 2. Flexbox Utilities: Control layout and alignment of elements.
+ * 3. Spacing Utilities: Manage spacing between elements.
+ * 4. Color and Background Utilities: Set colors for elements.
+ * 5. Size Utilities: Control the size of elements.
+ * 6. Hover and Transition Effects: Add hover effects and transitions.
+ * 7. Text Style Utilities: Style text elements with various properties.
+ * 8. Absolute Positioning: Position elements absolutely within their containers.
+ */
+import LoginLogoutButton from "@ui/auth/login-logout-button"; // Importing the LoginLogoutButton component
+import logoIcon from "/public/logo.svg"; // Importing the logo icon
+import Image from "next/image"; // Importing Image component from Next.js
+import Link from "next/link"; // Importing Link component from Next.js
 
+/**
+ * Represents the Header component of the application.
+ * This component includes navigation links, logo display, and login/logout button.
+ * It ensures responsiveness by adjusting layout and styles based on screen size.
+ * @returns {JSX.Element} The JSX code representing the Header component.
+ */
 export default function Header() {
 	return (
 		<header className="bg-main lg:h-auto h-24 lg:py-2 py-4"> {/* Set height to auto for lg and specific height for mobile, adjust padding */}
@@ -47,6 +69,8 @@ export default function Header() {
 		</header>
 	)
 }
+
+
 
 
 
