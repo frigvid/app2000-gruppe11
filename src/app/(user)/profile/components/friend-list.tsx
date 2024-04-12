@@ -1,20 +1,19 @@
 "use client";
 
+import OpenInBrowserIcon from "@mui/icons-material/OpenInBrowser";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
 import {createClient} from "@utils/supabase/client";
+import PersonIcon from "@mui/icons-material/Person";
+import IconButton from "@mui/material/IconButton";
 import React, {useEffect, useState} from "react";
+import ListItem from "@mui/material/ListItem";
+import Divider from "@mui/material/Divider";
+import Tooltip from "@mui/material/Tooltip";
+import Avatar from "@mui/material/Avatar";
+import {useRouter} from "next/navigation";
 import Paper from "@mui/material/Paper";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import IconButton from "@mui/material/IconButton";
-import PersonAddDisabled from "@mui/icons-material/PersonAddDisabled";
-import HowToReg from "@mui/icons-material/HowToReg";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Folder from "@mui/icons-material/Folder";
-import Avatar from "@mui/material/Avatar";
-import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
-import {useRouter} from "next/navigation";
-import OpenInBrowserIcon from '@mui/icons-material/OpenInBrowser';
 
 /**
  * User profile's friend list component.
@@ -60,29 +59,31 @@ export default function FriendList() {
 															key={friend.id + friend.display_name}
 															secondaryAction={
 																<div className="flex flex-row space-x-8 mr-4">
-																	<IconButton
-																		edge="end"
-																		aria-label="open-profile"
-																		className=""
-																		onClick={() => {
-																			router.push("/profile/" + friend.id);
-																		}}
-																	>
-																		<OpenInBrowserIcon/>
-																	</IconButton>
+																	<Tooltip title="Open profile">
+																		<IconButton
+																			edge="end"
+																			aria-label="open-profile"
+																			className=""
+																			onClick={() => {
+																				router.push("/profile/" + friend.id);
+																			}}
+																		>
+																			<OpenInBrowserIcon/>
+																		</IconButton>
+																	</Tooltip>
 																</div>
 															}
 														>
 															<ListItemAvatar>
 																{
 																	(friend.avatar_url === null)
-																		? <Folder/>
+																		? <PersonIcon/>
 																		: <Avatar src={friend.avatar_url}/>
 																}
 															</ListItemAvatar>
-															<ListItemText
-																primary={friend.display_name ? friend.display_name : friend.id}
-															/>
+															<Tooltip title={"User ID of " + friend.display_name + ": " + friend.id}>
+																<ListItemText primary={friend.display_name ? friend.display_name : friend.id}/>
+															</Tooltip>
 														</ListItem>,
 														<Divider key={self.crypto.randomUUID()}/>
 													]

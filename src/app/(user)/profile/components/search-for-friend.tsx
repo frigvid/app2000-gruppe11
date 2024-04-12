@@ -4,6 +4,7 @@ import React, {Fragment, useEffect, useState} from "react";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import {Dialog, Transition} from "@headlessui/react";
 import {createClient} from "@utils/supabase/client";
+import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 
@@ -117,14 +118,16 @@ export default function SearchForFriend() {
 	
 	return (
 		<>
-			<Button
-				variant="outlined"
-				color="inherit"
-				size="small"
-				onClick={openModal}
-			>
-				<PersonAdd fontSize="small"/>
-			</Button>
+			<Tooltip title="Search for users or new friends.">
+				<Button
+					variant="outlined"
+					color="inherit"
+					size="small"
+					onClick={openModal}
+				>
+					<PersonAdd fontSize="small"/>
+				</Button>
+			</Tooltip>
 			<Transition appear show={isOpen} as={Fragment}>
 				<Dialog
 					as="div"
@@ -194,8 +197,9 @@ export default function SearchForFriend() {
 																		}}/>
 																	</div>
 																	<div>
-																		<h2 className="text-center">{searchUser.display_name}</h2>
-																		<span className="text-xs">{searchUser.id}</span>
+																		<Tooltip title={"User ID: " + searchUser.id}>
+																			<h2 className="text-center">{searchUser.display_name}</h2>
+																		</Tooltip>
 																	</div>
 																	<div>
 																		{
@@ -218,7 +222,7 @@ export default function SearchForFriend() {
 																								}
 																							}}
 																						>
-																							Send a friend request?
+																							Send a friend request
 																						</button>
 																					)
 																				)

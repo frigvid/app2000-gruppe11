@@ -7,11 +7,12 @@ import ListItemText from "@mui/material/ListItemText";
 import {Dialog, Transition} from "@headlessui/react";
 import HowToReg from "@mui/icons-material/HowToReg";
 import {createClient} from "@utils/supabase/client";
+import PersonIcon from "@mui/icons-material/Person";
 import IconButton from "@mui/material/IconButton";
-import Folder from "@mui/icons-material/Folder";
 import HailIcon from "@mui/icons-material/Hail";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
+import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
@@ -53,14 +54,16 @@ export default function PendingFriendRequests() {
 	if (friendRequests) {
 		return (
 			<>
-				<Button
-					variant="outlined"
-					color="inherit"
-					size="small"
-					onClick={openModal}
-				>
-					<HailIcon fontSize="small"/>
-				</Button>
+				<Tooltip title="Pending friend requests.">
+					<Button
+						variant="outlined"
+						color="inherit"
+						size="small"
+						onClick={openModal}
+					>
+						<HailIcon fontSize="small"/>
+					</Button>
+				</Tooltip>
 				<Transition appear show={isOpen} as={Fragment}>
 					<Dialog
 						as="div"
@@ -114,49 +117,53 @@ export default function PendingFriendRequests() {
 																					key={friendRequest.id + friendRequest.display_name}
 																					secondaryAction={
 																						<div className="flex flex-row space-x-8">
-																							<IconButton
-																								edge="end"
-																								aria-label="delete"
-																								color="error"
-																								onClick={async () => {
-																									void await supabase.rpc("friend_request_do_with", {
-																										from_user: friendRequest.id,
-																										accept_request: false
-																									});
-																									
-																									deleteListing();
-																								}}
-																							>
-																								<PersonAddDisabled/>
-																							</IconButton>
-																							<IconButton
-																								edge="end"
-																								aria-label="add"
-																								color="success"
-																								onClick={async () => {
-																									void await supabase.rpc("friend_request_do_with", {
-																										from_user: friendRequest.id,
-																										accept_request: true
-																									});
-																									
-																									deleteListing();
-																								}}
-																							>
-																								<HowToReg/>
-																							</IconButton>
+																							<Tooltip title="Reject friend request.">
+																								<IconButton
+																									edge="end"
+																									aria-label="delete"
+																									color="error"
+																									onClick={async () => {
+																										void await supabase.rpc("friend_request_do_with", {
+																											from_user: friendRequest.id,
+																											accept_request: false
+																										});
+																										
+																										deleteListing();
+																									}}
+																								>
+																									<PersonAddDisabled/>
+																								</IconButton>
+																							</Tooltip>
+																							<Tooltip title="Accept friend request.">
+																								<IconButton
+																									edge="end"
+																									aria-label="add"
+																									color="success"
+																									onClick={async () => {
+																										void await supabase.rpc("friend_request_do_with", {
+																											from_user: friendRequest.id,
+																											accept_request: true
+																										});
+																										
+																										deleteListing();
+																									}}
+																								>
+																									<HowToReg/>
+																								</IconButton>
+																							</Tooltip>
 																						</div>
 																					}
 																				>
 																					<ListItemAvatar>
 																						{
 																							(friendRequest.avatar_url === null)
-																								? <Folder/>
+																								? <PersonIcon/>
 																								: <Avatar src={friendRequest.avatar_url}/>
 																						}
 																					</ListItemAvatar>
-																					<ListItemText
-																						primary={friendRequest.display_name ? friendRequest.display_name : friendRequest.id}
-																					/>
+																					<Tooltip title={"User ID of " + friendRequest.display_name + ": " + friendRequest.id}>
+																						<ListItemText primary={friendRequest.display_name ? friendRequest.display_name : friendRequest.id}/>
+																					</Tooltip>
 																				</ListItem>,
 																				<Divider key={self.crypto.randomUUID()}/>
 																			]
