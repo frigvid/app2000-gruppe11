@@ -1,3 +1,14 @@
+/**
+ * Tailwind CSS classes used:
+ * 1. Flexbox Utilities: Arrange elements in a flex container.
+ * 2. Spacing Utilities: Manage spacing between elements.
+ * 3. Sizing Utilities: Control the size of elements.
+ * 4. Typography Utilities: Style text elements with various properties.
+ * 5. Background Color Utilities: Set background colors for elements.
+ * 6. Border Utilities: Add borders to elements.
+ * 7. Shadow Utilities: Apply shadow effects to elements.
+ * 8. Hover Effects: Add hover effects to elements.
+ */
 import { addGamedata } from "@utils/game/add-gamedata";
 import { useUser } from "@/app/(auth)/actions/useUser";
 import DeleteData from "@ui/chess/delete-data";
@@ -5,13 +16,26 @@ import { Chessboard } from "react-chessboard";
 import { useState, useEffect } from "react";
 import { Chess } from "chess.js";
 
+/**
+ * React component for playing chess.
+ * Manages the game state, user interactions, and game status.
+ * @returns {JSX.Element} The PlayChess component.
+ */
 export default function PlayChess() {
+	// Fetches user data from authentication context
 	const user = useUser();
+
+	// State variables for game, score, and status
 	const [game, setGame] = useState(new Chess());
 	const [score, setScore] = useState({ wins: 0, losses: 0 });
 	const [status, setStatus] = useState("Game ongoing");
 	const [isGameStatusOpen, setGameStatusOpen] = useState(false);
 
+	/**
+	 * Makes a move in the game.
+	 * @param {Object} move - The move object containing source, target, and promotion.
+	 * @returns {boolean|null} True if move is valid, null if move is invalid.
+	 */
 	function makeAMove(move) {
 		const gameCopy = new Chess(game.fen());
 		try {
@@ -23,6 +47,9 @@ export default function PlayChess() {
 		return true;
 	}
 
+	/**
+	 * Makes a random move for the AI opponent.
+	 */
 	function makeRandomMove() {
 		setGame((currentGame) => {
 			const possibleMoves = currentGame.moves();
@@ -40,6 +67,7 @@ export default function PlayChess() {
 		});
 	}
 
+	// Effect hook to update game status
 	useEffect(() => {
 		if (game.isGameOver()) {
 			if (game.isCheckmate()) {
@@ -57,6 +85,10 @@ export default function PlayChess() {
 		}
 	}, [game]);
 
+	/**
+	 * Updates the score based on the winner of the game.
+	 * @param {string} winner - The winner of the game.
+	 */
 	const updateScore = (winner) => {
 		if (winner === "Black") {
 			setScore({ ...score, losses: score.losses + 1 });
@@ -75,6 +107,13 @@ export default function PlayChess() {
 		}
 	};
 
+	/**
+	 * Handles the drop of a chess piece on the board.
+	 * @param {string} sourceSquare - The source square of the piece.
+	 * @param {string} targetSquare - The target square for the piece.
+	 * @param {string[]} piece - The piece being moved.
+	 * @returns {boolean} True if the move is valid, false otherwise.
+	 */
 	function onDrop(sourceSquare, targetSquare, piece) {
 		const move = makeAMove({
 			from: sourceSquare,
@@ -88,11 +127,15 @@ export default function PlayChess() {
 		return true;
 	}
 
+	/**
+	 * Resets the game board to its initial state.
+	 */
 	function resetBoard() {
 		setGame(new Chess());
 		setStatus("Game ongoing");
 	}
 
+	// JSX rendering
 	return (
 		<div className="flex flex-col md:flex-row justify-center items-center relative">
 			<div className="md:mr-8 md:order-1 order-2 p-3 px-8 md:max-w-sm bg-gray-200 rounded-lg border border-gray-200 shadow-md md:mb-0 mb-4">
@@ -126,6 +169,8 @@ export default function PlayChess() {
 		</div>
 	);
 }
+
+
 
 
 
