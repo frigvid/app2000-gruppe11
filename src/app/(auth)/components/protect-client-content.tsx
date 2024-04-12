@@ -66,8 +66,8 @@ export default function ProtectClientContent({
 			}
 		};
 		
-		checkAuth().then(r => console.log("Content protected."));
-	}, [supabase.auth]);
+		void checkAuth();
+	}, [noBuffer, supabase.auth]);
 	
 	if (loading && !noBuffer) {
 		return <Buffering/>;
@@ -80,8 +80,9 @@ export default function ProtectClientContent({
 					<div className="mb-8">
 						<UnauthorizedError/>
 					</div>
-					<Link href="/"
-							className="bg-buttoncolor inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
+					<Link
+						href="/"
+						className="bg-buttoncolor inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
 					>
 						Return to Home
 					</Link>
