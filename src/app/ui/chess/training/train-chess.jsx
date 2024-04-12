@@ -45,19 +45,27 @@ export default function TrainChess(opening) {
 
 	function followingMove() {
 
-		if (game.isGameOver() || game.isDraw()) {
-			checkEnding();
-			return;
-		}
-			if (botTurn < pgn.length) {
-				game.move(pgn[botTurn]);
-				setGame(game);
-				setBoardPosition(game.fen());
-				setBotTurn(botTurn + 2);
-				console.log(botTurn);
-			} else {
-				console.log('bot turn is equals or greater than pgn length')
+		try {
+			if (game.isGameOver() || game.isDraw()) {
+				checkEnding();
+				return;
 			}
+				if (botTurn < pgn.length) {
+					game.move(pgn[botTurn]);
+					setGame(game);
+					setBoardPosition(game.fen());
+					setBotTurn(botTurn + 2);
+					console.log(botTurn);
+				} else {
+					console.log('bot turn is equals or greater than pgn length')
+				}
+		} catch (e) {
+			console.log(e);
+			return null;
+		}
+		setGame(game);
+		setBoardPosition(game.fen());
+		return true;
 		}
 
 	function onDrop(sourceSquare, targetSquare, piece) {

@@ -4,6 +4,7 @@ import DeleteData from "@ui/chess/delete-data";
 import {Chessboard} from "react-chessboard";
 import {useState} from "react";
 import {Chess} from "chess.js";
+import { updateElo } from "@utils/game/update-elo";
 
 /**
  * @author qwertyfyr, jarle0, KarstenKebba, oldpopcorn, frigvid
@@ -15,6 +16,7 @@ export default function PlayChess() {
 	const [boardPosition, setBoardPosition] = useState(game.fen());
 	const [status, setStatus] = useState("Game ongoing");
 	const [turn, setTurn] = useState(0);
+	const [fenList, setFenList] = useState();
 
 	//code is an altered version from react-chessboard example with added error handling
 	function makeAMove(move) {
@@ -73,6 +75,7 @@ export default function PlayChess() {
 				addGamedata(user.id, false).then((r) =>
 					console.log("Added data to database.")
 				);
+				updateElo(user.id, false);
 			}
 
 			//adds loss to user history
@@ -83,6 +86,7 @@ export default function PlayChess() {
 				addGamedata(user.id, true).then((r) =>
 					console.log("Added data to database.")
 				);
+				updateElo(user.id, true);
 			}
 		}
 	};
