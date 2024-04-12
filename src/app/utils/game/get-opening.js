@@ -2,9 +2,9 @@ import { createClient } from "@utils/supabase/client";
 
 
 /**
- * Gets the openings from the database.
- *
- * @return {Promise} The data from the database.
+ * @author qwertyfyr
+ * @param p_id used to make sure we get the correct opening 
+ * @returns returns singular opening used for training
  */
 export async function fetchPgn(p_id) {
     const supabase = createClient();
@@ -17,8 +17,8 @@ export async function fetchPgn(p_id) {
 				.eq('id', p_id);
             return data;
 
-    } catch (e) {
-        console.error('Error in getOpening: ', e);
-        throw e;
+    } catch (error) {
+        console.error('Error in getOpening: ', error);
+        throw error;
     }
 }

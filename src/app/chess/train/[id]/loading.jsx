@@ -1,3 +1,8 @@
+/**
+ * 
+ * @returns loading page whilst the page is loading for the training
+ */
+
 const Loading = () => {
 	return (
 	  <div className = 'cursor-wait flex justify-center items-center'>

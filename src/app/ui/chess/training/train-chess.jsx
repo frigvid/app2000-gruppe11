@@ -4,6 +4,11 @@ import { useState } from "react";
 import { useUser } from "@/app/(auth)/actions/useUser";
 import TrainPanel from "./train-panel";
 
+/**
+ * @author qwertyfyr
+ * @param opening parameter that gets an opening and is used to restrict allowed moves 
+ * @returns 
+ */
 export default function TrainChess(opening) {
 	const user = useUser();
 	const [game, setGame] = useState(new Chess());
@@ -15,6 +20,11 @@ export default function TrainChess(opening) {
 
 	const pgn = opening.opening[0].pgn;
 
+	/**
+	 * 
+	 * @param {*} move 
+	 * @returns 
+	 */
 	function makeAMove(move) {
 		try {
 			console.log(pgn[playerTurn]);
@@ -45,6 +55,10 @@ export default function TrainChess(opening) {
 		return true;
 	}
 
+	/**
+	 * 
+	 * @returns 
+	 */
 	function followingMove() {
 		try {
 			if (game.isGameOver() || game.isDraw()) {
@@ -72,6 +86,13 @@ export default function TrainChess(opening) {
 		return true;
 	}
 
+/**
+ * 
+ * @param {*} sourceSquare 
+ * @param {*} targetSquare 
+ * @param {*} piece 
+ * @returns 
+ */
 	function onDrop(sourceSquare, targetSquare, piece) {
 		const move = makeAMove({
 			from: sourceSquare,

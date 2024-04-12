@@ -2,9 +2,8 @@ import { createClient } from "@utils/supabase/client";
 
 
 /**
- * Gets the openings from the database.
- *
- * @return {Promise} The data from the database.
+ * @author qwertyfyr
+ * @returns returns all data for all fetched openings.
  */
 export async function fetchOpenings() {
     const supabase = createClient();

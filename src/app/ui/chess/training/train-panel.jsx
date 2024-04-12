@@ -1,5 +1,10 @@
 import Link from "next/link";
 
+/**
+ * @author qwertyfyr
+ * @param {*} param0 takes in text and int value to update panel
+ * @returns returns the panel with information about the practice status
+ */
 export default function TrainPanel({ status, wrongCounter }) {
 	return (
 		<>

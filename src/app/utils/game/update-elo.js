@@ -1,17 +1,10 @@
 import {createClient} from "@utils/supabase/client";
 
 /**
- * This function is used to add data to the public.gamedata table
- * in Supabase's PostgreSQL database. There are three columns,
- * the userid which is based on auth.users.id, and a bigint
- * wins and losses columns.
- *
- * These are iterative counts, as in there should only ever be
- * one instance of the userid.
- *
- * @param uuid The auth.users.id in question.
- * @param win If true, increments wins column. If false, increments losses column.
- * @author frigvid
+ * Updates the elo rating for a user.
+ * @author qwertyfyr
+ * @param user_id used to find the correct user to get information and update elo
+ * @param win boolean value used to check if the user won or lost 
  */
 export async function updateElo(user_id, win){
 	const supabase = createClient();
