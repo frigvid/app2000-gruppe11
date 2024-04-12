@@ -9,6 +9,67 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      friend_requests: {
+        Row: {
+          accepted: boolean
+          by_user: string
+          created_at: string | null
+          id: string
+          to_user: string
+        }
+        Insert: {
+          accepted?: boolean
+          by_user: string
+          created_at?: string | null
+          id?: string
+          to_user: string
+        }
+        Update: {
+          accepted?: boolean
+          by_user?: string
+          created_at?: string | null
+          id?: string
+          to_user?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "friend_requests_by_user_fkey"
+            columns: ["by_user"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      friends: {
+        Row: {
+          friends_since: string | null
+          id: string
+          user1: string
+          user2: string | null
+        }
+        Insert: {
+          friends_since?: string | null
+          id?: string
+          user1: string
+          user2?: string | null
+        }
+        Update: {
+          friends_since?: string | null
+          id?: string
+          user1?: string
+          user2?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "friends_user1_fkey"
+            columns: ["user1"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       gamedata: {
         Row: {
           draws: number | null
@@ -75,30 +136,33 @@ export type Database = {
       }
       openings: {
         Row: {
-          desc: string | null
+          created_by: string | null
+          description: string
           id: string
-          name: string
           pgn: Json
           timestamp: string
+          title: string
         }
         Insert: {
-          desc?: string | null
-          id: string
-          name: string
+          created_by?: string | null
+          description: string
+          id?: string
           pgn: Json
           timestamp?: string
+          title: string
         }
         Update: {
-          desc?: string | null
+          created_by?: string | null
+          description?: string
           id?: string
-          name?: string
           pgn?: Json
           timestamp?: string
+          title?: string
         }
         Relationships: [
           {
-            foreignKeyName: "openings_id_fkey"
-            columns: ["id"]
+            foreignKeyName: "openings_created_by_fkey"
+            columns: ["created_by"]
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
@@ -115,6 +179,7 @@ export type Database = {
           nationality: string | null
           updated_at: string | null
           visibility: boolean
+          visibility_friends: boolean
         }
         Insert: {
           about_me?: string | null
@@ -125,6 +190,7 @@ export type Database = {
           nationality?: string | null
           updated_at?: string | null
           visibility?: boolean
+          visibility_friends?: boolean
         }
         Update: {
           about_me?: string | null
@@ -135,6 +201,7 @@ export type Database = {
           nationality?: string | null
           updated_at?: string | null
           visibility?: boolean
+          visibility_friends?: boolean
         }
         Relationships: [
           {
@@ -180,29 +247,68 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      admin_is_admin:
-        | {
-            Args: Record<PropertyKey, never>
-            Returns: boolean
-          }
-        | {
-            Args: {
-              usr_id: string
-            }
-            Returns: boolean
-          }
+      admin_is_admin: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
+      }
+      friend_get_all_requests: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          display_name: string
+          avatar_url: string
+        }[]
+      }
+      friend_request_do_with: {
+        Args: {
+          from_user: string
+          accept_request: boolean
+        }
+        Returns: undefined
+      }
+      friend_request_send: {
+        Args: {
+          other_user: string
+        }
+        Returns: undefined
+      }
+      friend_status: {
+        Args: {
+          other_user: string
+        }
+        Returns: boolean
+      }
+      get_all_users: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          display_name: string
+        }[]
+      }
       opening_create: {
         Args: {
-          opn_name: string
+          opn_title: string
           opn_moves: Json
         }
         Returns: undefined
       }
       opening_delete: {
         Args: {
-          opn_name?: string
+          opn_id?: string
         }
         Returns: undefined
+      }
+      opening_get: {
+        Args: {
+          opening_id: string
+        }
+        Returns: {
+          opn_id: string
+          opn_name: string
+          opn_description: string
+          opn_pgn: Json
+          opn_timestamp: string
+        }[]
       }
       profile_get: {
         Args: {
@@ -214,7 +320,8 @@ export type Database = {
           avatar_url: string
           about_me: string
           nationality: string
-          usr_visibility: boolean
+          visibility: boolean
+          visibility_friends: boolean
           wins: number
           losses: number
           draws: number
@@ -229,6 +336,16 @@ export type Database = {
           usr_visibility: boolean
         }
         Returns: undefined
+      }
+      search_user: {
+        Args: {
+          search_term: string
+        }
+        Returns: {
+          id: string
+          display_name: string
+          avatar_url: string
+        }[]
       }
       user_create: {
         Args: {
