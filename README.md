@@ -50,19 +50,33 @@ Features:
 
 The project is developed using:
 
-- React/Next.js.
-- TailwindCSS.
+- React + Next.js.
+- Tailwind CSS.
+- Supabase.
 
 # Getting started
 ## Prerequisites
+### Database
 
-Getting this project up and running is rather easy.
+Getting this project up and running for the first time, requires some manual labour. You're going to have to copy-and-paste the contents of the [PREREQUISITES.sql](./PREREQUISITES.sql) file into the SQL Editor in the Supabase GUI. Once you've pasted it all there, all you need to do is to run it, and then proceed with the rest of the prerequisites. Also note [the extras document](./EXTRAS.md) for other functions and the like that may be nice to use, but are not included by default.
 
-You just need to clone this repository, follow the [prerequisites](./PREREQUISITES.md) and then the instructions below.
+> **Reasoning:** While it would be nice to automate this, of course, it's not really possible. Supabase treats every client as "untrusted" and thus does not allow for plain SQL execution. We could have made a SQL function for this, but having a function that lets you execute arbitrary SQL code sounds like a rather big potential security problem. Hence why it's necessary to do this manually.
 
-Do note that our developer documentation is available through [GitHub's repository-level Wiki](https://github.com/frigvid/app2000-gruppe11/wiki).
+### Environment file
 
-You can also generate code documentation using `jsdoc` once the project has been cloned and installed.
+1. Create a `.env.local` file in the root directory.
+2. Grab your Supabase URL and add it as the value of `NEXT_PUBLIC_SUPABASE_URL`.
+3. Grab your Supabase anonymous API key and add it as the value of `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+
+It'll look something like this:
+```environment
+NEXT_PUBLIC_SUPABASE_URL=https://somesubdomain.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=some kind of secret here
+```
+
+### Additional notes
+
+Currently, our developer documentation is available through the `docs` folder and through `jsdoc` code documentation. We do plan on moving onto  [GitHub's repository-level Wiki](https://github.com/frigvid/app2000-gruppe11/wiki), but that is for the future.
 
 ## Installation
 
@@ -76,7 +90,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Once it's up, open [http://localhost:3000](http://localhost:3000).
 
 # Usage
 

@@ -6,7 +6,7 @@
 
 # Extras
 
-This document serves to describe some utility functions that are nice to have when developing, maintaining or otherwise testing the database, but otherwise unnecessary for being able to actually get the project up and running. These are not prerequisites, [like those described here](./PREREQUISITES.md), nor as important as installation instructions.
+This document serves to describe some utility functions that are nice to have when developing, maintaining or otherwise testing the database, but otherwise unnecessary for being able to actually get the project up and running. These are not prerequisites, [like those described in the readme](./README.md#prerequisites), nor as important as installation instructions.
 
 ## Supabase
 ### Creating a user manually

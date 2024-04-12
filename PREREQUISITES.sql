@@ -1,33 +1,39 @@
-<head>
-	<title>PREREQUISITES</title>
-	<meta name="author" content="frigvid"/>
-	<meta name="date-created" content="2024-04-02"/>
-</head>
-
-# Prerequisites
-## Environment file
-
-1. Create a `.env.local` file in the root directory.
-2. Grab your Supabase URL and add it as the value of `NEXT_PUBLIC_SUPABASE_URL`.
-3. Grab your Supabase anonymous API key and add it as the value of `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
-
-It'll look something like this:
-```environment
-NEXT_PUBLIC_SUPABASE_URL=https://somesubdomain.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=some kind of secret here
-```
-
-## Supabase
-
-While the project _could_ create the tables necessary to run properly automatically, we've chosen not to do so. When comparing the effort required to make sure that the tables are created once, and only once, in a proper way versus just copy-pasting the below SQL code into Supabase's SQL Editor, it won out. Without time constraints, it wouldn't be an issue.
-
-Note that while you can create custom schemas, Chess Buddy is designed to use the default `public` schema.
-
-### Tables
-
-```postgresql
 SET
 	search_path TO public;
+
+
+
+
+
+/********************************************************************************************
+Author:			frigvid
+Create Date:	2024-04-11
+Description:	Copy everything in this file, and paste it into Supabase's SQL Editor, and run
+					it. Once this is done, everything should be ready for the project to run.
+*********************************************************************************************
+SUMMARY OF CHANGES
+Date (yyyy-mm-dd)   	Author             	Comments
+-------------------	-------------------	---------------------------------------------------
+2024-04-12         	frigvid    				Moved all SQL code over to an SQL file instead of a
+														markdown file. I don't think I messed anything up,
+														but this should make it a little less painful for
+														users to install. Hopefully didn't mess anything up
+														either.
+********************************************************************************************/ 
+
+
+
+
+
+/******************************************
+ *														*
+ *						TABLES						*
+ *														*
+ ******************************************/
+
+
+
+
 
 /* =============================================
  * Author:      frigvid
@@ -66,6 +72,37 @@ CREATE TABLE IF NOT EXISTS
 
 /* =============================================
  * Author:      frigvid
+ * Create date: 2024-04-11
+ * Description: Table containing user's friends.
+ * ============================================= */
+CREATE TABLE IF NOT EXISTS
+	friends (
+		id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+		friends_since timestamptz NULL DEFAULT now(),
+		user1 UUID NOT NULL,
+		user2 UUID NULL,
+		FOREIGN KEY (user1) REFERENCES auth.users (id),
+		UNIQUE (user1, user2)
+);
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-11
+ * Description: Table containing friend requests.
+ * ============================================= */
+CREATE TABLE IF NOT EXISTS
+	friend_requests (
+		id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+		created_at timestamptz NULL DEFAULT now(),
+		by_user UUID NOT NULL,
+		to_user UUID NOT NULL,
+		accepted BOOLEAN NULL DEFAULT NULL,
+		FOREIGN KEY (by_user) REFERENCES auth.users (id),
+		UNIQUE (by_user, to_user)
+);
+
+/* =============================================
+ * Author:      frigvid
  * Create date: 2024-04-05
  * Description: Contains individual chess games,
  *              1 per row, by user.
@@ -101,10 +138,12 @@ CREATE TABLE IF NOT EXISTS
 CREATE TABLE IF NOT EXISTS
 	openings (
 		id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-		name text NOT NULL,
-		desc text NOT NULL,
-		pgn text NOT NULL,
-		timestamp timestamptz NOT NULL DEFAULT (timezone('utc', now()))
+		created_by NULL,
+		title text NOT NULL,
+		description text NOT NULL,
+		pgn jsonb NOT NULL,
+		timestamp timestamptz NOT NULL DEFAULT (timezone('utc', now())),
+		FOREIGN KEY (created_by) REFERENCES auth.users (id)
 	);
 
 /* =============================================
@@ -170,26 +209,49 @@ CREATE TABLE IF NOT EXISTS
 		is_published BOOLEAN DEFAULT TRUE, -- Used to check if "news" are still drafts, or if they've been published. A superuser is necessary to see them in the UI.
 		FOREIGN KEY (created_by) REFERENCES auth.users (id)
 	);
-```
 
-### RLS and Policies
 
-```postgresql
-SET
-	search_path TO public;
 
--- RLS.
+
+
+/******************************************
+ *														*
+ *				ROW LEVEL SECURITY				*
+ *														*
+ ******************************************/
+
+
+
+
+
+/* Currently disabled due to time constraints.
 ALTER TABLE settings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE history ENABLE ROW LEVEL SECURITY;
 ALTER TABLE gamedata ENABLE ROW LEVEL SECURITY;
 ALTER TABLE openings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE news ENABLE ROW LEVEL SECURITY;
+*/
 
--- Policies.
--- CREATE POLICY "Users can only view their own game data." ON gamedata FOR
--- SELECT
--- 	USING (auth.uid() = userid);
+
+
+
+
+/******************************************
+ *														*
+ *						POLICIES						*
+ *														*
+ ******************************************/
+
+
+
+
+
+/* Currently disabled due to time constraints.
+Policies.
+CREATE POLICY "Users can only view their own game data." ON gamedata FOR
+SELECT
+	USING (auth.uid() = userid);
 
 CREATE POLICY "Users can only view their own settings." ON settings FOR
 SELECT
@@ -204,15 +266,21 @@ CREATE POLICY "News are viewable by everyone." ON news FOR
 SELECT
 	TO authenticated, anon
 	USING (TRUE);
-```
+*/
 
-### Functions and Triggers
 
-See [the extras document](./EXTRAS.md) for other functions and the like that may be nice to use.
 
-```postgresql
-SET
-	search_path TO public;
+
+
+/*********************************************
+ *															*
+ *				FUNCTIONS AND TRIGGERS				*
+ *															*
+ ********************************************/
+
+
+
+
 
 /* =============================================
  * Author:      frigvid
@@ -354,4 +422,52 @@ BEGIN
 		p.id = usr_id;
 END;
 $$;
-```
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-11
+ * Description: Function to search for another user,
+ *              as an authenticated user. Fuzzy
+ *              search on display_name, but only
+ *              exact match on UUID.
+ * ============================================= */
+CREATE OR REPLACE FUNCTION public.search_user(
+	search_term TEXT
+)
+	RETURNS TABLE(
+		id UUID,
+		display_name TEXT,
+		avatar_url TEXT
+	)
+	LANGUAGE plpgsql
+AS $$
+DECLARE
+	search_term_is_uuid UUID;
+BEGIN
+	IF auth.uid() IS NULL THEN
+		RETURN;
+	END IF;
+
+	BEGIN
+		search_term_is_uuid := search_term::UUID;
+	EXCEPTION WHEN others THEN
+		search_term_is_uuid := NULL;
+	END;
+
+	IF search_term_is_uuid IS NOT NULL AND EXISTS (SELECT 1 FROM profiles AS pi WHERE pi.id = search_term_is_uuid LIMIT 1) THEN
+		RETURN QUERY
+			SELECT pid.id, pid.display_name, pid.avatar_url
+			FROM profiles AS pid
+			WHERE pid.id = search_term_is_uuid
+			LIMIT 1;
+	ELSEIF EXISTS (SELECT 1 FROM profiles AS pn WHERE pn.display_name ILIKE '%' || search_term || '%' LIMIT 1) THEN
+		RETURN QUERY
+			SELECT pdn.id, pdn.display_name, pdn.avatar_url
+			FROM profiles AS pdn
+			WHERE pdn.display_name ILIKE '%' || search_term || '%'
+			LIMIT 1;
+	ELSE
+		RAISE EXCEPTION 'No user found with the provided search term.';
+	END IF;
+END;
+$$;
