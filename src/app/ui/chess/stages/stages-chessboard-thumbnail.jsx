@@ -21,7 +21,7 @@ export default function StagesChessboardThumbnail({pgn, width = 128}) {
 	
 	return (
 		<>
-			<picture>
+			<picture className="pointer-events-none">
 				<Chessboard
 					id={self.crypto.randomUUID()}
 					allowDragOutsideBoard={false}
