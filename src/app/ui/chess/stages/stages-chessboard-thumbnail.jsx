@@ -30,7 +30,6 @@ export default function StagesChessboardThumbnail({pgn, width = 128}) {
 					position={chess.fen()}
 				/>
 			</picture>
-			{() => {chess.reset(); chess.clear();}}
 		</>
 	)
 }

@@ -102,9 +102,9 @@ export default function OpeningCreator() {
 		const {data, error} = await supabase
 			.from('openings')
 			.insert({
-				id: user.id,
-				name: openingName,
-				desc: openingDescription,
+				created_by: user.id,
+				title: openingName,
+				description: openingDescription,
 				pgn: JSON.stringify(moves)
 			});
 		

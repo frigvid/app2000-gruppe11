@@ -13,8 +13,9 @@ export async function fetchOpenings() {
         //get data
         const {data, error} = await supabase
             .from('openings')
-            .select('name, desc, id, pgn');
-            return data;
+            .select('id, created_by, title, description, pgn');
+		  
+		  return data;
 
     } catch (e) {
         console.error('Error in getOpening: ', e);
