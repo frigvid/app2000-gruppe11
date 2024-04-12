@@ -70,9 +70,7 @@ export default function PlayChess() {
 		if (winner === "Black") {
 			setScore({ ...score, losses: score.losses + 1 });
 			if (user) {
-				addGamedata(user.id, false).then((r) =>
-					console.log("Added data to database.")
-				);
+				void addGamedata(user.id, false);
 			}
 
 			//adds loss to user history
@@ -80,9 +78,7 @@ export default function PlayChess() {
 			//adds win to user history
 			setScore({ ...score, wins: score.wins + 1 });
 			if (user) {
-				addGamedata(user.id, true).then((r) =>
-					console.log("Added data to database.")
-				);
+				void addGamedata(user.id, true);
 			}
 		}
 	};

@@ -90,7 +90,7 @@ export default function SignOut() {
 			router.push("/");
 		}
 		
-		signOut().then(() => logman("User has signed out."));
+		void signOut();
 	}, [router, supabase.auth])
 	
 	/* This will display a message for a brief moment.

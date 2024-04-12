@@ -38,8 +38,8 @@ export function useUser() {
 		}
 		
 		// Ignore the warning about the promise being ignored.
-		getUser().then(r => console.log());
-	}, []); // Ignore dependency warning. Adding it will cause a small performance drop.
+		void getUser();
+	}, [supabase.auth]); // Ignore dependency warning. Adding it will cause a small performance drop.
 	
 	return user;
 }

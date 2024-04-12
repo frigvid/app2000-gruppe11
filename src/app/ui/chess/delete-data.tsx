@@ -5,7 +5,7 @@ export default function DeleteData() {
 	const user = useUser();
 	
 	const deleteData = async () => {
-		removeGamedata(user.id).then(r => console.log("Removed data from database."));
+		void removeGamedata(user.id);
 	};
 	
 	return (
