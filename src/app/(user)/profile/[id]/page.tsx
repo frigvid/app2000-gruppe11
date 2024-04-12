@@ -16,7 +16,7 @@ import FriendList from "@user/profile/components/friend-list";
  * A given user's profile.
  *
  * It's available to everyone if the preference
- * `visibility` is set to `true`. Otherwise it's
+ * `visibility` is set to `true`. Otherwise, it's
  * only available to the given user.
  *
  * Friends are separately togglable in terms of
