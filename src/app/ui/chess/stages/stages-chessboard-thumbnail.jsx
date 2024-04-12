@@ -15,7 +15,7 @@ import {Chess} from "chess.js";
  */
 export default function StagesChessboardThumbnail({pgn, width = 128}) {
 	const chess = new Chess();
-	JSON.parse(pgn).forEach(move => {
+	pgn.forEach(move => {
 		chess.move(move);
 	});
 	
