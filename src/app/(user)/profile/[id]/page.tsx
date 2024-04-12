@@ -1,8 +1,11 @@
 "use client";
 
+import PendingFriendRequests from "@/app/(user)/profile/components/pending-friend-requests";
+import SearchForFriend from "@user/profile/components/search-for-friend";
 import UserProfileEditor from "@user/profile/components/user-profile-editor";
 import ProtectClientContent from "@auth/components/protect-client-content";
 import UserStats from "@/app/(user)/profile/components/user-stats";
+import FriendList from "@user/profile/components/friend-list";
 import Buffering from "@auth/components/fragment/Buffering";
 import UnauthorizedError from "@ui/error/401_unauthorized";
 import {createClient} from "@utils/supabase/client";
@@ -10,7 +13,6 @@ import React, {useEffect, useState} from "react";
 import {usePathname} from "next/navigation";
 import Avatar from "@mui/material/Avatar";
 import Link from "next/link";
-import FriendList from "@user/profile/components/friend-list";
 
 /**
  * A given user's profile.
@@ -63,9 +65,9 @@ export default function UserProfile() {
 	function profileLayout() {
 		return (
 			<main className="flex flex-col items-center justify-center bg-[#fffbf3] text-[#333] font-sans">
-				<div className="bg-white max-w-[800px] m-5 p-5 shadow-md">
+				<div className="bg-white max-w-[50rem] w-[50rem] m-5 p-5 shadow-md">
 					{/* Header: User's avatar, and display name. */}
-					<div className="bg-[#a1887f] text-white text-center p-5">
+					<div className="bg-[#a1887f] text-white text-center p-5 relative">
 						<ProtectClientContent showError={false} noBuffer={true}>
 							{
 								(
@@ -73,15 +75,18 @@ export default function UserProfile() {
 									staticUserId == user.id
 								)
 									? (
-										// @ts-ignore
-										<UserProfileEditor
-											avatar_url={data.avatar_url}
-											display_name={data.display_name}
-											about_me={data.about_me}
-											nationality={data.nationality}
-											visibility={data.visibility}
-											visibility_friends={data.visibility_friends}
-										/>
+										<div className="absolute top-0 right-0 mt-2 mr-2 flex flex-col space-y-2">
+											<UserProfileEditor
+												avatar_url={data.avatar_url}
+												display_name={data.display_name}
+												about_me={data.about_me}
+												nationality={data.nationality}
+												visibility={data.visibility}
+												visibility_friends={data.visibility_friends}
+											/>
+											<PendingFriendRequests/>
+											<SearchForFriend/>
+										</div>
 									)
 									: null
 							}

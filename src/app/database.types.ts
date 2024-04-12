@@ -11,21 +11,21 @@ export type Database = {
     Tables: {
       friend_requests: {
         Row: {
-          accepted: boolean
+          accepted: boolean | null
           by_user: string
           created_at: string | null
           id: string
           to_user: string
         }
         Insert: {
-          accepted?: boolean
+          accepted?: boolean | null
           by_user: string
           created_at?: string | null
           id?: string
           to_user: string
         }
         Update: {
-          accepted?: boolean
+          accepted?: boolean | null
           by_user?: string
           created_at?: string | null
           id?: string
@@ -46,24 +46,31 @@ export type Database = {
           friends_since: string | null
           id: string
           user1: string
-          user2: string | null
+          user2: string
         }
         Insert: {
           friends_since?: string | null
           id?: string
           user1: string
-          user2?: string | null
+          user2: string
         }
         Update: {
           friends_since?: string | null
           id?: string
           user1?: string
-          user2?: string | null
+          user2?: string
         }
         Relationships: [
           {
             foreignKeyName: "friends_user1_fkey"
             columns: ["user1"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "friends_user2_fkey"
+            columns: ["user2"]
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
@@ -94,6 +101,38 @@ export type Database = {
             foreignKeyName: "gamedata_userid_fkey"
             columns: ["userid"]
             isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      history: {
+        Row: {
+          datetime: string
+          fen: Json
+          id: string
+          player: string
+          score: number
+        }
+        Insert: {
+          datetime?: string
+          fen: Json
+          id?: string
+          player: string
+          score: number
+        }
+        Update: {
+          datetime?: string
+          fen?: Json
+          id?: string
+          player?: string
+          score?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "history_player_fkey"
+            columns: ["player"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
@@ -251,13 +290,21 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: boolean
       }
-      friend_get_all_requests: {
+      friend_get_all_friends: {
         Args: Record<PropertyKey, never>
         Returns: {
           id: string
           display_name: string
+          elo_rank: number
           avatar_url: string
+          nationality: string
         }[]
+      }
+      friend_is_friend: {
+        Args: {
+          other_user: string
+        }
+        Returns: boolean
       }
       friend_request_do_with: {
         Args: {
@@ -266,13 +313,21 @@ export type Database = {
         }
         Returns: undefined
       }
+      friend_request_get_all: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          display_name: string
+          avatar_url: string
+        }[]
+      }
       friend_request_send: {
         Args: {
           other_user: string
         }
         Returns: undefined
       }
-      friend_status: {
+      friend_request_status: {
         Args: {
           other_user: string
         }

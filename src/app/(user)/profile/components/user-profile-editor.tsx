@@ -22,11 +22,11 @@ interface EditUserProfileModalProps {
 }
 
 /**
- * Modal for editing a user's user profile.
+ * Modal for editing a user's user profile, and some
+ * options surrounding that.
  *
  * @author frigvid
  * @created 2024-04-10
- * @constructor
  */
 export default function UserProfileEditor({
 	avatar_url,
@@ -75,16 +75,14 @@ export default function UserProfileEditor({
 	
 	return (
 		<>
-			<div className="absolute">
-				<Button
-					variant="outlined"
-					color="inherit"
-					size="small"
-					onClick={openModal}
-				>
-					<Edit fontSize="small"/>
-				</Button>
-			</div>
+			<Button
+				variant="outlined"
+				color="inherit"
+				size="small"
+				onClick={openModal}
+			>
+				<Edit fontSize="small"/>
+			</Button>
 			<Transition appear show={isOpen} as={Fragment}>
 				<Dialog
 					as="div"
