@@ -1,14 +1,3 @@
-/**
- * Tailwind CSS classes used:
- * 1. Flexbox Utilities: Arrange elements in a flex container.
- * 2. Spacing Utilities: Manage spacing between elements.
- * 3. Sizing Utilities: Control the size of elements.
- * 4. Typography Utilities: Style text elements with various properties.
- * 5. Background Color Utilities: Set background colors for elements.
- * 6. Border Utilities: Add borders to elements.
- * 7. Shadow Utilities: Apply shadow effects to elements.
- * 8. Hover Effects: Add hover effects to elements.
- */
 import { addGamedata } from "@utils/game/add-gamedata";
 import { useUser } from "@/app/(auth)/actions/useUser";
 import DeleteData from "@ui/chess/delete-data";
