@@ -127,8 +127,8 @@ export default function UserProfile() {
 							(data.visibility_friends === true)
 								? <FriendList/>
 								: ((user !== null && staticUserId == user.id)
-										? <FriendList/>
-										: null)
+									? <FriendList/>
+									: null)
 						}
 					</div>
 				</div>
