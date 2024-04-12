@@ -1,7 +1,6 @@
 "use client";
 
 import {FaChessKnight, FaPlay, FaHistory, FaArrowDown} from "react-icons/fa";
-import firstTimeSetup from "@utils/first-time-setup";
 import React, {useState, useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import Link from "next/link";
@@ -14,20 +13,6 @@ import Link from "next/link";
  * @created 2024-01-15
  */
 export default function Home() {
-	/**
-	 * It shouldn't really be necessary to parse it, and check
-	 * against a boolean like this, however, I've observed
-	 * some occasional misfire. This is overkill, but it ensures
-	 * that it'll work correctly.
-	 *
-	 * TODO: This worked literally earlier today, without any change,
-	 * 		and now it doesn't. For some reason. I'll fix it if I have
-	 * 		time.
-	 */
-	//if (JSON.parse(process.env.FIRST_TIME_SETUP) === true) {
-	//	firstTimeSetup();
-	//}
-	
 	const {t, ready} = useTranslation();
 	const [loaded, setLoaded] = useState(false);
 
