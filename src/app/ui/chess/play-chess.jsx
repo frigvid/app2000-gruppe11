@@ -7,7 +7,11 @@ import {Chess} from "chess.js";
 import { updateElo } from "@utils/game/update-elo";
 
 /**
- * @author qwertyfyr, jarle0, KarstenKebba, oldpopcorn, frigvid
+ * Component for playing chess.
+ *
+ * @author qwertyfyr, jarle0, KarstenKebba, oldpopcorn
+ * @contributor frigvid
+ * @created 2024-01-30
  */
 export default function PlayChess() {
 	const user = useUser();
@@ -116,14 +120,13 @@ export default function PlayChess() {
 		else {
 			game.undo();
 			game.undo();
-			//Todo: check if its blacks turn after undo, so u dont swap sides
-			//if(game.turn === "b") makeRandomMove(); // here it'll undo and play new move simultanously
-			//Quick fix: just activates undo() function twice to make sure ur still playing as white
+			// TODO: check if its blacks turn after undo, so you don't swap sides.
+			// if(game.turn === "b") makeRandomMove(); // Here it'll undo and play new move simultaneously.
+			// Quick fix: Just activates undo() function twice to make sure you're still playing as white.
 		}
 	}
 
 	return (
-		//Container
 		<div className="flex justify-center items-center">
 			<div className="flex flex-col mr-8 p-3 px-8 max-w-sm bg-gray-200 rounded-lg border border-gray-200 shadow-md">
 				<h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
