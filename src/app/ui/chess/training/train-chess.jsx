@@ -6,8 +6,9 @@ import TrainPanel from "./train-panel";
 
 /**
  * @author qwertyfyr
+ * @contributor frigvid
  * @param opening parameter that gets an opening and is used to restrict allowed moves 
- * @returns 
+ * @returns A chessboard with the opening moves and a panel for feedback
  */
 export default function TrainChess(opening) {
 	const user = useUser();
@@ -18,7 +19,7 @@ export default function TrainChess(opening) {
 	const [botTurn, setBotTurn] = useState(1);
 	const [wrongCounter, setWrongCounter] = useState(0);
 
-	const pgn = opening.opening[0].pgn;
+	const pgn = opening.pgn;
 
 	/**
 	 * 
