@@ -29,6 +29,7 @@ import Link from "next/link";
  * @created 2024-04-03
  */
 export default function UserProfile() {
+	const supabase = createClient();
 	const [isLoading, setIsLoading] = useState(true);
 	const [data, setData] = useState(null);
 	const [user, setUser] = useState(null);
@@ -36,28 +37,54 @@ export default function UserProfile() {
 	const {t} = useTranslation();
 	
 	useEffect(() => {
-		const fetchData = async () => {
-			const supabase = createClient();
+		const fetchProfile = async () => {
+			setIsLoading(true);
+			
 			const {data, error: PostgrestError} = await supabase.rpc("profile_get", {usr_id: staticUserId});
-			const {data: {user}, error: AuthError} = await supabase.auth.getUser();
 			
 			if (PostgrestError) {
-				console.error("Supabase RPC postgres error: " + PostgrestError);
-			} else if (AuthError) {
-				console.error("Supabase RPC auth error: " + AuthError);
+				console.error("Supabase RPC postgres error!", PostgrestError);
 			} else {
-				setUser(user);
-				setData(data.pop());
-				setIsLoading(false);
+				setData(data[0]);
 			}
 		};
 		
-		void fetchData();
-	}, []);
+		const fetchUser = async () => {
+			setIsLoading(true);
+			
+			const {data: {user}, error: AuthError} = await supabase.auth.getUser();
+		
+			if (AuthError) {
+				console.error("Supabase RPC auth error!", AuthError);
+			} else {
+				setUser(user);
+			}
+		}
+		
+		void fetchProfile();
+		void fetchUser();
+		setIsLoading(false);
+	}, [staticUserId, supabase]);
 	
-	if (isLoading) {
+	/**
+	 * The extra checks are mostly for users who are not
+	 * the user who owns the profile page. Without these,
+	 * they'll currently face a rather . . . ugly error.
+	 *
+	 * This is caused, probably, by a form of race
+	 * condition. I've tested a good few variations,
+	 * including using an optional chaining operator,
+	 * but nada.
+	 *
+	 * This is a work-around, until such a time that it's fixed.
+	 *
+	 * FIXME: Solve this terrible thing.
+	 */
+	if (isLoading || data === null || data === undefined) {
 		return <Buffering/>;
 	}
+	
+	console.log(data);
 	
 	/**
 	 * The JSX layout for the user's profile.
@@ -184,5 +211,5 @@ export default function UserProfile() {
 				</main>
 			)
 		}
-	};
+	}
 }
