@@ -1,5 +1,6 @@
 "use client";
 
+import ProtectClientContent from "@auth/components/protect-client-content";
 import OpenInBrowserIcon from "@mui/icons-material/OpenInBrowser";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
@@ -12,10 +13,15 @@ import ListItem from "@mui/material/ListItem";
 import {useTranslation} from "react-i18next";
 import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
+import {User} from "@supabase/supabase-js";
 import Avatar from "@mui/material/Avatar";
 import {useRouter} from "next/navigation";
 import Paper from "@mui/material/Paper";
 import List from "@mui/material/List";
+
+interface FriendListProps {
+	user?: User;
+}
 
 /**
  * User profile's friend list component.
@@ -23,7 +29,9 @@ import List from "@mui/material/List";
  * @author frigvid
  * @created 2024-04-03
  */
-export default function FriendList() {
+export default function FriendList({
+	user
+}: FriendListProps) {
 	const supabase = createClient()
 	const [friends, setFriends] = useState(null);
 	const router = useRouter();
@@ -73,18 +81,26 @@ export default function FriendList() {
 																			<OpenInBrowserIcon/>
 																		</IconButton>
 																	</Tooltip>
-																	<Tooltip title={t("user_profile.friend_list.tooltip.remove_friend")}>
-																		<IconButton
-																			edge="end"
-																			aria-label={t("user_profile.friend_list.tooltip.remove_friend")}
-																			color="error"
-																			onClick={async () => {
-																				void await supabase.rpc("friend_remove", {other_user: friend.id});
-																			}}
-																		>
-																			<DeleteIcon/>
-																		</IconButton>
-																	</Tooltip>
+																	{
+																		(!user)
+																			? null
+																			: (
+																				<ProtectClientContent showError={false} noBuffer={true}>
+																					<Tooltip title={t("user_profile.friend_list.tooltip.remove_friend")}>
+																						<IconButton
+																							edge="end"
+																							aria-label={t("user_profile.friend_list.tooltip.remove_friend")}
+																							color="error"
+																							onClick={async () => {
+																								void await supabase.rpc("friend_remove", {other_user: friend.id});
+																							}}
+																						>
+																							<DeleteIcon/>
+																						</IconButton>
+																					</Tooltip>
+																				</ProtectClientContent>
+																			)
+																	}
 																</div>
 															}
 														>
