@@ -242,7 +242,8 @@ const resources = {
 				},
 				"stages": {
 					"read_more": "Read more",
-					"practice": "Practice"
+					"practice": "Practice",
+					"delete": "Delete opening"
 				},
 				"train_chess": {
 					"status": {
@@ -499,7 +500,8 @@ const resources = {
 				},
 				"stages": {
 					"read_more": "Les mer",
-					"practice": "Øv på"
+					"practice": "Øv på",
+					"delete": "Slett åpning"
 				},
 				"train_chess": {
 					"status": {
