@@ -9,6 +9,88 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      docs: {
+        Row: {
+          content: string | null
+          created_at: string
+          created_by: string
+          id: string
+          is_published: boolean | null
+          modified_at: string
+          summary: string | null
+          title: string
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string
+          created_by: string
+          id?: string
+          is_published?: boolean | null
+          modified_at: string
+          summary?: string | null
+          title: string
+        }
+        Update: {
+          content?: string | null
+          created_at?: string
+          created_by?: string
+          id?: string
+          is_published?: boolean | null
+          modified_at?: string
+          summary?: string | null
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "docs_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      faq: {
+        Row: {
+          content: string | null
+          created_at: string
+          created_by: string
+          id: string
+          is_published: boolean | null
+          modified_at: string
+          summary: string | null
+          title: string
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string
+          created_by: string
+          id?: string
+          is_published?: boolean | null
+          modified_at: string
+          summary?: string | null
+          title: string
+        }
+        Update: {
+          content?: string | null
+          created_at?: string
+          created_by?: string
+          id?: string
+          is_published?: boolean | null
+          modified_at?: string
+          summary?: string | null
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "faq_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       friend_requests: {
         Row: {
           accepted: boolean | null
@@ -80,26 +162,26 @@ export type Database = {
       gamedata: {
         Row: {
           draws: number | null
+          id: string
           losses: number | null
-          userid: string
           wins: number | null
         }
         Insert: {
           draws?: number | null
+          id: string
           losses?: number | null
-          userid: string
           wins?: number | null
         }
         Update: {
           draws?: number | null
+          id?: string
           losses?: number | null
-          userid?: string
           wins?: number | null
         }
         Relationships: [
           {
             foreignKeyName: "gamedata_userid_fkey"
-            columns: ["userid"]
+            columns: ["id"]
             isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
@@ -141,25 +223,31 @@ export type Database = {
       news: {
         Row: {
           content: string | null
+          created_at: string
           created_by: string
           id: string
           is_published: boolean | null
+          modified_at: string
           summary: string | null
           title: string
         }
         Insert: {
           content?: string | null
+          created_at?: string
           created_by: string
-          id: string
+          id?: string
           is_published?: boolean | null
+          modified_at: string
           summary?: string | null
           title: string
         }
         Update: {
           content?: string | null
+          created_at?: string
           created_by?: string
           id?: string
           is_published?: boolean | null
+          modified_at?: string
           summary?: string | null
           title?: string
         }
@@ -252,30 +340,30 @@ export type Database = {
           },
         ]
       }
-      settings: {
+      repertoire: {
         Row: {
-          country: string | null
           id: string
-          profile_is_public: boolean | null
-          user_image: string | null
+          openings: Json | null
+          timestamp: string
+          usr: string | null
         }
         Insert: {
-          country?: string | null
-          id: string
-          profile_is_public?: boolean | null
-          user_image?: string | null
+          id?: string
+          openings?: Json | null
+          timestamp?: string
+          usr?: string | null
         }
         Update: {
-          country?: string | null
           id?: string
-          profile_is_public?: boolean | null
-          user_image?: string | null
+          openings?: Json | null
+          timestamp?: string
+          usr?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "settings_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
+            foreignKeyName: "repertoire_usr_fkey"
+            columns: ["usr"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
@@ -306,6 +394,12 @@ export type Database = {
         }
         Returns: boolean
       }
+      friend_remove: {
+        Args: {
+          other_user: string
+        }
+        Returns: undefined
+      }
       friend_request_do_with: {
         Args: {
           from_user: string
@@ -333,13 +427,6 @@ export type Database = {
         }
         Returns: number
       }
-      get_all_users: {
-        Args: Record<PropertyKey, never>
-        Returns: {
-          id: string
-          display_name: string
-        }[]
-      }
       opening_create: {
         Args: {
           opn_title: string
@@ -354,14 +441,14 @@ export type Database = {
         Returns: undefined
       }
       opening_get: {
-        Args: {
-          opn_id: string
-        }
+        Args: Record<PropertyKey, never>
         Returns: {
-          id: string
-          title: string
+          created_by: string | null
           description: string
+          id: string
           pgn: Json
+          timestamp: string
+          title: string
         }[]
       }
       profile_get: {
@@ -413,13 +500,11 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: undefined
       }
-      user_gamedata_get: {
+      user_get_all_users: {
         Args: Record<PropertyKey, never>
         Returns: {
-          draws: number | null
-          losses: number | null
-          userid: string
-          wins: number | null
+          id: string
+          display_name: string
         }[]
       }
     }
