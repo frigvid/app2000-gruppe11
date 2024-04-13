@@ -38,8 +38,8 @@ export default function AdministratorDashboard() {
 	 */
 	if (isAdmin) {
 		return (
-			<main className="flex justify-center items-center">
-				<p>Administrator Dashboard</p>
+			<main className="flex flex-col justify-center items-center">
+				<h1 className="text-6xl">Administrator Dashboard</h1>
 				<p>Currently a stub, but will let admins delete users, promote them to administrator, etc.</p>
 			</main>
 		)
