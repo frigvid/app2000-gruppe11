@@ -25,9 +25,6 @@
 	* [Installation](#installation)
 * [Usage](#usage)
 * [Roadmap](#roadmap)
-* [Contributing](#contributing)
-* [Contact](#contact)
-* [Acknowledgments](#acknowledgments)
 * [License](#license)
 
 </details>
@@ -38,13 +35,7 @@ Chess has various strategies to for both proactive and reactive actions for the 
 
 Chess Buddy is a web-application designed to teach its users opening strategies.
 
-Features:
-- Full chess battles against machine-opponents (AI) or fellow humans.
-- Theoretical documentation and explanations of strategies.
-- Practical implementations and utilizations of strategies.
-- User-definable strategy groups.
-    - Groups can be custom-ordered or randomly ordered, effectively blindfolding the user as to which strategy is currently in effect.
-- Interactive views of strategies, both with and without hints as to what the step is, based on the users wants.
+Saying that, it's important to note that it is a bit bare-bones. You are able to play full chess games against machine opponents*, and you can create your own opening strategies, as well as training against said openings. There are also some social functions in the form of user profiles and friendships, but that's about it.
 
 ## Built with
 
@@ -100,15 +91,6 @@ Usage of the web-application should be relatively straight forward. It is design
 
 Our roadmap can be viewed through our [GitHub Project](https://github.com/users/frigvid/projects/1).
 
-# Contributing
-
-We are not accepting arbitrary contributions at this time.
-
-# Contact
-
-We can be contacted through GitHub.
-
-# Acknowledgments
 # License
 
 The repository `LICENSE` file, as you may have noticed, marks this repository as MIT. However, due to the nature of its contents, it's actually multi-licensed. Unless otherwise specified, the licenses below apply to their respective areas:
