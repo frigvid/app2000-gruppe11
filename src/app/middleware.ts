@@ -1,6 +1,5 @@
-import {createServerClient, type CookieOptions} from '@supabase/ssr'
-import {NextResponse, type NextRequest} from 'next/server'
-import {redirect} from "next/navigation";
+import {createServerClient, type CookieOptions} from "@supabase/ssr";
+import {NextResponse, type NextRequest} from "next/server";
 
 /**
  * Responsibilities:
@@ -76,7 +75,7 @@ export async function middleware(request: NextRequest) {
 	const {error} = await supabase.auth.getUser()
 	// Ensure logout and cookie deletion to avoid 400.
 	if (error) {
-		redirect("/signout");
+		void await supabase.auth.signOut();
 	}
 	
 	return response
