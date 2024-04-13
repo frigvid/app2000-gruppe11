@@ -22,6 +22,7 @@ export default function Header() {
 						<Image className="h-16" src={logoIcon} alt={"Chess Buddy logo image."}/>
 					</Link>
 				</div>
+				{/* FIXME: On viewports like the iPhone SE, it appears the Link elements stop being clickable. */}
 				<div className="lg:flex lg:gap-x-12 lg:mt-0 md:mt-4">
 					<div className="flex space-x-4 lg:space-x-12 lg:space-y-0">
 						<Link
