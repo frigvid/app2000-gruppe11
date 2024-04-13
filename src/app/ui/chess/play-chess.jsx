@@ -1,10 +1,10 @@
 import {addGamedata} from "@utils/game/add-gamedata";
 import {useUser} from "@/app/(auth)/actions/useUser";
+import {updateElo} from "@utils/game/update-elo";
 import DeleteData from "@ui/chess/delete-data";
 import {Chessboard} from "react-chessboard";
 import {useState} from "react";
 import {Chess} from "chess.js";
-import { updateElo } from "@utils/game/update-elo";
 
 /**
  * Component for playing chess.
@@ -127,8 +127,8 @@ export default function PlayChess() {
 	}
 
 	return (
-		<div className="flex justify-center items-center">
-			<div className="flex flex-col mr-8 p-3 px-8 max-w-sm bg-gray-200 rounded-lg border border-gray-200 shadow-md">
+		<div className="flex flex-col md:flex-row justify-center items-center relative">
+			<div className="md:mr-8 md:order-1 order-2 p-3 px-8 md:max-w-sm bg-gray-200 rounded-lg border border-gray-200 shadow-md md:mb-0 mb-4">
 				<h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
 					Game Status
 				</h5>
@@ -158,8 +158,8 @@ export default function PlayChess() {
 					user ? <DeleteData/> : null
 				}
 			</div>
-			<div className="w-96 h-96">
-				<Chessboard position={boardPosition} onPieceDrop={onDrop} />
+			<div className="w-full md:w-96 md:order-2 order-1 mt-4 md:mt-0 mb-4 md:mb-0 relative">
+				<Chessboard position={boardPosition} onPieceDrop={onDrop}/>
 			</div>
 		</div>
 	);
