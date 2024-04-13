@@ -130,7 +130,8 @@ const resources = {
 					"no_friends": "You do not have any friends.",
 					"tooltip": {
 						"open_profile": "Open profile",
-						"user_id_fragment": "$t(user_profile.generics.fragment.user_id)"
+						"user_id_fragment": "$t(user_profile.generics.fragment.user_id)",
+						"remove_friend": "Remove friend"
 					}
 				},
 				"friend_requests": {
@@ -388,7 +389,8 @@ const resources = {
 					"no_friends": "Du har ingen venner.",
 					"tooltip": {
 						"open_profile": "Åpne profil",
-						"user_id_fragment": "$t(user_profile.generics.fragment.user_id)"
+						"user_id_fragment": "$t(user_profile.generics.fragment.user_id)",
+						"remove_friend": "Fjern venn"
 					}
 				},
 				"friend_requests": {
@@ -471,7 +473,7 @@ const resources = {
 				},
 				"about_me": "$t(user_profile.generics.about_me)",
 				"error": {
-					"return": "$t(generic.return_somewhere) Home"
+					"return": "$t(generic.return_somewhere) hjemmesiden"
 				}
 			},
 			"chess": {
