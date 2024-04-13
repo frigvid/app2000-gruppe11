@@ -117,6 +117,11 @@ const resources = {
 				"title2": "Verify new password",
 				"button": "Change password"
 			},
+			"delete_account": {
+				"label": "You are about to delete your account.",
+				"notice": "Are you sure?",
+				"button": "Yes, delete my account"
+			},
 			"user_profile": {
 				"generics": {
 					"fragment": {
@@ -215,6 +220,26 @@ const resources = {
 				"about_me": "$t(user_profile.generics.about_me)",
 				"error": {
 					"return": "$t(generic.return_somewhere) Home"
+				}
+			},
+			"user_settings": {
+				"email": {
+					"label": "Change your email.",
+					"tooltip": "You can change your login email here.",
+					"placeholder": "example@example.com",
+					"notice": "You will have to confirm your new email."
+				},
+				"password": {
+					"label": "Change your password",
+					"tooltip": "You can change your login password here."
+				},
+				"delete": {
+					"notice": "Clicking this button will not immediately delete your account."
+				},
+				"button": {
+					"email": "Save new email",
+					"password": "Save new password",
+					"delete": "Delete your account"
 				}
 			},
 			"chess": {
@@ -376,6 +401,11 @@ const resources = {
 				"title2": "Verifiser nytt passord",
 				"button": "Bytt passord"
 			},
+			"delete_account": {
+				"label": "Du skal til å slette kontoen din.",
+				"notice": "Er du sikker?",
+				"button": "Ja, Slett kontoen min"
+			},
 			"user_profile": {
 				"generics": {
 					"fragment": {
@@ -474,6 +504,26 @@ const resources = {
 				"about_me": "$t(user_profile.generics.about_me)",
 				"error": {
 					"return": "$t(generic.return_somewhere) hjemmesiden"
+				}
+			},
+			"user_settings": {
+				"email": {
+					"label": "Bytt din e-post.",
+					"tooltip": "Du kan endre din innlogging epost her.",
+					"placeholder": "eksempel@eksempel.no",
+					"notice": "Du blir nødt til å verifisere den nye e-posten."
+				},
+				"password": {
+					"label": "Bytt ditt passord",
+					"tooltip": "Du kan bytte ditt innloggingspassord her."
+				},
+				"delete": {
+					"notice": "Om du klikker denne knappen, vil den ikke slette kontoen din ummidelbart."
+				},
+				"button": {
+					"email": "Lagre ny e-post",
+					"password": "Lagre nytt passord",
+					"delete": "Slett kontoen din"
 				}
 			},
 			"chess": {

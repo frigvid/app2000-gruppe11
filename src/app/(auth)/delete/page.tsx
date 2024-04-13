@@ -3,9 +3,11 @@
 import ProtectClientContent from "@auth/components/protect-client-content";
 import {deleteUserAccount} from "@auth/delete/actions/delete-account-sa";
 import {useUser} from "@auth/actions/useUser";
+import {useTranslation} from "react-i18next";
 import {useRouter} from "next/navigation";
 
 export default function DeleteAccount() {
+	const {t} = useTranslation();
 	const router = useRouter();
 	const user = useUser();
 	
@@ -30,13 +32,13 @@ export default function DeleteAccount() {
 		<main className="flex flex-col justify-center items-center space-y-4">
 			<ProtectClientContent showError={true} noBuffer={false}>
 				<>
-					<h1 className="text-3xl font-medium mr-5 p-0">You are about to delete your account.</h1>
-					<p className="italic">Are you sure?</p>
+					<h1 className="lg:text-3xl font-medium">{t("delete_account.label")}</h1>
+					<p className="italic">{t("delete_account.notice")}</p>
 					<button
 						className="bg-buttoncolor mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
 						onClick={deleteAccount}
 					>
-						Yes, delete my account.
+						{t("delete_account.button")}
 					</button>
 				</>
 			</ProtectClientContent>
