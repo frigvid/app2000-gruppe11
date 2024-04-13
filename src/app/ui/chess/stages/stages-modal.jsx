@@ -1,7 +1,12 @@
 import StagesChessboardThumbnail from "@ui/chess/stages/stages-chessboard-thumbnail";
 import {Dialog, Transition} from "@headlessui/react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import {createClient} from "@utils/supabase/client";
+import IconButton from "@mui/material/IconButton";
 import {useTranslation} from "react-i18next";
+import Tooltip from "@mui/material/Tooltip";
 import {Fragment, useState} from "react";
+import * as React from "react";
 import Link from "next/link";
 
 /**
@@ -18,6 +23,7 @@ import Link from "next/link";
 export default function StagesModal({title, details, id, pgn}) {
 	let [isOpen, setIsOpen] = useState(false);
 	const {t} = useTranslation();
+	const supabase = createClient();
 	
 	function closeModal() {
 		setIsOpen(false)
@@ -63,13 +69,27 @@ export default function StagesModal({title, details, id, pgn}) {
 								leaveFrom="opacity-100 scale-100"
 								leaveTo="opacity-0 scale-95"
 							>
-								<Dialog.Panel className="w-[60rem] h-[40rem] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+								<Dialog.Panel className="w-[60rem] h-[40rem] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all relative">
 									<Dialog.Title
 										as="h3"
 										className="text-lg font-medium leading-6 text-gray-900"
 									>
 										{title}
 									</Dialog.Title>
+									<div className="absolute top-0 right-0 mr-4 mt-4">
+										<Tooltip title={t("chess.stages.delete")}>
+											<IconButton
+												size="small"
+												sx={{ ml: 2 }}
+												onClick={async () => {
+													void await supabase.rpc("opening_delete", {opn_id: id});
+													setIsOpen(false);
+												}}
+											>
+												<DeleteIcon color="error"/>
+											</IconButton>
+										</Tooltip>
+									</div>
 									<div className="mt-2">
 										<p className="text-sm text-gray-500">
 											{
