@@ -33,87 +33,97 @@ CREATE OR REPLACE FUNCTION public.user_create(
     email text,
     password text,
     isAdmin bool
-) RETURNS void
+)
+  RETURNS void
+  LANGUAGE plpgsql
 AS $$
 DECLARE
   user_id uuid;
   encrypted_pw text;
   date_time timestamptz;
 BEGIN
-  user_id := gen_random_uuid();
-  encrypted_pw := crypt(password, gen_salt('bf', 12));
-  date_time := now() at time zone 'utc';
-  
-  INSERT INTO auth.users
-    (
-      instance_id,
-      id,
-      aud,
-      role,
-      email,
-      encrypted_password,
-      email_confirmed_at,
-      recovery_sent_at,
-      last_sign_in_at,
-      raw_app_meta_data,
-      raw_user_meta_data,
-      is_super_admin,
-      created_at,
-      updated_at,
-      confirmation_token,
-      email_change,
-      email_change_token_new,
-      recovery_token
-    )
-  VALUES
-    (
-      '00000000-0000-0000-0000-000000000000',
-      user_id,
-      'authenticated',
-      'authenticated',
-      email,
-      encrypted_pw,
-      date_time, -- email_confirmed_at
-      date_time, -- recovery_sent_at
-      date_time, -- last_sign_in_at
-      '{"provider":"email","providers":["email"]}',
-      '{"elo_rank": 400}',
-      isAdmin,
-      date_time, -- created_at
-      date_time, -- updated_at
-      '',
-      '',
-      '',
-      ''
-    );
-  INSERT INTO auth.identities
-    (
-      id,
-      user_id,
-      provider_id,
-      identity_data,
-      provider,
-      last_sign_in_at,
-      created_at,
-      updated_at
-    )
-  VALUES
-    (
-      gen_random_uuid(),
-      user_id,
-      user_id,
-      format(
-        '{"sub":"%s","email":"%s"}',
-        user_id::text,
-        email
-      )::jsonb,
-      'email',
-      date_time, -- last_sign_in_at
-      date_time, -- created_at
-      date_time  -- updated_at
-    );
+  IF (
+    SELECT is_super_admin
+    FROM auth.users
+    WHERE id = auth.uid()
+  ) THEN
+    user_id := gen_random_uuid();
+    encrypted_pw := crypt(password, gen_salt('bf', 12));
+    date_time := now() at time zone 'utc';
+    
+    INSERT INTO auth.users
+      (
+        instance_id,
+        id,
+        aud,
+        role,
+        email,
+        encrypted_password,
+        email_confirmed_at,
+        recovery_sent_at,
+        last_sign_in_at,
+        raw_app_meta_data,
+        raw_user_meta_data,
+        is_super_admin,
+        created_at,
+        updated_at,
+        confirmation_token,
+        email_change,
+        email_change_token_new,
+        recovery_token
+      )
+    VALUES
+      (
+        '00000000-0000-0000-0000-000000000000',
+        user_id,
+        'authenticated',
+        'authenticated',
+        email,
+        encrypted_pw,
+        date_time, -- email_confirmed_at
+        date_time, -- recovery_sent_at
+        date_time, -- last_sign_in_at
+        '{"provider":"email","providers":["email"]}',
+        '{"elo_rank": 400}',
+        isAdmin,
+        date_time, -- created_at
+        date_time, -- updated_at
+        '',
+        '',
+        '',
+        ''
+      );
+    INSERT INTO auth.identities
+      (
+        id,
+        user_id,
+        provider_id,
+        identity_data,
+        provider,
+        last_sign_in_at,
+        created_at,
+        updated_at
+      )
+    VALUES
+      (
+        gen_random_uuid(),
+        user_id,
+        user_id,
+        format(
+          '{"sub":"%s","email":"%s"}',
+          user_id::text,
+          email
+        )::jsonb,
+        'email',
+        date_time, -- last_sign_in_at
+        date_time, -- created_at
+        date_time  -- updated_at
+      );
+  ELSE
+    RAISE EXCEPTION 'You do not have permission to execute this function.';
+  END IF;
 END;
-$$ LANGUAGE plpgsql;
+$$;
 ```
 
 ### Deleting all users manually
@@ -136,7 +146,7 @@ END $$;
 set
   search_path to auth;
 
-delete from auth.sessions
-where
+DELETE from auth.sessions
+WHERE
   user_id = 'USER-UUID-GOES-HERE'
 ```
