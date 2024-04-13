@@ -66,7 +66,7 @@ export default function StagesCreateOpeningModal() {
 									>
 										{t("chess.create_opening.title")}
 									</Dialog.Title>
-									<OpeningCreator/>
+									<OpeningCreator closeModal={closeModal}/>
 								</Dialog.Panel>
 							</Transition.Child>
 						</div>

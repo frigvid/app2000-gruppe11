@@ -26,7 +26,7 @@ import {Chess} from "chess.js";
  * @contributor frigvid
  * @returns {React.Element} The opening manager component.
  */
-export default function OpeningCreator() {
+export default function OpeningCreator({closeModal}) {
 	const [game, setGame] = useState(new Chess());
 	const [moves, setMoves] = useState([]);
 	const [openingName, setOpeningName] = useState('');
@@ -127,6 +127,8 @@ export default function OpeningCreator() {
 		setOpeningDescription('');
 		setMoves([]);
 		setGame(new Chess());
+		
+		closeModal();
 	}
 	
 	return (
