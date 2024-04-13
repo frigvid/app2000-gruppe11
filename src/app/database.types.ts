@@ -331,7 +331,7 @@ export type Database = {
         Args: {
           other_user: string
         }
-        Returns: boolean
+        Returns: number
       }
       get_all_users: {
         Args: Record<PropertyKey, never>
@@ -355,14 +355,13 @@ export type Database = {
       }
       opening_get: {
         Args: {
-          opening_id: string
+          opn_id: string
         }
         Returns: {
-          opn_id: string
-          opn_name: string
-          opn_description: string
-          opn_pgn: Json
-          opn_timestamp: string
+          id: string
+          title: string
+          description: string
+          pgn: Json
         }[]
       }
       profile_get: {
