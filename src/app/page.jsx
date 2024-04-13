@@ -9,7 +9,7 @@ import Link from "next/link";
  * Homepage route.
  *
  * @author frigvid, KarstenKebba
- * @contributor oldpopcorn
+ * @contributor oldpopcorn, jarle0
  * @created 2024-01-15
  */
 export default function Home() {
@@ -30,15 +30,15 @@ export default function Home() {
 	
 	return (
 		<main className="flex flex-col">
-			<div className="flex items-center justify-center h-screen -mt-20 sm:-mt-10 md:mt-0">
-				<div className="space-x-4 flex flex-col sm:flex-row sm:space-x-6 sm:space-y-0 space-y-4 text-lg">
+			<div className="flex flex-col items-center justify-center h-screen -mt-24 md:mt-0">
+				<div className="space-y-4 md:space-y-0 md:flex md:justify-center md:space-x-6 text-lg mt-2 md:mt-0">
 					{/* Train Openings */}
 					<div className="text-center">
 						<Link
-							className="flex justify-center items-center bg-blue-500 text-white rounded h-40 w-40 sm:h-48 sm:w-48 hover:bg-blue-600 transition duration-300 ease-in-out"
+							className="flex justify-center items-center bg-blue-500 text-white rounded h-32 w-32 sm:h-40 sm:w-40 md:h-48 md:w-48 hover:bg-blue-600 transition duration-300 ease-in-out"
 							href="/chess/stages"
 						>
-							<FaChessKnight className="text-5xl sm:text-6xl"/>
+							<FaChessKnight className="text-5xl md:text-6xl"/>
 						</Link>
 						<p className="mt-2 text-gray-600">{t('train_openings')}</p>
 					</div>
@@ -46,9 +46,9 @@ export default function Home() {
 					<div className="text-center">
 						<Link
 							href="/chess"
-							className="flex justify-center items-center bg-green-500 text-white rounded h-40 w-40 sm:h-48 sm:w-48 hover:bg-green-600 transition duration-300 ease-in-out"
+							className="flex justify-center items-center bg-green-500 text-white rounded h-32 w-32 sm:h-40 sm:w-40 md:h-48 md:w-48 hover:bg-green-600 transition duration-300 ease-in-out"
 						>
-							<FaPlay className="text-5xl sm:text-6xl"/>
+							<FaPlay className="text-5xl md:text-6xl"/>
 						</Link>
 						<p className="mt-2 text-gray-600">{t('play_now')}</p>
 					</div>
@@ -56,19 +56,20 @@ export default function Home() {
 					<div className="text-center">
 						<Link
 							href="/chess/history"
-							className="flex justify-center items-center bg-red-500 text-white rounded h-40 w-40 sm:h-48 sm:w-48 hover:bg-red-600 transition duration-300 ease-in-out"
+							className="flex justify-center items-center bg-red-500 text-white rounded h-32 w-32 sm:h-40 sm:w-40 md:h-48 md:w-48 hover:bg-red-600 transition duration-300 ease-in-out"
 						>
-							<FaHistory className="text-5xl sm:text-6xl"/>
+							<FaHistory className="text-5xl md:text-6xl"/>
 						</Link>
 						<p className="mt-2 text-gray-600">{t('your_history')}</p>
 					</div>
 				</div>
+				{/* Animated Down Arrow */}
 				<div className="absolute bottom-5 w-full text-center">
 					<FaArrowDown className="animate-bounce mx-auto text-2xl"/>
 				</div>
 			</div>
-			<div className="flex flex-col items-center text-center px-4 py-8 mb-20 text-lg">
-				<section className="max-w-4xl text-justify space-y-4 space-x-12">
+			<div className="flex flex-col items-center px-4 py-8 mb-20 text-lg">
+				<section className="max-w-4xl text-justify space-y-4">
 					<h1 className="text-4xl font-bold text-center mb-6">{t('about_chess_buddy')}</h1>
 					<p>{t('chess_buddy_description_1')}</p>
 					<p>{t('chess_buddy_description_2')}</p>
@@ -83,7 +84,7 @@ export default function Home() {
 						</Link>.
 					</p>
 				</section>
-				<section className="max-w-4xl mt-10 text-justify space-y-4 space-x-12">
+				<section className="max-w-4xl mt-10 text-justify space-y-4">
 					<h2 className="text-3xl font-bold text-center mb-6">{t('ch_help_you1')}</h2>
 					<ul className="list-disc space-y-2 pl-5">
 						<li>{t('ch_help_you2')}</li>
@@ -96,3 +97,19 @@ export default function Home() {
 		</main>
 	);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

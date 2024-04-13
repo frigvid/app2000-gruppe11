@@ -58,11 +58,11 @@ export default function OpeningCreator() {
 	 * @param targetSquare The square you're moving to.
 	 * @return {boolean} Whether the move was successful or not.
 	 */
-	function onDrop(sourceSquare, targetSquare) {
+	function onDrop(sourceSquare, targetSquare, piece) {
 		const move = game.move({
 			from: sourceSquare,
 			to: targetSquare,
-			promotion: 'q'
+			promotion: "q",
 		});
 
 		if (move === null) return false;
@@ -72,11 +72,11 @@ export default function OpeningCreator() {
 			{
 				from: move.from,
 				to: move.to,
-				promotion: move.promotion,
-				san: move.san
+				piece: move.piece
 			}
 		]);
 		
+		console.log(move);
 		return true;
 	}
 	
@@ -105,7 +105,7 @@ export default function OpeningCreator() {
 				created_by: user.id,
 				title: openingName,
 				description: openingDescription,
-				pgn: JSON.stringify(moves)
+				pgn: moves
 			});
 		
 		if (error) {

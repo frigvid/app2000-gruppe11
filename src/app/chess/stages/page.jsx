@@ -14,8 +14,8 @@ import React, {useEffect, useState} from "react";
  *
  * @author qwertyfyr
  * @contributor frigvid
+ * @created 2024-04-02
  * @return {JSX.Element} The Stages component.
- * @constructor
  */
 export default function Stages() {
 	const [opening, setOpening] = useState([]);
