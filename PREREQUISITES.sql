@@ -817,9 +817,9 @@ BEGIN
 		g.losses,
 		g.draws
 	FROM
-		public.profiles p
+		public.profiles AS p
 	JOIN
-		public.gamedata g ON p.id = g.id
+		public.gamedata AS g ON p.id = g.id
 	WHERE
 		p.id = usr_id;
 END;
