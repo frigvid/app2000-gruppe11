@@ -1,7 +1,7 @@
 "use client";
 
-import Buffering from "@/app/(auth)/components/fragment/Buffering";
-import {useUser} from "@/app/(auth)/actions/useUser";
+import Buffering from "@auth/components/fragment/Buffering";
+import {useUser} from "@auth/actions/useUser";
 import {createClient} from "@utils/supabase/client";
 import React, {useState, useEffect} from "react";
 import {Chessboard} from "react-chessboard";
