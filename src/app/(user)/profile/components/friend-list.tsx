@@ -5,6 +5,7 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import {createClient} from "@utils/supabase/client";
 import PersonIcon from "@mui/icons-material/Person";
+import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import React, {useEffect, useState} from "react";
 import ListItem from "@mui/material/ListItem";
@@ -65,12 +66,23 @@ export default function FriendList() {
 																		<IconButton
 																			edge="end"
 																			aria-label={t("user_profile.friend_list.tooltip.open_profile")}
-																			className=""
 																			onClick={() => {
 																				router.push("/profile/" + friend.id);
 																			}}
 																		>
 																			<OpenInBrowserIcon/>
+																		</IconButton>
+																	</Tooltip>
+																	<Tooltip title={t("user_profile.friend_list.tooltip.remove_friend")}>
+																		<IconButton
+																			edge="end"
+																			aria-label={t("user_profile.friend_list.tooltip.remove_friend")}
+																			color="error"
+																			onClick={async () => {
+																				void await supabase.rpc("friend_remove", {other_user: friend.id});
+																			}}
+																		>
+																			<DeleteIcon/>
 																		</IconButton>
 																	</Tooltip>
 																</div>
