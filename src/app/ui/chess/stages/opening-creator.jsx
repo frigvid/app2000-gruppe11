@@ -1,9 +1,10 @@
 "use client";
 
 import Buffering from "@auth/components/fragment/Buffering";
-import {useUser} from "@auth/actions/useUser";
 import {createClient} from "@utils/supabase/client";
 import React, {useState, useEffect} from "react";
+import {useUser} from "@auth/actions/useUser";
+import {useTranslation} from "react-i18next";
 import {Chessboard} from "react-chessboard";
 import {Chess} from "chess.js";
 
@@ -36,6 +37,7 @@ export default function OpeningCreator() {
 	const [loading, setLoading] = useState(true);
 	const supabase = createClient();
 	const user = useUser();
+	const {t} = useTranslation();
 	
 	/**
 	 * Sets a timeout to simulate loading.
@@ -90,7 +92,7 @@ export default function OpeningCreator() {
 	 */
 	async function saveOpening() {
 		if (!openingName.trim() || moves.length === 0) {
-			setFeedbackMsg('Missing name, description or move');
+			setFeedbackMsg(t("chess.stages.create_opening.feedback.missing"));
 			setFeedbackType('error');
 			setIsFeedbackVisible(true);
 			setTimeout(() => setIsFeedbackVisible(false), 2500);
@@ -109,11 +111,11 @@ export default function OpeningCreator() {
 			});
 		
 		if (error) {
-			setFeedbackMsg('An error occurred while saving to the database');
+			setFeedbackMsg(t("chess.stages.create_opening.feedback.error"));
 			setFeedbackType('error');
 			setTimeout(() => setIsFeedbackVisible(false), 2500);
 		} else {
-			setFeedbackMsg('New opening saved successfully');
+			setFeedbackMsg(t("chess.stages.create_opening.feedback.success"));
 			setFeedbackType('success');
 			setTimeout(() => setIsFeedbackVisible(false), 2000);
 		}
@@ -134,14 +136,14 @@ export default function OpeningCreator() {
 					type="text"
 					value={openingName}
 					onChange={(e) => setOpeningName(e.target.value)}
-					placeholder="Name of the opening"
+					placeholder={t("chess.stages.create_opening.placeholder.name")}
 					className="border border-gray-300 p-2 rounded"
 				/>
 				<textarea
 					value={openingDescription}
 					onChange={(e) => setOpeningDescription(e.target.value)}
-					placeholder="Description of the opening"
-					className="border border-gray-300 p-2 rounded h-24"
+					placeholder={t("chess.stages.create_opening.placeholder.desc")}
+					className="border border-gray-300 p-2 rounded h-24 whitespace-pre-wrap"
 				/>
 			</div>
 			<div>
@@ -156,7 +158,7 @@ export default function OpeningCreator() {
 						onClick={saveOpening}
 						className="w-full bg-buttoncolor mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
 					>
-						Save Opening
+						{t("chess.stages.create_opening.button.save")}
 					</button>
 				}
 				<Chessboard

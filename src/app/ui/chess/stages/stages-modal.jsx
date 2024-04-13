@@ -70,7 +70,13 @@ export default function StagesModal({title, details, id, pgn}) {
 									</Dialog.Title>
 									<div className="mt-2">
 										<p className="text-sm text-gray-500">
-											{details}
+											{
+												(details !== null)
+													? ((details !== "")
+														? details.split('\r\n').map((line, i) => <span key={i}>{line}<br/></span>)
+														: null)
+													: null
+											}
 										</p>
 									</div>
 									<StagesChessboardThumbnail pgn={pgn} width={300}/>
