@@ -1,4 +1,4 @@
-import {Inter} from 'next/font/google'
+import {Inter} from "next/font/google";
 import Header from "@ui/header";
 import Footer from "@ui/footer";
 import "@/app/globals.css";
