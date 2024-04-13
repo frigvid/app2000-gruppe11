@@ -736,16 +736,18 @@ $$;
 /* =============================================
  * Author:      frigvid
  * Create date: 2024-04-09
- * Description: Deletes an opening.
+ * Description: Gets an opening by ID.
  * ============================================= */
-CREATE OR REPLACE FUNCTION public.opening_get()
+CREATE OR REPLACE FUNCTION public.opening_get(
+	opn_id UUID
+)
 	RETURNS SETOF openings
 	LANGUAGE plpgsql
 AS $$
 BEGIN
 	RETURN QUERY 
 	SELECT * FROM public.openings 
-	WHERE (created_by = auth.uid() OR created_by IS NULL);
+	WHERE id = opn_id;
 END;
 $$;
 
