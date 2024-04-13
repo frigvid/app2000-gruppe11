@@ -19,6 +19,9 @@ Date (yyyy-mm-dd)   	Author             	Comments
 														but this should make it a little less painful for
 														users to install. Hopefully didn't mess anything up
 														either.
+2024-04-13				frigvid					Added RLS and POLICIES for public.* tables.
+2024-04-13T20-50		frigvid					Added history-gamedata trigger.
+2024-04-13T21-10		frigvid					Add Supabase REALTIME support to select tables.
 ********************************************************************************************/ 
 
 
@@ -34,22 +37,6 @@ Date (yyyy-mm-dd)   	Author             	Comments
 
 
 
-
-/* =============================================
- * Author:      frigvid
- * Create date: 2024-04-02
- * Description: User settings table.
- * ============================================= */
-CREATE TABLE IF NOT EXISTS
-	settings (
-		id UUID PRIMARY KEY,
-		user_image BYTEA DEFAULT NULL, -- Used for the user's profile image, and a small thumbnail image in the header bar.
-		country TEXT DEFAULT NULL, -- Used to set county icon/emoji on user profile.
-		profile_is_public BOOLEAN DEFAULT TRUE,
-		-- theme TEXT NULL,
-		-- language TEXT NULL,
-		FOREIGN KEY (id) REFERENCES auth.users (id)
-	);
 
 /* =============================================
  * Author:      frigvid
@@ -70,6 +57,8 @@ CREATE TABLE IF NOT EXISTS
 		FOREIGN KEY (id) REFERENCES auth.users (id)
 	);
 
+
+
 /* =============================================
  * Author:      frigvid
  * Create date: 2024-04-11
@@ -87,6 +76,8 @@ CREATE TABLE IF NOT EXISTS
 		UNIQUE (user1, user2),
 		UNIQUE (user2, user1)
 );
+
+
 
 /* =============================================
  * Author:      frigvid
@@ -109,6 +100,8 @@ CREATE TABLE IF NOT EXISTS
 		UNIQUE (to_user, by_user)
 );
 
+
+
 /* =============================================
  * Author:      frigvid
  * Create date: 2024-04-05
@@ -127,6 +120,8 @@ CREATE TABLE IF NOT EXISTS
 		FOREIGN KEY (player) REFERENCES auth.users (id)
 	);
 
+
+
 /* =============================================
  * Author:      frigvid
  * Create date: 2024-04-02
@@ -140,6 +135,8 @@ CREATE TABLE IF NOT EXISTS
 		draws BIGINT,
 		FOREIGN KEY (id) REFERENCES auth.users (id)
 	);
+
+
 
 /* =============================================
  * Author:      frigvid
@@ -157,41 +154,7 @@ CREATE TABLE IF NOT EXISTS
 		FOREIGN KEY (created_by) REFERENCES auth.users (id)
 	);
 
-/* =============================================
- * Author:      frigvid
- * Create date: 2024-04-05
- * Description: WIP
- * ============================================= */
-/*
-CREATE TABLE IF NOT EXISTS
-	user_openings (
-		id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-		created_by uuid NOT NULL,
-		name text NOT NULL,
-		desc text,
-		pgn jsonb,
-		timestamp timestamptz NOT NULL DEFAULT (timezone('utc', now())),
-		FOREIGN KEY (created_by) REFERENCES auth.users (id)
-	);
-*/
 
-/* =============================================
- * Author:      frigvid
- * Create date: 2024-04-05
- * Description: Contains chess openings/strategies.
- * ============================================= */
-/*
-CREATE TABLE IF NOT EXISTS
-	openings (
-		id UUID,
-		name text,
-		pgn jsonb,
-		timestamp timestamptz NOT NULL DEFAULT (timezone('utc', now())),
-		PRIMARY KEY (id, name, pgn, timestamp),
-		FOREIGN KEY (id) REFERENCES auth.users (id),
-		UNIQUE (id, name) -- Constrain id-name.
-	);
-*/
 
 /* =============================================
  * Author:      frigvid
@@ -203,11 +166,15 @@ CREATE TABLE IF NOT EXISTS
 CREATE TABLE IF NOT EXISTS
 	repertoire (
 		id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+		timestamp TIMESTAMPTZ NOT NULL DEFAULT (timezone('utc', now())),
+		/* Named this way to avoid naming collision with USER() in SELECTs. */
 		usr uuid,
-		timestamp timestamptz,
-		openings jsonb, -- Array with opening IDs.
+		/* Array with opening IDs. */
+		openings jsonb,
 		FOREIGN KEY (usr) REFERENCES auth.users (id)
 	);
+
+
 
 /* =============================================
  * Author:      frigvid
@@ -216,12 +183,63 @@ CREATE TABLE IF NOT EXISTS
  * ============================================= */
 CREATE TABLE IF NOT EXISTS
 	news (
-		id UUID PRIMARY KEY,
+		id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+		created_at TIMESTAMPTZ NOT NULL DEFAULT (timezone('utc', now())),
+		/* Changed using a TRIGGER. */
+		modified_at TIMESTAMPTZ NOT NULL,
 		created_by UUID NOT NULL,
 		title TEXT NOT NULL,
 		summary TEXT NULL,
 		content TEXT NULL,
-		is_published BOOLEAN DEFAULT TRUE, -- Used to check if "news" are still drafts, or if they've been published. A superuser is necessary to see them in the UI.
+		/* Used to check if "news" are still drafts, or if they've been published.
+		 * A superuser is necessary to see them in the UI if FALSE. */
+		is_published BOOLEAN DEFAULT TRUE,
+		FOREIGN KEY (created_by) REFERENCES auth.users (id)
+	);
+
+
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-13
+ * Description: Contains admin-created docs.
+ * ============================================= */
+CREATE TABLE IF NOT EXISTS
+	docs (
+		id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+		created_at TIMESTAMPTZ NOT NULL DEFAULT (timezone('utc', now())),
+		/* Changed using a TRIGGER. */
+		modified_at TIMESTAMPTZ NOT NULL,
+		created_by UUID NOT NULL,
+		title TEXT NOT NULL,
+		summary TEXT NULL,
+		content TEXT NULL,
+		/* Used to check if "docs" are still drafts, or if they've been published.
+		 * A superuser is necessary to see them in the UI if FALSE. */
+		is_published BOOLEAN DEFAULT TRUE,
+		FOREIGN KEY (created_by) REFERENCES auth.users (id)
+	);
+
+
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-13
+ * Description: Contains admin-created FAQs.
+ * ============================================= */
+CREATE TABLE IF NOT EXISTS
+	faq (
+		id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+		created_at TIMESTAMPTZ NOT NULL DEFAULT (timezone('utc', now())),
+		/* Changed using a TRIGGER. */
+		modified_at TIMESTAMPTZ NOT NULL,
+		created_by UUID NOT NULL,
+		title TEXT NOT NULL,
+		summary TEXT NULL,
+		content TEXT NULL,
+		/* Used to check if "faq" are still drafts, or if they've been published.
+		 * A superuser is necessary to see them in the UI if FALSE. */
+		is_published BOOLEAN DEFAULT TRUE,
 		FOREIGN KEY (created_by) REFERENCES auth.users (id)
 	);
 
@@ -229,59 +247,328 @@ CREATE TABLE IF NOT EXISTS
 
 
 
-/******************************************
- *														*
- *				ROW LEVEL SECURITY				*
- *														*
- ******************************************/
+/*********************************************
+ *															*
+ *					REALTIME SUPPORT					*
+ *															*
+ ********************************************/
+ALTER PUBLICATION supabase_realtime ADD TABLE public.openings;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.gamedata;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.friends;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.friend_requests;
 
 
 
 
 
-/* Currently disabled due to time constraints.
-ALTER TABLE settings ENABLE ROW LEVEL SECURITY;
-ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
-ALTER TABLE history ENABLE ROW LEVEL SECURITY;
-ALTER TABLE gamedata ENABLE ROW LEVEL SECURITY;
-ALTER TABLE openings ENABLE ROW LEVEL SECURITY;
+/*********************************************
+ *															*
+ *			ROW LEVEL SECURITY & POLICIES			*
+ *															*
+ ********************************************/
+
+
+
+
+
+/* NEWS POLICIES */
 ALTER TABLE news ENABLE ROW LEVEL SECURITY;
-*/
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-13
+ * Description: Grant read-write access to admins.
+ * ============================================= */
+CREATE POLICY news_rw_as_admin
+ON news
+FOR ALL
+TO authenticated
+USING (
+	EXISTS (
+		SELECT 1 FROM auth.users
+		WHERE id = auth.uid() AND is_super_admin = TRUE
+	)
+)
+WITH CHECK (
+	EXISTS (
+		SELECT 1 FROM auth.users
+		WHERE id = auth.uid() AND is_super_admin = TRUE
+	)
+);
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-13
+ * Description: Grant read access to non-user
+ *              created rows.
+ * ============================================= */
+CREATE POLICY news_r_to_published
+ON news
+FOR SELECT
+TO anon, authenticated
+USING (is_published = TRUE);
+
+
+/* DOCS POLICIES */
+ALTER TABLE docs ENABLE ROW LEVEL SECURITY;
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-13
+ * Description: Grant read-write access to admins.
+ * ============================================= */
+CREATE POLICY docs_rw_as_admin
+ON docs
+FOR ALL
+TO authenticated
+USING (
+	EXISTS (
+		SELECT 1 FROM auth.users
+		WHERE id = auth.uid() AND is_super_admin = TRUE
+	)
+)
+WITH CHECK (
+	EXISTS (
+		SELECT 1 FROM auth.users
+		WHERE id = auth.uid() AND is_super_admin = TRUE
+	)
+);
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-13
+ * Description: Grant read access to non-user
+ *              created rows.
+ * ============================================= */
+CREATE POLICY docs_r_to_published
+ON docs
+FOR SELECT
+TO anon, authenticated
+USING (is_published = TRUE);
 
 
 
+/* FAQ POLICIES */
+ALTER TABLE faq ENABLE ROW LEVEL SECURITY;
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-13
+ * Description: Grant read-write access to admins.
+ * ============================================= */
+CREATE POLICY faq_rw_as_admin
+ON faq
+FOR ALL
+TO authenticated
+USING (
+	EXISTS (
+		SELECT 1 FROM auth.users
+		WHERE id = auth.uid() AND is_super_admin = TRUE
+	)
+)
+WITH CHECK (
+	EXISTS (
+		SELECT 1 FROM auth.users
+		WHERE id = auth.uid() AND is_super_admin = TRUE
+	)
+);
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-13
+ * Description: Grant read access to non-user
+ *              created rows.
+ * ============================================= */
+CREATE POLICY docs_r_to_published
+ON faq
+FOR SELECT
+TO anon, authenticated
+USING (is_published = TRUE);
 
 
-/******************************************
- *														*
- *						POLICIES						*
- *														*
- ******************************************/
+
+/* PROFILE POLICIES */
+ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-13
+ * Description: Grant read-write access to user
+ *              created rows.
+ * ============================================= */
+CREATE POLICY profiles_rw_to_own_rows
+ON profiles
+TO authenticated
+USING (id = auth.uid())
+WITH CHECK (id = auth.uid());
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-13
+ * Description: Grant read access to non-user
+ *              created rows.
+ * ============================================= */
+CREATE POLICY profiles_r_to_not_own_rows
+ON profiles
+TO anon, authenticated
+USING (id != auth.uid());
 
 
 
+/* FRIEND POLICIES */
+ALTER TABLE friends ENABLE ROW LEVEL SECURITY;
+
+/* ===================================================
+ * Author:      frigvid
+ * Create date: 2024-04-13
+ * Description: Grant read-write access to user
+ *              rows where the user is the sender
+ *              or recipient.
+ *
+ *              The table has dual-unique constraints,
+ *              it's just a bit of paranoia checking.
+ * =================================================== */
+CREATE POLICY friends_rw_to_own_or_shared_rows
+ON friends
+TO authenticated
+USING (user1 = auth.uid() OR user2 = auth.uid())
+WITH CHECK (user1 = auth.uid() OR user2 = auth.uid());
+
+/* ===================================================
+ * Author:      frigvid
+ * Create date: 2024-04-13
+ * Description: Grant read access to non-user rows if
+ *              the user has a public profile OR has
+ *              friends list visibility on.
+ * =================================================== */
+CREATE POLICY friends_r_to_others_public_rows
+ON friends
+TO anon, authenticated
+USING (
+	NOT EXISTS (
+		SELECT 1 FROM profiles 
+		WHERE id IN (friends.user1, friends.user2) 
+		AND (visibility = TRUE OR visibility_friends = FALSE)
+	)
+);
 
 
-/* Currently disabled due to time constraints.
-Policies.
-CREATE POLICY "Users can only view their own game data." ON gamedata FOR
-SELECT
-	USING (auth.uid() = userid);
 
-CREATE POLICY "Users can only view their own settings." ON settings FOR
-SELECT
-	USING (auth.uid() = id);
+/* FRIEND REQUESTS POLICIES */
+ALTER TABLE friend_requests ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "Profiles are viewable by everyone." ON profiles FOR
-SELECT
-	TO authenticated, anon
-	USING (TRUE);
+/* ===================================================
+ * Author:      frigvid
+ * Create date: 2024-04-13
+ * Description: Grant read-write access to user
+ *              rows where the user is the sender
+ *              or recipient.
+ *
+ *              The table has dual-unique constraints,
+ *              it's just a bit of paranoia checking.
+ * =================================================== */
+CREATE POLICY friend_requests_rw_to_own_or_shared_rows
+ON friend_requests
+TO authenticated
+USING (by_user = auth.uid() OR to_user = auth.uid())
+WITH CHECK (by_user = auth.uid() OR to_user = auth.uid());
 
-CREATE POLICY "News are viewable by everyone." ON news FOR
-SELECT
-	TO authenticated, anon
-	USING (TRUE);
-*/
+
+
+/* OPENING POLICIES */
+ALTER TABLE openings ENABLE ROW LEVEL SECURITY;
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-13
+ * Description: Grant read-write access to user
+ *              created rows.
+ * ============================================= */
+CREATE POLICY openings_rw_to_own_rows
+ON openings
+TO authenticated
+USING (created_by = auth.uid())
+WITH CHECK (created_by = auth.uid());
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-13
+ * Description: Grant read access to non-user
+ *              created rows. These are considered
+ *              as "default" openings.
+ * ============================================= */
+CREATE POLICY openings_r_to_default
+ON openings
+TO anon, authenticated
+USING (created_by IS NULL);
+
+
+
+/* REPERTOIRE POLICIES */
+ALTER TABLE repertoire ENABLE ROW LEVEL SECURITY;
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-13
+ * Description: Grant read-write access to user
+ *              created rows.
+ * ============================================= */
+CREATE POLICY repertoire_rw_to_own_rows
+ON repertoire
+USING (usr = auth.uid())
+WITH CHECK (usr = auth.uid());
+
+
+
+/* GAMEDATA POLICIES */
+ALTER TABLE gamedata ENABLE ROW LEVEL SECURITY;
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-13
+ * Description: Grant read-write access to user
+ *              created rows.
+ * ============================================= */
+CREATE POLICY gamedata_rw_to_own_rows
+ON gamedata
+TO authenticated
+USING (id = auth.uid())
+WITH CHECK (id = auth.uid());
+
+/* ===================================================
+ * Author:      frigvid
+ * Create date: 2024-04-13
+ * Description: Grant read access to non-user rows if
+ *              the user has a public profile OR has
+ *              friends list visibility on.
+ * =================================================== */
+CREATE POLICY gamedata_r_to_others_public_rows
+ON gamedata
+TO anon, authenticated
+USING (
+	NOT EXISTS (
+		SELECT 1 FROM profiles
+		WHERE id = gamedata.id
+		AND (visibility = TRUE OR visibility_friends = FALSE)
+	)
+);
+
+
+
+/* HISTORY POLICIES */
+ALTER TABLE history ENABLE ROW LEVEL SECURITY;
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-13
+ * Description: Grant read-write access to user
+ *              created rows.
+ * ============================================= */
+CREATE POLICY history_rw_to_own_rows
+ON history
+TO authenticated
+USING (player = auth.uid())
+WITH CHECK (player = auth.uid());
 
 
 
@@ -299,6 +586,62 @@ SELECT
 
 /* =============================================
  * Author:      frigvid
+ * Create date: 2024-04-11
+ * Description: Check if user is an admin.
+ * ============================================= */
+CREATE OR REPLACE FUNCTION public.admin_is_admin()
+	RETURNS boolean
+	LANGUAGE plpgsql SECURITY DEFINER
+AS $$
+DECLARE
+	usr_is_admin boolean;
+BEGIN
+	usr_is_admin := false;
+	
+	SELECT is_super_admin
+	INTO usr_is_admin
+	FROM auth.users
+	WHERE id = auth.uid();
+	
+	RETURN usr_is_admin;
+END;
+$$;
+
+
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-10
+ * Description: Delete's a given user's data, and
+ *              their account when done.
+ * ============================================= */
+CREATE OR REPLACE FUNCTION public.user_get_all_users()
+RETURNS TABLE(
+  id UUID,
+  display_name TEXT
+  )
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    /*
+    IF auth.uid() IS NULL THEN
+      RETURN;
+    END IF;
+    */
+
+    RETURN QUERY
+    SELECT
+      p.id,
+      p.display_name
+    FROM
+      public.profiles AS p;
+END;
+$$;
+
+
+
+/* =============================================
+ * Author:      frigvid
  * Create date: 2024-04-04
  * Description: Delete's a given user's data, and
  *              their account when done.
@@ -308,19 +651,27 @@ CREATE OR REPLACE FUNCTION public.user_delete()
 	LANGUAGE SQL SECURITY DEFINER
 AS $$
 	-- Public.
-	DELETE FROM public.gamedata WHERE id = auth.uid();
 	DELETE FROM public.profiles WHERE id = auth.uid();
-	DELETE FROM public.settings WHERE id = auth.uid();
+	DELETE FROM public.friend_requests WHERE (by_user = auth.uid() OR to_user = auth.uid());
+	DELETE FROM public.friends WHERE (user1 = auth.uid() OR user2 = auth.uid());
+	DELETE FROM public.history WHERE player = auth.uid();
+	DELETE FROM public.gamedata WHERE id = auth.uid();
+	DELETE FROM public.repertoire WHERE usr = auth.uid();
+	DELETE FROM public.openings WHERE created_by = auth.uid();
 
 	-- Storage.
-	--DELETE FROM storage.buckets WHERE id = auth.uid();
-	--DELETE FROM storage.migrations WHERE id = auth.uid();
-	--DELETE FROM storage.objects WHERE id = auth.uid();
+	/*
+	DELETE FROM storage.buckets WHERE id = auth.uid();
+	DELETE FROM storage.migrations WHERE id = auth.uid();
+	DELETE FROM storage.objects WHERE id = auth.uid();
+	*/
 
 	-- Auth.
 	DELETE FROM auth.users WHERE id = auth.uid();
 	DELETE FROM auth.identities WHERE id = auth.uid();
 $$;
+
+
 
 /* =============================================
  * Author:      frigvid
@@ -345,6 +696,8 @@ BEGIN
 END;
 $$;
 
+
+
 /* =============================================
  * Author:      frigvid
  * Create date: 2024-04-09
@@ -361,6 +714,8 @@ AS $$
 	VALUES (auth.uid(), opn_title, opn_moves);
 $$;
 
+
+
 /* =============================================
  * Author:      frigvid
  * Create date: 2024-04-09
@@ -376,6 +731,25 @@ AS $$
 	WHERE id = opn_id AND created_by = auth.uid();
 $$;
 
+
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-09
+ * Description: Deletes an opening.
+ * ============================================= */
+CREATE OR REPLACE FUNCTION public.opening_get()
+	RETURNS SETOF openings
+	LANGUAGE plpgsql
+AS $$
+BEGIN
+	RETURN QUERY 
+	SELECT * FROM public.openings 
+	WHERE (created_by = auth.uid() OR created_by IS NULL);
+END;
+$$;
+
+
 /* =============================================
  * Author:      frigvid
  * Create date: 2024-04-09
@@ -385,7 +759,8 @@ CREATE OR REPLACE FUNCTION public.profile_modify(
 	usr_avatar_url text,
 	usr_display_name text,
 	usr_about_me text,
-	usr_nationality text
+	usr_nationality text,
+	usr_visibility boolean
 )
 	RETURNS void
 	LANGUAGE plpgsql
@@ -396,10 +771,13 @@ BEGIN
 		display_name = usr_display_name,
 		avatar_url = usr_avatar_url,
 		about_me = usr_about_me,
-		nationality = usr_nationality
+		nationality = usr_nationality,
+		visibility = usr_visibility
 	WHERE id = auth.uid();
 END;
 $$;
+
+
 
 /* =============================================
  * Author:      frigvid
@@ -417,6 +795,8 @@ CREATE OR REPLACE FUNCTION public.profile_get(
 		avatar_url text,
 		about_me text,
 		nationality text,
+		visibility boolean,
+		visibility_friends boolean,
 		wins bigint,
 		losses bigint,
 		draws bigint
@@ -431,17 +811,21 @@ BEGIN
 		p.avatar_url,
 		p.about_me,
 		p.nationality,
+		p.visibility,
+		p.visibility_friends,
 		g.wins,
 		g.losses,
 		g.draws
 	FROM
-   	public.profiles p
+		public.profiles p
 	JOIN
-		public.gamedata g ON p.id = g.userid
+		public.gamedata g ON p.id = g.id
 	WHERE
 		p.id = usr_id;
 END;
 $$;
+
+
 
 /* =============================================
  * Author:      frigvid
@@ -492,6 +876,8 @@ BEGIN
 END;
 $$;
 
+
+
 /* FRIENDSHIPS AND REQUESTS STUFF. */
 
 /* =============================================
@@ -532,6 +918,8 @@ BEGIN
 END;
 $$;
 
+
+
 /* =============================================
  * Author:      frigvid
  * Create date: 2024-04-12
@@ -557,17 +945,37 @@ BEGIN
 END;
 $$;
 
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-12
+ * Description: Deletes a friend of the user who
+ *              is authenticated.
+ * ============================================= */
+CREATE OR REPLACE FUNCTION friend_remove(other_user UUID)
+	RETURNS VOID
+	LANGUAGE plpgsql
+AS $$
+BEGIN
+	DELETE FROM friends
+	WHERE (user1 = other_user AND user2 = auth.uid()) OR
+			(user2 = other_user AND user1 = auth.uid());
+END;
+$$;
+
+
+
 /* =============================================
  * Author:      frigvid
  * Create date: 2024-04-11
  * Description: Get all pending friend requests.
  * ============================================= */
 CREATE OR REPLACE FUNCTION public.friend_request_get_all()
-RETURNS TABLE(
-	id UUID,
-	display_name TEXT,
-	avatar_url TEXT
-)
+	RETURNS TABLE(
+		id UUID,
+		display_name TEXT,
+		avatar_url TEXT
+	)
 	LANGUAGE plpgsql
 AS $$
 BEGIN
@@ -585,37 +993,43 @@ BEGIN
 END;
 $$;
 
+
+
 /* =============================================
  * Author:      frigvid
  * Create date: 2024-04-11
  * Description: Send a friend request to a user.
  * ============================================= */
 CREATE OR REPLACE FUNCTION public.friend_request_send(other_user UUID)
-  RETURNS void
-  LANGUAGE SQL
+	RETURNS void
+	LANGUAGE plpgsql
 AS $$
-  /* Sanity checking.
-   *
-	* The table has dual UNIQUE constraints, so this
-	* shouldn't be necessary anymore. However, it's
-	* not a bad idea to be paranoid either. So I'll
-	* keep it.
-   */
-  IF NOT EXISTS (
-    SELECT 1
-    FROM public.friends
-    WHERE (user1 = auth.uid() AND user2 = other_user) OR
-          (user1 = other_user AND user2 = auth.uid())
-  ) AND NOT EXISTS (
-    SELECT 1
-    FROM public.friend_requests
-    WHERE (by_user = auth.uid() AND to_user = other_user) OR
-          (by_user = other_user AND to_user = auth.uid())
-  ) THEN
-    INSERT INTO public.friend_requests (by_user, to_user)
-    VALUES (auth.uid(), other_user);
-  END IF;
+BEGIN
+	/* Sanity checking.
+	 *
+	 * The table has dual UNIQUE constraints, so this
+	 * shouldn't be necessary anymore. However, it's
+	 * not a bad idea to be paranoid either. So I'll
+	 * keep it.
+	 */
+	IF NOT EXISTS (
+		SELECT 1
+		FROM public.friends
+		WHERE (user1 = auth.uid() AND user2 = other_user) OR
+				(user1 = other_user AND user2 = auth.uid())
+	) AND NOT EXISTS (
+		SELECT 1
+		FROM public.friend_requests
+		WHERE (by_user = auth.uid() AND to_user = other_user) OR
+				(by_user = other_user AND to_user = auth.uid())
+	) THEN
+		INSERT INTO public.friend_requests (by_user, to_user)
+		VALUES (auth.uid(), other_user);
+	END IF;
+END;
 $$;
+
+
 
 /* =============================================
  * Author:      frigvid
@@ -624,8 +1038,8 @@ $$;
  *              active request from another user.
  * ============================================= */
 CREATE OR REPLACE FUNCTION public.friend_request_status(other_user UUID)
-  RETURNS INTEGER
-  LANGUAGE plpgsql
+	RETURNS INTEGER
+	LANGUAGE plpgsql
 AS $$
 BEGIN
 	RETURN (
@@ -643,6 +1057,8 @@ BEGIN
 END;
 $$;
 
+
+
 /* =============================================
  * Author:      frigvid
  * Create date: 2024-04-12
@@ -652,9 +1068,9 @@ $$;
 CREATE OR REPLACE FUNCTION public.friend_request_do_with(
 	from_user UUID,
 	accept_request BOOLEAN
-	)
-  RETURNS VOID
-  LANGUAGE plpgsql
+)
+	RETURNS VOID
+	LANGUAGE plpgsql
 AS $$
 BEGIN
 	UPDATE public.friend_requests
@@ -662,6 +1078,8 @@ BEGIN
 	WHERE by_user = from_user::UUID AND to_user = auth.uid();
 END;
 $$;
+
+
 
 /* ==============================================================
  * Author:      frigvid
@@ -673,7 +1091,8 @@ $$;
  * Usage:       INTERNAL. Hence starting with an underscore.
  * ============================================================ */
 CREATE OR REPLACE FUNCTION _friend_request_status()
-RETURNS TRIGGER
+	RETURNS TRIGGER
+	LANGUAGE plpgsql
 AS $$
 BEGIN
 	/* If the accepted column value changes from NULL to FALSE,
@@ -697,9 +1116,40 @@ BEGIN
 	
 	RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$;
 
 CREATE TRIGGER friend_request_handler
 	AFTER UPDATE OF accepted ON public.friend_requests
 	FOR EACH ROW
 	EXECUTE FUNCTION _friend_request_status();
+
+
+
+/* ==============================================================
+ * Author:      frigvid
+ * Create date: 2024-04-12
+ * Description: Triggered function for handling game history
+ *              updates.
+ * Usage:       INTERNAL. Hence starting with an underscore.
+ * ============================================================ */
+CREATE OR REPLACE FUNCTION _history_update_gamedata()
+	RETURNS TRIGGER
+	LANGUAGE plpgsql
+AS $$
+BEGIN
+	/* Count the total number of games played by the user. */
+	UPDATE gamedata
+	SET 
+		wins = (SELECT COUNT(*) FROM history WHERE player = NEW.player AND score = 1),
+		losses = (SELECT COUNT(*) FROM history WHERE player = NEW.player AND score = 0),
+		draws = (SELECT COUNT(*) FROM history WHERE player = NEW.player AND score = 2)
+	WHERE id = NEW.player;
+	
+	RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER history_update_gamedata_trigger
+AFTER INSERT ON history
+FOR EACH ROW
+EXECUTE FUNCTION _history_update_gamedata();
