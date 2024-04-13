@@ -92,7 +92,7 @@ export default function OpeningCreator() {
 	 */
 	async function saveOpening() {
 		if (!openingName.trim() || moves.length === 0) {
-			setFeedbackMsg(t("chess.stages.create_opening.feedback.missing"));
+			setFeedbackMsg(t("chess.create_opening.feedback.missing"));
 			setFeedbackType('error');
 			setIsFeedbackVisible(true);
 			setTimeout(() => setIsFeedbackVisible(false), 2500);
@@ -111,11 +111,11 @@ export default function OpeningCreator() {
 			});
 		
 		if (error) {
-			setFeedbackMsg(t("chess.stages.create_opening.feedback.error"));
+			setFeedbackMsg(t("chess.create_opening.feedback.error"));
 			setFeedbackType('error');
 			setTimeout(() => setIsFeedbackVisible(false), 2500);
 		} else {
-			setFeedbackMsg(t("chess.stages.create_opening.feedback.success"));
+			setFeedbackMsg(t("chess.create_opening.feedback.success"));
 			setFeedbackType('success');
 			setTimeout(() => setIsFeedbackVisible(false), 2000);
 		}
@@ -136,13 +136,13 @@ export default function OpeningCreator() {
 					type="text"
 					value={openingName}
 					onChange={(e) => setOpeningName(e.target.value)}
-					placeholder={t("chess.stages.create_opening.placeholder.name")}
+					placeholder={t("chess.create_opening.placeholder.name")}
 					className="border border-gray-300 p-2 rounded"
 				/>
 				<textarea
 					value={openingDescription}
 					onChange={(e) => setOpeningDescription(e.target.value)}
-					placeholder={t("chess.stages.create_opening.placeholder.desc")}
+					placeholder={t("chess.create_opening.placeholder.desc")}
 					className="border border-gray-300 p-2 rounded h-24 whitespace-pre-wrap"
 				/>
 			</div>
@@ -158,7 +158,7 @@ export default function OpeningCreator() {
 						onClick={saveOpening}
 						className="w-full bg-buttoncolor mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
 					>
-						{t("chess.stages.create_opening.button.save")}
+						{t("chess.create_opening.button.save")}
 					</button>
 				}
 				<Chessboard

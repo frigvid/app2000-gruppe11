@@ -1,8 +1,10 @@
 import removeGamedata from "@utils/game/remove-gamedata";
 import {useUser} from "@auth/actions/useUser";
+import {useTranslation} from "react-i18next";
 
 export default function DeleteData() {
 	const user = useUser();
+	const {t} = useTranslation();
 	
 	const deleteData = async () => {
 		void removeGamedata(user.id);
@@ -13,9 +15,9 @@ export default function DeleteData() {
 			<div className="flex items-center gap-4">
 				<form action={deleteData}>
 					<button
-						className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+						className="bg-buttoncolor inline-block rounded px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger mt-4 hover:bg-[#976646] py-2"
 					>
-						Delete all gamedata
+						{t("chess.generics.delete_data")}
 					</button>
 				</form>
 			</div>

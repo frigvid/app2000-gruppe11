@@ -1,7 +1,8 @@
+import StagesChessboardThumbnail from "@ui/chess/stages/stages-chessboard-thumbnail";
 import {Dialog, Transition} from "@headlessui/react";
+import {useTranslation} from "react-i18next";
 import {Fragment, useState} from "react";
 import Link from "next/link";
-import StagesChessboardThumbnail from "@ui/chess/stages/stages-chessboard-thumbnail";
 
 /**
  * Component that creates a modal for the stages.
@@ -15,7 +16,8 @@ import StagesChessboardThumbnail from "@ui/chess/stages/stages-chessboard-thumbn
  * @constructor
  */
 export default function StagesModal({title, details, id, pgn}) {
-	let [isOpen, setIsOpen] = useState(false)
+	let [isOpen, setIsOpen] = useState(false);
+	const {t} = useTranslation();
 	
 	function closeModal() {
 		setIsOpen(false)
@@ -33,7 +35,7 @@ export default function StagesModal({title, details, id, pgn}) {
 					onClick={openModal}
 					className="rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
 				>
-					Read more
+					{t("chess.stages.read_more")}
 				</button>
 			</div>
 			<Transition appear show={isOpen} as={Fragment}>
@@ -85,7 +87,7 @@ export default function StagesModal({title, details, id, pgn}) {
 											className="inline-flex justify-center rounded-md border border-transparent bg-buttoncolor px-4 py-2 text-sm font-medium text-black hover:text-white hover:bg-[#9c8064] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
 											href={`/chess/train/${id}`}
 										>
-											Practice &apos;{title}&apos;!
+											{t("chess.stages.practice")} &apos;{title}&apos;!
 										</Link>
 									</div>
 								</Dialog.Panel>

@@ -1,5 +1,6 @@
 import TrainPanel from "@ui/chess/training/train-panel";
 import {useUser} from "@/app/(auth)/actions/useUser";
+import {useTranslation} from "react-i18next";
 import {Chessboard} from "react-chessboard";
 import {useEffect, useState} from "react";
 import {Chess} from "chess.js";
@@ -16,9 +17,10 @@ import {Chess} from "chess.js";
  * @returns A chessboard with the opening moves and a panel for feedback
  */
 export default function TrainChess({pgn}) {
+	const {t} = useTranslation();
 	const [game, setGame] = useState(new Chess());
 	const [boardPosition, setBoardPosition] = useState(game.fen());
-	const [status, setStatus] = useState("Start practicing!");
+	const [status, setStatus] = useState(t("chess.train_chess.status.start"));
 	const [playerTurn, setPlayerTurn] = useState(0);
 	const [botTurn, setBotTurn] = useState(1);
 	const [wrongCounter, setWrongCounter] = useState(0);
@@ -46,7 +48,7 @@ export default function TrainChess({pgn}) {
 					game.move(move);
 					setPlayerTurn(playerTurn + 2);
 				} else {
-					setStatus("Wrong move!");
+					setStatus(t("chess.train_chess.status.wrong"));
 					
 					//console.log("pgn: ", pgn[playerTurn]);
 					//console.log("move: ", move);
@@ -54,7 +56,7 @@ export default function TrainChess({pgn}) {
 					setWrongCounter(wrongCounter + 1);
 				}
 			} else {
-				setStatus("Opening completed!");
+				setStatus(t("chess.train_chess.status.complete"));
 			}
 		} catch (e) {
 			console.log(e);
@@ -98,9 +100,9 @@ export default function TrainChess({pgn}) {
 				
 				//console.log(botTurn);
 
-				setStatus("White to move");
+				setStatus(t("chess.train_chess.status.white_move"));
 			} else {
-				setStatus("Opening completed!");
+				setStatus(t("chess.train_chess.status.complete"));
 			}
 		} catch (e) {
 			console.log(e);

@@ -1,7 +1,9 @@
 import {addGamedata} from "@utils/game/add-gamedata";
 import {updateElo} from "@utils/game/update-elo";
+import withI18next from "@ui/lang/with-i18next";
 import DeleteData from "@ui/chess/delete-data";
 import {useUser} from "@auth/actions/useUser";
+import {useTranslation} from "react-i18next";
 import {Chessboard} from "react-chessboard";
 import {useState} from "react";
 import {Chess} from "chess.js";
@@ -13,15 +15,17 @@ import {Chess} from "chess.js";
  * @contributor frigvid
  * @created 2024-01-30
  */
-export default function PlayChess() {
-	// Fetches user data from authentication context
+function PlayChess() {
+	const {t} = useTranslation();
+	
+	// Fetches user data from authentication context.
 	const user = useUser();
 
 	// State variables for game, score, and status
 	const [game, setGame] = useState(new Chess());
 	const [score, setScore] = useState({ wins: 0, losses: 0 });
 	const [boardPosition, setBoardPosition] = useState(game.fen());
-	const [status, setStatus] = useState("Game ongoing");
+	const [status, setStatus] = useState(t("chess.full_game.status.ongoing"));
 	const [turn, setTurn] = useState(0);
 	const [fenList, setFenList] = useState();
 
@@ -66,14 +70,14 @@ export default function PlayChess() {
 	function checkEnding() {
 		if (game.isCheckmate()) {
 			const winner = game.turn() === "w" ? "Black" : "White";
-			setStatus(winner + " wins by checkmate");
+			setStatus(winner + " " + t("chess.full_game.fragments.winner"));
 			updateScore(winner);
 			//metode(uuid);
 		} else if (game.isDraw()) {
-			setStatus("Game drawn");
+			setStatus(t("chess.full_game.status.drawn"));
 		} else if (game.isCheck()) {
 			const playerInCheck = game.turn() === "w" ? "White" : "Black";
-			setStatus(playerInCheck + " is in check");
+			setStatus(playerInCheck + " " + t("chess.full_game.status.fragments.check"));
 		} else {
 			setStatus("");
 		}
@@ -130,12 +134,12 @@ export default function PlayChess() {
 	function resetBoard() {
 		game.reset();
 		setBoardPosition(game.fen());
-		setStatus("Game ongoing");
+		setStatus(t("chess.full_game.status.ongoing"));
 	}
 
 	function undoTurn() {
 		if (game.isGameOver())
-			alert("Can't undo. game has already been completed.");
+			alert(t("chess.full_game.alert"));
 		else {
 			game.undo();
 			game.undo();
@@ -148,29 +152,30 @@ export default function PlayChess() {
 	return (
 		<div className="flex flex-col md:flex-row justify-center items-center relative">
 			<div className="md:mr-8 md:order-1 order-2 p-3 px-8 md:max-w-sm bg-gray-200 rounded-lg border border-gray-200 shadow-md md:mb-0 mb-4 flex flex-col">
-				<h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-					Game Status
+				<h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-center">
+					{t("chess.full_game.panel.label")}
 				</h5>
 				<div>
 					<p>{status}</p>
-					<p>Wins: {score.wins}</p>
-					<p>Losses: {score.losses}</p>
+					<p>{t("chess.full_game.status.fragments.wins")}: {score.wins}</p>
+					<p>{t("chess.full_game.status.fragments.losses")}: {score.losses}</p>
+					<p>{t("chess.full_game.status.fragments.draws")}: {score.draws}</p>
 				</div>
 				<button
-					className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+					className="bg-buttoncolor inline-block rounded px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger mt-4 hover:bg-[#976646] py-2"
 					onClick={resetBoard}
 				>
-					Reset board
+					{t("chess.full_game.panel.reset")}
 				</button>
 				<button
-					className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+					className="bg-buttoncolor inline-block rounded px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger mt-4 hover:bg-[#976646] py-2"
 					onClick={() => {
 						undoTurn();
 						setGame(game);
 						setBoardPosition(game.fen());
 					}}
 				>
-					Undo move
+					{t("chess.full_game.panel.undo")}
 				</button>
 				{
 					// Only show this button if you're logged in.
@@ -183,3 +188,5 @@ export default function PlayChess() {
 		</div>
 	);
 }
+
+export default withI18next(PlayChess);

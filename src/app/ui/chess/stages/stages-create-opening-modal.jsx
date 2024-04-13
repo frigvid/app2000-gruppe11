@@ -32,7 +32,7 @@ export default function StagesCreateOpeningModal() {
 					onClick={openModal}
 					className="w-full bg-buttoncolor inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
 				>
-					{t("chess.stages.create_opening.button.open")}
+					{t("chess.create_opening.button.open")}
 				</button>
 			</div>
 			<Transition appear show={isOpen} as={Fragment}>
@@ -64,7 +64,7 @@ export default function StagesCreateOpeningModal() {
 										as="h3"
 										className="text-lg mb-3 text-center font-semibold leading-6 text-gray-900"
 									>
-										{t("chess.stages.create_opening.title")}
+										{t("chess.create_opening.title")}
 									</Dialog.Title>
 									<OpeningCreator/>
 								</Dialog.Panel>

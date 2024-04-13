@@ -215,6 +215,70 @@ const resources = {
 				"error": {
 					"return": "$t(generic.return_somewhere) Home"
 				}
+			},
+			"chess": {
+				"generics": {
+					"status": {
+						"game": "Game Status"
+					},
+					"delete_data": "Delete all gamedata"
+				},
+				"create_opening": {
+					"label": "You can also create your own openings.",
+					"title": "$t(chess.create_opening.button.open)!",
+					"button": {
+						"open": "Create an opening",
+						"save": "Save opening"
+					},
+					"placeholder": {
+						"name": "Name of the opening",
+						"desc": "Description of the opening"
+					},
+					"feedback": {
+						"missing": "Missing name, description or moves",
+						"error": "An error occurred while saving to the database",
+						"success": "New opening saved successfully"
+					}
+				},
+				"stages": {
+					"read_more": "Read more",
+					"practice": "Practice"
+				},
+				"train_chess": {
+					"status": {
+						"start": "Start practicing!",
+						"complete": "Opening completed!",
+						"wrong": "Wrong move!",
+						"white_move": "White to move",
+					},
+					"panel": {
+						"label": "$t(chess.generics.status.game)",
+						"move": {
+							"part1": "You have moved",
+							"part2": "times, and the amount of moves in the opening is"
+						},
+						"return": "Back to stage selection"
+					}
+				},
+				"full_game": {
+					"status": {
+						"fragments": {
+							"winner": "wins by checkmate",
+							"check": "is in check",
+							"wins": "Wins",
+							"losses": "Losses",
+							"draws": "Draws"
+						},
+						"ongoing": "Game ongoing",
+						"drawn": "Game drawn",
+					},
+					"panel": {
+						"label": "$t(chess.generics.status.game)",
+						"reset": "Reset board",
+						"undo": "Undo move"
+					},
+					"alert": "Can't undo. game has already been completed."
+				}
 			}
 		}
 	},
@@ -407,6 +471,70 @@ const resources = {
 				"about_me": "$t(user_profile.generics.about_me)",
 				"error": {
 					"return": "$t(generic.return_somewhere) Home"
+				}
+			},
+			"chess": {
+				"generics": {
+					"status": {
+						"game": "Spill Status"
+					},
+					"delete_data": "Slett all spilldataa"
+				},
+				"create_opening": {
+					"label": "Du kan også lage dine egne åpninger.",
+					"title": "$t(chess.create_opening.button.open)!",
+					"button": {
+						"open": "Lag en åpning",
+						"save": "Lagre åpning"
+					},
+					"placeholder": {
+						"name": "Navn på åpningen",
+						"desc": "Beskrivelse av åpningen."
+					},
+					"feedback": {
+						"missing": "Mangler navn, beskrivelse eller trekk",
+						"error": "En feil oppstod ved skriving til databasen",
+						"success": "Ny åpning lagret"
+					}
+				},
+				"stages": {
+					"read_more": "Les mer",
+					"practice": "Øv på"
+				},
+				"train_chess": {
+					"status": {
+						"start": "Start øving!",
+						"complete": "Åpning gjennomført!",
+						"wrong": "Feil trekk!",
+						"white_move": "Hvit skal trekke",
+					},
+					"panel": {
+						"label": "$t(chess.generics.status.game)",
+						"move": {
+							"part1": "You have moved",
+							"part2": "times, and the amount of moves in the opening is"
+						},
+						"return": "Back to stage selection"
+					}
+				},
+				"full_game": {
+					"status": {
+						"fragments": {
+							"winner": "Vinner med sjakkmatt",
+							"check": "er i sjakk",
+							"wins": "Vinn",
+							"losses": "Tap",
+							"draws": "Uavgjort"
+						},
+						"ongoing": "Spill pågående",
+						"drawn": "Spill uavgjort",
+					},
+					"panel": {
+						"label": "$t(chess.generics.status.game)",
+						"reset": "Nullstill bordet",
+						"undo": "Angre trekk"
+					},
+					"alert": "Kan ikke angre trekk, spiller er fullført."
 				}
 			}
 		}
