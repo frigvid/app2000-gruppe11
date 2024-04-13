@@ -32,9 +32,9 @@ export default function TrainChess(opening) {
 			console.log(move);
 			if (playerTurn < pgn.length) {
 				if (
-					move.from == pgn[playerTurn].from &&
-					move.to == pgn[playerTurn].to &&
-					move.piece == pgn[playerTurn].piece
+					move.from === pgn[playerTurn].from &&
+					move.to === pgn[playerTurn].to &&
+					move.piece === pgn[playerTurn].piece
 				) {
 					game.move(move);
 					setPlayerTurn(playerTurn + 2);
