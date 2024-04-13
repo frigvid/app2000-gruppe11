@@ -63,6 +63,7 @@ export default function Home() {
 						<p className="mt-2 text-gray-600">{t('your_history')}</p>
 					</div>
 				</div>
+				{/* Animated Down Arrow */}
 				<div className="absolute bottom-5 w-full text-center">
 					<FaArrowDown className="animate-bounce mx-auto text-2xl"/>
 				</div>
@@ -96,3 +97,19 @@ export default function Home() {
 		</main>
 	);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
