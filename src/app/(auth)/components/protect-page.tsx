@@ -26,8 +26,6 @@ import Link from "next/link";
  *    }
  * </pre>
  *
- *
- *
  * @author frigvid
  * @created 2024-02-17
  * @param Component The page contents to protect.

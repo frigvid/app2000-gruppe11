@@ -1,32 +1,28 @@
 "use client";
 
 import InternalServerError from "@ui/error/500_internal-server";
-import withI18next from "@ui/lang/with-i18next";
-import {useTranslation} from "react-i18next";
 import Link from "next/link";
+import UnauthorizedError from "@ui/error/401_unauthorized";
 
 /**
- * If something goes wrong during the sign-up process,
+ * If something goes wrong during the deletion process,
  * end-users are sent here.
  *
  * @author frigvid
- * @created 2024-02-20
+ * @created 2024-04-03
  */
-function SignUpError() {
-	const {t} = useTranslation();
-	
+export default function SignUpError() {
 	return (
 		<main className="flex flex-col justify-center items-center">
 			<div className="mb-8">
-				<InternalServerError/>
+				<UnauthorizedError/>
 			</div>
-			<Link href="/signup"
+			<p className="mb-8 italic">Are you sure you are logged in?</p>
+			<Link href="/"
 					className="bg-buttoncolor inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
 			>
-				{t("signup.error.button")}
+				Return to Home
 			</Link>
 		</main>
 	);
 }
-
-export default withI18next(SignUpError);

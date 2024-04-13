@@ -40,6 +40,6 @@ export async function GET(request: NextRequest) {
 	}
 	
 	// return the user to an error page with some instructions
-	redirectTo.pathname = '/error/403';
+	redirectTo.pathname = 'confirm/error/403';
 	return NextResponse.redirect(redirectTo);
 }
