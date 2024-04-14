@@ -3,6 +3,9 @@ import {createClient} from "@utils/supabase/client";
 /**
  * This function is used to remove data from the public.gamedata table
  * on matching UUIDs.
+ *
+ * @author frigvid
+ * @created 2024-02-05
  */
 async function removeGamedata(uuid?: string): Promise<void> {
 	const supabase = createClient();
@@ -19,7 +22,7 @@ async function removeGamedata(uuid?: string): Promise<void> {
 		const {error} = await supabase
 			.from('gamedata')
 			.delete()
-			.eq('userid', userId);
+			.eq('id', userId);
 	} catch (err) {
 		console.error('Error in addGamedata:', err);
 		throw err;
