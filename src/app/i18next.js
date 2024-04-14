@@ -242,6 +242,28 @@ const resources = {
 					"delete": "Delete your account"
 				}
 			},
+			"admin_dashboard": {
+				"users": {
+					"label": "Delete or promote user to admin?",
+					"notice": "You will not be able to see your own account here.",
+					"warning": "Aside from yours, there are no other users found.",
+					"promote": {
+						"tooltip": "This will promote the user to administrator."
+					},
+					"demote": {
+						"tooltip": "This will demote the administrator to regular user."
+					},
+					"delete": {
+						"label": "Delete user",
+						"tooltip": "This will permanently delete the user.",
+						"body": "You are about to permanently delete a user! Are you certain you want to delete user with this ID?",
+						"button": {
+							"yes": "Yes",
+							"no": "No"
+						}
+					}
+				}
+			},
 			"chess": {
 				"generics": {
 					"status": {
@@ -524,6 +546,28 @@ const resources = {
 					"email": "Lagre ny e-post",
 					"password": "Lagre nytt passord",
 					"delete": "Slett kontoen din"
+				}
+			},
+			"admin_dashboard": {
+				"users": {
+					"label": "Slett eller oppgradere brukeren til administrator?",
+					"notice": "Du vil ikke kunne se din egen konto her.",
+					"warning": "Utenom din konto, ble ingen andre funnet.",
+					"promote": {
+						"tooltip": "Dette vil oppgradere brukeren til administrator."
+					},
+					"demote": {
+						"tooltip": "Dette vil nedgradere administratoren til en vanlig bruker."
+					},
+					"delete": {
+						"label": "Slett bruker",
+						"tooltip": "Dette vil permanent slette kontoen.",
+						"body": "Du holder på å permanent slette en bruker! Er du sikker på at du vil slette brukeren med denne IDen?",
+						"button": {
+							"yes": "Ja",
+							"no": "Nei"
+						}
+					}
 				}
 			},
 			"chess": {

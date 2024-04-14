@@ -22,6 +22,7 @@ Date (yyyy-mm-dd)   	Author             	Comments
 2024-04-13				frigvid					Added RLS and POLICIES for public.* tables.
 2024-04-13T20-50		frigvid					Added history-gamedata trigger.
 2024-04-13T21-10		frigvid					Add Supabase REALTIME support to select tables.
+2024-04-14				frigvid					Added function to promote user to administrator.
 ********************************************************************************************/ 
 
 
@@ -611,30 +612,197 @@ $$;
 
 /* =============================================
  * Author:      frigvid
+ * Create date: 2024-04-14
+ * Description: Administrator check for if user
+ *              is an administrator. Does a bit
+ *              of extra paranoid checking, just
+ *              to be sure.
+ * ============================================= */
+CREATE OR REPLACE FUNCTION public.admin_check_if_admin(user_to_check UUID)
+	RETURNS boolean
+	LANGUAGE plpgsql SECURITY DEFINER
+AS $$
+DECLARE
+	user_is_admin boolean;
+BEGIN
+	/* Check if there is a currently authenticated user. */
+	IF auth.uid() IS NULL THEN
+		RETURN NULL;
+	END IF;
+
+	/* Check if the currently authenticated user is an administrator. */
+	IF (SELECT public.admin_is_admin()) IS FALSE THEN
+		RAISE EXCEPTION 'Authenticated user is not an administrator';
+	END IF;
+
+	IF NOT EXISTS(
+		SELECT 1
+		FROM auth.users
+		WHERE id = user_to_check
+	) THEN
+		RAISE EXCEPTION 'User to check does not appear to exist';
+	END IF;
+
+	IF (
+		SELECT is_super_admin
+		FROM auth.users
+		WHERE id = user_to_check
+	) IS TRUE THEN
+		/* User is an administrator. */
+		RETURN TRUE;
+	ELSE
+		/* User is not an administrator. */
+		RETURN FALSE;
+	END IF;
+END;
+$$;
+
+
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-14
+ * Description: Promote a user to administrator
+ *              status.
+ * ============================================= */
+CREATE OR REPLACE FUNCTION admin_promote_to_admin(user_to_promote UUID)
+	RETURNS VOID
+	LANGUAGE plpgsql SECURITY DEFINER
+AS $$
+BEGIN
+	/* Check if there is a currently authenticated user. */
+	IF auth.uid() IS NULL THEN
+		RAISE EXCEPTION 'No authenticated user';
+	END IF;
+	
+	/* Check if the currently authenticated user is an administrator. */
+	IF (SELECT public.admin_is_admin()) IS FALSE THEN
+		RAISE EXCEPTION 'Authenticated user is not an administrator';
+	END IF;
+	
+	/* Check if the user to promote exists and is not already an administrator. */
+	IF (SELECT public.admin_check_if_admin(user_to_promote)) IS TRUE THEN
+		RAISE NOTICE 'User to promote is already an administrator';
+	ELSE
+		/* Promote the user to administrator. */
+		UPDATE auth.users SET is_super_admin = TRUE WHERE id = user_to_promote;
+	END IF;
+END;
+$$;
+
+
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-14
+ * Description: Demote an administrator to a
+ *              regular user.
+ * ============================================= */
+CREATE OR REPLACE FUNCTION admin_demote_to_user(admin_to_demote UUID)
+	RETURNS VOID
+	LANGUAGE plpgsql SECURITY DEFINER
+AS $$
+BEGIN
+	/* Check if there is a currently authenticated user. */
+	IF auth.uid() IS NULL THEN
+		RAISE EXCEPTION 'No authenticated user';
+	END IF;
+	
+	/* Check if the currently authenticated user is an administrator. */
+	IF (SELECT public.admin_is_admin()) IS FALSE THEN
+		RAISE EXCEPTION 'Authenticated user is not an administrator';
+	END IF;
+	
+	/* Check if the administrator to demote exists and if they're already an administraotr. */
+	IF (SELECT public.admin_check_if_admin(admin_to_demote)) IS TRUE THEN
+		/* Demote the administrator to a regular user. */
+		UPDATE auth.users
+		SET is_super_admin = FALSE
+		WHERE id = admin_to_demote;
+	ELSE
+		RAISE NOTICE 'User to promote is already an administrator';
+	END IF;
+END;
+$$;
+
+
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-14
+ * Description: Let admins delete a user manually.
+ * ============================================= */
+CREATE OR REPLACE FUNCTION admin_delete_user(user_to_delete UUID)
+	RETURNS VOID
+	LANGUAGE plpgsql SECURITY DEFINER
+AS $$
+BEGIN
+	/* Check if there is a currently authenticated user. */
+	IF auth.uid() IS NULL THEN
+		RAISE EXCEPTION 'No authenticated user';
+	END IF;
+	
+	/* Check if the currently authenticated user is an administrator. */
+	IF (SELECT public.admin_is_admin()) IS FALSE THEN
+		RAISE EXCEPTION 'Authenticated user is not an administrator';
+	END IF;
+	
+	/* This is just taken from public.user_delete.
+	 * Would be nice to not need to duplicate this,
+	 * but given its use-case, I think its okay.
+	 */
+	/* Public. */
+	DELETE FROM public.profiles WHERE id = user_to_delete;
+	DELETE FROM public.friend_requests WHERE (by_user = user_to_delete OR to_user = user_to_delete);
+	DELETE FROM public.friends WHERE (user1 = user_to_delete OR user2 = user_to_delete);
+	DELETE FROM public.history WHERE player = user_to_delete;
+	DELETE FROM public.gamedata WHERE id = user_to_delete;
+	DELETE FROM public.repertoire WHERE usr = user_to_delete;
+	DELETE FROM public.openings WHERE created_by = user_to_delete;
+
+	/* Storage. */
+	/*
+	DELETE FROM storage.buckets WHERE id = user_to_delete;
+	DELETE FROM storage.migrations WHERE id = user_to_delete;
+	DELETE FROM storage.objects WHERE id = user_to_delete;
+	*/
+
+	/* Auth. */
+	DELETE FROM auth.users WHERE id = user_to_delete;
+	DELETE FROM auth.identities WHERE id = user_to_delete;
+END;
+$$;
+
+
+
+/* =============================================
+ * Author:      frigvid
  * Create date: 2024-04-10
  * Description: Delete's a given user's data, and
  *              their account when done.
  * ============================================= */
 CREATE OR REPLACE FUNCTION public.user_get_all_users()
 RETURNS TABLE(
-  id UUID,
-  display_name TEXT
-  )
+	id UUID,
+	display_name TEXT,
+	avatar_url TEXT
+	)
 LANGUAGE plpgsql
 AS $$
 BEGIN
-    /*
-    IF auth.uid() IS NULL THEN
-      RETURN;
-    END IF;
-    */
-
-    RETURN QUERY
-    SELECT
-      p.id,
-      p.display_name
-    FROM
-      public.profiles AS p;
+	/*
+	IF auth.uid() IS NULL THEN
+	  RETURN;
+	END IF;
+	*/
+	
+	RETURN QUERY
+	SELECT
+		p.id,
+		p.display_name,
+		p.avatar_url
+	FROM
+		public.profiles AS p;
 END;
 $$;
 
@@ -688,9 +856,6 @@ BEGIN
 
 	INSERT INTO public.profiles (id, updated_at, display_name)
 	VALUES (NEW.id, NOW(), NULL);
-
-	INSERT INTO public.settings (id, user_image, country, profile_is_public)
-	VALUES (NEW.id, NULL, NULL, TRUE);
 
 	RETURN NEW;
 END;

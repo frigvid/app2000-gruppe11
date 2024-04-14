@@ -374,10 +374,42 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_check_if_admin: {
+        Args: {
+          user_to_check: string
+        }
+        Returns: boolean
+      }
+      admin_delete_user: {
+        Args: {
+          user_to_delete: string
+        }
+        Returns: undefined
+      }
+      admin_demote_to_user: {
+        Args: {
+          admin_to_demote: string
+        }
+        Returns: undefined
+      }
       admin_is_admin: {
         Args: Record<PropertyKey, never>
         Returns: boolean
       }
+      admin_promote_to_admin:
+        | {
+            Args: {
+              user_to_promote: string
+            }
+            Returns: undefined
+          }
+        | {
+            Args: {
+              user_to_promote: string
+              demote: boolean
+            }
+            Returns: undefined
+          }
       friend_get_all_friends: {
         Args: Record<PropertyKey, never>
         Returns: {
@@ -441,7 +473,9 @@ export type Database = {
         Returns: undefined
       }
       opening_get: {
-        Args: Record<PropertyKey, never>
+        Args: {
+          opn_id: string
+        }
         Returns: {
           created_by: string | null
           description: string
@@ -505,6 +539,7 @@ export type Database = {
         Returns: {
           id: string
           display_name: string
+          avatar_url: string
         }[]
       }
     }
