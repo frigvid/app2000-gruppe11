@@ -3,22 +3,23 @@ import {createClient} from "@utils/supabase/client";
 /**
  * This function is used to add data to the public.gamedata table
  * in Supabase's PostgreSQL database. There are three columns,
- * the userid which is based on auth.users.id, and a bigint
+ * the id which is based on auth.users.id, and a bigint
  * wins and losses columns.
  *
  * These are iterative counts, as in there should only ever be
- * one instance of the userid.
+ * one instance of the id.
  *
+ * @author frigvid
+ * @created 2024-01-25
  * @param uuid The auth.users.id in question.
  * @param win If true, increments wins column. If false, increments losses column.
- * @author frigvid
  */
 export async function addGamedata(uuid: string, win: boolean): Promise<void> {
 	const supabase = createClient();
 	
 	// Validate input.
 	if (!uuid) {
-		throw new Error("No userid inputted")
+		throw new Error("No id inputted")
 	}
 	
 	if (typeof win !== 'boolean') {
@@ -29,15 +30,15 @@ export async function addGamedata(uuid: string, win: boolean): Promise<void> {
 		// Get data.
 		const {data, error} = await supabase
 			.from('gamedata')
-			.select('userid, wins, losses')
-			.eq('userid', uuid)
+			.select('id, wins, losses, draws')
+			.eq('id', uuid)
 			.maybeSingle();
 		
 		if (error) {
 			// Insert new user in table.
 			const {error: insertError} = await supabase
 				.from('gamedata')
-				.insert([{userid: uuid, wins: win ? 1 : 0, losses: win ? 0 : 1}]);
+				.insert([{id: uuid, wins: win ? 1 : 0, losses: win ? 0 : 1}]);
 			if (insertError) {
 				throw insertError
 			}
@@ -47,7 +48,7 @@ export async function addGamedata(uuid: string, win: boolean): Promise<void> {
 			const {error: updateError} = await supabase
 				.from('gamedata')
 				.update(updateColumn)
-				.eq('userid', uuid);
+				.eq('id', uuid);
 			if (updateError) {
 				throw updateError
 			}
@@ -55,7 +56,7 @@ export async function addGamedata(uuid: string, win: boolean): Promise<void> {
 			// Handle case where user doesn't exist and no error was thrown.
 			const {error: insertError} = await supabase
 				.from('gamedata')
-				.insert([{userid: uuid, wins: win ? 1 : 0, losses: win ? 0 : 1}]);
+				.insert([{id: uuid, wins: win ? 1 : 0, losses: win ? 0 : 1}]);
 			if (insertError) {
 				throw insertError
 			}
