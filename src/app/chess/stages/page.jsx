@@ -36,13 +36,11 @@ export default function Stages() {
 	
 	// Create a function to handle DELETEs.
 	const handleDeletes = (payload) => {
-		console.log('Change received!', payload);
 		setOpening(prevOpenings => prevOpenings.filter(opening => opening.id !== payload.record.id));
 	}
 	
 	// Create a function to handle INSERTs.
 	const handleInserts = (payload) => {
-		console.log('Insert received!', payload);
 		setOpening(prevOpenings => [...prevOpenings, payload.record]);
 	}
 	
