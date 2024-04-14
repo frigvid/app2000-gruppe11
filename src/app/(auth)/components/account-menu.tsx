@@ -57,7 +57,7 @@ export default function AccountMenu() {
 		};
 
 		void fetchData();
-	}, []);
+	}, [supabase]);
 	
 	/**
 	 * Perform an account logout.
