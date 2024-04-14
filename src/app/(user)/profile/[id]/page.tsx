@@ -1,11 +1,11 @@
 "use client";
 
-import PendingFriendRequests from "@/app/(user)/profile/components/pending-friend-requests";
-import SearchForFriend from "@user/profile/components/search-for-friend";
-import UserProfileEditor from "@user/profile/components/user-profile-editor";
+import PendingFriendRequests from "@user/profile/[id]/components/pending-friend-requests";
+import UserProfileEditor from "@user/profile/[id]/components/user-profile-editor";
+import SearchForFriend from "@user/profile/[id]/components/search-for-friend";
 import ProtectClientContent from "@auth/components/protect-client-content";
-import UserStats from "@/app/(user)/profile/components/user-stats";
-import FriendList from "@user/profile/components/friend-list";
+import FriendList from "@user/profile/[id]/components/friend-list";
+import UserStats from "@user/profile/[id]/components/user-stats";
 import Buffering from "@auth/components/fragment/Buffering";
 import UnauthorizedError from "@ui/error/401_unauthorized";
 import {createClient} from "@utils/supabase/client";
@@ -83,8 +83,6 @@ export default function UserProfile() {
 	if (isLoading || data === null || data === undefined) {
 		return <Buffering/>;
 	}
-	
-	console.log(data);
 	
 	/**
 	 * The JSX layout for the user's profile.

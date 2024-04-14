@@ -1,6 +1,6 @@
 "use client";
 
-import editUserProfileSA from "@user/profile/actions/edit-user-profile-sa";
+import editUserProfileSA from "@user/profile/[id]/actions/edit-user-profile-sa";
 import {CountryRegionData} from "react-country-region-selector";
 import NativeSelect from "@mui/material/NativeSelect";
 import {Dialog, Transition} from "@headlessui/react";
