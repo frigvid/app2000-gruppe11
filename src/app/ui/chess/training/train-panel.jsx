@@ -1,3 +1,4 @@
+import {useTranslation} from "react-i18next";
 import Link from "next/link";
 
 /**
@@ -12,10 +13,12 @@ import Link from "next/link";
  * @returns returns the panel with information about the practice status
  */
 export default function TrainPanel({status, moveCounter, pgn}) {
+	const {t} = useTranslation();
+	
 	return (
 		<section className="flex flex-col justify-center mr-8 p-3 px-8 max-w-md bg-gray-200 rounded-lg border border-gray-200 shadow-md text-center space-y-4">
 			<h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-				Game Status
+				{t("chess.train_chess.panel.label")}
 			</h2>
 			<div className="italic">
 				{
@@ -26,12 +29,12 @@ export default function TrainPanel({status, moveCounter, pgn}) {
 							: <p className="p-2">{status}</p>
 				}
 			</div>
-			<p className="max-w-[14rem]">You have moved {moveCounter} times, and the amount of moves in the opening is {pgn.length}</p>
+			<p className="max-w-[14rem]">{t("chess.train_chess.panel.move.part1")} {moveCounter} {t("chess.train_chess.panel.move.part2")} {pgn.length}</p>
 			<Link
 				href="/chess/stages"
 				className="bg-buttoncolor inline-block rounded px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger mt-4 hover:bg-[#976646] py-2"
 			>
-				Back to stage selection
+				{t("chess.train_chess.panel.return")}
 			</Link>
 		</section>
 	);

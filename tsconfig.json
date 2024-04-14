@@ -2,6 +2,8 @@
 	"compilerOptions": {
 		"paths": {
 			"@utils/*": ["./src/app/utils/*"],
+			"@auth/*": ["./src/app/(auth)/*"],
+			"@user/*": ["./src/app/(user)/*"],
 			"@lib/*": ["./src/app/lib/*"],
 			"@ui/*": ["./src/app/ui/*"],
 			"@/*": [
@@ -13,6 +15,7 @@
 			"dom.iterable",
 			"esnext"
 		],
+		"target": "ES2022",
 		"allowJs": true,
 		"skipLibCheck": true,
 		"strict": false,

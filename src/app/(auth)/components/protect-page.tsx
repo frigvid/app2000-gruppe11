@@ -11,31 +11,29 @@ import Link from "next/link";
  * Using this is as simple as wrapping the page contents
  * inside the return statement, in a ProtectContent() statement.
  *
- * Example usage:
- * <pre>
- * import Protect from "@utils/withAuth";
+ * @example
+ * import ProtectPage from "@auth/components/protect-page";
  *
  * export default function FancyPancyPage() {
- *    return (
- *       ProtectContent(
- *             <main className="flex justify-center items-center">
- *                <p>Fancy Pancy Secret.</p>
- *             </main>
- *          )
- *       )
- *    }
- * </pre>
+ * 	return (
+ * 		ProtectContent(
+ * 	      <main className="flex justify-center items-center">
+ * 	         <p>Fancy Pancy Secret.</p>
+ * 	      </main>
+ * 	   )
+ * 	)
+ * }
  *
  * @author frigvid
  * @created 2024-02-17
  * @param Component The page contents to protect.
- * @returns {Promise<*>} The protected page.
+ * @returns The protected page.
+ * @note		This is unable to be called during initial render.
  * @warning This is kind of an abomination of a Server Action crossed with
  * 			a Component, so, you know; cognitohazard warning.
  */
-export default async function ProtectContent(Component: any): Promise<any> {
-	const cookieStore = cookies();
-	const supabase = createClient(cookieStore);
+export default async function ProtectPage(Component: any): Promise<any> {
+	const supabase = createClient(cookies());
 	const {data, error} = await supabase.auth.getUser();
 	
 	// Show 401 if unauthorized or if an error occurred.
@@ -45,8 +43,9 @@ export default async function ProtectContent(Component: any): Promise<any> {
 				<div className="mb-8">
 					<UnauthorizedError/>
 				</div>
-				<Link href="/"
-						className="bg-buttoncolor inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
+				<Link
+					href="/"
+					className="bg-buttoncolor inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
 				>
 					Return to home
 				</Link>

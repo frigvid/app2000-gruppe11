@@ -2,7 +2,7 @@
 
 import {FaChessKnight, FaPlay, FaHistory, FaArrowDown} from "react-icons/fa";
 import React, {useState, useEffect} from "react";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import Link from "next/link";
 
 /**
@@ -27,7 +27,7 @@ export default function Home() {
 	if (!loaded) {
 		return null;
 	}
-
+	
 	return (
 		<main className="flex flex-col">
 			<div className="flex flex-col items-center justify-center h-screen -mt-24 md:mt-0">

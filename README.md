@@ -25,9 +25,6 @@
 	* [Installation](#installation)
 * [Usage](#usage)
 * [Roadmap](#roadmap)
-* [Contributing](#contributing)
-* [Contact](#contact)
-* [Acknowledgments](#acknowledgments)
 * [License](#license)
 
 </details>
@@ -38,28 +35,39 @@ Chess has various strategies to for both proactive and reactive actions for the 
 
 Chess Buddy is a web-application designed to teach its users opening strategies.
 
-Features:
-- Full chess battles against machine-opponents (AI) or fellow humans.
-- Theoretical documentation and explanations of strategies.
-- Practical implementations and utilizations of strategies.
-- User-definable strategy groups.
-    - Groups can be custom-ordered or randomly ordered, effectively blindfolding the user as to which strategy is currently in effect.
-- Interactive views of strategies, both with and without hints as to what the step is, based on the users wants.
+Saying that, it's important to note that it is a bit bare-bones. You are able to play full chess games against machine opponents*, and you can create your own opening strategies, as well as training against said openings. There are also some social functions in the form of user profiles and friendships, but that's about it.
 
 ## Built with
 
 The project is developed using:
 
-- React/Next.js.
-- TailwindCSS.
+- React + Next.js.
+- Tailwind CSS.
+- Supabase.
 
 # Getting started
-## Pre-requisites
-Getting the project up and running is rather easy, you just need to clone this repository and then follow the instructions below.
+## Prerequisites
+### Database
 
-Do note that our developer documentation is available through [GitHub's repository-level Wiki](https://github.com/frigvid/app2000-gruppe11/wiki).
+Getting this project up and running for the first time, requires some manual labour. You're going to have to copy-and-paste the contents of the [PREREQUISITES.sql](./PREREQUISITES.sql) file into the SQL Editor in the Supabase GUI. Once you've pasted it all there, all you need to do is to run it, and then proceed with the rest of the prerequisites. Also note [the extras document](./EXTRAS.md) for other functions and the like that may be nice to use, but are not included by default.
 
-You can also generate code documentation using `jsdoc` once the project has been cloned and installed.
+> **Reasoning:** While it would be nice to automate this, of course, it's not really possible. Supabase treats every client as "untrusted" and thus does not allow for plain SQL execution. We could have made a SQL function for this, but having a function that lets you execute arbitrary SQL code sounds like a rather big potential security problem. Hence why it's necessary to do this manually.
+
+### Environment file
+
+1. Create a `.env.local` file in the root directory.
+2. Grab your Supabase URL and add it as the value of `NEXT_PUBLIC_SUPABASE_URL`.
+3. Grab your Supabase anonymous API key and add it as the value of `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+
+It'll look something like this:
+```environment
+NEXT_PUBLIC_SUPABASE_URL=https://somesubdomain.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=some kind of secret here
+```
+
+### Additional notes
+
+Currently, our developer documentation is available through the `docs` folder and through `jsdoc` code documentation. We do plan on moving onto  [GitHub's repository-level Wiki](https://github.com/frigvid/app2000-gruppe11/wiki), but that is for the future.
 
 ## Installation
 
@@ -73,7 +81,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Once it's up, open [http://localhost:3000](http://localhost:3000).
 
 # Usage
 
@@ -83,15 +91,6 @@ Usage of the web-application should be relatively straight forward. It is design
 
 Our roadmap can be viewed through our [GitHub Project](https://github.com/users/frigvid/projects/1).
 
-# Contributing
-
-We are not accepting arbitrary contributions at this time.
-
-# Contact
-
-We can be contacted through GitHub.
-
-# Acknowledgments
 # License
 
 The repository `LICENSE` file, as you may have noticed, marks this repository as MIT. However, due to the nature of its contents, it's actually multi-licensed. Unless otherwise specified, the licenses below apply to their respective areas:

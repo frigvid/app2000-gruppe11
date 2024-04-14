@@ -1,5 +1,6 @@
-import OpeningCreator from "@ui/opening/opening-creator";
+import OpeningCreator from "@ui/chess/stages/opening-creator";
 import {Dialog, Transition} from "@headlessui/react";
+import {useTranslation} from "react-i18next";
 import {Fragment, useState} from "react";
 
 /**
@@ -13,6 +14,7 @@ import {Fragment, useState} from "react";
  */
 export default function StagesCreateOpeningModal() {
 	let [isOpen, setIsOpen] = useState(false);
+	const {t} = useTranslation();
 	
 	function closeModal() {
 		setIsOpen(false)
@@ -30,7 +32,7 @@ export default function StagesCreateOpeningModal() {
 					onClick={openModal}
 					className="w-full bg-buttoncolor inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
 				>
-					Create an opening
+					{t("chess.create_opening.button.open")}
 				</button>
 			</div>
 			<Transition appear show={isOpen} as={Fragment}>
@@ -46,7 +48,6 @@ export default function StagesCreateOpeningModal() {
 					>
 						<div className="fixed inset-0 bg-black/25"/>
 					</Transition.Child>
-					
 					<div className="fixed inset-0 overflow-y-auto">
 						<div className="flex min-h-full items-center justify-center p-4 text-center">
 							<Transition.Child
@@ -63,9 +64,9 @@ export default function StagesCreateOpeningModal() {
 										as="h3"
 										className="text-lg mb-3 text-center font-semibold leading-6 text-gray-900"
 									>
-										Create an opening!
+										{t("chess.create_opening.title")}
 									</Dialog.Title>
-									<OpeningCreator/>
+									<OpeningCreator closeModal={closeModal}/>
 								</Dialog.Panel>
 							</Transition.Child>
 						</div>

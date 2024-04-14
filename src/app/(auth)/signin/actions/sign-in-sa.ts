@@ -12,12 +12,11 @@ import {cookies} from "next/headers";
  * @author frigvid
  * @created 2024-02-13
  */
-export async function SignInSA(formData: FormData) {
-	const cookieStore = cookies();
-	const supabase = createClient(cookieStore);
+export async function signInSA(formData: FormData) {
+	const supabase = createClient(cookies());
 	
 	// NOTE: Type-casting is here for convenience.
-	// FIXME: Validate inputs.
+	// FIXME: Supabase already validates inputs, but for safety's sake, we should validate inputs.
 	const data = {
 		email: formData.get('email') as string,
 		password: formData.get('password') as string,
@@ -30,6 +29,9 @@ export async function SignInSA(formData: FormData) {
 		redirect('/signin/error');
 	}
 	
+	// Purge cached data.
 	revalidatePath('/', 'layout');
-	redirect('/');
+	
+	// Redirect to Home.
+	redirect("/");
 }

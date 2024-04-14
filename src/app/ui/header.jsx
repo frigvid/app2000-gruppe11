@@ -1,7 +1,7 @@
-import LoginLogoutButton from "@ui/auth/login-logout-button"; // Importing the LoginLogoutButton component
-import logoIcon from "/public/logo.svg"; // Importing the logo icon
-import Image from "next/image"; // Importing Image component from Next.js
-import Link from "next/link"; // Importing Link component from Next.js
+import AccountMenu from "@auth/components/account-menu";
+import logoIcon from "/public/logo.svg";
+import Image from "next/image";
+import Link from "next/link";
 
 /**
  * Header component.
@@ -9,6 +9,9 @@ import Link from "next/link"; // Importing Link component from Next.js
  * Only used in root-layout.
  *
  * @author frigvid
+ * @contributor jarle0
+ * @warning There's a known issue of including this in the root layout, as it rarely re-draws, which makes the
+ * 			{@link #AccountMenu} slow to update.
  */
 export default function Header() {
 	return (
@@ -19,6 +22,7 @@ export default function Header() {
 						<Image className="h-16" src={logoIcon} alt={"Chess Buddy logo image."}/>
 					</Link>
 				</div>
+				{/* FIXME: On viewports like the iPhone SE, it appears the Link elements stop being clickable. */}
 				<div className="lg:flex lg:gap-x-12 lg:mt-0 md:mt-4">
 					<div className="flex space-x-4 lg:space-x-12 lg:space-y-0">
 						<Link
@@ -45,7 +49,7 @@ export default function Header() {
 				</div>
 				<div className="lg:flex lg:flex-1 lg:justify-end">
 					<div className="mt-4 lg:mt-0 lg:inline-block">
-						<LoginLogoutButton/>
+						<AccountMenu/>
 					</div>
 				</div>
 			</nav>
