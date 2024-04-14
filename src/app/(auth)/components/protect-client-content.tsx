@@ -53,7 +53,7 @@ export default function ProtectClientContent({
 	
 	useEffect(() => {
 		const checkAuth = async () => {
-			const { data, error } = await supabase.auth.getUser();
+			const {data, error} = await supabase.auth.getUser();
 			
 			if (error || !data?.user) {
 				setAuthorized(false);
