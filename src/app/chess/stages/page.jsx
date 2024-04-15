@@ -3,12 +3,12 @@
 import StagesChessboardThumbnail from "@ui/chess/stages/stages-chessboard-thumbnail";
 import StagesCreateOpeningModal from "@ui/chess/stages/stages-create-opening-modal";
 import ProtectClientContent from "@/app/(auth)/components/protect-client-content";
+import Buffering from "@auth/components/fragment/Buffering";
+import React, {Suspense, useEffect, useState} from "react";
 import StagesModal from "@ui/chess/stages/stages-modal";
 import {fetchOpenings} from "@utils/game/get-gamedata";
-import React, {Suspense, useEffect, useState} from "react";
-import {useTranslation} from "react-i18next";
-import Buffering from "@auth/components/fragment/Buffering";
 import {createClient} from "@utils/supabase/client";
+import {useTranslation} from "react-i18next";
 
 /**
  * Route for the game's stages.
@@ -34,23 +34,49 @@ export default function Stages() {
 		void getOpenings();
 	}, [opening]);
 	
-	// Create a function to handle DELETEs.
+	/**
+	 * Handles DELETE events occurring in table subscription.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-13
+	 * @param payload The row that was deleted.
+	 * @see https://supabase.com/docs/guides/realtime
+	 */
 	const handleDeletes = (payload) => {
 		setOpening(prevOpenings => prevOpenings.filter(opening => opening.id !== payload.record.id));
 	}
 	
-	// Create a function to handle INSERTs.
+	/**
+	 * Handles INSERT events occurring in table subscription.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-13
+	 * @param payload The row that was inserted.
+	 * @see https://supabase.com/docs/guides/realtime
+	 */
 	const handleInserts = (payload) => {
 		setOpening(prevOpenings => [...prevOpenings, payload.record]);
 	}
 	
-	// Listen to DELETEs.
+	/**
+	 * Subscription to listen to DELETE events.
+	 *
+	 * @author frigvid, supabase
+	 * @created 2024-04-13
+	 * @see https://supabase.com/docs/guides/realtime
+	 */
 	supabase
 		.channel('openings')
 		.on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'openings' }, handleDeletes)
 		.subscribe();
 	
-	// Listen to INSERTs.
+	/**
+	 * Subscription to listen to INSERT events.
+	 *
+	 * @author frigvid, supabase
+	 * @created 2024-04-13
+	 * @see https://supabase.com/docs/guides/realtime
+	 */
 	supabase
 		.channel('openings')
 		.on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'openings' }, handleInserts)
