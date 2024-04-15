@@ -31,7 +31,7 @@ export default function Stages() {
 								<StagesCreateOpeningModal/>
 							</div>
 							<div className="flex flex-col">
-								<p className="mb-3">{t("chess.create_repertoire.label")}</p>
+								<p className="mb-3">{t("chess.create_repertoire.header.label")}</p>
 								{/* Repertoire button. */}
 							</div>
 						</div>

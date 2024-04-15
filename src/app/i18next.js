@@ -294,8 +294,10 @@ const resources = {
 							"label": "Create a repertoire"
 						},
 					},
-					"label": "$t(chess.create_repertoire.generics.fragment.label), a group of openings.",
-					"button": "$t(chess.create_repertoire.generics.fragment.label)."
+					"header": {
+						"label": "$t(chess.create_repertoire.generics.fragment.label), a group of openings.",
+						"button": "$t(chess.create_repertoire.generics.fragment.label)."
+					},
 				},
 				"stages": {
 					"read_more": "Read more",
