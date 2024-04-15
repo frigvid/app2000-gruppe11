@@ -5,8 +5,8 @@ import ProtectClientContent from "@/app/(auth)/components/protect-client-content
 import StagesRepertoires from "@/app/chess/stages/components/stages-repertoires";
 import StagesOpenings from "@/app/chess/stages/components/stages-openings";
 import Buffering from "@auth/components/fragment/Buffering";
-import React, {Suspense} from "react";
 import {useTranslation} from "react-i18next";
+import React, {Suspense} from "react";
 
 /**
  * Route for the game's stages.

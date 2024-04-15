@@ -36,54 +36,35 @@ export default function StagesRepertoires() {
 	}, [supabase]);
 	
 	/**
-	 * Handles DELETE events occurring in table subscription.
+	 * This useEffect handles realtime INSERTs and DELETEs
+	 * from the public.repertoire table.
+	 *
+	 * See {@link @/app/chess/stages/components/StagesOpenings}
+	 * for some additional details.
 	 *
 	 * @author frigvid
 	 * @created 2024-04-15
-	 * @param payload The row that was deleted.
 	 * @see https://supabase.com/docs/guides/realtime
 	 */
-	const handleDeletes = (payload) => {
-		setRepertoires(prevRepertoires => prevRepertoires.filter(repertoires => repertoires.id !== payload.record.id));
-	}
-	
-	/**
-	 * Handles INSERT events occurring in table subscription.
-	 *
-	 * @author frigvid
-	 * @created 2024-04-15
-	 * @param payload The row that was inserted.
-	 * @see https://supabase.com/docs/guides/realtime
-	 */
-	const handleInserts = (payload) => {
-		setRepertoires(prevRepertoires => [...prevRepertoires, payload.record]);
-	}
-	
-	/**
-	 * Subscription to listen to DELETE events.
-	 *
-	 * @author supabase
-	 * @contributor frigvid
-	 * @created 2024-04-15
-	 * @see https://supabase.com/docs/guides/realtime
-	 */
-	supabase
-		.channel('repertoires')
-		.on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'repertoire' }, handleDeletes)
-		.subscribe();
-	
-	/**
-	 * Subscription to listen to INSERT events.
-	 *
-	 * @author supabase
-	 * @contributor frigvid
-	 * @created 2024-04-15
-	 * @see https://supabase.com/docs/guides/realtime
-	 */
-	supabase
-		.channel('repertoires')
-		.on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'repertoire' }, handleInserts)
-		.subscribe();
+	useEffect(() => {
+		const repertoires = supabase
+			.channel('repertoires')
+			.on('postgres_changes', {
+				event: '*',
+				schema: 'public',
+				table: 'repertoire'
+			}, (payload) => {
+				if (payload.eventType === 'INSERT') {
+					setRepertoires(prevRepertoires => [...prevRepertoires, payload.new]);
+				} else if (payload.eventType === 'DELETE') {
+					setRepertoires(prevRepertoires => prevRepertoires.filter(repertoires => repertoires.id !== payload.old.id));
+				}
+			}).subscribe();
+		
+		return () => {
+			void supabase.removeChannel(repertoires);
+		}
+	}, [supabase, repertoires]);
 	
 	return (
 		<>

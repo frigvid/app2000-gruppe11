@@ -44,54 +44,38 @@ export default function StagesOpenings() {
 	}, [supabase]);
 	
 	/**
-	 * Handles DELETE events occurring in table subscription.
+	 * This useEffect handles realtime INSERTs and DELETEs
+	 * from the public.openings table.
+	 *
+	 * Originally based off on the link in the @see statement,
+	 * and albeit it did work, it somehow seems to have changed.
+	 * After debugging, it seems they've changed the object names
+	 * for what is returned. This new code is more flexible, and
+	 * also fixed.
 	 *
 	 * @author frigvid
-	 * @created 2024-04-13
-	 * @param payload The row that was deleted.
+	 * @created 2024-04-15
 	 * @see https://supabase.com/docs/guides/realtime
 	 */
-	const handleOpeningsDeletes = (payload) => {
-		setOpening(prevOpenings => prevOpenings.filter(opening => opening.id !== payload.record.id));
-	}
-	
-	/**
-	 * Handles INSERT events occurring in table subscription.
-	 *
-	 * @author frigvid
-	 * @created 2024-04-13
-	 * @param payload The row that was inserted.
-	 * @see https://supabase.com/docs/guides/realtime
-	 */
-	const handleOpeningsInserts = (payload) => {
-		setOpening(prevOpenings => [...prevOpenings, payload.record]);
-	}
-	
-	/**
-	 * Subscription to listen to DELETE events.
-	 *
-	 * @author supabase
-	 * @contributor frigvid
-	 * @created 2024-04-13
-	 * @see https://supabase.com/docs/guides/realtime
-	 */
-	supabase
-		.channel('openings')
-		.on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'openings' }, handleOpeningsDeletes)
-		.subscribe();
-	
-	/**
-	 * Subscription to listen to INSERT events.
-	 *
-	 * @author supabase
-	 * @contributor frigvid
-	 * @created 2024-04-13
-	 * @see https://supabase.com/docs/guides/realtime
-	 */
-	supabase
-		.channel('openings')
-		.on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'openings' }, handleOpeningsInserts)
-		.subscribe();
+	useEffect(() => {
+		const openings = supabase
+			.channel('openings')
+			.on('postgres_changes', {
+				event: '*',
+				schema: 'public',
+				table: 'openings'
+			}, (payload) => {
+				if (payload.eventType === 'INSERT') {
+					setOpening(prevOpenings => [...prevOpenings, payload.new]);
+				} else if (payload.eventType === 'DELETE') {
+					setOpening(prevOpenings => prevOpenings.filter(opening => opening.id !== payload.old.id));
+				}
+			}).subscribe();
+		
+		return () => {
+			void supabase.removeChannel(openings);
+		}
+	}, [supabase, opening]);
 	
 	return (
 		<>
