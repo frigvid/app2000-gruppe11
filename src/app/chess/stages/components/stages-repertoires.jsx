@@ -44,7 +44,7 @@ export default function StagesRepertoires() {
 	 * @see https://supabase.com/docs/guides/realtime
 	 */
 	const handleDeletes = (payload) => {
-		setRepertoires(prevRepertoires => prevRepertoires.filter(opening => opening.id !== payload.record.id));
+		setRepertoires(prevRepertoires => prevRepertoires.filter(repertoires => repertoires.id !== payload.record.id));
 	}
 	
 	/**
