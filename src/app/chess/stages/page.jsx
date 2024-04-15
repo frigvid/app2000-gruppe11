@@ -32,7 +32,7 @@ export default function Stages() {
 		}
 		
 		void getOpenings();
-	}, [opening]);
+	}, []);
 	
 	/**
 	 * Handles DELETE events occurring in table subscription.
