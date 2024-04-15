@@ -92,7 +92,6 @@ export default function UserProfile() {
 				schema: 'public',
 				table: 'profiles'
 			}, async (payload) => {
-				console.log(payload);
 				/* Call it paranoia, but just to be safe, I'm checking that the payload's
 				 * user ID matches the static user ID. */
 				if (payload.new.id === staticUserId) {
