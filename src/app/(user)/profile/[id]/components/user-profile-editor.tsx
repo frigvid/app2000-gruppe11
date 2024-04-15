@@ -45,31 +45,10 @@ export default function UserProfileEditor({
 	const [aboutMe, setAboutMe] = useState(about_me);
 	const [visibilityStatus, setVisibilityStatus] = useState(String(visibility));
 	const [visibilityFriendsStatus, setVisibilityFriendsStatus] = useState(String(visibility_friends));
-	const router = useRouter();
 	const {t} = useTranslation();
 	
 	function closeModal() {
 		setIsOpen(false);
-	}
-	
-	/**
-	 * This is a rather ugly hack. Essentially, it's trying to go up
-	 * a level in the URL path hierarchy, however, it gets 404'd because
-	 * there purposefully isn't a generic profile page.
-	 *
-	 * Instead of going back a step, and sending the user to a 404. It
-	 * instead forces a reload of the page; which is what you'd want.
-	 *
-	 * I'm pretty sure this behavior is just a bug, as it only occurs
-	 * when this function is called from within either the Transition,
-	 * Dialog or button. And not if you call the regular closeModal
-	 * function.
-	 *
-	 * FIXME: Don't use this mess.
-	 */
-	function closeModalWeirdly() {
-		setIsOpen(false);
-		router.push(".");
 	}
 	
 	function openModal() {
@@ -250,7 +229,7 @@ export default function UserProfileEditor({
 												<button
 													className="bg-green-400 mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
 													formAction={editUserProfileSA}
-													onClick={closeModalWeirdly}
+													onClick={closeModal}
 												>
 													{t("user_profile.editor.save.label")}
 												</button>
