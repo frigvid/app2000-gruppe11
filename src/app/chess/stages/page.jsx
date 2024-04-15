@@ -42,7 +42,7 @@ export default function Stages() {
 	 * @param payload The row that was deleted.
 	 * @see https://supabase.com/docs/guides/realtime
 	 */
-	const handleDeletes = (payload) => {
+	const handleOpeningsDeletes = (payload) => {
 		setOpening(prevOpenings => prevOpenings.filter(opening => opening.id !== payload.record.id));
 	}
 	
@@ -54,7 +54,7 @@ export default function Stages() {
 	 * @param payload The row that was inserted.
 	 * @see https://supabase.com/docs/guides/realtime
 	 */
-	const handleInserts = (payload) => {
+	const handleOpeningsInserts = (payload) => {
 		setOpening(prevOpenings => [...prevOpenings, payload.record]);
 	}
 	
@@ -67,7 +67,7 @@ export default function Stages() {
 	 */
 	supabase
 		.channel('openings')
-		.on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'openings' }, handleDeletes)
+		.on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'openings' }, handleOpeningsDeletes)
 		.subscribe();
 	
 	/**
@@ -79,7 +79,7 @@ export default function Stages() {
 	 */
 	supabase
 		.channel('openings')
-		.on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'openings' }, handleInserts)
+		.on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'openings' }, handleOpeningsInserts)
 		.subscribe();
 	
 	return (
