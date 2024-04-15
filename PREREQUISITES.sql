@@ -134,9 +134,9 @@ CREATE TABLE IF NOT EXISTS
 CREATE TABLE IF NOT EXISTS
 	gamedata (
 		id UUID PRIMARY KEY,
-		wins BIGINT,
-		losses BIGINT,
-		draws BIGINT,
+		wins BIGINT NOT NULL DEFAULT 0,
+		losses BIGINT NOT NULL DEFAULT 0,
+		draws BIGINT NOT NULL DEFAULT 0,
 		FOREIGN KEY (id) REFERENCES auth.users (id)
 	);
 
@@ -263,6 +263,7 @@ CREATE TABLE IF NOT EXISTS
 
 ALTER PUBLICATION supabase_realtime ADD TABLE public.openings;
 ALTER PUBLICATION supabase_realtime ADD TABLE public.gamedata;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.profiles;
 ALTER PUBLICATION supabase_realtime ADD TABLE public.friends;
 ALTER PUBLICATION supabase_realtime ADD TABLE public.friend_requests;
 

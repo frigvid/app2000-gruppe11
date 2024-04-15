@@ -125,14 +125,7 @@ export default function UserProfile() {
 					</div>
 					{/* Header: User's stats. */}
 					<div className="flex justify-around p-5 bg-[#efebe9]">
-						<UserStats
-							elo_rank={data.elo_rank}
-							games_played={data.wins + data.losses + data.draws}
-							games_won={data.wins}
-							games_lost={data.losses}
-							games_drawn={data.draws}
-							nationality={data.nationality}
-						/>
+						<UserStats data={data}/>
 					</div>
 					{/* Body: About me. */}
 					<div className="p-5">
