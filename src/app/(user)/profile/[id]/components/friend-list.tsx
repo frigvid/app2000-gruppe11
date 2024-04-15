@@ -15,7 +15,7 @@ import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
 import {User} from "@supabase/supabase-js";
 import Avatar from "@mui/material/Avatar";
-import {useRouter} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import Paper from "@mui/material/Paper";
 import List from "@mui/material/List";
 
@@ -36,10 +36,13 @@ export default function FriendList({
 	const [friends, setFriends] = useState(null);
 	const router = useRouter();
 	const {t} = useTranslation();
+	const staticUserId = usePathname().split('/').pop() || '';
 	
 	useEffect(() => {
 		const fetchFriends = async () => {
 			const {data, error} = await supabase.rpc("friend_get_all_friends");
+			
+			console.log("Check for duplicates:", data);
 			
 			if (error) {
 				console.error("Fetching friends failed!", error);
@@ -50,6 +53,63 @@ export default function FriendList({
 		
 		void fetchFriends()
 	}, [supabase]);
+	
+	/**
+	 * This useEffect handles realtime INSERTs and DELETEs
+	 * from the public.friends table.
+	 *
+	 * See {@link @/app/chess/stages/components/StagesOpenings}
+	 * for some additional details. However, note that I've made
+	 * some changes to the structure here relative to the others,
+	 * because DELETEs were not working as expecting.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-15
+	 * @see https://supabase.com/docs/guides/realtime
+	 * @see https://supabase.com/docs/reference/javascript/subscribe?example=listen-to-multiple-events
+	 */
+	useEffect(() => {
+		const friends = supabase
+			.channel('friends')
+			.on('postgres_changes', {
+				event: 'INSERT',
+				schema: 'public',
+				table: 'friends'
+			}, async (payload) => {
+				const {data, error} = (
+					(payload.new.user1 === staticUserId)
+						? await supabase.rpc("friend_get_one", {friend: payload.new.user2})
+						: await supabase.rpc("friend_get_one", {friend: payload.new.user1})
+				);
+				
+				if (error) {
+					console.log("Something went wrong adding a new friend in real time", error);
+				} else {
+					setFriends((prevFriends: any) => [...prevFriends, data[0]]);
+				}
+			})
+			.on('postgres_changes', {
+				event: 'DELETE',
+				schema: 'public',
+				table: 'friends'
+			}, async (payload) => {
+				setFriends(
+					(prevFriends: any[]) => prevFriends.filter(
+						friend => {
+							console.log("FriendID:", friend.id, "!==", payload.old.id);
+							console.log(friend.friendship_id !== payload.old.id);
+							return friend.friendship_id !== payload.old.id;
+						}
+					)
+				);
+				console.log(friends);
+			})
+			.subscribe();
+		
+		return () => {
+			void supabase.removeChannel(friends);
+		}
+	}, [supabase, staticUserId]);
 	
 	if (friends) {
 		return (
@@ -64,6 +124,18 @@ export default function FriendList({
 									<List className="w-full h-[10rem]">
 										{
 											friends.map((friend: any, index: number) => {
+												/**
+												 * This deletes the ListItem and Divider when called. Used for when
+												 * users click on either the accept or reject button.
+												 *
+												 * It creates a new array with the elements that match, so literally
+												 * everything that isn't this current `friendRequest` mapping. In
+												 * effect, deleting it.
+												 */
+												const deleteListing = () => {
+													setFriends(friends.filter((_: any, i: any) => i !== index));
+												};
+												
 												return (
 													[
 														<ListItem
@@ -93,6 +165,8 @@ export default function FriendList({
 																							color="error"
 																							onClick={async () => {
 																								void await supabase.rpc("friend_remove", {other_user: friend.id});
+																								
+																								deleteListing();
 																							}}
 																						>
 																							<DeleteIcon/>

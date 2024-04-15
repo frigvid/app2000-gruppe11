@@ -413,6 +413,20 @@ export type Database = {
       friend_get_all_friends: {
         Args: Record<PropertyKey, never>
         Returns: {
+          friendship_id: string
+          id: string
+          display_name: string
+          elo_rank: number
+          avatar_url: string
+          nationality: string
+        }[]
+      }
+      friend_get_one: {
+        Args: {
+          friend: string
+        }
+        Returns: {
+          friendship_id: string
           id: string
           display_name: string
           elo_rank: number

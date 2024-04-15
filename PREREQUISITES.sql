@@ -23,6 +23,9 @@ Date (yyyy-mm-dd)   	Author             	Comments
 2024-04-13T20-50		frigvid					Added history-gamedata trigger.
 2024-04-13T21-10		frigvid					Add Supabase REALTIME support to select tables.
 2024-04-14				frigvid					Added function to promote user to administrator.
+2024-04-15				frigvid					Added friend_request_get_one and friend_get_one,
+														and modified friend_get_all_friends to make it
+														function better with the realtime implementation.
 ********************************************************************************************/ 
 
 
@@ -76,7 +79,7 @@ CREATE TABLE IF NOT EXISTS
 		/* Ensure any permutation of 2 users are caught. */
 		UNIQUE (user1, user2),
 		UNIQUE (user2, user1)
-);
+	);
 
 
 
@@ -99,7 +102,7 @@ CREATE TABLE IF NOT EXISTS
 		 */
 		UNIQUE (by_user, to_user),
 		UNIQUE (to_user, by_user)
-);
+	);
 
 
 
@@ -1061,32 +1064,71 @@ $$;
  * ============================================= */
 CREATE OR REPLACE FUNCTION public.friend_get_all_friends()
 	RETURNS TABLE(
-		id uuid,
-		display_name text,
-		elo_rank integer,
-		avatar_url text,
-		nationality text
+		friendship_id UUID,
+		id UUID,
+		display_name TEXT,
+		elo_rank INTEGER,
+		avatar_url TEXT,
+		nationality TEXT
 	)
 	LANGUAGE plpgsql
 AS $$
 BEGIN
 	RETURN QUERY
 	SELECT
+		f.id AS friendship_id,
 		p.id,
 		p.display_name,
 		p.elo_rank,
 		p.avatar_url,
 		p.nationality
-	FROM profiles AS p
-	WHERE p.id IN (
-		SELECT f.user2 AS id
+	FROM (
+		SELECT f.id AS friendship_id, f.user2 AS id
 		FROM friends AS f
 		WHERE f.user1 = auth.uid()
 		UNION
-		SELECT f.user1 AS id
+		SELECT f.id AS friendship_id, f.user1 AS id
 		FROM friends AS f
 		WHERE f.user2 = auth.uid()
-	);
+	) AS f
+	JOIN profiles AS p ON p.id = f.id;
+END;
+$$;
+
+
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-15
+ * Description: Get one friend, if matching a
+ *              specific user.
+ * ============================================= */
+CREATE OR REPLACE FUNCTION public.friend_get_one(friend UUID)
+	RETURNS TABLE(
+		friendship_id UUID,
+		id UUID,
+		display_name TEXT,
+		elo_rank INTEGER,
+		avatar_url TEXT,
+		nationality TEXT
+	)
+	LANGUAGE plpgsql
+AS $$
+BEGIN
+	RETURN QUERY
+	SELECT
+		f.id AS friendship_id,
+		p.id,
+		p.display_name,
+		p.elo_rank,
+		p.avatar_url,
+		p.nationality
+	FROM
+		public.friends AS f
+	JOIN
+		public.profiles AS p ON p.id = friend
+	WHERE	(f.user1 = auth.uid() AND f.user2 = friend) OR
+			(f.user2 = auth.uid() AND f.user1 = friend);
 END;
 $$;
 
@@ -1105,15 +1147,15 @@ AS $$
 DECLARE
 	status BOOLEAN;
 BEGIN
-   RETURN EXISTS (
-   	SELECT 1
-   	FROM friends
+	RETURN EXISTS (
+		SELECT 1
+		FROM friends
 		/* Overkill check. Table is already constrained for
 		 * this kind of eventaulity. But call me paranoid.
 		 */
-   	WHERE	(user1 = auth.uid() AND user2 = other_user) OR
-   			(user2 = auth.uid() AND user1 = other_user)
-   );
+		WHERE	(user1 = auth.uid() AND user2 = other_user) OR
+				(user2 = auth.uid() AND user1 = other_user)
+	);
 END;
 $$;
 
@@ -1162,6 +1204,38 @@ BEGIN
 		public.profiles AS p ON fr.by_user = p.id
 	WHERE
 		fr.to_user = auth.uid();
+END;
+$$;
+
+
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-15
+ * Description: Get one pending friend requests
+ *              from a specific user.
+ * ============================================= */
+CREATE OR REPLACE FUNCTION public.friend_request_get_one(by_usr UUID)
+	RETURNS TABLE(
+		id UUID,
+		display_name TEXT,
+		avatar_url TEXT
+	)
+	LANGUAGE plpgsql
+AS $$
+BEGIN
+	RETURN QUERY
+	SELECT
+		p.id,
+		p.display_name,
+		p.avatar_url
+	FROM
+		public.friend_requests AS fr
+	JOIN
+		public.profiles AS p ON fr.by_user = p.id
+	WHERE
+		fr.to_user = auth.uid() AND
+		fr.by_user = by_usr;
 END;
 $$;
 
