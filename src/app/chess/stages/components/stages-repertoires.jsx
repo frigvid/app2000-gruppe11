@@ -68,7 +68,7 @@ export default function StagesRepertoires() {
 	 * @see https://supabase.com/docs/guides/realtime
 	 */
 	supabase
-		.channel('openings')
+		.channel('repertoires')
 		.on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'repertoire' }, handleDeletes)
 		.subscribe();
 	
@@ -81,7 +81,7 @@ export default function StagesRepertoires() {
 	 * @see https://supabase.com/docs/guides/realtime
 	 */
 	supabase
-		.channel('openings')
+		.channel('repertoires')
 		.on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'repertoire' }, handleInserts)
 		.subscribe();
 	
