@@ -41,7 +41,15 @@ export function useUser() {
 		void getUser();
 	}, [supabase.auth]); // Ignore dependency warning. Adding it will cause a small performance drop.
 	
-	return user;
+	/**
+	 * This will hopefully make it easier to avoid errors
+	 * where there isn't a user.
+	 */
+	if (user) {
+		return user;
+	} else {
+		return null;
+	}
 }
 
 /**
