@@ -5,6 +5,7 @@ import Buffering from "@auth/components/fragment/Buffering";
 import React, {Suspense, useEffect, useState} from "react";
 import StagesModal from "@ui/chess/stages/stages-modal";
 import {createClient} from "@utils/supabase/client";
+import Tooltip from "@mui/material/Tooltip";
 
 /**
  * Route for the game stages' openings list.
@@ -15,7 +16,11 @@ import {createClient} from "@utils/supabase/client";
  * @created 2024-04-15
  * @return The StagesOpenings component.
  */
-export default function StagesOpenings() {
+export default function StagesOpenings({
+	isCreatingRepertoire,
+	selectedOpenings,
+	handleSelection
+}) {
 	const supabase = createClient();
 	const [opening, setOpening] = useState([]);
 	
@@ -93,8 +98,21 @@ export default function StagesOpenings() {
 												return (
 													<div
 														key={(opening.title + opening.description + opening.id)}
-														className='p-4 bg-[#976646] rounded-md w-64 h-64 flex flex-col justify-between items-center text-white'
+														className="p-4 bg-[#976646] rounded-md w-64 h-64 flex flex-col justify-between items-center text-white relative"
 													>
+														<div className="absolute top-0 right-0 mr-3 mt-2">
+															<Tooltip title="Add opening to repertoire?">
+																<>
+																	{isCreatingRepertoire && (
+																		<input
+																			type="checkbox"
+																			checked={selectedOpenings.includes(opening.id)}
+																			onChange={() => handleSelection(opening.id)}
+																		/>
+																	)}
+																</>
+															</Tooltip>
+														</div>
 														<h2 className='font-semibold'>{opening.title}</h2>
 														<div>
 															<StagesChessboardThumbnail pgn={opening.pgn}/>
