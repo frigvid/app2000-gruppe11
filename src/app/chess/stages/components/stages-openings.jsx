@@ -70,7 +70,8 @@ export default function StagesOpenings() {
 	/**
 	 * Subscription to listen to DELETE events.
 	 *
-	 * @author frigvid, supabase
+	 * @author supabase
+	 * @contributor frigvid
 	 * @created 2024-04-13
 	 * @see https://supabase.com/docs/guides/realtime
 	 */
@@ -82,7 +83,8 @@ export default function StagesOpenings() {
 	/**
 	 * Subscription to listen to INSERT events.
 	 *
-	 * @author frigvid, supabase
+	 * @author supabase
+	 * @contributor frigvid
 	 * @created 2024-04-13
 	 * @see https://supabase.com/docs/guides/realtime
 	 */
