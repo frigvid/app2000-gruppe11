@@ -78,7 +78,6 @@ export default function OpeningCreator({closeModal}) {
 			}
 		]);
 		
-		console.log(move);
 		return true;
 	}
 	
