@@ -99,7 +99,7 @@ export default function PendingFriendRequests() {
 		return () => {
 			void supabase.removeChannel(friend_requests);
 		}
-	}, [supabase, friendRequests]);
+	}, [supabase, friendRequests, user?.id]);
 	
 	function closeModal() {
 		setIsOpen(false);
