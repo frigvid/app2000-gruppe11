@@ -103,7 +103,9 @@ export default function Stages() {
 						</div>
 					</ProtectClientContent>
 					<div className="flex flex-col justify-center space-y-10">
-						<StagesRepertoires/>
+						<ProtectClientContent showError={false} noBuffer={true}>
+							<StagesRepertoires/>
+						</ProtectClientContent>
 						<StagesOpenings  isCreatingRepertoire={isCreatingRepertoire} selectedOpenings={selectedOpenings} handleSelection={handleSelection}/>
 					</div>
 				</div>
