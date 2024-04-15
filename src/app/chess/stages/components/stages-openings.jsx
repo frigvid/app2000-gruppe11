@@ -1,14 +1,10 @@
 "use client";
 
 import StagesChessboardThumbnail from "@ui/chess/stages/stages-chessboard-thumbnail";
-import StagesCreateOpeningModal from "@ui/chess/stages/stages-create-opening-modal";
-import ProtectClientContent from "@/app/(auth)/components/protect-client-content";
 import Buffering from "@auth/components/fragment/Buffering";
 import React, {Suspense, useEffect, useState} from "react";
 import StagesModal from "@ui/chess/stages/stages-modal";
-import {fetchOpenings} from "@utils/game/get-gamedata";
 import {createClient} from "@utils/supabase/client";
-import {useTranslation} from "react-i18next";
 
 /**
  * Route for the game stages' openings list.
@@ -21,10 +17,17 @@ import {useTranslation} from "react-i18next";
  */
 export default function StagesOpenings() {
 	const supabase = createClient();
-	const {t} = useTranslation();
 	const [opening, setOpening] = useState([]);
 	
 	useEffect(() => {
+		/**
+		 * Fetches all openings from the database.
+		 *
+		 * @author qwertyfyr
+		 * @contributor frigvid
+		 * @created 2024-04-09
+		 * @return {Promise<void>} returns all data for all fetched openings.
+		 */
 		async function getOpenings() {
 			const {data, error} = await supabase
 				.from('openings')
