@@ -42,8 +42,6 @@ export default function FriendList({
 		const fetchFriends = async () => {
 			const {data, error} = await supabase.rpc("friend_get_all_friends");
 			
-			console.log("Check for duplicates:", data);
-			
 			if (error) {
 				console.error("Fetching friends failed!", error);
 			} else {
@@ -93,16 +91,19 @@ export default function FriendList({
 				schema: 'public',
 				table: 'friends'
 			}, async (payload) => {
+				/**
+				 * Fair warning regarding this. *Do not* try to make this direct, e.g.
+				 * `friend => friend.friendship_id !== payload.old.id`, it will not
+				 * work as expected. For some arcane reason. In effect, it leads
+				 * to deleting friends not being real-time.
+				 */
 				setFriends(
 					(prevFriends: any[]) => prevFriends.filter(
 						friend => {
-							console.log("FriendID:", friend.id, "!==", payload.old.id);
-							console.log(friend.friendship_id !== payload.old.id);
 							return friend.friendship_id !== payload.old.id;
 						}
 					)
 				);
-				console.log(friends);
 			})
 			.subscribe();
 		
