@@ -10,6 +10,7 @@ import {createClient} from "@utils/supabase/client";
 import PersonIcon from "@mui/icons-material/Person";
 import IconButton from "@mui/material/IconButton";
 import HailIcon from "@mui/icons-material/Hail";
+import {useUser} from "@auth/actions/useUser";
 import ListItem from "@mui/material/ListItem";
 import {useTranslation} from "react-i18next";
 import Divider from "@mui/material/Divider";
@@ -27,6 +28,7 @@ import List from "@mui/material/List";
  */
 export default function PendingFriendRequests() {
 	const supabase = createClient();
+	const user = useUser();
 	const [isOpen, setIsOpen] = useState(false);
 	const [friendRequests, setFriendRequests] = useState(null);
 	const {t} = useTranslation();
@@ -44,6 +46,60 @@ export default function PendingFriendRequests() {
 		
 		void fetchRequests();
 	}, [supabase]);
+	
+	/**
+	 * This useEffect handles realtime INSERTs and DELETEs
+	 * from the public.friend_requests table.
+	 *
+	 * See {@link @/app/chess/stages/components/StagesOpenings}
+	 * for some additional details.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-15
+	 * @see https://supabase.com/docs/guides/realtime
+	 */
+	useEffect(() => {
+		const friend_requests = supabase
+			.channel('pending_friend_requests')
+			.on('postgres_changes', {
+				event: '*',
+				schema: 'public',
+				table: 'friend_requests'
+			}, async (payload) => {
+				if (payload.eventType === 'INSERT') {
+					const {data, error} = await supabase.rpc("friend_request_get_one", {
+						by_usr: payload.new.by_user
+					});
+					
+					if (error) {
+						console.error("Something went wrong while fetching friend requests in real time!", error);
+					} else {
+						/**
+						 * This makes sure that IF there is data, which has by_user,
+						 * and IF there is a user, and it has an ID, and IF they
+						 * don't match, only then set a friend request.
+						 *
+						 * If you don't have this, you're going to have a bad time.
+						 * The one sending it will crash, and if the logic in the
+						 * JSX is changed to use the optional chaining operator,
+						 * they'll get an "empty" friend request in their pending
+						 * friend request list.
+						 *
+						 * This ensures it's not a problem.
+						 */
+						if (payload.new.by_user !== user?.id) {
+							setFriendRequests((prevFriendRequests: any) => [...prevFriendRequests, data[0]]);
+						}
+					}
+				} else if (payload.eventType === 'DELETE') {
+					setFriendRequests((prevFriendRequests: any[]) => prevFriendRequests.filter(friendRequests => friendRequests.id !== payload.old.id));
+				}
+			}).subscribe();
+		
+		return () => {
+			void supabase.removeChannel(friend_requests);
+		}
+	}, [supabase, friendRequests]);
 	
 	function closeModal() {
 		setIsOpen(false);

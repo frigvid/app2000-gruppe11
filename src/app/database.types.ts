@@ -447,6 +447,16 @@ export type Database = {
           avatar_url: string
         }[]
       }
+      friend_request_get_one: {
+        Args: {
+          by_usr: string
+        }
+        Returns: {
+          id: string
+          display_name: string
+          avatar_url: string
+        }[]
+      }
       friend_request_send: {
         Args: {
           other_user: string

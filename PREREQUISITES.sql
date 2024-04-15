@@ -253,6 +253,11 @@ CREATE TABLE IF NOT EXISTS
  *					REALTIME SUPPORT					*
  *															*
  ********************************************/
+
+
+
+
+
 ALTER PUBLICATION supabase_realtime ADD TABLE public.openings;
 ALTER PUBLICATION supabase_realtime ADD TABLE public.gamedata;
 ALTER PUBLICATION supabase_realtime ADD TABLE public.friends;
