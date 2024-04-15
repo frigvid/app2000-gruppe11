@@ -151,11 +151,11 @@ export default function UserProfile() {
 					{/* Body: Friend's list. */}
 					<div className="p-5">
 						{
-							(data.visibility_friends === true)
-								? <FriendList/>
-								: ((user !== null && staticUserId == user.id)
-									? <FriendList user={user}/>
-									: null)
+							(user !== null && staticUserId === user.id)
+								? <FriendList user={user}/>
+								: (data.visibility_friends === true)
+									? <FriendList/>
+									: null
 						}
 					</div>
 				</div>
