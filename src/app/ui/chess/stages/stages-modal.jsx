@@ -107,23 +107,6 @@ export default function StagesModal({created_by, title, details, id, pgn}) {
 		)
 	}
 	
-	async function saveChanges() {
-		const {error} = await supabase
-			.from('openings')
-			.update({
-				title: editedTitle,
-				description: editedDescription
-			})
-			.eq('id', id);
-		
-		if (error) {
-			console.error("Something went wrong while trying to save changes!", error);
-		} else {
-			setIsEditingTitle(false);
-			setIsEditingDescription(false);
-		}
-	}
-	
 	return (
 		<>
 			<div className="inset-0 flex items-center justify-center">
