@@ -89,7 +89,7 @@ export default function StagesOpenings({
 					<div className="flex flex-col justify-center space-y-10">
 						<div className="space-y-4">
 							<h2 className="text-center font-semibold text-3xl">Openings</h2>
-							<section id="openingList" className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+							<section id="openingList" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 								{
 									(opening === null)
 										? <p></p>

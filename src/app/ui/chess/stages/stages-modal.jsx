@@ -161,144 +161,148 @@ export default function StagesModal({created_by, title, details, id, pgn}) {
 									leaveFrom="opacity-100 scale-100"
 									leaveTo="opacity-0 scale-95"
 								>
-									<Dialog.Panel className="w-[60rem] h-[40rem] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all relative">
-										<div className="absolute top-0 left-0 ml-[3rem] mt-[3rem] space-y-2">
-											<div>
+									<Dialog.Panel className="w-full space-y-2 h-[35rem] top-10 lg:top-0 lg:w-[60rem] lg:h-[40rem] transform overflow-x-hidden overflow-y-scroll lg:overflow-y-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all relative">
+										<div className="lg:flex lg:flex-row lg:justify-between">
+											<div className="space-y-2 lg:absolute lg:top-0 lg:left-0 lg:ml-[3rem] lg:mt-[3rem]">
+												<div>
+													{
+														(
+															user?.id === created_by ||
+															(isAdmin && created_by === null)
+														) &&
+														<Box className="flex items-center space-x-2">
+															{
+																isEditingTitle
+																	? <Tooltip title={t("chess.stages.title.save")}>
+																		<IconButton
+																			onClick={async () => {
+																				const {error} = await supabase
+																					.from('openings')
+																					.update({
+																						title: editedTitle
+																					})
+																					.eq('id', id);
+																				
+																				if (error) {
+																					console.error("Something went wrong while trying to save title changes!", error);
+																				} else {
+																					setIsEditingTitle(false);
+																				}
+																			}}
+																		>
+																			<SaveIcon color="primary" style={{width: 15, height: 15}}/>
+																		</IconButton>
+																	</Tooltip>
+																	: <Tooltip title={t("chess.stages.title.edit")}>
+																		<IconButton
+																			onClick={() => setIsEditingTitle(true)}
+																		>
+																			<Edit color="primary" style={{width: 15, height: 15}}/>
+																		</IconButton>
+																	</Tooltip>
+															}
+															{
+																isEditingTitle
+																	? <TextField
+																		className="lg:w-[30rem]"
+																		size="small"
+																		value={editedTitle}
+																		onChange={(e) => setEditedTitle(e.target.value)}
+																	/>
+																	: <Dialog.Title className="text-lg font-semibold leading-6 text-gray-900">{title}</Dialog.Title>
+															}
+														</Box>
+													}
+												</div>
+												<div>
+													{
+														(
+															user?.id === created_by ||
+															(isAdmin && created_by === null)
+														) &&
+														<Box className="flex items-center space-x-2">
+															{
+																isEditingDescription
+																	? <Tooltip title={t("chess.stages.desc.save")}>
+																		<IconButton
+																			onClick={async () => {
+																				const {error} = await supabase
+																					.from('openings')
+																					.update({
+																						description: editedDescription
+																					})
+																					.eq('id', id);
+																				
+																				if (error) {
+																					console.error("Something went wrong while trying to save description changes!", error);
+																				} else {
+																					setIsEditingDescription(false);
+																				}
+																			}}
+																		>
+																			<SaveIcon color="primary" style={{width: 15, height: 15}}/>
+																		</IconButton>
+																	</Tooltip>
+																	: <Tooltip title={t("chess.stages.desc.edit")}>
+																		<IconButton
+																			onClick={() => setIsEditingDescription(true)}
+																		>
+																			<Edit color="primary" style={{width: 15, height: 15}}/>
+																		</IconButton>
+																	</Tooltip>
+															}
+															{
+																isEditingDescription
+																	? <TextField
+																		className="lg:w-[30rem]"
+																		rows={4}
+																		maxRows={10}
+																		variant="outlined"
+																		value={editedDescription}
+																		onChange={(e) => setEditedDescription(e.target.value)}
+																		multiline
+																		inputProps={{style: {height: "14rem", maxHeight: "14rem", overflow: "auto"}}}
+																	/>
+																	: (
+																		<div className="max-w-md">
+																			<p className="text-sm text-gray-500">
+																				{
+																					(details !== null)
+																						? ((details !== "")
+																							? details.split(/\r?\n/).map((line, i) => <span key={i}>{line}<br/></span>)
+																							: null)
+																						: null
+																				}
+																			</p>
+																		</div>
+																	)
+															}
+														</Box>
+													}
+												</div>
+											</div>
+											<div className="lg:absolute lg:top-0 lg:right-0 lg:mr-[3rem] lg:mt-[3rem]">
+												<StagesChessboardThumbnail pgn={pgn} width={300}/>
+											</div>
+										</div>
+										<div className="flex flex-row justify-between">
+											<div className="lg:absolute lg:bottom-0 lg:left-0 lg:ml-5 lg:mb-5">
+												<Link
+													className="inline-flex justify-center rounded-md border border-transparent bg-buttoncolor px-4 py-2 text-sm font-medium text-black hover:text-white hover:bg-[#9c8064] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+													href={`/chess/train/${id}`}
+												>
+													{t("chess.stages.practice")} &apos;{title}&apos;!
+												</Link>
+											</div>
+											<div className="lg:absolute lg:bottom-0 lg:right-0 lg:mr-4 lg:mb-4">
 												{
-													(
-														user?.id === created_by ||
-														(isAdmin && created_by === null)
-													) &&
-													<Box className="flex items-center space-x-2">
-														{
-															isEditingTitle
-																? <Tooltip title={t("chess.stages.title.save")}>
-																	<IconButton
-																		onClick={async () => {
-																			const {error} = await supabase
-																				.from('openings')
-																				.update({
-																					title: editedTitle
-																				})
-																				.eq('id', id);
-																			
-																			if (error) {
-																				console.error("Something went wrong while trying to save title changes!", error);
-																			} else {
-																				setIsEditingTitle(false);
-																			}
-																		}}
-																	>
-																		<SaveIcon color="primary" style={{width: 15, height: 15}}/>
-																	</IconButton>
-																</Tooltip>
-																: <Tooltip title={t("chess.stages.title.edit")}>
-																	<IconButton
-																		onClick={() => setIsEditingTitle(true)}
-																	>
-																		<Edit color="primary" style={{width: 15, height: 15}}/>
-																	</IconButton>
-																</Tooltip>
-														}
-														{
-															isEditingTitle
-																? <TextField
-																	className="w-[30rem]"
-																	size="small"
-																	value={editedTitle}
-																	onChange={(e) => setEditedTitle(e.target.value)}
-																/>
-																: <Dialog.Title className="text-lg font-semibold leading-6 text-gray-900">{title}</Dialog.Title>
-														}
-													</Box>
+													(user?.id !== created_by)
+														? (isAdmin)
+															? deleteOpening()
+															: null
+														: deleteOpening()
 												}
 											</div>
-											<div>
-												{
-													(
-														user?.id === created_by ||
-														(isAdmin && created_by === null)
-													) &&
-													<Box className="flex items-center space-x-2">
-														{
-															isEditingDescription
-																? <Tooltip title={t("chess.stages.desc.save")}>
-																	<IconButton
-																		onClick={async () => {
-																			const {error} = await supabase
-																				.from('openings')
-																				.update({
-																					description: editedDescription
-																				})
-																				.eq('id', id);
-																			
-																			if (error) {
-																				console.error("Something went wrong while trying to save description changes!", error);
-																			} else {
-																				setIsEditingDescription(false);
-																			}
-																		}}
-																	>
-																		<SaveIcon color="primary" style={{width: 15, height: 15}}/>
-																	</IconButton>
-																</Tooltip>
-																: <Tooltip title={t("chess.stages.desc.edit")}>
-																	<IconButton
-																		onClick={() => setIsEditingDescription(true)}
-																	>
-																		<Edit color="primary" style={{width: 15, height: 15}}/>
-																	</IconButton>
-																</Tooltip>
-														}
-														{
-															isEditingDescription
-																? <TextField
-																	className="w-[30rem]"
-																	rows={4}
-																	maxRows={10}
-																	variant="outlined"
-																	value={editedDescription}
-																	onChange={(e) => setEditedDescription(e.target.value)}
-																	multiline
-																	inputProps={{style: {height: "14rem", maxHeight: "14rem", overflow: "auto"}}}
-																/>
-																: (
-																	<div className="max-w-md">
-																		<p className="text-sm text-gray-500">
-																			{
-																				(details !== null)
-																					? ((details !== "")
-																						? details.split(/\r?\n/).map((line, i) => <span key={i}>{line}<br/></span>)
-																						: null)
-																					: null
-																			}
-																		</p>
-																	</div>
-																)
-														}
-													</Box>
-												}
-											</div>
-										</div>
-										<div className="absolute top-0 right-0 mr-[3rem] mt-[3rem]">
-											<StagesChessboardThumbnail pgn={pgn} width={300}/>
-										</div>
-										<div className="absolute bottom-0 left-0 ml-5 mb-5">
-											<Link
-												className="inline-flex justify-center rounded-md border border-transparent bg-buttoncolor px-4 py-2 text-sm font-medium text-black hover:text-white hover:bg-[#9c8064] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-												href={`/chess/train/${id}`}
-											>
-												{t("chess.stages.practice")} &apos;{title}&apos;!
-											</Link>
-										</div>
-										<div className="absolute bottom-0 right-0 mr-4 mb-4">
-											{
-												(user?.id !== created_by)
-													? (isAdmin)
-														? deleteOpening()
-														: null
-													: deleteOpening()
-											}
 										</div>
 									</Dialog.Panel>
 								</Transition.Child>
