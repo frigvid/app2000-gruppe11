@@ -51,19 +51,3 @@ export function useUser() {
 		return null;
 	}
 }
-
-/**
- * Gets the user's metadata, if it exists.
- *
- * TODO: Investigate why getting the user's metadata returns `null` the first few times, despite it being there
- * 		and being updatable through the API.
- */
-export const useMetadata = () => {
-	const user = useUser();
-
-	if (user && user.user_metadata) {
-		return user.user_metadata;
-	}
-
-	return null;
-}
