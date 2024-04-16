@@ -169,12 +169,14 @@ CREATE TABLE IF NOT EXISTS
  * ============================================= */
 CREATE TABLE IF NOT EXISTS
 	repertoire (
-		id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+		id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 		timestamp TIMESTAMPTZ NOT NULL DEFAULT (timezone('utc', now())),
 		/* Named this way to avoid naming collision with USER() in SELECTs. */
-		usr uuid,
+		usr UUID,
+		title TEXT,
+		description TEXT,
 		/* Array with opening IDs. */
-		openings jsonb,
+		openings JSONB,
 		FOREIGN KEY (usr) REFERENCES auth.users (id)
 	);
 

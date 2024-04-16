@@ -79,6 +79,7 @@ const resources = {
 			"generic": {
 				"return_somewhere": "Return to",
 				"return_to": "Go back to",
+				"read_more": "Read more",
 				"email": {
 					"label": "E-mail",
 					"placeholder": "you@example.com"
@@ -288,19 +289,25 @@ const resources = {
 						"success": "New opening saved successfully"
 					}
 				},
-				"create_repertoire": {
+				"repertoire": {
 					"generics": {
 						"fragment": {
-							"label": "Create a repertoire"
+							"group": "repertoire"
 						},
 					},
 					"header": {
-						"label": "$t(chess.create_repertoire.generics.fragment.label), a group of openings.",
-						"button": "$t(chess.create_repertoire.generics.fragment.label)."
+						"label": "$t(chess.repertoire.generics.fragment.group), a group of openings.",
+						"button": {
+							"save": "Save the $t(chess.repertoire.generics.fragment.group)",
+							"create": "Create a $t(chess.repertoire.generics.fragment.group)"
+						}
 					},
+					"groups": {
+						"button": "$t(generic.read_more)"
+					}
 				},
 				"stages": {
-					"read_more": "Read more",
+					"read_more": "$t(generic.read_more)",
 					"practice": "Practice",
 					"delete": "Delete opening",
 					"title": {
@@ -404,6 +411,7 @@ const resources = {
 			"generic": {
 				"return_somewhere": "Dra tilbake til",
 				"return_to": "Tilbake til",
+				"read_more": "Les mer",
 				"email": {
 					"label": "E-post",
 					"placeholder": "deg@eksempel.com"
@@ -613,8 +621,25 @@ const resources = {
 						"success": "Ny åpning lagret"
 					}
 				},
+				"repertoire": {
+					"generics": {
+						"fragment": {
+							"group": "repertoar"
+						},
+					},
+					"header": {
+						"label": "$t(chess.repertoire.generics.fragment.group), en gruppe av åpninger.",
+						"button": {
+							"save": "Lagre $t(chess.repertoire.generics.fragment.group)en",
+							"create": "Lag en $t(chess.repertoire.generics.fragment.group)"
+						}
+					},
+					"groups": {
+						"button": "$t(generic.read_more)"
+					}
+				},
 				"stages": {
-					"read_more": "Les mer",
+					"read_more": "$t(generic.read_more)",
 					"practice": "Øv på",
 					"delete": "Slett åpning",
 					"title": {

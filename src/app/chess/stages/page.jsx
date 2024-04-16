@@ -91,7 +91,7 @@ export default function Stages() {
 								<StagesCreateOpeningModal/>
 							</div>
 							<div className="flex flex-col">
-								<p className="mb-3">{t("chess.repertoire.header.label")}</p>
+								<p className="mb-3 first-letter:uppercase">{t("chess.repertoire.header.label")}</p>
 								<button
 									className="w-full bg-buttoncolor inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
 									onClick={
@@ -100,7 +100,11 @@ export default function Stages() {
 											: () => setIsCreatingRepertoire(true)
 									}
 								>
-									{isCreatingRepertoire ? "Save repertoire" : "Create Repertoire"}
+									{
+										isCreatingRepertoire
+											? (t("chess.repertoire.header.button.save"))
+											: (t("chess.repertoire.header.button.create"))
+									}
 								</button>
 							</div>
 						</div>

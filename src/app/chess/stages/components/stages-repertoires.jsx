@@ -1,5 +1,6 @@
 "use client";
 
+import RepertoireModal from "@/app/chess/stages/components/repertoire-modal";
 import Buffering from "@auth/components/fragment/Buffering";
 import React, {Suspense, useEffect, useState} from "react";
 import {createClient} from "@utils/supabase/client";
@@ -23,7 +24,7 @@ export default function StagesRepertoires() {
 		const fetchRepertoires = async () => {
 			const {data, error} = await supabase
 				.from('repertoire')
-				.select('id, timestamp, usr, openings');
+				.select('id, timestamp, usr, openings, title, description');
 			
 			if (error) {
 				console.error("Something went wrong while getting repertoires!", error);
@@ -71,7 +72,7 @@ export default function StagesRepertoires() {
 			<Suspense fallback={<Buffering/>}>
 				<div className="space-y-4">
 					<h2 className="text-center font-semibold text-3xl">Your repertoires</h2>
-					<section id="repertoireList">
+					<section id="repertoireList" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 						{
 							(repertoires === null)
 								? <p></p>
@@ -80,17 +81,10 @@ export default function StagesRepertoires() {
 										return (
 											<div
 												key={(repertoire.title + repertoire.description + repertoire.id)}
-												className='p-4 bg-[#976646] rounded-md w-64 h-64 flex flex-col justify-between items-center text-white'
+												className='p-4 bg-[#976646] rounded-md w-64 h-28 flex flex-col justify-between items-center text-white'
 											>
 												<h2 className='font-semibold'>{repertoire.title}</h2>
-												{/*
-												<div>
-													<StagesChessboardThumbnail pgn={repertoire.pgn}/>
-												</div>
-												<div>
-													<StagesModal created_by={repertoire.created_by} title={repertoire.title} details={repertoire.description} id={repertoire.id} pgn={repertoire.pgn}/>
-												</div>
-												*/}
+												<RepertoireModal repertoire={repertoire}/>
 											</div>
 										)
 									})

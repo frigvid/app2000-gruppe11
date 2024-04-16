@@ -161,22 +161,22 @@ export type Database = {
       }
       gamedata: {
         Row: {
-          draws: number | null
+          draws: number
           id: string
-          losses: number | null
-          wins: number | null
+          losses: number
+          wins: number
         }
         Insert: {
-          draws?: number | null
+          draws?: number
           id: string
-          losses?: number | null
-          wins?: number | null
+          losses?: number
+          wins?: number
         }
         Update: {
-          draws?: number | null
+          draws?: number
           id?: string
-          losses?: number | null
-          wins?: number | null
+          losses?: number
+          wins?: number
         }
         Relationships: [
           {
@@ -342,21 +342,27 @@ export type Database = {
       }
       repertoire: {
         Row: {
+          description: string | null
           id: string
           openings: Json | null
           timestamp: string
+          title: string | null
           usr: string | null
         }
         Insert: {
+          description?: string | null
           id?: string
           openings?: Json | null
           timestamp?: string
+          title?: string | null
           usr?: string | null
         }
         Update: {
+          description?: string | null
           id?: string
           openings?: Json | null
           timestamp?: string
+          title?: string | null
           usr?: string | null
         }
         Relationships: [
