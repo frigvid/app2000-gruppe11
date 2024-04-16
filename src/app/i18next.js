@@ -306,8 +306,12 @@ const resources = {
 						}
 					},
 					"groups": {
-						"label": "Your repertoires",
-						"button": "$t(generic.read_more)"
+						"label": "Your $t(chess.repertoire.generics.fragment.group)s",
+						"button": "$t(generic.read_more)",
+						"train": "Practice this $t(chess.repertoire.generics.fragment.group)",
+						"delete": {
+							"tooltip": "Delete $t(chess.repertoire.generics.fragment.group)"
+						}
 					}
 				},
 				"stages": {
@@ -643,7 +647,12 @@ const resources = {
 					},
 					"groups": {
 						"label": "Dine $t(chess.repertoire.generics.fragment.group)",
-						"button": "$t(generic.read_more)"
+						"button": "$t(generic.read_more)",
+						"train": "Øv på denne $t(chess.repertoire.generics.fragment.group)en",
+						"delete": {
+							"tooltip": "Slett $t(chess.repertoire.generics.fragment.group)"
+						}
+						
 					}
 				},
 				"stages": {
