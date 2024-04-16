@@ -93,7 +93,13 @@ export default function Stages() {
 							<div className="flex flex-col">
 								<p className="mb-3 first-letter:uppercase">{t("chess.repertoire.header.label")}</p>
 								<button
-									className="w-full bg-buttoncolor inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
+									className={
+										`w-full ${
+											isCreatingRepertoire
+												? "bg-green-500"
+												: "bg-buttoncolor"
+										} inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal`
+									}
 									onClick={
 										isCreatingRepertoire
 											? saveRepertoire
