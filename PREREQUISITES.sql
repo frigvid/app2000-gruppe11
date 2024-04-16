@@ -264,6 +264,7 @@ CREATE TABLE IF NOT EXISTS
 
 
 ALTER PUBLICATION supabase_realtime ADD TABLE public.openings;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.repertoire;
 ALTER PUBLICATION supabase_realtime ADD TABLE public.gamedata;
 ALTER PUBLICATION supabase_realtime ADD TABLE public.profiles;
 ALTER PUBLICATION supabase_realtime ADD TABLE public.friends;
