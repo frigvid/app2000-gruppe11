@@ -131,44 +131,44 @@ export default function StagesModal({created_by, title, details, id, pgn}) {
 									leaveTo="opacity-0 scale-95"
 								>
 									<Dialog.Panel className="w-[60rem] h-[40rem] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all relative">
-										<Dialog.Title
-											as="h3"
-											className="text-lg font-medium leading-6 text-gray-900"
-										>
-											{title}
-										</Dialog.Title>
-										<div className="absolute top-0 right-0 mr-4 mt-4">
-											{
-												(user?.id !== created_by)
-													? (!isAdmin)
-														? null
-														: (
-															deleteOpening()
-														)
-													: (
-														deleteOpening()
-													)
-											}
+										<div className="absolute top-0 left-0 ml-[3rem] mt-[3rem] space-y-2">
+											<Dialog.Title
+												as="h3"
+												className="text-lg font-semibold leading-6 text-gray-900"
+											>
+												{title}
+											</Dialog.Title>
+											<div className="max-w-md">
+												<p className="text-sm text-gray-500">
+													{
+														(details !== null)
+															? ((details !== "")
+																? details.split(/\r?\n/).map((line, i) => <span key={i}>{line}<br/></span>)
+																: null)
+															: null
+													}
+												</p>
+											</div>
 										</div>
-										<div className="mt-2">
-											<p className="text-sm text-gray-500">
-												{
-													(details !== null)
-														? ((details !== "")
-															? details.split('\r\n').map((line, i) => <span key={i}>{line}<br/></span>)
-															: null)
-														: null
-												}
-											</p>
+										<div className="absolute top-0 right-0 mr-[3rem] mt-[3rem]">
+											<StagesChessboardThumbnail pgn={pgn} width={300}/>
 										</div>
-										<StagesChessboardThumbnail pgn={pgn} width={300}/>
-										<div className="mt-4">
+										<div className="absolute bottom-0 left-0 ml-5 mb-5">
 											<Link
 												className="inline-flex justify-center rounded-md border border-transparent bg-buttoncolor px-4 py-2 text-sm font-medium text-black hover:text-white hover:bg-[#9c8064] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
 												href={`/chess/train/${id}`}
 											>
 												{t("chess.stages.practice")} &apos;{title}&apos;!
 											</Link>
+										</div>
+										<div className="absolute bottom-0 right-0 mr-4 mb-4">
+											{
+												(user?.id !== created_by)
+													? (isAdmin)
+														? deleteOpening()
+														: null
+													: deleteOpening()
+											}
 										</div>
 									</Dialog.Panel>
 								</Transition.Child>
