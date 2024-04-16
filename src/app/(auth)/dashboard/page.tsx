@@ -9,7 +9,6 @@ import UnauthorizedError from "@ui/error/401_unauthorized";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import {createClient} from "@utils/supabase/client";
-import PersonIcon from "@mui/icons-material/Person";
 import IconButton from "@mui/material/IconButton";
 import React, {useEffect, useState} from "react";
 import ListItem from "@mui/material/ListItem";
@@ -215,7 +214,7 @@ export default function AdministratorDashboard() {
 																<ListItemAvatar>
 																	{
 																		(user.avatar_url === null)
-																			? <PersonIcon/>
+																			? <Avatar/>
 																			: <Avatar src={user.avatar_url}/>
 																	}
 																</ListItemAvatar>
