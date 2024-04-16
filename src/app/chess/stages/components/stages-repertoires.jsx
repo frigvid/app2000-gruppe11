@@ -52,21 +52,29 @@ export default function StagesRepertoires() {
 		const repertoires = supabase
 			.channel('repertoires')
 			.on('postgres_changes', {
-				event: '*',
+				event: 'INSERT',
 				schema: 'public',
 				table: 'repertoire'
-			}, (payload) => {
-				if (payload.eventType === 'INSERT') {
-					setRepertoires(prevRepertoires => [...prevRepertoires, payload.new]);
-				} else if (payload.eventType === 'DELETE') {
-					setRepertoires(prevRepertoires => prevRepertoires.filter(repertoires => repertoires.id !== payload.old.id));
-				}
-			}).subscribe();
+			}, async (payload) => {
+				console.log("INSERT", payload);
+				setRepertoires(prevRepertoires => [...prevRepertoires, payload.new]);
+			})
+			.on('postgres_changes', {
+				event: 'DELETE',
+				schema: 'public',
+				table: 'repertoire'
+			}, async (payload) => {
+				console.log("DELETE", payload);
+				setRepertoires(prevRepertoires => prevRepertoires.filter(repertoires => {
+					return repertoires.id !== payload.old.id
+				}));
+			})
+			.subscribe();
 		
 		return () => {
 			void supabase.removeChannel(repertoires);
 		}
-	}, [supabase, repertoires]);
+	}, [supabase]);
 	
 	return (
 		<>
