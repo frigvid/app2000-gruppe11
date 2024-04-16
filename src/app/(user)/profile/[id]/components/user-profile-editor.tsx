@@ -85,7 +85,7 @@ export default function UserProfileEditor({
 								leaveTo="opacity-0 scale-95"
 							>
 								<Dialog.Panel
-									className="xs:w-full xs:h-full lg:w-[40rem] lg:h-[52rem] transform overflow-hidden lg:rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+									className="xs:w-full xs:h-full lg:w-[40rem] lg:h-[52rem] transform overflow-x-hidden overflow-y-scroll lg:no-scrollbar lg:rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
 								>
 									<Dialog.Title
 										as="h3"

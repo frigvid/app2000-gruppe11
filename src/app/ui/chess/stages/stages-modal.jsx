@@ -161,7 +161,7 @@ export default function StagesModal({created_by, title, details, id, pgn}) {
 									leaveFrom="opacity-100 scale-100"
 									leaveTo="opacity-0 scale-95"
 								>
-									<Dialog.Panel className="w-full space-y-2 h-[35rem] top-10 lg:top-0 lg:w-[60rem] lg:h-[40rem] transform overflow-x-hidden overflow-y-scroll lg:overflow-y-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all relative">
+									<Dialog.Panel className="w-full space-y-2 h-[35rem] top-10 lg:top-0 lg:w-[60rem] lg:h-[40rem] transform overflow-x-hidden overflow-y-scroll lg:no-scrollbar rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all relative">
 										<div className="lg:flex lg:flex-row lg:justify-between">
 											<div className="space-y-2 lg:absolute lg:top-0 lg:left-0 lg:ml-[3rem] lg:mt-[3rem]">
 												<div>

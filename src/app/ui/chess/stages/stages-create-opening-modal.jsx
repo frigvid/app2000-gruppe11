@@ -59,7 +59,7 @@ export default function StagesCreateOpeningModal() {
 								leaveFrom="opacity-100 scale-100"
 								leaveTo="opacity-0 scale-95"
 							>
-								<Dialog.Panel className="w-[30rem] h-[44rem] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+								<Dialog.Panel className="w-[30rem] h-[44rem] transform overflow-x-hidden overflow-y-scroll lg:no-scrollbar rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
 									<Dialog.Title
 										as="h3"
 										className="text-lg mb-3 text-center font-semibold leading-6 text-gray-900"
