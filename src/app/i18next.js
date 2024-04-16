@@ -302,7 +302,15 @@ const resources = {
 				"stages": {
 					"read_more": "Read more",
 					"practice": "Practice",
-					"delete": "Delete opening"
+					"delete": "Delete opening",
+					"title": {
+						"edit": "Edit the title",
+						"save": "Save the title"
+					},
+					"desc": {
+						"edit": "Edit the description",
+						"save": "Save the description"
+					}
 				},
 				"train_chess": {
 					"status": {
@@ -608,7 +616,15 @@ const resources = {
 				"stages": {
 					"read_more": "Les mer",
 					"practice": "Øv på",
-					"delete": "Slett åpning"
+					"delete": "Slett åpning",
+					"title": {
+						"edit": "Rediger tittelen",
+						"save": "Lagre tittelen"
+					},
+					"desc": {
+						"edit": "Rediger beskrivelsen",
+						"save": "Lagre beskrivelsen"
+					}
 				},
 				"train_chess": {
 					"status": {

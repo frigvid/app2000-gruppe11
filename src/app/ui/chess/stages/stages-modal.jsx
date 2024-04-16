@@ -7,7 +7,12 @@ import IconButton from "@mui/material/IconButton";
 import {useUser} from "@auth/actions/useUser";
 import {useTranslation} from "react-i18next";
 import Tooltip from "@mui/material/Tooltip";
+import Edit from "@mui/icons-material/Edit";
 import Link from "next/link";
+import {TextField} from "@mui/material";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import SaveIcon from '@mui/icons-material/Save';
 
 /**
  * Component that creates a modal for the stages.
@@ -25,8 +30,37 @@ export default function StagesModal({created_by, title, details, id, pgn}) {
 	const supabase = createClient();
 	const {t} = useTranslation();
 	const [isAdmin, setIsAdmin] = useState(false);
+	const [isEditingTitle, setIsEditingTitle] = useState(false);
+	const [isEditingDescription, setIsEditingDescription] = useState(false);
+	const [editedTitle, setEditedTitle] = useState(title);
+	const [editedDescription, setEditedDescription] = useState(details);
 	const [isOpen, setIsOpen] = useState(false);
 	const user = useUser();
+	
+	/**
+	 * Closes the modal.
+	 *
+	 * @author qwertyfyr
+	 * @contributor frigvid
+	 * @created 2024-04-02
+	 */
+	function closeModal() {
+		setIsOpen(false);
+		setIsEditingTitle(false);
+		setIsEditingDescription(false);
+		setEditedTitle(title);
+		setEditedDescription(details);
+	}
+	
+	/**
+	 * Closes the modal.
+	 *
+	 * @author qwertyfyr
+	 * @created 2024-04-02
+	 */
+	function openModal() {
+		setIsOpen(true);
+	}
 	
 	/**
 	 * Checks if the authenticated user is an administrator or not.
@@ -47,26 +81,6 @@ export default function StagesModal({created_by, title, details, id, pgn}) {
 		
 		void fetchAdminStatus();
 	}, [supabase]);
-	
-	/**
-	 * Closes the modal.
-	 *
-	 * @author qwertyfyr
-	 * @created 2024-04-02
-	 */
-	function closeModal() {
-		setIsOpen(false)
-	}
-	
-	/**
-	 * Closes the modal.
-	 *
-	 * @author qwertyfyr
-	 * @created 2024-04-02
-	 */
-	function openModal() {
-		setIsOpen(true)
-	}
 	
 	/**
 	 * Shared function that returns the delete button for authenticated
@@ -91,6 +105,23 @@ export default function StagesModal({created_by, title, details, id, pgn}) {
 				</IconButton>
 			</Tooltip>
 		)
+	}
+	
+	async function saveChanges() {
+		const {error} = await supabase
+			.from('openings')
+			.update({
+				title: editedTitle,
+				description: editedDescription
+			})
+			.eq('id', id);
+		
+		if (error) {
+			console.error("Something went wrong while trying to save changes!", error);
+		} else {
+			setIsEditingTitle(false);
+			setIsEditingDescription(false);
+		}
 	}
 	
 	return (
@@ -132,22 +163,121 @@ export default function StagesModal({created_by, title, details, id, pgn}) {
 								>
 									<Dialog.Panel className="w-[60rem] h-[40rem] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all relative">
 										<div className="absolute top-0 left-0 ml-[3rem] mt-[3rem] space-y-2">
-											<Dialog.Title
-												as="h3"
-												className="text-lg font-semibold leading-6 text-gray-900"
-											>
-												{title}
-											</Dialog.Title>
-											<div className="max-w-md">
-												<p className="text-sm text-gray-500">
-													{
-														(details !== null)
-															? ((details !== "")
-																? details.split(/\r?\n/).map((line, i) => <span key={i}>{line}<br/></span>)
-																: null)
-															: null
-													}
-												</p>
+											<div>
+												{
+													(
+														user?.id === created_by ||
+														(isAdmin && created_by === null)
+													) &&
+													<Box className="flex items-center space-x-2">
+														{
+															isEditingTitle
+																? <Tooltip title={t("chess.stages.title.save")}>
+																	<IconButton
+																		onClick={async () => {
+																			const {error} = await supabase
+																				.from('openings')
+																				.update({
+																					title: editedTitle
+																				})
+																				.eq('id', id);
+																			
+																			if (error) {
+																				console.error("Something went wrong while trying to save title changes!", error);
+																			} else {
+																				setIsEditingTitle(false);
+																			}
+																		}}
+																	>
+																		<SaveIcon color="primary" style={{width: 15, height: 15}}/>
+																	</IconButton>
+																</Tooltip>
+																: <Tooltip title={t("chess.stages.title.edit")}>
+																	<IconButton
+																		onClick={() => setIsEditingTitle(true)}
+																	>
+																		<Edit color="primary" style={{width: 15, height: 15}}/>
+																	</IconButton>
+																</Tooltip>
+														}
+														{
+															isEditingTitle
+																? <TextField
+																	className="w-[30rem]"
+																	size="small"
+																	value={editedTitle}
+																	onChange={(e) => setEditedTitle(e.target.value)}
+																/>
+																: <Dialog.Title className="text-lg font-semibold leading-6 text-gray-900">{title}</Dialog.Title>
+														}
+													</Box>
+												}
+											</div>
+											<div>
+												{
+													(
+														user?.id === created_by ||
+														(isAdmin && created_by === null)
+													) &&
+													<Box className="flex items-center space-x-2">
+														{
+															isEditingDescription
+																? <Tooltip title={t("chess.stages.desc.save")}>
+																	<IconButton
+																		onClick={async () => {
+																			const {error} = await supabase
+																				.from('openings')
+																				.update({
+																					description: editedDescription
+																				})
+																				.eq('id', id);
+																			
+																			if (error) {
+																				console.error("Something went wrong while trying to save description changes!", error);
+																			} else {
+																				setIsEditingDescription(false);
+																			}
+																		}}
+																	>
+																		<SaveIcon color="primary" style={{width: 15, height: 15}}/>
+																	</IconButton>
+																</Tooltip>
+																: <Tooltip title={t("chess.stages.desc.edit")}>
+																	<IconButton
+																		onClick={() => setIsEditingDescription(true)}
+																	>
+																		<Edit color="primary" style={{width: 15, height: 15}}/>
+																	</IconButton>
+																</Tooltip>
+														}
+														{
+															isEditingDescription
+																? <TextField
+																	className="w-[30rem]"
+																	rows={4}
+																	maxRows={10}
+																	variant="outlined"
+																	value={editedDescription}
+																	onChange={(e) => setEditedDescription(e.target.value)}
+																	multiline
+																	inputProps={{style: {height: "14rem", maxHeight: "14rem", overflow: "auto"}}}
+																/>
+																: (
+																	<div className="max-w-md">
+																		<p className="text-sm text-gray-500">
+																			{
+																				(details !== null)
+																					? ((details !== "")
+																						? details.split(/\r?\n/).map((line, i) => <span key={i}>{line}<br/></span>)
+																						: null)
+																					: null
+																			}
+																		</p>
+																	</div>
+																)
+														}
+													</Box>
+												}
 											</div>
 										</div>
 										<div className="absolute top-0 right-0 mr-[3rem] mt-[3rem]">
