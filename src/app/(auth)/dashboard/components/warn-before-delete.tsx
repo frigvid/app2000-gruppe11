@@ -13,8 +13,19 @@ import Tooltip from "@mui/material/Tooltip";
 import Dialog from "@mui/material/Dialog";
 import Button from "@mui/material/Button";
 import Slide from "@mui/material/Slide";
-import * as React from "react";
 
+/**
+ * A transition component, which is a simple wrapper around the `Slide` component.
+ *
+ * @author frigvid
+ * @created 2024-04-14
+ * @param props The transition properties.
+ * @param ref The reference.
+ * @returns The slide component.
+ * @note While `Slide` complains about missing its "children" props, it's really
+ * 		not a problem. And, in fact, adding it is. Simply ignore that, it doesn't impact
+ * 		building the project, nor add any instability.
+ */
 const Transition = forwardRef(function Transition(
 	props: TransitionProps & {
 		children: ReactElement<any, any>;
@@ -24,14 +35,37 @@ const Transition = forwardRef(function Transition(
 	return <Slide direction="up" ref={ref} {...props}/>;
 });
 
+/**
+ * A simple pop-up ensuring the administrator really is sure about deleting
+ * a user from the administrator dashboard.
+ *
+ * @author frigvid
+ * @created 2024-04-14
+ * @param id The user's ID.
+ * @param display_name The user's display_name.
+ * @param supabase The browser-context supabase client.
+ * @param deleteListing The function to remove the user from the list afterward.
+ */
 export default function WarnBeforeDelete({id, display_name, supabase, deleteListing}) {
 	const {t} = useTranslation();
 	const [open, setOpen] = useState(false);
 	
+	/**
+	 * Opens the modal.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-14
+	 */
 	const modalOpen = () => {
 		setOpen(true);
 	};
 	
+	/**
+	 * Closes the modal.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-14
+	 */
 	const modalClose = () => {
 		setOpen(false);
 	};
@@ -60,6 +94,7 @@ export default function WarnBeforeDelete({id, display_name, supabase, deleteList
 					<DialogContentText id="alert-dialog-slide-description">
 						{t("admin_dashboard.users.delete.body")}
 						<strong> {id}</strong>
+						{/* Note that the space above is there for, well, spacing. */}
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
