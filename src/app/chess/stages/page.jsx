@@ -91,12 +91,16 @@ export default function Stages() {
 								<StagesCreateOpeningModal/>
 							</div>
 							<div className="flex flex-col">
-								<p className="mb-3">{t("chess.create_repertoire.header.label")}</p>
+								<p className="mb-3">{t("chess.repertoire.header.label")}</p>
 								<button
 									className="w-full bg-buttoncolor inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
-									onClick={isCreatingRepertoire ? saveRepertoire : () => setIsCreatingRepertoire(true)}
+									onClick={
+										isCreatingRepertoire
+											? saveRepertoire
+											: () => setIsCreatingRepertoire(true)
+									}
 								>
-									{isCreatingRepertoire ? "Save Repertoire" : "Create Repertoire"}
+									{isCreatingRepertoire ? "Save repertoire" : "Create Repertoire"}
 								</button>
 							</div>
 						</div>
@@ -105,7 +109,11 @@ export default function Stages() {
 						<ProtectClientContent showError={false} noBuffer={true}>
 							<StagesRepertoires/>
 						</ProtectClientContent>
-						<StagesOpenings  isCreatingRepertoire={isCreatingRepertoire} selectedOpenings={selectedOpenings} handleSelection={handleSelection}/>
+						<StagesOpenings
+							isCreatingRepertoire={isCreatingRepertoire}
+							selectedOpenings={selectedOpenings}
+							handleSelection={handleSelection}
+						/>
 					</div>
 				</div>
 			</Suspense>
