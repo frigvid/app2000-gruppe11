@@ -19,7 +19,7 @@ export default function StagesRepertoires() {
 	const supabase = createClient();
 	const {t} = useTranslation();
 	const [repertoires, setRepertoires] = useState([]);
-	const [isVisibile, setIsVisible] = useState(true);
+	const [isVisible, setIsVisible] = useState(true);
 	
 	useEffect(() => {
 		const fetchRepertoires = async () => {
@@ -73,13 +73,13 @@ export default function StagesRepertoires() {
 			<Suspense fallback={<Buffering/>}>
 				<div className="space-y-4">
 					<h2
-						className={`text-center font-semibold text-3xl cursor-pointer ${isVisibile ? "before:content-['▾']" : "before:content-['▸']"}`}
-						onClick={() => setIsVisible(!isVisibile)}
+						className={`text-center font-semibold text-3xl cursor-pointer ${isVisible ? "before:content-['▾']" : "before:content-['▸']"}`}
+						onClick={() => setIsVisible(!isVisible)}
 					>
 						{t("chess.repertoire.groups.label")}
 					</h2>
 					{
-						isVisibile && (
+						isVisible && (
 							<section id="repertoireList" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 								{
 									(repertoires === null)
