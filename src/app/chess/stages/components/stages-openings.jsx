@@ -5,6 +5,8 @@ import Buffering from "@auth/components/fragment/Buffering";
 import React, {Suspense, useEffect, useState} from "react";
 import StagesModal from "@ui/chess/stages/stages-modal";
 import {createClient} from "@utils/supabase/client";
+import withI18next from "@ui/lang/with-i18next";
+import {useTranslation} from "react-i18next";
 import Tooltip from "@mui/material/Tooltip";
 
 /**
@@ -16,13 +18,14 @@ import Tooltip from "@mui/material/Tooltip";
  * @created 2024-04-15
  * @return The StagesOpenings component.
  */
-export default function StagesOpenings({
+function StagesOpenings({
 	isCreatingRepertoire,
 	selectedOpenings,
 	handleSelection
 }) {
 	const supabase = createClient();
 	const [opening, setOpening] = useState([]);
+	const {t} = useTranslation();
 	
 	useEffect(() => {
 		/**
@@ -88,7 +91,9 @@ export default function StagesOpenings({
 				<div className="flex justify-center items-center flex-col space-y-16">
 					<div className="flex flex-col justify-center space-y-10">
 						<div className="space-y-4">
-							<h2 className="text-center font-semibold text-3xl">Openings</h2>
+							<h2 className="text-center font-semibold text-3xl">
+								{t("chess.create_opening.groups.label")}
+							</h2>
 							<section id="openingList" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 								{
 									(opening === null)
@@ -133,3 +138,5 @@ export default function StagesOpenings({
 		</>
 	)
 }
+
+export default withI18next(StagesOpenings);

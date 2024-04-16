@@ -287,6 +287,9 @@ const resources = {
 						"missing": "Missing name, description or moves",
 						"error": "An error occurred while saving to the database",
 						"success": "New opening saved successfully"
+					},
+					"groups": {
+						"label": "Openings"
 					}
 				},
 				"repertoire": {
@@ -303,6 +306,7 @@ const resources = {
 						}
 					},
 					"groups": {
+						"label": "Your repertoires",
 						"button": "$t(generic.read_more)"
 					}
 				},
@@ -619,6 +623,9 @@ const resources = {
 						"missing": "Mangler navn, beskrivelse eller trekk",
 						"error": "En feil oppstod ved skriving til databasen",
 						"success": "Ny åpning lagret"
+					},
+					"groups": {
+						"label": "Åpninger"
 					}
 				},
 				"repertoire": {
@@ -635,6 +642,7 @@ const resources = {
 						}
 					},
 					"groups": {
+						"label": "Dine $t(chess.repertoire.generics.fragment.group)",
 						"button": "$t(generic.read_more)"
 					}
 				},

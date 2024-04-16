@@ -76,7 +76,7 @@ export default function StagesRepertoires() {
 						className={`text-center font-semibold text-3xl cursor-pointer ${isVisibile ? "before:content-['▾']" : "before:content-['▸']"}`}
 						onClick={() => setIsVisible(!isVisibile)}
 					>
-						Your repertoires
+						{t("chess.repertoire.groups.label")}
 					</h2>
 					{
 						isVisibile && (
