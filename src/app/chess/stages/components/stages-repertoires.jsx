@@ -19,6 +19,7 @@ export default function StagesRepertoires() {
 	const supabase = createClient();
 	const {t} = useTranslation();
 	const [repertoires, setRepertoires] = useState([]);
+	const [isVisibile, setIsVisible] = useState(true);
 	
 	useEffect(() => {
 		const fetchRepertoires = async () => {
@@ -71,26 +72,35 @@ export default function StagesRepertoires() {
 		<>
 			<Suspense fallback={<Buffering/>}>
 				<div className="space-y-4">
-					<h2 className="text-center font-semibold text-3xl">Your repertoires</h2>
-					<section id="repertoireList" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-						{
-							(repertoires === null)
-								? <p></p>
-								: (
-									repertoires.map((repertoire) => {
-										return (
-											<div
-												key={(repertoire.title + repertoire.description + repertoire.id)}
-												className='p-4 bg-[#976646] rounded-md w-64 h-28 flex flex-col justify-between items-center text-white'
-											>
-												<h2 className='font-semibold'>{repertoire.title}</h2>
-												<RepertoireModal repertoire={repertoire}/>
-											</div>
+					<h2
+						className={`text-center font-semibold text-3xl cursor-pointer ${isVisibile ? "before:content-['▾']" : "before:content-['▸']"}`}
+						onClick={() => setIsVisible(!isVisibile)}
+					>
+						Your repertoires
+					</h2>
+					{
+						isVisibile && (
+							<section id="repertoireList" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+								{
+									(repertoires === null)
+										? <p></p>
+										: (
+											repertoires.map((repertoire) => {
+												return (
+													<div
+														key={(repertoire.title + repertoire.description + repertoire.id)}
+														className='p-4 bg-[#976646] rounded-md w-64 h-28 flex flex-col justify-between items-center text-white'
+													>
+														<h2 className='font-semibold'>{repertoire.title}</h2>
+														<RepertoireModal repertoire={repertoire}/>
+													</div>
+												)
+											})
 										)
-									})
-								)
-						}
-					</section>
+								}
+							</section>
+						)
+					}
 				</div>
 			</Suspense>
 		</>
