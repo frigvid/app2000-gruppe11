@@ -83,7 +83,7 @@ export default function Stages() {
 	return (
 		<>
 			<Suspense fallback={<Buffering/>}>
-				<div className='flex justify-center items-center flex-col space-y-16'>
+				<div className="flex justify-center items-center flex-col space-y-16 mt-4 mb-4">
 					<ProtectClientContent showError={false} noBuffer={true}>
 						<div className="flex flex-row space-x-40">
 							<div className="flex flex-col">
