@@ -51,7 +51,6 @@ export default function Stages() {
 	 */
 	const saveRepertoire = async () => {
 		setIsCreatingRepertoire(false);
-		console.log(selectedOpenings);
 		const {data: {user}, error: AuthError} = await supabase.auth.getUser();
 		
 		if (AuthError) {
