@@ -19,6 +19,7 @@ import {useEffect, useState} from "react";
  *
  * @author frigvid
  * @created 2024-02-26
+ * @returns The user object.
  */
 export function useUser() {
 	const supabase = createClient();
@@ -26,7 +27,7 @@ export function useUser() {
 	
 	useEffect(() => {
 		const getUser = async () => {
-			// Get session first, to test against, to avoid logging 401s to the console.
+			/* Get session first, to test against, to avoid logging 401s to the console. */
 			const {data: {session}} = await supabase.auth.getSession();
 			
 			if (session) {
@@ -37,9 +38,9 @@ export function useUser() {
 			}
 		}
 		
-		// Ignore the warning about the promise being ignored.
+		/* Ignore the warning about the promise being ignored. */
 		void getUser();
-	}, [supabase.auth]); // Ignore dependency warning. Adding it will cause a small performance drop.
+	}, [supabase.auth]);
 	
 	/**
 	 * This will hopefully make it easier to avoid errors
