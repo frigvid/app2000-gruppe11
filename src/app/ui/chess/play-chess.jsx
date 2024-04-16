@@ -70,7 +70,7 @@ function PlayChess() {
 	function checkEnding() {
 		if (game.isCheckmate()) {
 			const winner = game.turn() === "w" ? "Black" : "White";
-			setStatus(winner + " " + t("chess.full_game.fragments.winner"));
+			setStatus(winner + " " + t("chess.full_game.status.fragments.winner"));
 			updateScore(winner);
 			//metode(uuid);
 		} else if (game.isDraw()) {
