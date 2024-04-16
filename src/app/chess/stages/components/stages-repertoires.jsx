@@ -21,6 +21,12 @@ export default function StagesRepertoires() {
 	const [repertoires, setRepertoires] = useState([]);
 	const [isVisible, setIsVisible] = useState(true);
 	
+	/**
+	 * Gets all repertoires for a user from the database.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-15
+	 */
 	useEffect(() => {
 		const fetchRepertoires = async () => {
 			const {data, error} = await supabase
