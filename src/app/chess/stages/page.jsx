@@ -85,7 +85,7 @@ export default function Stages() {
 			<Suspense fallback={<Buffering/>}>
 				<div className="flex justify-center items-center flex-col space-y-16 mt-4 mb-4">
 					<ProtectClientContent showError={false} noBuffer={true}>
-						<div className="flex flex-row space-x-40">
+						<div className="flex flex-col space-y-10 lg:flex-row lg:space-x-40">
 							<div className="flex flex-col">
 								<p className="mb-3">{t("chess.create_opening.label")}</p>
 								<StagesCreateOpeningModal/>
