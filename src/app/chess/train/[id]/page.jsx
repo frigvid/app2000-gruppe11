@@ -1,6 +1,5 @@
 "use client";
 
-import Buffering from "@/app/(auth)/components/fragment/Buffering";
 import TrainChess from "@ui/chess/training/train-chess";
 import {createClient} from "@utils/supabase/client";
 import {useEffect, useState} from "react";
@@ -17,6 +16,13 @@ export default function ChessTrainer({params}) {
 	const [opening, setOpening] = useState(null);
 	const {id} = params;
 	
+	/**
+	 * Fetches the opening from the database.
+	 *
+	 * @author frigvid
+	 * @contributor qwertyfyr
+	 * @created 2024-04-12
+	 */
 	useEffect(() => {
 		const fetch = async () => {
 			const {data, error} = await supabase.rpc("opening_get", {opn_id: id});

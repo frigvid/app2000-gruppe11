@@ -11,21 +11,22 @@ async function removeGamedata(uuid?: string): Promise<void> {
 	const supabase = createClient();
 	let userId: string = uuid;
 	
-	// Validate input. Should never be thrown.
+	/* Validate input. Should never be thrown. */
 	if (!userId) {
 		throw new Error("User not logged in!")
 	}
 	
 	try {
-		// See: https://supabase.com/docs/reference/javascript/using-filters
-		// See also: https://supabase.com/docs/reference/javascript/auth-getuser/delete
-		const {error} = await supabase
+		/* See: https://supabase.com/docs/reference/javascript/using-filters
+		 * See also: https://supabase.com/docs/reference/javascript/auth-getuser/delete
+		 */
+		void await supabase
 			.from('gamedata')
 			.delete()
 			.eq('id', userId);
-	} catch (err) {
-		console.error('Error in addGamedata:', err);
-		throw err;
+	} catch (error) {
+		console.error('Error in addGamedata:', error);
+		throw error;
 	}
 }
 

@@ -9,6 +9,7 @@ import {cookies} from "next/headers";
  * See also [documentation at Supabase]{@link https://supabase.com/docs/guides/auth/server-side/nextjs}.
  *
  * @author Supabase, frigvid
+ * @created 2024-01-23
  * @warning Do not use this in client-side code. Server-context only.
  * @hint This essentially configures a `fetch` call. You can, and should, create a new client for every route.
  */

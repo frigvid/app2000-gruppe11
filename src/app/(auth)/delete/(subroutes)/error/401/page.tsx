@@ -1,8 +1,7 @@
 "use client";
 
-import InternalServerError from "@ui/error/500_internal-server";
-import Link from "next/link";
 import UnauthorizedError from "@ui/error/401_unauthorized";
+import Link from "next/link";
 
 /**
  * If something goes wrong during the deletion process,

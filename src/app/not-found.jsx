@@ -4,6 +4,7 @@
  * viewport.
  *
  * @author frigvid
+ * @created 2024-01-19
  */
 export default function NotFound() {
 	return (

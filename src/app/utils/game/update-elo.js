@@ -15,7 +15,7 @@ import {createClient} from "@utils/supabase/client";
 export async function updateElo(user_id, win){
 	const supabase = createClient();
 	
-	//Get profile data.
+	/* Get profile data. */
 	const { data, error } = await supabase
 		.from('profiles')
 		.select('elo_rank')
@@ -44,17 +44,17 @@ export async function updateElo(user_id, win){
 			newElo = currentElo - 10;
 		}
 
-		//Updates elo value in the database.
+		/* Updates elo value in the database. */
 		const {updateError} = await supabase
 			.from('profiles')
-			.update({ elo_rank: newElo})
+			.update({elo_rank: newElo})
 			.eq('id', user_id);
 
 		if (updateError) {
 			throw updateError;
 		}
 
-		console.log("Elo updated successfully");
+		//console.log("Elo updated successfully");
 	} catch (error) {
 		console.error("Error updating elo:", error.message);
 	}

@@ -16,10 +16,22 @@ export default function StagesCreateOpeningModal() {
 	let [isOpen, setIsOpen] = useState(false);
 	const {t} = useTranslation();
 	
+	/**
+	 * Closes the modal.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-10
+	 */
 	function closeModal() {
 		setIsOpen(false)
 	}
 	
+	/**
+	 * Opens the modal.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-10
+	 */
 	function openModal() {
 		setIsOpen(true)
 	}

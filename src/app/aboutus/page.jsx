@@ -8,6 +8,7 @@ import React from "react";
  *
  * @author KarstenKebba
  * @contributor frigvid
+ * @created 2024-02-27
  */
 export default function AboutUs() {
 	const { t } = useTranslation();

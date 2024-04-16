@@ -24,6 +24,12 @@ export default function UserSettings() {
 	const [password, setPassword] = useState(null);
 	const router = useRouter();
 	
+	/**
+	 * Fetch the user's email.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-14
+	 */
 	useEffect(() => {
 		setIsLoading(true);
 		
@@ -41,6 +47,14 @@ export default function UserSettings() {
 		void fetchUser();
 	}, [supabase]);
 	
+	/**
+	 * Loading screen to ensure that content is properly
+	 * pre-loaded before rendering.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-14
+	 * @returns {Buffering} The bufferin/loading screen.
+	 */
 	if (isLoading) {
 		return <Buffering/>;
 	}

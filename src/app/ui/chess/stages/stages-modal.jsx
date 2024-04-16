@@ -4,15 +4,14 @@ import {Fragment, useEffect, useState} from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {createClient} from "@utils/supabase/client";
 import IconButton from "@mui/material/IconButton";
+import SaveIcon from '@mui/icons-material/Save';
 import {useUser} from "@auth/actions/useUser";
 import {useTranslation} from "react-i18next";
 import Tooltip from "@mui/material/Tooltip";
 import Edit from "@mui/icons-material/Edit";
-import Link from "next/link";
 import {TextField} from "@mui/material";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import SaveIcon from '@mui/icons-material/Save';
+import Link from "next/link";
 
 /**
  * Component that creates a modal for the stages.

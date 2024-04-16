@@ -4,6 +4,8 @@ import Link from "next/link";
  * Stub page for user-application documentation.
  *
  * @author frigvid
+ * @contributor oldpopcorn
+ * @created 2024-01-30
  */
 export default function App() {
 	return (

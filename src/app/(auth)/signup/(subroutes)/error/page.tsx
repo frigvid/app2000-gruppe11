@@ -9,6 +9,11 @@ import Link from "next/link";
  * If something goes wrong during the sign-up process,
  * end-users are sent here.
  *
+ * FIXME: Improve the UX. It is rather jarring when
+ * 		 you do something wrong when you try to sign
+ * 		 up, and you get sent to a generic looking
+ * 		 error page.
+ *
  * @author frigvid
  * @created 2024-02-20
  */
@@ -29,4 +34,8 @@ function SignUpError() {
 	);
 }
 
+/**
+ * Exported with extra i18next support,
+ * to avoid hydration errors.
+ */
 export default withI18next(SignUpError);

@@ -98,8 +98,15 @@ export default function OpeningCreator({closeModal}) {
 			return;
 		}
 
-		// Insert data to database.
-		// TODO: Switch it out for an RPC call using a database function instead.
+		/**
+		 * Insert data to database.
+		 *
+		 * TODO: Switch it out for an RPC call using a database function instead.
+		 *
+		 * @author KarstenKebba, frigvid
+		 * @contributor qwertyfyr
+		 * @created 2024-04-08
+		 */
 		const {data, error} = await supabase
 			.from('openings')
 			.insert({
@@ -121,7 +128,7 @@ export default function OpeningCreator({closeModal}) {
 
 		setIsFeedbackVisible(true);
 
-		// Clears data.
+		/* Clears data. */
 		setOpeningName('');
 		setOpeningDescription('');
 		setMoves([]);
@@ -148,19 +155,23 @@ export default function OpeningCreator({closeModal}) {
 				/>
 			</div>
 			<div>
-				{isFeedbackVisible ?
-					<div
-						className={`w-full mb-3 max-w-md px-6 pb-2 pt-2.5 rounded ${feedbackType === 'error' ? 'bg-red-500' : 'bg-green-500'} text-xs font-medium text-white text-center uppercase leading-normal`}
-					>
-						{feedbackMsg}
-					</div>
-					:
-					<button
-						onClick={saveOpening}
-						className="w-full bg-buttoncolor mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
-					>
-						{t("chess.create_opening.button.save")}
-					</button>
+				{
+					(isFeedbackVisible)
+						? (
+							<div
+								className={`w-full mb-3 max-w-md px-6 pb-2 pt-2.5 rounded ${feedbackType === 'error' ? 'bg-red-500' : 'bg-green-500'} text-xs font-medium text-white text-center uppercase leading-normal`}
+							>
+								{feedbackMsg}
+							</div>
+						)
+						: (
+							<button
+								onClick={saveOpening}
+								className="w-full bg-buttoncolor mb-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
+							>
+								{t("chess.create_opening.button.save")}
+							</button>
+						)
 				}
 				<Chessboard
 					id={self.crypto.randomUUID()}

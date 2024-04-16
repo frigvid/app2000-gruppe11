@@ -3,6 +3,9 @@ import {useTranslation} from "react-i18next";
 
 /**
  * Type definition interface for props.
+ *
+ * @author frigvid
+ * @created 2024-04-09
  */
 interface OrDividerProps {
 	word?: string,

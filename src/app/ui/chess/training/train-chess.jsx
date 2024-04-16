@@ -1,8 +1,7 @@
 import TrainPanel from "@ui/chess/training/train-panel";
-import {useUser} from "@/app/(auth)/actions/useUser";
 import {useTranslation} from "react-i18next";
 import {Chessboard} from "react-chessboard";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {Chess} from "chess.js";
 
 /**
@@ -120,6 +119,9 @@ export default function TrainChess({pgn}) {
 	 *
 	 * If the move is illegal, returns false.
 	 *
+	 * @author qwertyfyr
+	 * @contributor frigvid
+	 * @created 2024-04-12
 	 * @param {*} sourceSquare The square the piece was moved from.
 	 * @param {*} targetSquare The square the piece was moved to.
 	 * @param {*} piece The piece that was moved.
@@ -132,7 +134,7 @@ export default function TrainChess({pgn}) {
 			piece: piece[1].toLowerCase(),
 		});
 
-		// illegal move.
+		/* illegal move. */
 		if (move === null) {
 			return false;
 		}

@@ -9,6 +9,8 @@ import {createClient} from "@utils/supabase/client";
  * These are iterative counts, as in there should only ever be
  * one instance of the id.
  *
+ * FIXME: Doesn't account for draws.
+ *
  * @author frigvid
  * @created 2024-01-25
  * @param uuid The auth.users.id in question.
@@ -17,7 +19,7 @@ import {createClient} from "@utils/supabase/client";
 export async function addGamedata(uuid: string, win: boolean): Promise<void> {
 	const supabase = createClient();
 	
-	// Validate input.
+	/* Validate input. */
 	if (!uuid) {
 		throw new Error("No id inputted")
 	}
@@ -27,7 +29,7 @@ export async function addGamedata(uuid: string, win: boolean): Promise<void> {
 	}
 	
 	try {
-		// Get data.
+		/* Get data. */
 		const {data, error} = await supabase
 			.from('gamedata')
 			.select('id, wins, losses, draws')
@@ -35,15 +37,23 @@ export async function addGamedata(uuid: string, win: boolean): Promise<void> {
 			.maybeSingle();
 		
 		if (error) {
-			// Insert new user in table.
+			/* Insert new user in table. */
 			const {error: insertError} = await supabase
 				.from('gamedata')
-				.insert([{id: uuid, wins: win ? 1 : 0, losses: win ? 0 : 1}]);
+				.insert([{
+					id: uuid,
+					wins: win
+						? 1
+						: 0,
+					losses: win
+						? 0
+						: 1
+				}]);
 			if (insertError) {
 				throw insertError
 			}
 		} else if (data) {
-			// Update existing user in table.
+			/* Update existing user in table. */
 			const updateColumn = win ? {wins: data.wins + 1} : {losses: data.losses + 1};
 			const {error: updateError} = await supabase
 				.from('gamedata')
@@ -53,16 +63,24 @@ export async function addGamedata(uuid: string, win: boolean): Promise<void> {
 				throw updateError
 			}
 		} else {
-			// Handle case where user doesn't exist and no error was thrown.
+			/* Handle case where user doesn't exist and no error was thrown. */
 			const {error: insertError} = await supabase
 				.from('gamedata')
-				.insert([{id: uuid, wins: win ? 1 : 0, losses: win ? 0 : 1}]);
+				.insert([{
+					id: uuid,
+					wins: win
+						? 1
+						: 0,
+					losses: win
+						? 0
+						: 1
+				}]);
 			if (insertError) {
 				throw insertError
 			}
 		}
-	} catch (err) {
-		console.error('Error in addGamedata:', err);
-		throw err;
+	} catch (error) {
+		console.error('Error in addGamedata:', error);
+		throw error;
 	}
 }

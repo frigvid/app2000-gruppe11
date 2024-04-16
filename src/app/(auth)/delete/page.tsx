@@ -6,11 +6,29 @@ import {useUser} from "@auth/actions/useUser";
 import {useTranslation} from "react-i18next";
 import {useRouter} from "next/navigation";
 
+/**
+ * Route for deleting a user's account.
+ *
+ * @author frigvid
+ * @created 2024-04-03
+ * @note Doing this as a route, instead of directly in the
+ * 		user's settings, is a bit wierd. But this is a
+ * 		product of technical debt. Had I more time, I
+ * 		would have changed this.
+ */
 export default function DeleteAccount() {
 	const {t} = useTranslation();
 	const router = useRouter();
 	const user = useUser();
 	
+	/**
+	 * Asynchronous function calling the server action
+	 * responsible for actually deleting the user's
+	 * account.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-03
+	 */
 	async function deleteAccount() {
 		if (user) {
 			try {
@@ -20,10 +38,10 @@ export default function DeleteAccount() {
 				router.push("/delete/error/401")
 			}
 			
-			// Redirect to the Home after deleting account and reloading window.
+			/* Redirect to the Home after deleting account and reloading window. */
 			router.push("/");
 			
-			// Reload the page to ensure the header updates.
+			/* Reload the page to ensure the header updates. */
 			router.refresh();
 		}
 	}

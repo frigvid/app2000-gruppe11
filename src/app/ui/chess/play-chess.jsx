@@ -18,10 +18,10 @@ import {Chess} from "chess.js";
 function PlayChess() {
 	const {t} = useTranslation();
 	
-	// Fetches user data from authentication context.
+	/* Fetches user data from authentication context. */
 	const user = useUser();
 
-	// State variables for game, score, and status
+	/* State variables for game, score, and status. */
 	const [game, setGame] = useState(new Chess());
 	const [score, setScore] = useState({ wins: 0, losses: 0 });
 	const [boardPosition, setBoardPosition] = useState(game.fen());
@@ -31,7 +31,10 @@ function PlayChess() {
 
 	/**
 	 * Makes a move in the game.
-	 * 
+	 *
+	 * @author qwertyfyr
+	 * @contributor jarle0
+	 * @created 2024-04-12
 	 * @param {Object} move The move object containing source, target, and promotion.
 	 * @returns {boolean|null} True if move is valid, null if move is invalid.
 	 */
@@ -44,29 +47,49 @@ function PlayChess() {
 			console.log(e);
 			return null;
 		}
+		
 		setGame(game);
 		setBoardPosition(game.fen());
-		return true; // null if the move was illegal, the move object if the move was legal
+		
+		/* Null if the move was illegal, the move object if the move was legal. */
+		return true;
 	}
 
-	//function where "Bot" does a random legal move after player has played a move.
-	//code is an altered version from the react-chessboard example that works with current version of chess.js
+	//
+	//c
+	/**
+	 * Function where "Bot" does a random legal move after
+	 * player has played a move.
+	 *
+	 * The code is an altered version from the react-chessboard
+	 * example that works with current version of chess.js
+	 *
+	 * @author qwertyfyr
+	 * @contributor frigvid
+	 * @created 2024-01-30
+	 */
 	function makeRandomMove() {
-		// we need to update the state after the previous move has happened all in the same render
-
+		/* we need to update the state after the previous move has happened all in the same render. */
 		const possibleMoves = game.moves();
-
 		const randomIndex = Math.floor(Math.random() * possibleMoves.length);
+		
 		if (game.isGameOver() || game.isDraw() || possibleMoves.length === 0) {
 			checkEnding();
 			return;
 		}
+		
 		game.move(possibleMoves[randomIndex]);
 		setGame(game);
 		setBoardPosition(game.fen());
 	}
 
-	// Logic for checking how the game ended.
+	/**
+	 * Checks if the game has ended and updates the status.
+	 *
+	 * @author qwertyfyr
+	 * @contributor frigvid
+	 * @created 2024-01-30
+	 */
 	function checkEnding() {
 		if (game.isCheckmate()) {
 			const winner = game.turn() === "w" ? "Black" : "White";
@@ -83,7 +106,15 @@ function PlayChess() {
 		}
 	}
 
-	//checks if w or b won and updates scoreboard & user history
+	/**
+	 * Updates the score based on the winner of the game.
+	 *
+	 * Essentially checks if `w` or `b` won.
+	 *
+	 * @author qwertyfyr
+	 * @created 2024-01-30
+	 * @param winner
+	 */
 	const updateScore = (winner) => {
 		if (winner === "Black") {
 			setScore({ ...score, losses: score.losses + 1 });
@@ -92,9 +123,9 @@ function PlayChess() {
 				updateElo(user.id, false);
 			}
 
-			//adds loss to user history
+			/* Adds loss to user history. */
 		} else {
-			//adds win to user history
+			/* Adds win to user history. */
 			setScore({ ...score, wins: score.wins + 1 });
 			if (user) {
 				void addGamedata(user.id, true);
@@ -105,7 +136,10 @@ function PlayChess() {
 
 	/**
 	 * Handles the drop of a chess piece on the board.
-	 * 
+	 *
+	 * @author qwertyfyr
+	 * @contributor jarle0
+	 * @created 2024-01-30
 	 * @param {string} sourceSquare The source square of the piece.
 	 * @param {string} targetSquare The target square for the piece.
 	 * @param {string[]} piece The piece being moved.
@@ -118,10 +152,10 @@ function PlayChess() {
 			promotion: piece[1]?.toLowerCase() ?? "q",
 		});
 
-		// illegal move
+		/* Illegal move. */
 		if (move === null) {
 			return false;
-		};
+		}
 		
 		setTimeout(makeRandomMove, 500);
 		
@@ -130,13 +164,25 @@ function PlayChess() {
 
 	/**
 	 * Resets the game board to its initial state.
+	 *
+	 * @author qwertyfyr
+	 * @contributor frigvid
+	 * @created 2024-01-30
 	 */
 	function resetBoard() {
 		game.reset();
 		setBoardPosition(game.fen());
 		setStatus(t("chess.full_game.status.ongoing"));
 	}
-
+	
+	/**
+	 * Undoes the last move made.
+	 *
+	 * If the game is over, an alert is shown.
+	 *
+	 * @author qwertyfyr
+	 * @created 2024-04-06
+	 */
 	function undoTurn() {
 		if (game.isGameOver())
 			alert(t("chess.full_game.alert"));
@@ -178,7 +224,7 @@ function PlayChess() {
 					{t("chess.full_game.panel.undo")}
 				</button>
 				{
-					// Only show this button if you're logged in.
+					/* Only show this button if you're logged in. */
 					user ? <DeleteData/> : null
 				}
 			</div>
@@ -189,4 +235,11 @@ function PlayChess() {
 	);
 }
 
+/**
+ * Export with extra i18next support,
+ * to avoid hydration erros.
+ *
+ * @author frigvid
+ * @created 2024-04-13
+ */
 export default withI18next(PlayChess);

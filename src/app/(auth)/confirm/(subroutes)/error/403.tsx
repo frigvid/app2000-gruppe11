@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import ForbiddenError from "@ui/error/403_forbidden";
+import Link from "next/link";
 
 /**
  * If something goes wrong during the confirmation process,

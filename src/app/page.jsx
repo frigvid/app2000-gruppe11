@@ -16,14 +16,14 @@ export default function Home() {
 	const {t, ready} = useTranslation();
 	const [loaded, setLoaded] = useState(false);
 
-	// Effect hook to set loaded state once translations are ready.
+	/* Effect hook to set loaded state once translations are ready. */
 	useEffect(() => {
 		if (ready) {
 			setLoaded(true);
 		}
 	}, [ready]);
 	
-	// Renders null to match server-side rendered content before translations are loaded.
+	/* Renders null to match server-side rendered content before translations are loaded. */
 	if (!loaded) {
 		return null;
 	}

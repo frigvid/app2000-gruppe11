@@ -13,6 +13,8 @@
  * 	return <Buffering/>;
  * }
  *
+ * @frigvid
+ * @created 2024-04-06
  * @return {React.JSX.Element} The buffering animation element.
  * @see ProtectClientContent for actual usage example.
  */

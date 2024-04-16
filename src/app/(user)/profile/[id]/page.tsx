@@ -39,6 +39,12 @@ export default function UserProfile() {
 	const staticUserId = usePathname().split('/').pop() || '';
 	const {t} = useTranslation();
 	
+	/**
+	 * Fetches the user's profile data, and the user object.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-03
+	 */
 	useEffect(() => {
 		const fetchProfile = async () => {
 			setIsLoading(true);
@@ -129,6 +135,9 @@ export default function UserProfile() {
 	 * The JSX layout for the user's profile.
 	 *
 	 * Called by the authorization logic below this function.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-10
 	 */
 	function profileLayout() {
 		return (
@@ -173,7 +182,7 @@ export default function UserProfile() {
 						<h2 className="border-b-2 border-[#a1887f] pb-1 font-bold">{t("user_profile.about_me")}</h2>
 						<p className="mt-2">
 						{
-							// Checks if the user has added any data yet.
+							/* Checks if the user has added any data yet. */
 							(aboutMe !== null)
 								? ((aboutMe !== "")
 									? aboutMe.split(/\r?\n/).map((line: any, i: any) => <span key={i}>{line}<br/></span>)
@@ -211,6 +220,9 @@ export default function UserProfile() {
 	 *         `user.id` of the authenticated user, return the profile layout.
 	 *    2.2. If the `user` object is null, or if the `staticUserId` is NOT equal to the
 	 *         `user.id` of the authenticated user, return a 401 error.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-03
 	 */
 	if (data.visibility) {
 		return (

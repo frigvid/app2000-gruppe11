@@ -10,7 +10,7 @@ import {redirect} from "next/navigation";
  * @param formData The sign-up form data.
  * @author frigvid
  * @created 2024-02-13
- * @note This was originally created earlier. It has been extracted to as an action,
+ * @note This was originally created earlier. It has been extracted as an action,
  *			instead of embedding it into the page.
  */
 const signUpSA = async (formData: FormData) => {
@@ -19,25 +19,19 @@ const signUpSA = async (formData: FormData) => {
 	const password = formData.get("password") as string;
 	const supabase = createClient(cookies());
 	
-	// Additional metadata can be added to `options`.
 	// NOTE: Type-casting is here for convenience.
 	// FIXME: Validate inputs.
 	const {error} = await supabase.auth.signUp({
 		email,
-		password,
-		options: {
-			//emailRedirectTo: `${origin}/auth/callback`,
-			data: {
-				elo_rank: 400
-			}
-		},
+		password
 	});
 	
 	// NOTE: A more elegant solution should probably be cooked up for these two returns, eventually.
 	if (error) {
-		// Even though it only logs locally, and not in the browser,
-		// at least you can see the error in a development environment.
-		console.log(error);
+		/* Even though it only logs locally, and not in the browser,
+		 * at least you can see the error in a development environment.
+		 */
+		console.error(error);
 		return redirect("/signup/error");
 	}
 	

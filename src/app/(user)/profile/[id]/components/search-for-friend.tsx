@@ -26,11 +26,19 @@ export default function SearchForFriend() {
 	const [user, setUser] = useState(null);
 	const {t} = useTranslation();
 	
+	/**
+	 * Fetches the authenticated user, and the search term.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-12
+	 */
 	useEffect(() => {
 		if (searchTerm) {
 			/**
 			 * Fetches the currently logged-in user.
 			 *
+			 * @author frigvid
+			 * @created 2024-04-12
 			 * @return The currently logged-in user, once resolved.
 			 */
 			const fetchUser = async (): Promise<void> => {
@@ -46,13 +54,28 @@ export default function SearchForFriend() {
 			/**
 			 * Fetches a user based on the search term.
 			 *
+			 * FIXME: This should probably switch over to simply fetching *all*
+			 * 		 users, and *then* filtering using JavaScript instead of
+			 * 		 using the SQL search function.
+			 * 		 <br/>
+			 * 		 It works, but it's not that pleasant of a user experience,
+			 * 		 since it'll return multiple hits, and due to how it ends
+			 * 		 up working, there's an uncomfortably high chance that
+			 * 		 it'll switch to another user by the time you're going to
+			 * 		 click the button.
+			 * 		 <br/>
+			 * 		 You can't become "double" friends, even though the button
+			 * 		 may flicker a bit. I've made sure of that much. But, again,
+			 * 		 terrible UX. But little time to fix it now, sadly.
+			 *
+			 * @author frigvid
+			 * @created 2024-04-12
 			 * @return The user that matches the search term, once resolved.
 			 */
 			const fetchSearchUser = async (): Promise<void> => {
 				const {data, error} = await supabase.rpc("search_user", {search_term: searchTerm});
 				
 				if (error) {
-					//console.error("Error fetching user:", error);
 					setSearchStatus(false);
 				} else {
 					setSearchStatus(true);
@@ -73,6 +96,9 @@ export default function SearchForFriend() {
 	 * This is in its own useEffect clause to ensure
 	 * it actually gets the search user before trying to
 	 * fetch the friend status.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-12
 	 */
 	useEffect(() => {
 		if (searchUser) {
@@ -93,6 +119,9 @@ export default function SearchForFriend() {
 	/**
 	 * Check if the authenticated user and the user they're searching for
 	 * are already friends.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-12
 	 */
 	useEffect(() => {
 		if (searchUser) {
@@ -110,10 +139,22 @@ export default function SearchForFriend() {
 		}
 	}, [searchUser, supabase]);
 	
+	/**
+	 * Closes the modal.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-12
+	 */
 	function closeModal() {
 		setIsOpen(false);
 	}
 	
+	/**
+	 * Opens the modal.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-12
+	 */
 	function openModal() {
 		setIsOpen(true);
 	}

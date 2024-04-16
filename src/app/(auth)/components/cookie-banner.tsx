@@ -1,20 +1,32 @@
-import * as React from 'react';
-import Stack from '@mui/material/Stack';
-import TrapFocus from '@mui/material/Unstable_TrapFocus';
-import CssBaseline from '@mui/material/CssBaseline';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import Paper from '@mui/material/Paper';
-import Fade from '@mui/material/Fade';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import TrapFocus from "@mui/material/Unstable_TrapFocus";
+import CssBaseline from "@mui/material/CssBaseline";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Toolbar from "@mui/material/Toolbar";
+import AppBar from "@mui/material/AppBar";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Paper from "@mui/material/Paper";
+import Fade from "@mui/material/Fade";
+import Box from "@mui/material/Box";
+import {useState} from "react";
 
+/**
+ * The cookie banner, making sure users know that
+ * cookies are being used for authentication on
+ * the website.
+ *
+ * TODO: Properly implement this component.
+ * TODO: Make sure it saves the true/false value
+ * 		to LocalStorage.
+ *
+ * @author frigvid
+ * @created 2024-04-13
+ */
 export default function CookiesBanner() {
-	const [bannerOpen, setBannerOpen] = React.useState(true);
+	const [bannerOpen, setBannerOpen] = useState(true);
 	
 	const closeBanner = () => {
 		setBannerOpen(false);

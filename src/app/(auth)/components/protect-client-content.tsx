@@ -1,11 +1,14 @@
 import Buffering from "@auth/components/fragment/Buffering";
-import UnauthorizedError from '@ui/error/401_unauthorized';
-import { createClient } from '@utils/supabase/client';
-import React, {useEffect, useState} from 'react';
-import Link from 'next/link';
+import UnauthorizedError from "@ui/error/401_unauthorized";
+import { createClient } from "@utils/supabase/client";
+import React, {useEffect, useState} from "react";
+import Link from "next/link";
 
 /**
- * Interface to explicitly define the prop's datatype.
+ * Interface to explicitly define the props datatype.
+ *
+ * @author frigvid
+ * @created 2024-04-04
  */
 interface ProtectClientContentProps {
 	showError: boolean;
@@ -51,6 +54,12 @@ export default function ProtectClientContent({
 	const [authorized, setAuthorized] = useState(false);
 	const [loading, setLoading] = useState(true);
 	
+	/**
+	 * Checks if the user is authorized or not.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-04
+	 */
 	useEffect(() => {
 		const checkAuth = async () => {
 			const {data, error} = await supabase.auth.getUser();
@@ -69,10 +78,28 @@ export default function ProtectClientContent({
 		void checkAuth();
 	}, [noBuffer, supabase.auth]);
 	
+	/**
+	 * Shows a buffering/loading screen until the component
+	 * has finished checking if the user is authenticated or not.
+	 *
+	 * @author frigvid
+	 * @created 2023-04-06
+	 */
 	if (loading && !noBuffer) {
 		return <Buffering/>;
 	}
 	
+	/**
+	 * A final road-block before showing the content, where
+	 * it checks if the user wasn't authorized. And either
+	 * returns an error, or returns nothing should something
+	 * really unexpected happen.
+	 *
+	 * It shouldn't.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-04
+	 */
 	if (!authorized) {
 		if (showError) {
 			return (
@@ -93,5 +120,6 @@ export default function ProtectClientContent({
 		}
 	}
 	
+	/* Finally, return the content being protected. */
 	return <>{children}</>;
 }

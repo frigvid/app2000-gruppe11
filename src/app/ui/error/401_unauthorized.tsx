@@ -5,6 +5,7 @@
  * for more information.
  *
  * @author frigvid
+ * @created 2024-02-13
  */
 export default function UnauthorizedError() {
 	return (

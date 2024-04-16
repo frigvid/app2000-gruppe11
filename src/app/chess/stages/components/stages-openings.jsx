@@ -139,4 +139,11 @@ function StagesOpenings({
 	)
 }
 
+/**
+ * Export with extra i18next support,
+ * to avoid hydration errors.
+ *
+ * @author frigvid
+ * @created 2024-04-16
+ */
 export default withI18next(StagesOpenings);

@@ -19,6 +19,12 @@ import {usePathname, useRouter} from "next/navigation";
 import Paper from "@mui/material/Paper";
 import List from "@mui/material/List";
 
+/**
+ * Friend list props types.
+ *
+ * @author frigvid
+ * @created 2024-04-13
+ */
 interface FriendListProps {
 	user?: User;
 }
@@ -38,6 +44,12 @@ export default function FriendList({
 	const {t} = useTranslation();
 	const staticUserId = usePathname().split('/').pop() || '';
 	
+	/**
+	 * Fetches all friends for the user.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-12
+	 */
 	useEffect(() => {
 		const fetchFriends = async () => {
 			const {data, error} = await supabase.rpc("friend_get_all_friends");
@@ -132,6 +144,9 @@ export default function FriendList({
 												 * It creates a new array with the elements that match, so literally
 												 * everything that isn't this current `friendRequest` mapping. In
 												 * effect, deleting it.
+												 *
+												 * @author frigvid
+												 * @created 2024-04-15
 												 */
 												const deleteListing = () => {
 													setFriends(friends.filter((_: any, i: any) => i !== index));

@@ -10,7 +10,7 @@ import {cookies} from "next/headers";
  * @param request
  * @author frigvid
  * @created 2024-02-13
- * @warning Since this is a Route Handler, a server Supabase client is needed.
+ * @warning Since this is a Route Handler, a server-context Supabase client is needed.
  */
 export async function GET(request: NextRequest) {
 	const {searchParams} = new URL(request.url);

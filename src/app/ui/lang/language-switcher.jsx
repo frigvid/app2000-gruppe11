@@ -19,10 +19,11 @@ import {useTranslation} from "react-i18next";
 const LanguageSwitcher = () => {
 	const {i18n} = useTranslation();
 	const [showDropUp, setShowDropUp] = useState(false);
-	// New state to track if the component has mounted on the client.
+	
+	/* New state to track if the component has mounted on the client. */
 	const [isClient, setIsClient] = useState(false);
 
-	// Define the languages array inside the component to ensure it's in scope
+	/* Define the languages array inside the component to ensure it's in scope. */
 	const languages = [
 		{code: "en", name: "English"},
 		{code: "no", name: "Norsk"}
@@ -31,20 +32,22 @@ const LanguageSwitcher = () => {
 	/**
 	 * Changes the application's current language and closes the language selection menu.
 	 *
+	 * @author oldpopcorn
+	 * @created 2024-04-09
 	 * @param {string} lng The code of the language to switch to.
 	 */
 	const changeLanguage = (lng) => {
 		void i18n.changeLanguage(lng);
-		// Close menu after selection.
+		/* Close menu after selection. */
 		setShowDropUp(false);
 	};
 
-	// useEffect hook to set isClient to true after the component mounts.
+	/* useEffect hook to set isClient to true after the component mounts. */
 	useEffect(() => {
 		setIsClient(true);
 	}, []);
 
-	// Render null if not yet client-side.
+	/* Render null if not yet client-side. */
 	if (!isClient) {
 		return null;
 	}

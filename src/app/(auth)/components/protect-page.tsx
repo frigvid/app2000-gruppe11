@@ -36,7 +36,7 @@ export default async function ProtectPage(Component: any): Promise<any> {
 	const supabase = createClient(cookies());
 	const {data, error} = await supabase.auth.getUser();
 	
-	// Show 401 if unauthorized or if an error occurred.
+	/* Show 401 if unauthorized or if an error occurred. */
 	if (error || !data?.user) {
 		return (
 			<main className="flex flex-col justify-center items-center">
@@ -53,6 +53,6 @@ export default async function ProtectPage(Component: any): Promise<any> {
 		);
 	}
 	
-	// Otherwise, assume it's fine, and return the page.
+	/* Otherwise, assume it's fine, and return the page. */
 	return Component;
 }

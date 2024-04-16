@@ -2,7 +2,12 @@ import {Inter} from "next/font/google";
 import Header from "@ui/header";
 import Footer from "@ui/footer";
 import "@/app/globals.css";
-// Do not remove, is in use when starting the translation.
+/**
+ * Do not remove, is in use when starting the translation.
+ *
+ * @author oldpopcorn
+ * @created 2024-04-11
+ */
 import i18n from '@/app/i18next.js';
 
 const inter = Inter({subsets: ['latin']})
@@ -11,6 +16,7 @@ const inter = Inter({subsets: ['latin']})
  * Metadata for the application.
  *
  * @author frigvid
+ * @created 2024-01-18
  */
 export const metadata = {
 	title: 'Chess Buddy',

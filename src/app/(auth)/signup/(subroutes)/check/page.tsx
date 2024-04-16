@@ -29,4 +29,8 @@ function SignUpCheckEmail() {
 	);
 }
 
+/**
+ * Exported with extra i18next support,
+ * to avoid hydration errors.
+ */
 export default withI18next(SignUpCheckEmail);

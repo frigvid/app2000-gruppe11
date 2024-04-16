@@ -5,6 +5,7 @@
  * See [Wikipedia - HTTP 403](https://en.wikipedia.org/wiki/HTTP_403) for more information.
  *
  * @author frigvid
+ * @created 2024-02-13
  */
 export default function ForbiddenError() {
 	return (

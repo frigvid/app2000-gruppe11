@@ -50,6 +50,14 @@ export default function withI18next(WrappedComponent) {
 	};
 };
 
+/**
+ * Get the display name of a component.
+ *
+ * @author frigvid
+ * @created 2024-04-11
+ * @param WrappedComponent The component to get the display name of.
+ * @return {*|string} The display name of the component.
+ */
 function getDisplayName(WrappedComponent) {
 	return WrappedComponent.displayName || WrappedComponent.name || 'Component';
 }

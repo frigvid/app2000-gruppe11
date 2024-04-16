@@ -33,6 +33,12 @@ export default function PendingFriendRequests() {
 	const [friendRequests, setFriendRequests] = useState(null);
 	const {t} = useTranslation();
 	
+	/**
+	 * Fetches all friend requests for the user.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-12
+	 */
 	useEffect(() => {
 		const fetchRequests = async () => {
 			const {data, error} = await supabase.rpc("friend_request_get_all");
@@ -86,6 +92,9 @@ export default function PendingFriendRequests() {
 						 * friend request list.
 						 *
 						 * This ensures it's not a problem.
+						 *
+						 * @author frigvid
+						 * @created 2024-04-15
 						 */
 						if (payload.new.by_user !== user?.id) {
 							setFriendRequests((prevFriendRequests: any) => [...prevFriendRequests, data[0]]);
@@ -101,10 +110,22 @@ export default function PendingFriendRequests() {
 		}
 	}, [supabase, friendRequests, user?.id]);
 	
+	/**
+	 * Closes the modal.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-12
+	 */
 	function closeModal() {
 		setIsOpen(false);
 	}
 	
+	/**
+	 * Opens the modal.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-12
+	 */
 	function openModal() {
 		setIsOpen(true);
 	}
@@ -164,6 +185,9 @@ export default function PendingFriendRequests() {
 																		 * It creates a new array with the elements that match, so literally
 																		 * everything that isn't this current `friendRequest` mapping. In
 																		 * effect, deleting it.
+																		 *
+																		 * @author frigvid
+																		 * @created 2024-04-12
 																		 */
 																		const deleteListing = () => {
 																			setFriendRequests(friendRequests.filter((_: any, i: any) => i !== index));

@@ -1,13 +1,16 @@
 "use client";
 
+import {createClient} from "@utils/supabase/client";
+import React, {useEffect, useState} from "react";
+import {usePathname} from "next/navigation";
 import {useTranslation} from "react-i18next";
 import {flag} from "country-emoji"
-import React, {useEffect, useState} from "react";
-import {createClient} from "@utils/supabase/client";
-import {usePathname} from "next/navigation";
 
 /**
  * User profile's stat prop types.
+ *
+ * @author frigvid
+ * @created 2024-04-08
  */
 interface UserStatsProps {
 	data: any;
@@ -15,6 +18,10 @@ interface UserStatsProps {
 
 /**
  * User profile's stat component.
+ *
+ * FIXME: Emoji support is spotty. Depends more often
+ * 		 than not on the browser, rather than the
+ * 		 packages I've tried. SVGs are an alternative.
  *
  * @author frigvid
  * @created 2024-04-03
@@ -53,7 +60,8 @@ export default function UserStats({
 				table: 'gamedata'
 			}, async (payload) => {
 				/* Call it paranoia, but just to be safe, I'm checking that the payload's
-				 * user ID matches the static user ID. */
+				 * user ID matches the static user ID.
+				 */
 				if (payload.new.id === staticUserId) {
 					setGamesWon(payload.new.wins);
 					setGamesLost(payload.new.losses);
@@ -66,7 +74,8 @@ export default function UserStats({
 				table: 'profiles'
 			}, async (payload) => {
 				/* Call it paranoia, but just to be safe, I'm checking that the payload's
-				 * user ID matches the static user ID. */
+				 * user ID matches the static user ID.
+				 */
 				if (payload.new.id === staticUserId) {
 					setEloRank(payload.new.elo_rank);
 					setNationality(payload.new.nationality);

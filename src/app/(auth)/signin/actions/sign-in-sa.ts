@@ -16,7 +16,7 @@ export async function signInSA(formData: FormData) {
 	const supabase = createClient(cookies());
 	
 	// NOTE: Type-casting is here for convenience.
-	// FIXME: Supabase already validates inputs, but for safety's sake, we should validate inputs.
+	// FIXME: Supabase already validates inputs, but for safety's sake, we should validate inputs even more.
 	const data = {
 		email: formData.get('email') as string,
 		password: formData.get('password') as string,
@@ -25,13 +25,13 @@ export async function signInSA(formData: FormData) {
 	const {error} = await supabase.auth.signInWithPassword(data);
 	
 	if (error) {
-		console.log(error);
+		console.error(error);
 		redirect('/signin/error');
 	}
 	
-	// Purge cached data.
+	/* Purge cached data. */
 	revalidatePath('/', 'layout');
 	
-	// Redirect to Home.
+	/* Redirect to Home. */
 	redirect("/");
 }

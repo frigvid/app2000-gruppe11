@@ -14,6 +14,15 @@ import {Chess} from "chess.js";
  * 		However, it *does* work. I'm just not sure if it's very performant at scale.
  */
 export default function StagesChessboardThumbnail({pgn, width = 128}) {
+	/**
+	 * Moves the chess pieces for the "thumbnail."
+	 *
+	 * I kind of hate it, but I'm not really sure
+	 * how I would do it better, and just as easily.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-10
+	 */
 	const chess = new Chess();
 	pgn.forEach(move => {
 		chess.move(move);

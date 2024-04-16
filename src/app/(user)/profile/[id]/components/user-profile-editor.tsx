@@ -8,11 +8,13 @@ import React, {Fragment, useState} from "react";
 import {useTranslation} from "react-i18next";
 import Tooltip from "@mui/material/Tooltip";
 import Edit from "@mui/icons-material/Edit";
-import {useRouter} from "next/navigation";
 import Button from "@mui/material/Button";
 
 /**
- * Type definition for the EditUserProfileModal component.
+ * Type definition for the EditUserProfileModal component's props.
+ *
+ * @author frigvid
+ * @created 2024-04-10
  */
 interface EditUserProfileModalProps {
 	avatar_url: string;
@@ -47,10 +49,22 @@ export default function UserProfileEditor({
 	const [visibilityFriendsStatus, setVisibilityFriendsStatus] = useState(String(visibility_friends));
 	const {t} = useTranslation();
 	
+	/**
+	 * Closes the modal.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-10
+	 */
 	function closeModal() {
 		setIsOpen(false);
 	}
 	
+	/**
+	 * Opens the modal.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-10
+	 */
 	function openModal() {
 		setIsOpen(true);
 	}
