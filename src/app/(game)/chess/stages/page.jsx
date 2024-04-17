@@ -1,9 +1,9 @@
 "use client";
 
 import StagesCreateOpeningModal from "@ui/chess/stages/stages-create-opening-modal";
-import ProtectClientContent from "@/app/(auth)/components/protect-client-content";
-import StagesRepertoires from "@/app/chess/stages/components/stages-repertoires";
-import StagesOpenings from "@/app/chess/stages/components/stages-openings";
+import ProtectClientContent from "@auth/components/protect-client-content";
+import StagesRepertoires from "@/app/(game)/chess/stages/components/stages-repertoires";
+import StagesOpenings from "@/app/(game)/chess/stages/components/stages-openings";
 import Buffering from "@auth/components/fragment/Buffering";
 import {createClient} from "@/app/shared/utils/supabase/client";
 import React, {Suspense, useState} from "react";

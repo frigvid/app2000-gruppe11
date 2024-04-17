@@ -1,4 +1,4 @@
-import Buffering from "@/app/(auth)/components/fragment/Buffering";
+import Buffering from "@auth/components/fragment/Buffering";
 
 /**
  * A loading state for the training page.

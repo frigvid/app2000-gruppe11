@@ -1,6 +1,6 @@
 "use client";
 
-import RepertoireModal from "@/app/chess/stages/components/repertoire-modal";
+import RepertoireModal from "@/app/(game)/chess/stages/components/repertoire-modal";
 import Buffering from "@auth/components/fragment/Buffering";
 import React, {Suspense, useEffect, useState} from "react";
 import {createClient} from "@/app/shared/utils/supabase/client";
