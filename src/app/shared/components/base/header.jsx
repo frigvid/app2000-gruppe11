@@ -1,4 +1,7 @@
+"use client";
+
 import AccountMenu from "@auth/components/account-menu";
+import {useTranslation} from "react-i18next";
 import logoIcon from "/public/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,6 +17,8 @@ import Link from "next/link";
  * 			{@link #AccountMenu} slow to update.
  */
 export default function Header() {
+	const {t} = useTranslation();
+	
 	return (
 		<header className="bg-main lg:h-auto h-24 lg:py-2 py-4 md:py-0">
 			<nav className="mx-auto flex flex-col lg:flex-row max-w-7xl items-center justify-between lg:p-2 lg:px-8 lg:justify-start">
@@ -29,21 +34,21 @@ export default function Header() {
 							className="text-xl font-semibold leading-6 text-white hover:underline hover:underline-offset-8"
 							href="/"
 						>
-							Home
+							{t("header.home")}
 						</Link>
 						<span className="text-navseparator text-xl font-semibold leading-6">|</span>
 						<Link
 							className="text-xl font-semibold leading-6 text-white hover:underline hover:underline-offset-8"
 							href="/news"
 						>
-							News*
+							{t("header.news")}*
 						</Link>
 						<span className="text-navseparator text-xl font-semibold leading-6">|</span>
 						<Link
 							className="text-xl font-semibold leading-6 text-white hover:underline hover:underline-offset-8"
 							href="/docs"
 						>
-							Docs*
+							{t("header.docs")}*
 						</Link>
 					</div>
 				</div>
