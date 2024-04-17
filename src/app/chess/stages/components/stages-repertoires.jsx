@@ -113,7 +113,7 @@ export default function StagesRepertoires() {
 														className='p-4 bg-[#976646] rounded-md w-64 h-28 flex flex-col justify-between items-center text-white'
 													>
 														<h2 className='font-semibold'>{repertoire.title}</h2>
-														<RepertoireModal repertoire={repertoire}/>
+														<RepertoireModal repertoireObj={repertoire}/>
 													</div>
 												)
 											})
