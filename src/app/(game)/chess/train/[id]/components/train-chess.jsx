@@ -1,4 +1,4 @@
-import TrainPanel from "@ui/chess/training/train-panel";
+import TrainPanel from "@/app/(game)/chess/train/[id]/components/train-panel";
 import {useTranslation} from "react-i18next";
 import {Chessboard} from "react-chessboard";
 import {useState} from "react";

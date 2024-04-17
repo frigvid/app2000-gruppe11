@@ -1,6 +1,6 @@
 "use client";
 
-import TrainChess from "@ui/chess/training/train-chess";
+import TrainChess from "@/app/(game)/chess/train/[id]/components/train-chess";
 import {createClient} from "@/app/shared/utils/supabase/client";
 import {useEffect, useState} from "react";
 
