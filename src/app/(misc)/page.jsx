@@ -1,9 +1,9 @@
 "use client";
 
 import {FaChessKnight, FaPlay, FaHistory, FaArrowDown} from "react-icons/fa";
-import React, {useState, useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import Link from "next/link";
+import React from "react";
 
 /**
  * Homepage route.
