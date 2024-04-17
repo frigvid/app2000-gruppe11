@@ -1,47 +1,31 @@
 "use client";
 
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
 import React, {useState, useEffect, Fragment} from "react";
-import {Dialog, Transition} from "@headlessui/react";
-import {useTranslation} from "react-i18next";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import Tooltip from "@mui/material/Tooltip";
-import IconButton from "@mui/material/IconButton";
-import OpenInBrowserIcon from "@mui/icons-material/OpenInBrowser";
-import ProtectClientContent from "@auth/components/protect-client-content";
-import DeleteIcon from "@mui/icons-material/Delete";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import PersonIcon from "@mui/icons-material/Person";
-import Avatar from "@mui/material/Avatar";
 import ListItemText from "@mui/material/ListItemText";
+import {Dialog, Transition} from "@headlessui/react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import {createClient} from "@utils/supabase/client";
+import {Checkbox, TextField} from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Accordion from "@mui/material/Accordion";
+import ListItem from "@mui/material/ListItem";
+import {useUser} from "@auth/actions/useUser";
+import {useTranslation} from "react-i18next";
+import Tooltip from "@mui/material/Tooltip";
+import Edit from "@mui/icons-material/Edit";
 import Divider from "@mui/material/Divider";
 import Paper from "@mui/material/Paper";
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import PersonAddDisabled from "@mui/icons-material/PersonAddDisabled";
-import HowToReg from "@mui/icons-material/HowToReg";
-import {createClient} from "@utils/supabase/client";
+import List from "@mui/material/List";
 import Link from "next/link";
-import {useUser} from "@auth/actions/useUser";
-import Edit from "@mui/icons-material/Edit";
-import {Checkbox, TextField} from "@mui/material";
-import Button from "@mui/material/Button";
 
 /**
  * The repertoire modal, letting users view which openings is in it,
  * remove openings from it and add new ones, as well as delete the
  * repertoire and practice against it.
- *
- * TODO: Implement opening removal.
- * TODO: Implement repertoire editing.
- * FIXME: Investigate why some openings' CSS don't act the same as others,
- * 		 despite not seeming to have any clear similarity between each
- * 		 other. Note this regards specifically "Test" and a repertoire
- * 		 with just 1 opening in it.
  *
  * @author frigvid
  * @created 2024-04-16
