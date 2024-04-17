@@ -88,6 +88,14 @@ const resources = {
 					"label": "Password"
 				}
 			},
+			"header": {
+				"home": "Home",
+				"news": "News",
+				"docs": "Docs",
+			},
+			"footer": {
+				"notice": "All rights reserved."
+			},
 			"error": {
 				"500": {
 					"title": "Intern Server Feil.",
@@ -427,6 +435,14 @@ const resources = {
 				"password": {
 					"label": "Passord"
 				}
+			},
+			"header": {
+				"home": "Home",
+				"news": "News",
+				"docs": "Docs",
+			},
+			"footer": {
+				"notice": "Alle rettigheter forbeholdt."
 			},
 			"error": {
 				"500": {
