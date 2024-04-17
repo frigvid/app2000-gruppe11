@@ -173,7 +173,7 @@ CREATE TABLE IF NOT EXISTS
 		timestamp TIMESTAMPTZ NOT NULL DEFAULT (timezone('utc', now())),
 		/* Named this way to avoid naming collision with USER() in SELECTs. */
 		usr UUID,
-		title TEXT,
+		title TEXT DEFAULT (timezone('utc', now())),
 		description TEXT,
 		/* Array with opening IDs. */
 		openings JSONB,
