@@ -62,15 +62,23 @@ export default function StagesRepertoires() {
 				schema: 'public',
 				table: 'repertoire'
 			}, async (payload) => {
-				console.log("INSERT", payload);
 				setRepertoires(prevRepertoires => [...prevRepertoires, payload.new]);
+			})
+			.on('postgres_changes', {
+				event: 'UPDATE',
+				schema: 'public',
+				table: 'repertoire'
+			}, async (payload) => {
+				console.log("UPDATE", payload);
+				setRepertoires(prevRepertoires => prevRepertoires.map(repertoires => {
+					return repertoires.id === payload.new.id ? payload.new : repertoires;
+				}));
 			})
 			.on('postgres_changes', {
 				event: 'DELETE',
 				schema: 'public',
 				table: 'repertoire'
 			}, async (payload) => {
-				console.log("DELETE", payload);
 				setRepertoires(prevRepertoires => prevRepertoires.filter(repertoires => {
 					return repertoires.id !== payload.old.id
 				}));
