@@ -69,7 +69,6 @@ export default function StagesRepertoires() {
 				schema: 'public',
 				table: 'repertoire'
 			}, async (payload) => {
-				console.log("UPDATE", payload);
 				setRepertoires(prevRepertoires => prevRepertoires.map(repertoires => {
 					return repertoires.id === payload.new.id ? payload.new : repertoires;
 				}));
