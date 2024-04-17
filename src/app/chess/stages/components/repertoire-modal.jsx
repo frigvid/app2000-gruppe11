@@ -133,6 +133,7 @@ export default function RepertoireModal({repertoireObj}) {
 				table: 'repertoire'
 			}, async (payload) => {
 				setRepertoire(payload.new);
+				setCheckedOpenings(payload.new.openings);
 			})
 			.subscribe();
 		
@@ -162,6 +163,17 @@ export default function RepertoireModal({repertoireObj}) {
 	function openModal() {
 		setIsOpen(true);
 		setCheckedOpenings(repertoire.openings);
+	}
+	
+	/**
+	 * Checks if an opening is in the repertoire.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-18
+	 * @return {boolean} If the opening is in the repertoire or not.
+	 */
+	function isChecked(allOpeningID) {
+		return checkedOpenings.includes(allOpeningID);
 	}
 	
 	/**
@@ -207,15 +219,28 @@ export default function RepertoireModal({repertoireObj}) {
 													{opening[0].description}
 												</Typography>
 												{/* TODO: Implement these buttons. */}
-												<div className="flex flex-row justify-between">
+												<div className="flex flex-row justify-end">
 													<Tooltip title="Remove opening from this repertoire">
-														<IconButton aria-label="Remove opening from this repertoire">
+														<IconButton
+															aria-label="Remove opening from this repertoire"
+															onClick={async () => {
+																const newOpenings = repertoire.openings.filter(id => id !== opening[0].id);
+																
+																const {error} = await supabase
+																	.from('repertoire')
+																	.update({
+																		openings: newOpenings
+																	})
+																	.eq('id', repertoire.id);
+																
+																if (error) {
+																	console.error("Something went wrong when removing opening from repertoire!", error);
+																} else {
+																	setRepertoire({...repertoire, openings: newOpenings});
+																}
+															}}
+														>
 															<DeleteIcon color="error"/>
-														</IconButton>
-													</Tooltip>
-													<Tooltip title="Open in modal">
-														<IconButton aria-label="Open in modal">
-															<OpenInBrowserIcon/>
 														</IconButton>
 													</Tooltip>
 												</div>
@@ -266,17 +291,6 @@ export default function RepertoireModal({repertoireObj}) {
 				</section>
 			</>
 		)
-	}
-	
-	/**
-	 * Checks if an opening is in the repertoire.
-	 *
-	 * @author frigvid
-	 * @created 2024-04-18
-	 * @return {boolean} If the opening is in the repertoire or not.
-	 */
-	function isChecked(allOpeningID) {
-		return checkedOpenings.includes(allOpeningID);
 	}
 	
 	/**
