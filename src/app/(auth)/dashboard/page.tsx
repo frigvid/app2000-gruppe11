@@ -8,7 +8,7 @@ import Buffering from "@auth/components/fragment/Buffering";
 import UnauthorizedError from "@/app/shared/components/error/401_unauthorized";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
-import {createClient} from "@utils/supabase/client";
+import {createClient} from "@/app/shared/utils/supabase/client";
 import IconButton from "@mui/material/IconButton";
 import React, {useEffect, useState} from "react";
 import ListItem from "@mui/material/ListItem";

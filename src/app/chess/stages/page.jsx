@@ -5,7 +5,7 @@ import ProtectClientContent from "@/app/(auth)/components/protect-client-content
 import StagesRepertoires from "@/app/chess/stages/components/stages-repertoires";
 import StagesOpenings from "@/app/chess/stages/components/stages-openings";
 import Buffering from "@auth/components/fragment/Buffering";
-import {createClient} from "@utils/supabase/client";
+import {createClient} from "@/app/shared/utils/supabase/client";
 import React, {Suspense, useState} from "react";
 import {useTranslation} from "react-i18next";
 

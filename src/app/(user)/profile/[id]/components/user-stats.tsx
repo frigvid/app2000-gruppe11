@@ -1,6 +1,6 @@
 "use client";
 
-import {createClient} from "@utils/supabase/client";
+import {createClient} from "@/app/shared/utils/supabase/client";
 import React, {useEffect, useState} from "react";
 import {usePathname} from "next/navigation";
 import {useTranslation} from "react-i18next";

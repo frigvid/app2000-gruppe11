@@ -8,7 +8,7 @@ import FriendList from "@user/profile/[id]/components/friend-list";
 import UserStats from "@user/profile/[id]/components/user-stats";
 import Buffering from "@auth/components/fragment/Buffering";
 import UnauthorizedError from "@/app/shared/components/error/401_unauthorized";
-import {createClient} from "@utils/supabase/client";
+import {createClient} from "@/app/shared/utils/supabase/client";
 import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {usePathname} from "next/navigation";

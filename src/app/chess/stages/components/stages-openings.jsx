@@ -4,7 +4,7 @@ import StagesChessboardThumbnail from "@ui/chess/stages/stages-chessboard-thumbn
 import Buffering from "@auth/components/fragment/Buffering";
 import React, {Suspense, useEffect, useState} from "react";
 import StagesModal from "@ui/chess/stages/stages-modal";
-import {createClient} from "@utils/supabase/client";
+import {createClient} from "@/app/shared/utils/supabase/client";
 import withI18next from "@/app/shared/components/lang/with-i18next";
 import {useTranslation} from "react-i18next";
 import Tooltip from "@mui/material/Tooltip";

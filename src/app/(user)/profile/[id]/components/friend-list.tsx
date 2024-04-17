@@ -4,7 +4,7 @@ import ProtectClientContent from "@auth/components/protect-client-content";
 import OpenInBrowserIcon from "@mui/icons-material/OpenInBrowser";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
-import {createClient} from "@utils/supabase/client";
+import {createClient} from "@/app/shared/utils/supabase/client";
 import PersonIcon from "@mui/icons-material/Person";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";

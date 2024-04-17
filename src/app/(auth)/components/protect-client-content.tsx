@@ -1,6 +1,6 @@
 import Buffering from "@auth/components/fragment/Buffering";
 import UnauthorizedError from "@/app/shared/components/error/401_unauthorized";
-import { createClient } from "@utils/supabase/client";
+import { createClient } from "@/app/shared/utils/supabase/client";
 import React, {useEffect, useState} from "react";
 import Link from "next/link";
 
