@@ -1,4 +1,4 @@
-import {createClient} from "@/app/shared/utils/supabase/client";
+import {createClient} from "@shared/utils/supabase/client";
 
 /**
  * Updates the elo rating for a user.

@@ -1,9 +1,9 @@
 "use client";
 
 import AdminPanelSettings from "@mui/icons-material/AdminPanelSettings";
+import {createClient} from "@shared/utils/supabase/client";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Settings from "@mui/icons-material/Settings";
-import {createClient} from "@/app/shared/utils/supabase/client";
 import IconButton from "@mui/material/IconButton";
 import Person from "@mui/icons-material/Person";
 import Logout from "@mui/icons-material/Logout";

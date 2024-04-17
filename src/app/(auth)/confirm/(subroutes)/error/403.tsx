@@ -1,6 +1,6 @@
 "use client";
 
-import ForbiddenError from "@/app/shared/components/error/403_forbidden";
+import ForbiddenError from "@shared/components/error/403_forbidden";
 import Link from "next/link";
 
 /**

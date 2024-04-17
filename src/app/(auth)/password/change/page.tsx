@@ -1,9 +1,9 @@
 "use client";
 
 import PasswordDetails from "@auth/components/fragment/password-details";
+import withI18next from "@shared/components/lang/with-i18next";
+import {createClient} from "@shared/utils/supabase/client";
 import {FC, FormEvent, useEffect, useState} from "react";
-import {createClient} from "@/app/shared/utils/supabase/client";
-import withI18next from "@/app/shared/components/lang/with-i18next";
 import {useTranslation} from "react-i18next";
 import {useRouter} from "next/navigation";
 

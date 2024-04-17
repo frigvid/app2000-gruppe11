@@ -1,4 +1,4 @@
-import LanguageSwitcher from "@/app/shared/components/lang/language-switcher";
+import LanguageSwitcher from "@shared/components/lang/language-switcher";
 import React from "react";
 
 /**

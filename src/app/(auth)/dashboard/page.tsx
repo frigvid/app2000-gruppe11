@@ -3,12 +3,12 @@
 import VerticalAlignBottomIcon from "@mui/icons-material/VerticalAlignBottom";
 import WarnBeforeDelete from "@auth/dashboard/components/warn-before-delete";
 import ProtectClientContent from "@auth/components/protect-client-content";
+import UnauthorizedError from "@shared/components/error/401_unauthorized";
 import VerticalAlignTopIcon from "@mui/icons-material/VerticalAlignTop";
 import Buffering from "@auth/components/fragment/Buffering";
-import UnauthorizedError from "@/app/shared/components/error/401_unauthorized";
+import {createClient} from "@shared/utils/supabase/client";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
-import {createClient} from "@/app/shared/utils/supabase/client";
 import IconButton from "@mui/material/IconButton";
 import React, {useEffect, useState} from "react";
 import ListItem from "@mui/material/ListItem";

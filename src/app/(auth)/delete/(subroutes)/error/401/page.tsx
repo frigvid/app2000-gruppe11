@@ -1,6 +1,6 @@
 "use client";
 
-import UnauthorizedError from "@/app/shared/components/error/401_unauthorized";
+import UnauthorizedError from "@shared/components/error/401_unauthorized";
 import Link from "next/link";
 
 /**

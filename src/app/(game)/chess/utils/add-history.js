@@ -1,4 +1,4 @@
-import {createClient} from "@/app/shared/utils/supabase/client";
+import {createClient} from "@shared/utils/supabase/client";
 
 /**
  * To be finished, but is used to add an array containing multiple fen strings and adds to a history table.

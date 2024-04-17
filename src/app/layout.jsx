@@ -1,6 +1,6 @@
+import Header from "@shared/components/base/header";
+import Footer from "@shared/components/base/footer";
 import {Inter} from "next/font/google";
-import Header from "@/app/shared/components/base/header";
-import Footer from "@/app/shared/components/base/footer";
 import "@/app/globals.css";
 /**
  * Do not remove, is in use when starting the translation.

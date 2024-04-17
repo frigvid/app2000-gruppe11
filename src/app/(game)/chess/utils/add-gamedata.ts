@@ -1,4 +1,4 @@
-import {createClient} from "@/app/shared/utils/supabase/client";
+import {createClient} from "@shared/utils/supabase/client";
 
 /**
  * This function is used to add data to the public.gamedata table

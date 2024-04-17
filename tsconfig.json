@@ -1,11 +1,11 @@
 {
 	"compilerOptions": {
 		"paths": {
-			"@utils/*": ["./src/app/utils/*"],
 			"@auth/*": ["./src/app/(auth)/*"],
+			"@game/*": ["./src/app/(game)/*"],
+			"@misc/*": ["./src/app/(misc)/*"],
 			"@user/*": ["./src/app/(user)/*"],
-			"@lib/*": ["./src/app/lib/*"],
-			"@ui/*": ["./src/app/ui/*"],
+			"@shared/*": ["./src/app/shared/*"],
 			"@/*": [
 				"./src/*"
 			]

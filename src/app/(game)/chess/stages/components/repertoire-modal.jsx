@@ -3,11 +3,11 @@
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
+import {createClient} from "@shared/utils/supabase/client";
 import React, {useState, useEffect, Fragment} from "react";
 import ListItemText from "@mui/material/ListItemText";
 import {Dialog, Transition} from "@headlessui/react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {createClient} from "@/app/shared/utils/supabase/client";
 import {Checkbox, TextField} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";

@@ -1,8 +1,8 @@
 import StagesChessboardThumbnail from "@/app/(game)/chess/stages/components/stages-chessboard-thumbnail";
+import {createClient} from "@shared/utils/supabase/client";
 import {Dialog, Transition} from "@headlessui/react";
 import {Fragment, useEffect, useState} from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {createClient} from "@/app/shared/utils/supabase/client";
 import IconButton from "@mui/material/IconButton";
 import SaveIcon from '@mui/icons-material/Save';
 import {useUser} from "@auth/actions/useUser";

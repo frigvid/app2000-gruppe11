@@ -1,6 +1,6 @@
 "use server";
 
-import {createClient} from "@/app/shared/utils/supabase/server";
+import {createClient} from "@shared/utils/supabase/server";
 import {redirect, RedirectType} from "next/navigation";
 import {cookies} from "next/headers";
 

@@ -2,11 +2,11 @@
 
 import PersonAddDisabled from '@mui/icons-material/PersonAddDisabled';
 import React, {Fragment, useEffect, useState} from "react";
+import {createClient} from "@shared/utils/supabase/client";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import {Dialog, Transition} from "@headlessui/react";
 import HowToReg from "@mui/icons-material/HowToReg";
-import {createClient} from "@/app/shared/utils/supabase/client";
 import PersonIcon from "@mui/icons-material/Person";
 import IconButton from "@mui/material/IconButton";
 import HailIcon from "@mui/icons-material/Hail";

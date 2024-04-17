@@ -1,7 +1,7 @@
 "use client";
 
 import Buffering from "@auth/components/fragment/Buffering";
-import {createClient} from "@/app/shared/utils/supabase/client";
+import {createClient} from "@shared/utils/supabase/client";
 import React, {useState, useEffect} from "react";
 import {useUser} from "@auth/actions/useUser";
 import {useTranslation} from "react-i18next";

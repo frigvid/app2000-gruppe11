@@ -1,9 +1,9 @@
 "use client";
 
 import React, {Fragment, useEffect, useState} from "react";
+import {createClient} from "@shared/utils/supabase/client";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import {Dialog, Transition} from "@headlessui/react";
-import {createClient} from "@/app/shared/utils/supabase/client";
 import {useTranslation} from "react-i18next";
 import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";

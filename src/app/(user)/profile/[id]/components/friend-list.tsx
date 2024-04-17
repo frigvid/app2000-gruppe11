@@ -2,9 +2,10 @@
 
 import ProtectClientContent from "@auth/components/protect-client-content";
 import OpenInBrowserIcon from "@mui/icons-material/OpenInBrowser";
+import {createClient} from "@shared/utils/supabase/client";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
+import {usePathname, useRouter} from "next/navigation";
 import ListItemText from "@mui/material/ListItemText";
-import {createClient} from "@/app/shared/utils/supabase/client";
 import PersonIcon from "@mui/icons-material/Person";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
@@ -15,7 +16,6 @@ import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
 import {User} from "@supabase/supabase-js";
 import Avatar from "@mui/material/Avatar";
-import {usePathname, useRouter} from "next/navigation";
 import Paper from "@mui/material/Paper";
 import List from "@mui/material/List";
 

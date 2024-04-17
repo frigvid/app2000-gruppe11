@@ -3,7 +3,7 @@
 import RepertoireModal from "@/app/(game)/chess/stages/components/repertoire-modal";
 import Buffering from "@auth/components/fragment/Buffering";
 import React, {Suspense, useEffect, useState} from "react";
-import {createClient} from "@/app/shared/utils/supabase/client";
+import {createClient} from "@shared/utils/supabase/client";
 import {useTranslation} from "react-i18next";
 
 /**

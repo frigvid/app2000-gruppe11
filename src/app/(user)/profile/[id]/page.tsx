@@ -4,11 +4,11 @@ import PendingFriendRequests from "@user/profile/[id]/components/pending-friend-
 import UserProfileEditor from "@user/profile/[id]/components/user-profile-editor";
 import SearchForFriend from "@user/profile/[id]/components/search-for-friend";
 import ProtectClientContent from "@auth/components/protect-client-content";
+import UnauthorizedError from "@shared/components/error/401_unauthorized";
 import FriendList from "@user/profile/[id]/components/friend-list";
 import UserStats from "@user/profile/[id]/components/user-stats";
 import Buffering from "@auth/components/fragment/Buffering";
-import UnauthorizedError from "@/app/shared/components/error/401_unauthorized";
-import {createClient} from "@/app/shared/utils/supabase/client";
+import {createClient} from "@shared/utils/supabase/client";
 import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {usePathname} from "next/navigation";
