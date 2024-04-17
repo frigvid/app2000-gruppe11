@@ -9,10 +9,14 @@ import Link from "next/link";
 /**
  * Header component.
  *
- * Only used in root-layout.
+ * FIXME: You can translate the header, however, it doesn't
+ * 		 look that good even if you do. It's a CSS issue,
+ * 		 mostly, but given the lack of time remaining, it's
+ * 		 just being kept to English.
  *
  * @author frigvid
  * @contributor jarle0
+ * @created 2024-01-18
  * @warning There's a known issue of including this in the root layout, as it rarely re-draws, which makes the
  * 			{@link #AccountMenu} slow to update.
  */
