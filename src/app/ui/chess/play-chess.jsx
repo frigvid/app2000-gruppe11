@@ -1,7 +1,8 @@
+import ProtectClientContent from "@auth/components/protect-client-content";
+import removeGamedata from "@utils/game/remove-gamedata";
 import {addGamedata} from "@utils/game/add-gamedata";
 import {updateElo} from "@utils/game/update-elo";
 import withI18next from "@ui/lang/with-i18next";
-import DeleteData from "@ui/chess/delete-data";
 import {useUser} from "@auth/actions/useUser";
 import {useTranslation} from "react-i18next";
 import {Chessboard} from "react-chessboard";
@@ -23,7 +24,7 @@ function PlayChess() {
 
 	/* State variables for game, score, and status. */
 	const [game, setGame] = useState(new Chess());
-	const [score, setScore] = useState({ wins: 0, losses: 0 });
+	const [score, setScore] = useState({wins: 0, losses: 0});
 	const [boardPosition, setBoardPosition] = useState(game.fen());
 	const [status, setStatus] = useState(t("chess.full_game.status.ongoing"));
 	const [turn, setTurn] = useState(0);
@@ -55,8 +56,6 @@ function PlayChess() {
 		return true;
 	}
 
-	//
-	//c
 	/**
 	 * Function where "Bot" does a random legal move after
 	 * player has played a move.
@@ -224,9 +223,32 @@ function PlayChess() {
 					{t("chess.full_game.panel.undo")}
 				</button>
 				{
-					/* Only show this button if you're logged in. */
-					user ? <DeleteData/> : null
+					/**
+					 * Only show this button if you're logged in.
+					 *
+					 * Switched the old method out for using ProtectClientContent instead.
+					 * However, this is still scheduled for removal/refactor. Due to the
+					 * changes coming.
+					 *
+					 * NOTE: Current implementation will become obsolete soon, when game
+					 * 		data is calculated relative to their total game history
+					 * 		instead.
+					 *
+					 * @author frigvid
+					 * @created 2024-04-18
+					 * @note Originally created 2024-02-05
+					 */
 				}
+				<ProtectClientContent showError={false} noBuffer={true}>
+					<button
+						className="bg-buttoncolor w-full inline-block rounded px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger mt-4 hover:bg-[#976646] py-2"
+						onClick={async () => {
+							void removeGamedata(user.id);
+						}}
+					>
+						{t("chess.generics.delete_data")}
+					</button>
+				</ProtectClientContent>
 			</div>
 			<div className="w-full md:w-96 md:order-2 order-1 mt-4 md:mt-0 mb-4 md:mb-0 relative">
 				<Chessboard position={boardPosition} onPieceDrop={onDrop}/>
