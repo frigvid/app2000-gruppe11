@@ -2,7 +2,7 @@ import ProtectClientContent from "@auth/components/protect-client-content";
 import removeGamedata from "@utils/game/remove-gamedata";
 import {addGamedata} from "@utils/game/add-gamedata";
 import {updateElo} from "@utils/game/update-elo";
-import withI18next from "@ui/lang/with-i18next";
+import withI18next from "@/app/shared/components/lang/with-i18next";
 import {useUser} from "@auth/actions/useUser";
 import {useTranslation} from "react-i18next";
 import {Chessboard} from "react-chessboard";

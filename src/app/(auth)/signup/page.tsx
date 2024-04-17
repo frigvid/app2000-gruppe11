@@ -2,7 +2,7 @@
 
 import PasswordDetails from "@auth/components/fragment/password-details";
 import signUpSA from "@auth/signup/actions/sign-up-sa";
-import withI18next from "@ui/lang/with-i18next";
+import withI18next from "@/app/shared/components/lang/with-i18next";
 import {useTranslation} from "react-i18next";
 import WordDivider from "@ui/word-divider";
 import Link from "next/link";

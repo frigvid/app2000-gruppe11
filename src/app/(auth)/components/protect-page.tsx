@@ -1,6 +1,6 @@
 "use server";
 
-import UnauthorizedError from "@ui/error/401_unauthorized";
+import UnauthorizedError from "@/app/shared/components/error/401_unauthorized";
 import {createClient} from "@utils/supabase/server";
 import {cookies} from "next/headers";
 import Link from "next/link";

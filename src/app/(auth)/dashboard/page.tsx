@@ -5,7 +5,7 @@ import WarnBeforeDelete from "@auth/dashboard/components/warn-before-delete";
 import ProtectClientContent from "@auth/components/protect-client-content";
 import VerticalAlignTopIcon from "@mui/icons-material/VerticalAlignTop";
 import Buffering from "@auth/components/fragment/Buffering";
-import UnauthorizedError from "@ui/error/401_unauthorized";
+import UnauthorizedError from "@/app/shared/components/error/401_unauthorized";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import {createClient} from "@utils/supabase/client";

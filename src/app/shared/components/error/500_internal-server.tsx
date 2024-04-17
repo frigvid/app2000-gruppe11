@@ -1,4 +1,4 @@
-import withI18next from "@ui/lang/with-i18next";
+import withI18next from "@/app/shared/components/lang/with-i18next";
 import {useTranslation} from "react-i18next";
 
 /**
