@@ -1,4 +1,4 @@
-import OpeningCreator from "@ui/chess/stages/opening-creator";
+import OpeningCreator from "@/app/(game)/chess/stages/components/opening-creator";
 import {Dialog, Transition} from "@headlessui/react";
 import {useTranslation} from "react-i18next";
 import {Fragment, useState} from "react";

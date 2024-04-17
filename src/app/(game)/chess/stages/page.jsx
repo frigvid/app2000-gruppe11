@@ -1,6 +1,6 @@
 "use client";
 
-import StagesCreateOpeningModal from "@ui/chess/stages/stages-create-opening-modal";
+import StagesCreateOpeningModal from "@/app/(game)/chess/stages/components/stages-create-opening-modal";
 import ProtectClientContent from "@auth/components/protect-client-content";
 import StagesRepertoires from "@/app/(game)/chess/stages/components/stages-repertoires";
 import StagesOpenings from "@/app/(game)/chess/stages/components/stages-openings";

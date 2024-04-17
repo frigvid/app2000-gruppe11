@@ -1,4 +1,4 @@
-import StagesChessboardThumbnail from "@ui/chess/stages/stages-chessboard-thumbnail";
+import StagesChessboardThumbnail from "@/app/(game)/chess/stages/components/stages-chessboard-thumbnail";
 import {Dialog, Transition} from "@headlessui/react";
 import {Fragment, useEffect, useState} from "react";
 import DeleteIcon from "@mui/icons-material/Delete";

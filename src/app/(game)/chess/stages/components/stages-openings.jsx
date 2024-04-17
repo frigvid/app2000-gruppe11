@@ -1,9 +1,9 @@
 "use client";
 
-import StagesChessboardThumbnail from "@ui/chess/stages/stages-chessboard-thumbnail";
+import StagesChessboardThumbnail from "@/app/(game)/chess/stages/components/stages-chessboard-thumbnail";
 import Buffering from "@auth/components/fragment/Buffering";
 import React, {Suspense, useEffect, useState} from "react";
-import StagesModal from "@ui/chess/stages/stages-modal";
+import StagesModal from "@/app/(game)/chess/stages/components/stages-modal";
 import {createClient} from "@/app/shared/utils/supabase/client";
 import withI18next from "@/app/shared/components/lang/with-i18next";
 import {useTranslation} from "react-i18next";
