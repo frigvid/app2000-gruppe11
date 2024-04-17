@@ -27,7 +27,7 @@ export default function Header() {
 					<div className="flex space-x-4 lg:space-x-12 lg:space-y-0">
 						<Link
 							className="text-xl font-semibold leading-6 text-white hover:underline hover:underline-offset-8"
-							href="/public"
+							href="/"
 						>
 							Home
 						</Link>
