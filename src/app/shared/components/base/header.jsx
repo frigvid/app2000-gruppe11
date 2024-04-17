@@ -19,7 +19,7 @@ export default function Header() {
 			<nav className="mx-auto flex flex-col lg:flex-row max-w-7xl items-center justify-between lg:p-2 lg:px-8 lg:justify-start">
 				<div className="flex lg:flex-1">
 					<Link href={'/'} className="hidden lg:block">
-						<Image className="h-16" src={logoIcon} alt={"Chess Buddy logo image."}/>
+						<Image className="h-16" src={logoIcon} alt={"Chess Buddy logo image."} priority={true}/>
 					</Link>
 				</div>
 				{/* FIXME: On viewports like the iPhone SE, it appears the Link elements stop being clickable. */}
