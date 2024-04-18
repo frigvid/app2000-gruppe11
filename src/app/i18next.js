@@ -88,6 +88,11 @@ const resources = {
 					"label": "Password"
 				}
 			},
+			"cookie_banner": {
+				"label": "This website uses cookies",
+				"body": "This website relies on cookies for authentication. These are critical cookies, and cannot be disabled; unless you do not want to be able to log in.",
+				"button": "Okay"
+			},
 			"header": {
 				"home": "Home",
 				"news": "News",
@@ -435,6 +440,11 @@ const resources = {
 				"password": {
 					"label": "Passord"
 				}
+			},
+			"cookie_banner": {
+				"label": "Denne nettsiden benytter informasjonskapsler",
+				"body": "$t(cookie_banner.label) for brukerautentisering. Disse er kritiske informasjonskapsler, og kan ikke deaktiveres; foruten at du ikke ønsker å kunne logge inn.",
+				"button": "Ok"
 			},
 			"header": {
 				"home": "Home",

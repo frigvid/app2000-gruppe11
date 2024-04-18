@@ -3,7 +3,8 @@
 import withI18next from "@shared/components/lang/with-i18next";
 import Header from "@shared/components/base/header";
 import Footer from "@shared/components/base/footer";
-import {ReactNode} from "react";
+import {ReactNode, useEffect, useState} from "react";
+import CookieBanner from "@shared/components/base/cookie-banner";
 
 /**
  * A nested layout for the `(game)` route group.
@@ -17,10 +18,30 @@ function GameLayout({
 }: {
 	children: ReactNode
 }) {
+	const [cookieBanner, setCookieBanner] = useState(false);
+	
+	/**
+	 * Check if the cookie banner should appear or not.
+	 *
+	 * If either null, or false, it should appear. As
+	 * the users need to be informed about the use of
+	 * cookies, to be compliant with GDPR.
+	 *
+	 * I'm not going to say this is a pretty solution,
+	 * but it works.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-19
+	 */
+	useEffect(() => {
+		setCookieBanner((localStorage?.getItem("cookieBanner") === null || localStorage?.getItem("cookieBanner") === "false"));
+	}, []);
+	
 	return (
 		<>
 			<Header/>
 			{children}
+			{cookieBanner && (<CookieBanner/>)}
 			<Footer/>
 		</>
 	)
