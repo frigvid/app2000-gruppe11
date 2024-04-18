@@ -63,14 +63,20 @@ export default function CookieBanner() {
 						}}
 					>
 						<Stack
-							direction={{ xs: 'column', sm: 'row' }}
+							direction={{
+								xs: 'column',
+								sm: 'row'
+							}}
 							justifyContent="space-between"
 							gap={2}
 						>
 							<Box
 								sx={{
 									flexShrink: 1,
-									alignSelf: { xs: 'flex-start', sm: 'center' },
+									alignSelf: {
+										xs: 'flex-start',
+										sm: 'center'
+									},
 								}}
 							>
 								<Typography fontWeight="bold">
@@ -88,7 +94,9 @@ export default function CookieBanner() {
 								}}
 								sx={{
 									flexShrink: 0,
-									alignSelf: { xs: 'flex-end', sm: 'center' },
+									alignSelf: {
+										xs: 'flex-end',
+										sm: 'center'},
 								}}
 							>
 								<Button
