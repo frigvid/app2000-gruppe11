@@ -53,12 +53,12 @@ export default function CookieBanner() {
 						tabIndex={-1}
 						sx={{
 							position: 'fixed',
-							bottom: 0,
+							top: 0,
 							left: 0,
 							right: 0,
 							m: 0,
-							p: 2,
-							borderWidth: 0,
+							p: 3,
+							borderWidth: 2,
 							borderTopWidth: 1,
 						}}
 					>
