@@ -15,7 +15,7 @@ export type Database = {
           created_at: string
           created_by: string
           id: string
-          is_published: boolean | null
+          is_published: boolean
           modified_at: string
           summary: string | null
           title: string
@@ -25,8 +25,8 @@ export type Database = {
           created_at?: string
           created_by: string
           id?: string
-          is_published?: boolean | null
-          modified_at: string
+          is_published?: boolean
+          modified_at?: string
           summary?: string | null
           title: string
         }
@@ -35,7 +35,7 @@ export type Database = {
           created_at?: string
           created_by?: string
           id?: string
-          is_published?: boolean | null
+          is_published?: boolean
           modified_at?: string
           summary?: string | null
           title?: string
@@ -56,7 +56,7 @@ export type Database = {
           created_at: string
           created_by: string
           id: string
-          is_published: boolean | null
+          is_published: boolean
           modified_at: string
           summary: string | null
           title: string
@@ -66,8 +66,8 @@ export type Database = {
           created_at?: string
           created_by: string
           id?: string
-          is_published?: boolean | null
-          modified_at: string
+          is_published?: boolean
+          modified_at?: string
           summary?: string | null
           title: string
         }
@@ -76,7 +76,7 @@ export type Database = {
           created_at?: string
           created_by?: string
           id?: string
-          is_published?: boolean | null
+          is_published?: boolean
           modified_at?: string
           summary?: string | null
           title?: string
@@ -226,7 +226,7 @@ export type Database = {
           created_at: string
           created_by: string
           id: string
-          is_published: boolean | null
+          is_published: boolean
           modified_at: string
           summary: string | null
           title: string
@@ -236,8 +236,8 @@ export type Database = {
           created_at?: string
           created_by: string
           id?: string
-          is_published?: boolean | null
-          modified_at: string
+          is_published?: boolean
+          modified_at?: string
           summary?: string | null
           title: string
         }
@@ -246,7 +246,7 @@ export type Database = {
           created_at?: string
           created_by?: string
           id?: string
-          is_published?: boolean | null
+          is_published?: boolean
           modified_at?: string
           summary?: string | null
           title?: string

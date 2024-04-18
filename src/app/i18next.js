@@ -20,9 +20,6 @@ import i18n from "i18next";
 const resources = {
 	en: {
 		translation: {// Translation keys and their English text
-			"home": "Home",
-			"news": "News",
-			"docs": "Docs",
 			"title": "Chess Buddy",
 			"train_openings": "Train Openings",
 			"play_now": "Play Now",
@@ -403,14 +400,26 @@ const resources = {
 					},
 					"alert": "Can't undo. game has already been completed."
 				}
+			},
+			"news": {
+				"title": "$t(header.news)",
+				"publishing": {
+					"part1": "Are you sure you want to",
+					"part2": "the news item",
+					"publish": "publish",
+					"unpublish": "unpublish"
+				},
+				"item": {
+					"created_by": "Written by",
+					"created_at": "Created",
+					"modified_at": "Modified",
+					"summary": "Summary"
+				}
 			}
 		}
 	},
 	no: {
 		translation: {// Translation keys and their Norwegian text
-			"home": "Hjem",
-			"news": "Nyheter",
-			"docs": "Dokumentasjon",
 			"title": "Chess Buddy",
 			"train_openings": "Tren Åpninger",
 			"play_now": "Spill Nå",
@@ -783,6 +792,21 @@ const resources = {
 						"undo": "Angre trekk"
 					},
 					"alert": "Kan ikke angre trekk, spiller er fullført."
+				}
+			},
+			"news": {
+				"title": "$t(header.news)",
+				"publishing": {
+					"part1": "Er du sikker på at du vil",
+					"part2": "denne nyheten",
+					"publish": "publisere",
+					"unpublish": "upublisere"
+				},
+				"item": {
+					"created_by": "Skrevet av",
+					"created_at": "Opprettet",
+					"modified_at": "Endret",
+					"summary": "Sammendrag"
 				}
 			}
 		}

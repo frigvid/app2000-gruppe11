@@ -45,7 +45,7 @@ export default function Header() {
 							className="text-xl font-semibold leading-6 text-white hover:underline hover:underline-offset-8"
 							href="/news"
 						>
-							{t("header.news")}*
+							{t("header.news")}
 						</Link>
 						<span className="text-navseparator text-xl font-semibold leading-6">|</span>
 						<Link

@@ -192,14 +192,14 @@ CREATE TABLE IF NOT EXISTS
 		id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 		created_at TIMESTAMPTZ NOT NULL DEFAULT (timezone('utc', now())),
 		/* Changed using a TRIGGER. */
-		modified_at TIMESTAMPTZ NOT NULL,
+		modified_at TIMESTAMPTZ NOT NULL DEFAULT (timezone('utc', now())),
 		created_by UUID NOT NULL,
 		title TEXT NOT NULL,
 		summary TEXT NULL,
 		content TEXT NULL,
 		/* Used to check if "news" are still drafts, or if they've been published.
 		 * A superuser is necessary to see them in the UI if FALSE. */
-		is_published BOOLEAN DEFAULT TRUE,
+		is_published BOOLEAN NOT NULL DEFAULT TRUE,
 		FOREIGN KEY (created_by) REFERENCES auth.users (id)
 	);
 
@@ -215,14 +215,14 @@ CREATE TABLE IF NOT EXISTS
 		id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 		created_at TIMESTAMPTZ NOT NULL DEFAULT (timezone('utc', now())),
 		/* Changed using a TRIGGER. */
-		modified_at TIMESTAMPTZ NOT NULL,
+		modified_at TIMESTAMPTZ NOT NULL DEFAULT (timezone('utc', now())),
 		created_by UUID NOT NULL,
 		title TEXT NOT NULL,
 		summary TEXT NULL,
 		content TEXT NULL,
 		/* Used to check if "docs" are still drafts, or if they've been published.
 		 * A superuser is necessary to see them in the UI if FALSE. */
-		is_published BOOLEAN DEFAULT TRUE,
+		is_published BOOLEAN NOT NULL DEFAULT TRUE,
 		FOREIGN KEY (created_by) REFERENCES auth.users (id)
 	);
 
@@ -238,14 +238,14 @@ CREATE TABLE IF NOT EXISTS
 		id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 		created_at TIMESTAMPTZ NOT NULL DEFAULT (timezone('utc', now())),
 		/* Changed using a TRIGGER. */
-		modified_at TIMESTAMPTZ NOT NULL,
+		modified_at TIMESTAMPTZ NOT NULL DEFAULT (timezone('utc', now())),
 		created_by UUID NOT NULL,
 		title TEXT NOT NULL,
 		summary TEXT NULL,
 		content TEXT NULL,
 		/* Used to check if "faq" are still drafts, or if they've been published.
 		 * A superuser is necessary to see them in the UI if FALSE. */
-		is_published BOOLEAN DEFAULT TRUE,
+		is_published BOOLEAN NOT NULL DEFAULT TRUE,
 		FOREIGN KEY (created_by) REFERENCES auth.users (id)
 	);
 
@@ -269,6 +269,9 @@ ALTER PUBLICATION supabase_realtime ADD TABLE public.gamedata;
 ALTER PUBLICATION supabase_realtime ADD TABLE public.profiles;
 ALTER PUBLICATION supabase_realtime ADD TABLE public.friends;
 ALTER PUBLICATION supabase_realtime ADD TABLE public.friend_requests;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.news;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.faq;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.docs;
 
 
 
@@ -293,20 +296,12 @@ ALTER TABLE news ENABLE ROW LEVEL SECURITY;
  * Description: Grant read-write access to admins.
  * ============================================= */
 CREATE POLICY news_rw_as_admin
-ON news
+ON public.news
+AS PERMISSIVE
 FOR ALL
 TO authenticated
-USING (
-	EXISTS (
-		SELECT 1 FROM auth.users
-		WHERE id = auth.uid() AND is_super_admin = TRUE
-	)
-)
 WITH CHECK (
-	EXISTS (
-		SELECT 1 FROM auth.users
-		WHERE id = auth.uid() AND is_super_admin = TRUE
-	)
+	admin_is_admin() = TRUE
 );
 
 /* =============================================
@@ -316,10 +311,29 @@ WITH CHECK (
  *              created rows.
  * ============================================= */
 CREATE POLICY news_r_to_published
-ON news
+ON public.news
+AS PERMISSIVE
 FOR SELECT
-TO anon, authenticated
-USING (is_published = TRUE);
+TO authenticated, anon
+USING (
+	is_published = TRUE
+);
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-19
+ * Description: Grants read access to unpublished
+ *              news for administrators.
+ * ============================================= */
+CREATE POLICY news_r_to_unpublished_as_admin
+ON public.news
+AS PERMISSIVE
+FOR SELECT
+TO authenticated
+USING (
+	admin_is_admin() = TRUE AND
+	is_published = FALSE
+);
 
 
 /* DOCS POLICIES */
