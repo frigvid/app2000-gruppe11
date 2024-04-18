@@ -264,7 +264,7 @@ export default function StagesModal({created_by, title, details, id, pgn}) {
 												</div>
 											</div>
 											<div className="lg:absolute lg:top-0 lg:right-0 lg:mr-[3rem] lg:mt-[3rem]">
-												<StagesChessboardThumbnail pgn={pgn} width={300}/>
+												<StagesChessboardThumbnail interactive={true} pgn={pgn} width={300}/>
 											</div>
 										</div>
 										<div className="flex flex-row justify-between">
