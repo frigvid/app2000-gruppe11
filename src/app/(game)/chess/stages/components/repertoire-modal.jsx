@@ -267,7 +267,7 @@ export default function RepertoireModal({repertoireObj}) {
 					<div>
 						<Link
 							className="w-full inline-flex justify-center rounded-md border border-transparent bg-buttoncolor px-4 py-2 text-sm font-medium text-black hover:text-white hover:bg-[#9c8064] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-							href={`/chess/train/${repertoire.id}`}
+							href={`/chess/train/repertoire/${repertoire.id}`}
 						>
 							{t("chess.repertoire.groups.train")}
 						</Link>

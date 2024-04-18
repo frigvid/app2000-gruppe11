@@ -1,7 +1,7 @@
 import TrainPanel from "@/app/(game)/chess/train/[id]/components/train-panel";
 import {useTranslation} from "react-i18next";
 import {Chessboard} from "react-chessboard";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Chess} from "chess.js";
 
 /**
@@ -113,6 +113,19 @@ export default function TrainChess({pgn}) {
 		
 		return true;
 	}
+
+	/**
+	 * Resets the Chess game and board position when the pgn parameter is changed
+	 */
+	useEffect(() => {
+		const newGame = new Chess();
+		setGame(newGame);
+		setBoardPosition(newGame.fen());
+		setPlayerTurn(0);
+		setBotTurn(1);
+		console.log("rerender");
+	}, [pgn])
+
 
 	/**
 	 * Handles the event when a piece is dropped onto a square.
