@@ -280,7 +280,7 @@ ALTER PUBLICATION supabase_realtime ADD TABLE public.docs;
 /*********************************************
  *															*
  *			ROW LEVEL SECURITY & POLICIES			*
- *															*
+ *				(Insert order sensitive)			*
  ********************************************/
 
 
@@ -289,20 +289,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE public.docs;
 
 /* NEWS POLICIES */
 ALTER TABLE news ENABLE ROW LEVEL SECURITY;
-
-/* =============================================
- * Author:      frigvid
- * Create date: 2024-04-13
- * Description: Grant read-write access to admins.
- * ============================================= */
-CREATE POLICY news_rw_as_admin
-ON public.news
-AS PERMISSIVE
-FOR ALL
-TO authenticated
-WITH CHECK (
-	admin_is_admin() = TRUE
-);
 
 /* =============================================
  * Author:      frigvid
@@ -334,6 +320,21 @@ USING (
 	admin_is_admin() = TRUE AND
 	is_published = FALSE
 );
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-13
+ * Description: Grant read-write access to admins.
+ * ============================================= */
+CREATE POLICY news_rw_as_admin
+ON public.news
+AS PERMISSIVE
+FOR ALL
+TO authenticated
+USING (
+	admin_is_admin() = TRUE
+);
+
 
 
 /* DOCS POLICIES */
