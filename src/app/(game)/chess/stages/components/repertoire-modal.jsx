@@ -1,5 +1,6 @@
 "use client";
 
+import ConfirmBeforeAction from "@shared/components/misc/confirm-before-action";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -207,29 +208,31 @@ export default function RepertoireModal({repertoireObj}) {
 													{opening[0].description}
 												</Typography>
 												<div className="flex flex-row justify-end">
-													<Tooltip title={t("chess.repertoire.groups.opening_delete")}>
-														<IconButton
-															aria-label={t("chess.repertoire.groups.opening_delete")}
-															onClick={async () => {
-																const newOpenings = repertoire.openings.filter(id => id !== opening[0].id);
-																
-																const {error} = await supabase
-																	.from('repertoire')
-																	.update({
-																		openings: newOpenings
-																	})
-																	.eq('id', repertoire.id);
-																
-																if (error) {
-																	console.error("Something went wrong when removing opening from repertoire!", error);
-																} else {
-																	setRepertoire({...repertoire, openings: newOpenings});
-																}
-															}}
-														>
-															<DeleteIcon color="error"/>
-														</IconButton>
-													</Tooltip>
+													<ConfirmBeforeAction
+														confirmMessage={`${t("chess.repertoire.groups.confirm.part1")} '${opening[0].title}' ${t("chess.repertoire.groups.confirm.part2")}`}
+														onConfirm={async () => {
+															const newOpenings = repertoire.openings.filter(id => id !== opening[0].id);
+															
+															const {error} = await supabase
+																.from('repertoire')
+																.update({
+																	openings: newOpenings
+																})
+																.eq('id', repertoire.id);
+															
+															if (error) {
+																console.error("Something went wrong when removing opening from repertoire!", error);
+															} else {
+																setRepertoire({...repertoire, openings: newOpenings});
+															}
+														}}
+													>
+														<Tooltip title={t("chess.repertoire.groups.opening_delete")}>
+															<IconButton aria-label={t("chess.repertoire.groups.opening_delete")}>
+																<DeleteIcon color="error"/>
+															</IconButton>
+														</Tooltip>
+													</ConfirmBeforeAction>
 												</div>
 											</AccordionDetails>
 										</Accordion>
@@ -245,25 +248,29 @@ export default function RepertoireModal({repertoireObj}) {
 							(user?.id !== repertoire.usr)
 								? null
 								: (
-									<Tooltip title={t("chess.repertoire.groups.delete.tooltip")}>
-										<IconButton
-											size="small"
-											onClick={async () => {
-												const {error} = await supabase
-													.from('repertoire')
-													.delete()
-													.eq('id', repertoire.id);
-												
-												if (error) {
-													console.error("Something went wrong when deleting repertoire!", error);
-												} else {
-													setIsOpen(false);
-												}
-											}}
-										>
-											<DeleteIcon color="error"/>
-										</IconButton>
-									</Tooltip>
+									<ConfirmBeforeAction
+										confirmMessage={`${t("chess.repertoire.editor.confirm")} '${(repertoire.title) ? repertoire.title : repertoire.id}'?`}
+										onConfirm={async () => {
+											const {error} = await supabase
+												.from('repertoire')
+												.delete()
+												.eq('id', repertoire.id);
+											
+											if (error) {
+												console.error("Something went wrong when deleting repertoire!", error);
+											} else {
+												setIsOpen(false);
+											}
+										}}
+									>
+										<Tooltip title={t("chess.repertoire.groups.delete.tooltip")}>
+											<IconButton
+												size="small"
+											>
+												<DeleteIcon color="error"/>
+											</IconButton>
+										</Tooltip>
+									</ConfirmBeforeAction>
 								)
 						}
 					</div>

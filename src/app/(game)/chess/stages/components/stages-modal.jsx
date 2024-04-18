@@ -1,4 +1,5 @@
 import StagesChessboardThumbnail from "@/app/(game)/chess/stages/components/stages-chessboard-thumbnail";
+import ConfirmBeforeAction from "@shared/components/misc/confirm-before-action";
 import {createClient} from "@shared/utils/supabase/client";
 import {Dialog, Transition} from "@headlessui/react";
 import {Fragment, useEffect, useState} from "react";
@@ -87,22 +88,26 @@ export default function StagesModal({created_by, title, details, id, pgn}) {
 	 *
 	 * @author frigvid
 	 * @created 2024-04-16
-	 * @return {Element} The opening delete button.
+	 * @return {JSX.Element} The opening delete button.
 	 */
 	function deleteOpening() {
 		return (
-			<Tooltip title={t("chess.stages.delete")}>
-				<IconButton
-					size="small"
-					sx={{ml: 2}}
-					onClick={async () => {
-						void await supabase.rpc("opening_delete", {opn_id: id});
-						setIsOpen(false);
-					}}
-				>
-					<DeleteIcon color="error"/>
-				</IconButton>
-			</Tooltip>
+			<ConfirmBeforeAction
+				confirmMessage={`${t("chess.create_opening.confirm.part1")} '${title}'. ${t("chess.create_opening.confirm.part2")}`}
+				onConfirm={async () => {
+					void await supabase.rpc("opening_delete", {opn_id: id});
+					setIsOpen(false);
+				}}
+			>
+				<Tooltip title={t("chess.stages.delete")}>
+					<IconButton
+						size="small"
+						sx={{ml: 2}}
+					>
+						<DeleteIcon color="error"/>
+					</IconButton>
+				</Tooltip>
+			</ConfirmBeforeAction>
 		)
 	}
 	

@@ -107,6 +107,13 @@ const resources = {
 					"message": "Noe gikk galt."
 				}
 			},
+			"actions": {
+				"confirm": {
+					"title": "Confirm action",
+					"yes": "Yes",
+					"no": "No"
+				}
+			},
 			"signup": {
 				"error": {
 					"button": "$t(generic.return_somewhere) sign up"
@@ -303,6 +310,10 @@ const resources = {
 					},
 					"groups": {
 						"label": "Openings"
+					},
+					"confirm": {
+						"part1": "You are about to delete the opening",
+						"part2": "Are you sure you want to proceed?"
 					}
 				},
 				"repertoire": {
@@ -328,6 +339,10 @@ const resources = {
 						},
 						"edit": "Edit $t(chess.repertoire.generics.fragment.group)",
 						"opening_delete": "Remove opening from this $t(chess.repertoire.generics.fragment.group)",
+						"confirm": {
+							"part1": "Are you sure you want to remove",
+							"part2": "from the $t(chess.repertoire.generics.fragment.group)?"
+						}
 					},
 					"editor": {
 						"label": "Editing $t(chess.repertoire.generics.fragment.group)",
@@ -336,7 +351,8 @@ const resources = {
 							"desc": "Edit description",
 							"openings": "Select openings"
 						},
-						"save": "Save details"
+						"save": "Save details",
+						"confirm": "Are you sure you want to delete the $t(chess.repertoire.generics.fragment.group)"
 					}
 				},
 				"stages": {
@@ -470,6 +486,13 @@ const resources = {
 				"500": {
 					"title": "Intern Server Feil.",
 					"message": "Noe gikk galt."
+				}
+			},
+			"actions": {
+				"confirm": {
+					"title": "Bekreft handling",
+					"yes": "Ja",
+					"no": "Nei"
 				}
 			},
 			"signup": {
@@ -668,6 +691,10 @@ const resources = {
 					},
 					"groups": {
 						"label": "Åpninger"
+					},
+					"confirm": {
+						"part1": "Du er i ferd med å slette åpningen",
+						"part2": "Er du sikker på at du vil fortsette?"
 					}
 				},
 				"repertoire": {
@@ -692,7 +719,11 @@ const resources = {
 							"tooltip": "Slett $t(chess.repertoire.generics.fragment.group)"
 						},
 						"edit": "Rediger $t(chess.repertoire.generics.fragment.group)",
-						"opening_delete": "Fjern åpning fra $t(chess.repertoire.generics.fragment.group)et"
+						"opening_delete": "Fjern åpning fra $t(chess.repertoire.generics.fragment.group)et",
+						"confirm": {
+							"part1": "Er du sikker på at du vil fjerne",
+							"part2": "fra $t(chess.repertoire.generics.fragment.group)et?"
+						}
 					},
 					"editor": {
 						"label": "Redigerer $t(chess.repertoire.generics.fragment.group)",
@@ -701,7 +732,8 @@ const resources = {
 							"desc": "Rediger beskrivelsen",
 							"openings": "Velg åpninger"
 						},
-						"save": "Lagre detaljer"
+						"save": "Lagre detaljer",
+						"confirm": "Er du sikker på at du vil slette $t(chess.repertoire.generics.fragment.group)et"
 					}
 				},
 				"stages": {
