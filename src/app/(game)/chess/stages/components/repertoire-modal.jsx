@@ -178,10 +178,14 @@ export default function RepertoireModal({repertoireObj}) {
 						{repertoire.title}
 					</Dialog.Title>
 					<div className="text-center">
-						<p>{repertoire.description}</p>
+						<p>
+							{repertoire.description}
+						</p>
 					</div>
 					<div>
-						<h2 className="font-semibold text-center">Openings in this repertoire</h2>
+						<h2 className="font-semibold text-center">
+							{t("chess.repertoire.groups.title")}
+						</h2>
 						<Paper style={{overflow: "auto"}}>
 							{
 								/**
@@ -202,11 +206,10 @@ export default function RepertoireModal({repertoireObj}) {
 												<Typography>
 													{opening[0].description}
 												</Typography>
-												{/* TODO: Implement these buttons. */}
 												<div className="flex flex-row justify-end">
-													<Tooltip title="Remove opening from this repertoire">
+													<Tooltip title={t("chess.repertoire.groups.opening_delete")}>
 														<IconButton
-															aria-label="Remove opening from this repertoire"
+															aria-label={t("chess.repertoire.groups.opening_delete")}
 															onClick={async () => {
 																const newOpenings = repertoire.openings.filter(id => id !== opening[0].id);
 																
@@ -288,9 +291,13 @@ export default function RepertoireModal({repertoireObj}) {
 		return (
 			<div className="h-full">
 				<div className="space-y-2">
-					<h2 className="font-semibold text-center">Editing repertoire</h2>
+					<h2 className="font-semibold text-center">
+						{t("chess.repertoire.editor.label")}
+					</h2>
 					<div>
-						<label>Edit title</label>
+						<label>
+							{t("chess.repertoire.editor.edit.title")}
+						</label>
 						<TextField
 							className="w-full"
 							variant="outlined"
@@ -299,7 +306,9 @@ export default function RepertoireModal({repertoireObj}) {
 						/>
 					</div>
 					<div>
-						<label>Edit description</label>
+						<label>
+							{t("chess.repertoire.editor.edit.desc")}
+						</label>
 						<TextField
 							className="w-full"
 							variant="outlined"
@@ -311,7 +320,9 @@ export default function RepertoireModal({repertoireObj}) {
 						/>
 					</div>
 					<div>
-						<label>Select openings</label>
+						<label>
+							{t("chess.repertoire.editor.edit.openings")}
+						</label>
 						<Paper style={{maxHeight: 130, overflow: 'auto'}}>
 							<List>
 								{
@@ -321,21 +332,18 @@ export default function RepertoireModal({repertoireObj}) {
 												<ListItem
 													key={opening.id}
 													secondaryAction={
-														
-														<Tooltip title={t("user_profile.friend_list.tooltip.remove_friend")}>
-															<Checkbox
-																checked={isChecked(opening.id)}
-																onChange={async () => {
-																	if (isChecked(opening.id)) {
-																		setCheckedOpenings(checkedOpenings.filter(id => id !== opening.id));
-																	} else {
-																		setCheckedOpenings([...checkedOpenings, opening.id]);
-																	}
-																}}
-															>
-																<DeleteIcon/>
-															</Checkbox>
-														</Tooltip>
+														<Checkbox
+															checked={isChecked(opening.id)}
+															onChange={async () => {
+																if (isChecked(opening.id)) {
+																	setCheckedOpenings(checkedOpenings.filter(id => id !== opening.id));
+																} else {
+																	setCheckedOpenings([...checkedOpenings, opening.id]);
+																}
+															}}
+														>
+															<DeleteIcon/>
+														</Checkbox>
 													}
 												>
 													<Tooltip title={opening.id}>
@@ -372,7 +380,7 @@ export default function RepertoireModal({repertoireObj}) {
 							}
 						}}
 					>
-						Save details
+						{t("chess.repertoire.editor.save")}
 					</button>
 				</div>
 			</div>
@@ -387,7 +395,7 @@ export default function RepertoireModal({repertoireObj}) {
 					onClick={openModal}
 					className="rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
 				>
-					Read more
+					{t("chess.repertoire.groups.button")}
 				</button>
 			</div>
 			<Transition appear show={isOpen} as={Fragment}>
@@ -416,7 +424,7 @@ export default function RepertoireModal({repertoireObj}) {
 							>
 								<Dialog.Panel className="flex flex-col justify-between space-y-2 h-[35rem] top-10 lg:top-0 w-full md:w-[20rem] lg:w-[30rem] lg:h-[40rem] transform overflow-x-hidden overflow-y-scroll lg:no-scrollbar rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
 									<section className="absolute top-0 right-0 mr-4 mt-4">
-										<Tooltip title="Edit repertoire">
+										<Tooltip title={t("chess.repertoire.groups.edit")}>
 											<IconButton
 												onClick={() => {
 													setIsEditing(!isEditing);
