@@ -3,7 +3,7 @@
 import TrainChess from "@/app/(game)/chess/train/[id]/components/train-chess";
 import { createClient } from "@shared/utils/supabase/client";
 import { useEffect, useState } from "react";
-import MyListbox from "./components/pick-opening";
+
 
 /**
  * Route for training chess.
@@ -55,8 +55,7 @@ export default function ChessTrainer({ params }) {
 	if (opening) {
 		return (
 			<main className="flex justify-center items-center">
-				<TrainChess pgn={opening.pgn} />
-				<MyListbox repo={repertoire} opening={opening} setOpening={setOpening} />
+				<TrainChess pgn={opening.pgn} repo={repertoire} opening={opening} setOpening={setOpening} />
 			</main>
 		);
 	}

@@ -15,7 +15,7 @@ import {Chess} from "chess.js";
  * @param opening parameter that gets an opening and is used to restrict allowed moves 
  * @returns A chessboard with the opening moves and a panel for feedback
  */
-export default function TrainChess({pgn}) {
+export default function TrainChess({pgn, repo, opening, setOpening}) {
 	const {t} = useTranslation();
 	const [game, setGame] = useState(new Chess());
 	const [boardPosition, setBoardPosition] = useState(game.fen());
@@ -159,7 +159,7 @@ export default function TrainChess({pgn}) {
 
 	return (
 		<div className="flex justify-center items-center space-x-5">
-			<TrainPanel status={status} moveCounter={wrongCounter} pgn={pgn}/>
+			<TrainPanel status={status} moveCounter={wrongCounter} pgn={pgn} repo={repo} opening={opening} setOpening={setOpening}/>
 			<div className="w-96 h-96">
 				<Chessboard position={boardPosition} onPieceDrop={onDrop}/>
 			</div>

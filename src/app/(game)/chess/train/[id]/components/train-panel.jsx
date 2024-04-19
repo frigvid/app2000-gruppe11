@@ -1,5 +1,6 @@
 import {useTranslation} from "react-i18next";
 import Link from "next/link";
+import MyListbox from "../../repertoire/[id]/components/pick-opening";
 
 /**
  * Panel to display information about the practice status.
@@ -12,7 +13,7 @@ import Link from "next/link";
  * @param pgn The PGN of the practice session.
  * @returns returns the panel with information about the practice status
  */
-export default function TrainPanel({status, moveCounter, pgn}) {
+export default function TrainPanel({status, moveCounter, pgn, repo, opening, setOpening}) {
 	const {t} = useTranslation();
 	
 	return (
@@ -36,6 +37,7 @@ export default function TrainPanel({status, moveCounter, pgn}) {
 			>
 				{t("chess.train_chess.panel.return")}
 			</Link>
+			<MyListbox repo={repo} opening={opening} setOpening={setOpening} />
 		</section>
 	);
 }
