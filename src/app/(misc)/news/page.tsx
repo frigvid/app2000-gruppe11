@@ -166,7 +166,11 @@ export default function News() {
 			<h1 className="self-start text-4xl font-bold text-center">
 				{t("news.title")}
 			</h1>
-			<NewsModal isAuthoring={true}/>
+			{
+				(user && isAdmin &&
+					<NewsModal isAuthoring={true}/>
+				)
+			}
 			<div className="grid grid-cols-1 gap-4 place-self-center md:w-[30rem] lg:w-[35rem] align-middle">
 				{
 					news.map((newsItem) => (
