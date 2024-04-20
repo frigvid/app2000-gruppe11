@@ -27,7 +27,7 @@ export default function TrainPanel({
 	const {t} = useTranslation();
 
 	return (
-		<section className="flex flex-col justify-center mr-8 p-3 px-8 max-w-md bg-gray-200 rounded-lg border border-gray-200 shadow-md text-center space-y-4">
+		<section className="flex flex-col justify-center mr-8 p-3 px-8 max-w-[22rem] bg-gray-200 rounded-lg border border-gray-200 shadow-md text-center space-y-4">
 			<h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
 				{t("chess.train_chess.panel.label")}
 			</h2>
@@ -40,7 +40,7 @@ export default function TrainPanel({
 							: <p className="p-2">{status}</p>
 				}
 			</div>
-			<p className="max-w-[14rem]">
+			<p>
 				{t("chess.train_chess.panel.move.part1")} {moveCounter}{" "}
 				{t("chess.train_chess.panel.move.part2")} {pgn.length}
 			</p>
