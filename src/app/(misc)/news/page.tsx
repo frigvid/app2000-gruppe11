@@ -10,6 +10,7 @@ import Tooltip from "@mui/material/Tooltip";
 import React, {useEffect, useState} from "react";
 import NewsModal from "@misc/news/components/news-modal";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Divider from "@mui/material/Divider";
 
 /**
  * News page.
@@ -240,6 +241,7 @@ export default function News() {
 										{newsItem.summary}
 									</p>
 								</Tooltip>
+								<Divider sx={{m: 6}}/>
 								{
 									/* This should only be displayed by clicking on the news article,
 									 * but is included as an example for now.
