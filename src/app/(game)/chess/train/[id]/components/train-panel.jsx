@@ -55,11 +55,14 @@ export default function TrainPanel({
 					repo == null
 						? <></>
 						: (
-							<PickOpening
-								repo={repo}
-								opening={opening}
-								setOpening={setOpening}
-							/>
+							<>
+								<label>{t("chess.train_chess.panel.openings")}:</label>
+								<PickOpening
+									repo={repo}
+									opening={opening}
+									setOpening={setOpening}
+								/>
+							</>
 						)
 				}
 			</div>

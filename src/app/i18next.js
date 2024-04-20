@@ -368,7 +368,8 @@ const resources = {
 							"part1": "You have moved",
 							"part2": "times, and the amount of moves in the opening is"
 						},
-						"return": "Back to stage selection"
+						"return": "Back to stage selection",
+						"openings": "Select opening here"
 					}
 				},
 				"full_game": {
@@ -971,10 +972,11 @@ const resources = {
 					"panel": {
 						"label": "$t(chess.generics.status.game)",
 						"move": {
-							"part1": "You have moved",
-							"part2": "times, and the amount of moves in the opening is"
+							"part1": "Du har flyttet deg",
+							"part2": "ganger, og antallet trekk i denne åpningen er"
 						},
-						"return": "Back to stage selection"
+						"return": "Tilbake til banevalg",
+						"openings": "Velg åpning her"
 					}
 				},
 				"full_game": {
