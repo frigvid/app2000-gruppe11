@@ -183,7 +183,7 @@ export default function News() {
 								{
 									(user && isAdmin &&
 										<>
-											<NewsModal isAuthoring={false}/>
+											<NewsModal isAuthoring={false} newsId={newsItem.id}/>
 											{
 												(user && isAdmin)
 													? (

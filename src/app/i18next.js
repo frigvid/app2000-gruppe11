@@ -402,6 +402,11 @@ const resources = {
 				}
 			},
 			"news": {
+				"generics": {
+					"fragment": {
+						"required": "Required field"
+					}
+				},
 				"title": "$t(header.news)",
 				"publishing": {
 					"part1": "Are you sure you want to",
@@ -414,6 +419,59 @@ const resources = {
 					"created_at": "Created",
 					"modified_at": "Modified",
 					"summary": "Summary"
+				},
+				"creator": {
+					"info": {
+						"label": "If you want to create some news, click the button below.",
+						"button": "Create a new news item"
+					},
+					"modal": {
+						"label": "Create a news post",
+						"save": {
+							"confirmation": "Are you sure you want to create a new news post?",
+							"button": "Save news"
+						},
+						"title": {
+							"label": "Add a title to the news",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "News title"
+						},
+						"summary": {
+							"label": "Add a summary to the news",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "News summary"
+						},
+						"content": {
+							"label": "Add content to the news",
+							"placeholder": "News content"
+						}
+					}
+				},
+				"editor": {
+					"info": {
+						"tooltip": "Edit this news item?"
+					},
+					"modal": {
+						"label": "Edit a news post",
+						"save": {
+							"button": "Save changes",
+							"tooltip": "Are you sure you want to update this news post?"
+						},
+						"title": {
+							"label": "Edit the news title",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "News title"
+						},
+						"summary": {
+							"label": "Edit the news summary",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "News summary"
+						},
+						"content": {
+							"label": "Edit the news content",
+							"placeholder": "News content"
+						}
+					}
 				}
 			}
 		}
@@ -795,6 +853,11 @@ const resources = {
 				}
 			},
 			"news": {
+				"generics": {
+					"fragment": {
+						"required": "Obligatorisk felt"
+					}
+				},
 				"title": "$t(header.news)",
 				"publishing": {
 					"part1": "Er du sikker på at du vil",
@@ -807,6 +870,59 @@ const resources = {
 					"created_at": "Opprettet",
 					"modified_at": "Endret",
 					"summary": "Sammendrag"
+				},
+				"creator": {
+					"info": {
+						"label": "Om du ønsker å lage en ny nyhet, kan du klikke knappen under.",
+						"button": "Lag en ny nyhet"
+					},
+					"modal": {
+						"label": "Lag en nyhet",
+						"save": {
+							"confirmation": "Er du sikker på at du vil gjennomføre opprettelsen av denne nye nyheten?",
+							"button": "Lagre nyhet"
+						},
+						"title": {
+							"label": "Lag en tittel til nyheten",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Nyhet titel"
+						},
+						"summary": {
+							"label": "Lag ett sammendrag for nyheten",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Nyhet sammendrag"
+						},
+						"content": {
+							"label": "Lag innhold for nyheten",
+							"placeholder": "Nyhet innhold"
+						}
+					}
+				},
+				"editor": {
+					"info": {
+						"tooltip": "Rediger denne nyheten?"
+					},
+					"modal": {
+						"label": "Rediger nyhet",
+						"save": {
+							"confirmation": "Er du sikker på at du vil oppdatere denne nyheten?",
+							"button": "Lagre endringer"
+						},
+						"title": {
+							"label": "Rediger nyhetens titel",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Nyhet titel"
+						},
+						"summary": {
+							"label": "Rediger nyhetens sammendrag",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Nyhet sammendrag"
+						},
+						"content": {
+							"label": "Rediger nyhetens innhold",
+							"placeholder": "Nyhet innhold"
+						}
+					}
 				}
 			}
 		}
