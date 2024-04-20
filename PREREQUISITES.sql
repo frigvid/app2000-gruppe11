@@ -1418,3 +1418,27 @@ CREATE TRIGGER history_update_gamedata_trigger
 AFTER INSERT ON history
 FOR EACH ROW
 EXECUTE FUNCTION _history_update_gamedata();
+
+
+
+/* ==============================================================
+ * Author:      frigvid
+ * Create date: 2024-04-20
+ * Description: Triggered function for handling news modified time
+ *              updates.
+ * Usage:       INTERNAL. Hence starting with an underscore.
+ * ============================================================ */
+CREATE OR REPLACE FUNCTION _news_update_modified_at_on_change()
+	RETURNS TRIGGER
+	LANGUAGE 'plpgsql'
+AS $$
+BEGIN
+	NEW.modified_at = timezone('utc', now());
+	RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER news_update_modified_timestamptz
+BEFORE UPDATE ON news
+FOR EACH ROW
+EXECUTE PROCEDURE _news_update_modified_at_on_change();
