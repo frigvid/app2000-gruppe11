@@ -11,6 +11,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import {useTranslation} from "react-i18next";
 import Tooltip from "@mui/material/Tooltip";
 import Divider from "@mui/material/Divider";
+import Link from "next/link";
 
 /**
  * News page.
@@ -163,8 +164,8 @@ export default function News() {
 	}
 	
 	return (
-		<main className="grid grid-cols-1 grid-rows-[auto,1fr,auto] m-4">
-			<h1 className="self-start text-4xl font-bold text-center">
+		<main className="flex flex-col m-4">
+			<h1 className="text-4xl font-bold text-center">
 				{t("news.title")}
 			</h1>
 			{

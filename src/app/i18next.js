@@ -946,7 +946,7 @@ const resources = {
 						"required": "Obligatorisk felt"
 					}
 				},
-				"title": "$t(header.news)",
+				"title": "Nyheter",
 				"publishing": {
 					"part1": "Er du sikker på at du vil",
 					"part2": "denne nyheten",
