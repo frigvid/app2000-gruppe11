@@ -1,6 +1,6 @@
 "use client";
 
-import PlayChess from "@/app/(game)/chess/components/play-chess";
+import PlayChess from "@game/chess/components/play-chess";
 
 /**
  * Component for creating the chessboard.
