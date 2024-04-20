@@ -47,7 +47,7 @@ export default function News() {
 			if (error) {
 				console.error("Error fetching news:", error);
 			} else {
-				setNews(data);
+				setNews(data.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()));
 			}
 		}
 		
@@ -95,7 +95,7 @@ export default function News() {
 				schema: 'public',
 				table: 'news'
 			}, async (payload) => {
-				setNews(prevNews => [...prevNews, payload.new]);
+				setNews(prevNews => [...prevNews, payload.new].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()));
 			})
 			.on('postgres_changes', {
 				event: 'UPDATE',
@@ -104,10 +104,10 @@ export default function News() {
 			}, async (payload) => {
 				setNews(prevNews => {
 					if (payload.new.is_published) {
-						return [...prevNews.filter(news => news.id !== payload.new.id), payload.new];
+						return [...prevNews.filter(news => news.id !== payload.new.id), payload.new].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 					} else {
 						if (isAdmin) {
-							return prevNews.map(news => news.id === payload.new.id ? payload.new : news);
+							return prevNews.map(news => news.id === payload.new.id ? payload.new : news).sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 						} else {
 							return prevNews.filter(news => news.id !== payload.new.id);
 						}
@@ -173,7 +173,7 @@ export default function News() {
 			}
 			<div className="grid grid-cols-1 gap-4 place-self-center md:w-[30rem] lg:w-[35rem] align-middle">
 				{
-					news.toReversed().map((newsItem) => (
+					news.map((newsItem) => (
 						<div
 							key={newsItem.id}
 							className={`relative bg-white ${newsItem.is_published ? null : "border-2 border-red-500"} p-4 rounded-lg shadow-md h-auto lg:min-h-[10rem]`}
