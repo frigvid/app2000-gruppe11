@@ -142,7 +142,7 @@ export default function News() {
 	function deleteNews(newsItemId: any) {
 		return (
 			<ConfirmBeforeAction
-				confirmMessage={t("news.delete.confirm")}
+				confirmMessage={t("news.delete.confirmation")}
 				onConfirm={async () => {
 					const {error} = await supabase
 						.from('news')

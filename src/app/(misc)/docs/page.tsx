@@ -136,7 +136,7 @@ export default function Docs() {
 	function deleteDoc(docId: any) {
 		return (
 			<ConfirmBeforeAction
-				confirmMessage={t("docs.delete.confirm")}
+				confirmMessage={t("docs.delete.confirmation")}
 				onConfirm={async () => {
 					const {error} = await supabase
 						.from('docs')
