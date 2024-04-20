@@ -1,5 +1,5 @@
 import PickOpening from "@game/chess/train/repertoire/[id]/components/pick-opening";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import Link from "next/link";
 
 /**
