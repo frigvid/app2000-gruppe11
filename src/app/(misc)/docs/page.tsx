@@ -1,17 +1,17 @@
 "use client";
 
-import Link from "next/link";
-import {createClient} from "@shared/utils/supabase/client";
-import {useTranslation} from "react-i18next";
-import React, {useEffect, useState} from "react";
 import ConfirmBeforeAction from "@shared/components/misc/confirm-before-action";
-import Tooltip from "@mui/material/Tooltip";
-import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
+import {createClient} from "@shared/utils/supabase/client";
 import DocsModal from "@misc/docs/components/docs-modal";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
+import React, {useEffect, useState} from "react";
 import LockIcon from "@mui/icons-material/Lock";
+import {useTranslation} from "react-i18next";
 import Divider from "@mui/material/Divider";
+import Tooltip from "@mui/material/Tooltip";
+import Link from "next/link";
 
 /**
  * Page for user-application documentation.
@@ -19,6 +19,7 @@ import Divider from "@mui/material/Divider";
  * @author frigvid
  * @contributor oldpopcorn
  * @created 2024-01-30
+ * @warning This has the same limitations as news, see {@link @misc/news/page.tsx}.
  */
 export default function Docs() {
 	const supabase = createClient();
