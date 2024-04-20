@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
-import MyListbox from "../../repertoire/[id]/components/pick-opening";
+import PickOpening from "../../repertoire/[id]/components/pick-opening";
 
 /**
  * Panel to display information about the practice status.
@@ -51,7 +51,7 @@ export default function TrainPanel({
 				{repo == null ? (
 					<></>
 				) : (
-					<MyListbox
+					<PickOpening
 						repo={repo}
 						opening={opening}
 						setOpening={setOpening}
