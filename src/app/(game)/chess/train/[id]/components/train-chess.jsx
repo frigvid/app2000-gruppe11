@@ -10,7 +10,7 @@ import {Chess} from "chess.js";
  * It takes an opening and restricts the allowed moves to only those in the opening.
  *
  * @author qwertyfyr
- * @contributor frigvid
+ * @contributor frigvid, jarl0
  * @created 2024-04-12
  * @param pgn The PGN of the game
  * @param repo The repertoire of openings
@@ -166,9 +166,11 @@ export default function TrainChess({
 	}
 
 	return (
-		<div className="flex justify-center items-center space-x-5">
-			<TrainPanel status={status} moveCounter={wrongCounter} pgn={pgn} repo={repo} opening={opening} setOpening={setOpening}/>
-			<div className="w-96 h-96">
+		<div className="flex flex-col md:flex-row justify-center items-center relative">
+			<div className="md:mr-8 md:order-1 order-2 p-3 px-8 rounded-lg md:mb-0 mb-4 flex flex-col">
+				<TrainPanel status={status} moveCounter={wrongCounter} pgn={pgn} repo={repo} opening={opening} setOpening={setOpening}/>
+			</div>
+			<div className="w-[23rem] h-[23rem] lg:w-96 lg:h-96 md:order-2 order-1 mt-4 md:mt-0 mb-4 md:mb-0 relative">
 				<Chessboard position={boardPosition} onPieceDrop={onDrop}/>
 			</div>
 		</div>
