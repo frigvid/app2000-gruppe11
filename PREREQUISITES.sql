@@ -395,36 +395,47 @@ ALTER TABLE faq ENABLE ROW LEVEL SECURITY;
 /* =============================================
  * Author:      frigvid
  * Create date: 2024-04-13
- * Description: Grant read-write access to admins.
+ * Description: Grant read access to non-user
+ *              created rows.
  * ============================================= */
-CREATE POLICY faq_rw_as_admin
-ON faq
-FOR ALL
+CREATE POLICY faq_r_to_published
+ON public.faq
+AS PERMISSIVE
+FOR SELECT
+TO authenticated, anon
+USING (
+	is_published = TRUE
+);
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-19
+ * Description: Grants read access to unpublished
+ *              FAQs for administrators.
+ * ============================================= */
+CREATE POLICY faq_r_to_unpublished_as_admin
+ON public.faq
+AS PERMISSIVE
+FOR SELECT
 TO authenticated
 USING (
-	EXISTS (
-		SELECT 1 FROM auth.users
-		WHERE id = auth.uid() AND is_super_admin = TRUE
-	)
-)
-WITH CHECK (
-	EXISTS (
-		SELECT 1 FROM auth.users
-		WHERE id = auth.uid() AND is_super_admin = TRUE
-	)
+	admin_is_admin() = TRUE AND
+	is_published = FALSE
 );
 
 /* =============================================
  * Author:      frigvid
  * Create date: 2024-04-13
- * Description: Grant read access to non-user
- *              created rows.
+ * Description: Grant read-write access to admins.
  * ============================================= */
-CREATE POLICY docs_r_to_published
-ON faq
-FOR SELECT
-TO anon, authenticated
-USING (is_published = TRUE);
+CREATE POLICY faq_rw_as_admin
+ON public.faq
+AS PERMISSIVE
+FOR ALL
+TO authenticated
+USING (
+	admin_is_admin() = TRUE
+);
 
 
 

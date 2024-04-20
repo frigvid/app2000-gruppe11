@@ -36,16 +36,6 @@ const resources = {
 			"ch_help_you4": "Challenges and games against AI to practice and reinforce learning.",
 			"ch_help_you5": "Feedback and analyzes that help you understand your strengths and weaknesses.",
 			"faq_title": "FAQ",
-			"faq1_question": "Is Chess Buddy free to use?",
-			"faq1_answer": "chess buddy is a free websites for learning chess and chess openings.",
-			"faq2_question": "Can I use the website without an account?",
-			"faq2_answer": "You can use the website without having a account, but if you dont have a account your progress wont be saved when you exit the application",
-			"faq3_question": "How do I start a game?",
-			"faq3_answer": "You start a game by going to the home page and pressing start game.",
-			"faq4_question": "Can I play against the computer?",
-			"faq4_answer": "Yes, you can play againts a computer and later we are going to make it possible to play against people also",
-			"faq5_question": "Do you offer chess lessons or tutorials?",
-			"faq5_answer": "Chess Buddy is a webpage dedicated to help players learn openings for the game of chess, and you can even make your own openings later when you have learned some.",
 			"welcome_title": "Welcome to Chess Buddy",
 			"welcome_paragraph_1": "Here at Chess Buddy, we are driven by a simple vision: To make high-quality chess instruction available to everyone. Our passion for chess and a clear understanding of the market's needs inspired us to create a tool that specifically focuses on opening moves; a vital, but often underrated, part of the game.",
 			"welcome_paragraph_2": "We recognized a gap in the market for a dedicated tool that could offer deeper insight and practical training in chess openings. This led us to develop Chess Buddy, a platform that combines the latest technology with extensive chess expertise to offer a unique learning experience.",
@@ -561,6 +551,84 @@ const resources = {
 						}
 					}
 				}
+			},
+			"faq": {
+				"generics": {
+					"fragment": {
+						"required": "Required field"
+					}
+				},
+				"title": "Frequently Asked Questions",
+				"publishing": {
+					"part1": "Are you sure you want to",
+					"part2": "the FAQ",
+					"alt1": "Do you want to",
+					"alt2": "this?",
+					"publish": "publish",
+					"unpublish": "unpublish"
+				},
+				"item": {
+					"created_at": "Created",
+					"modified_at": "Modified",
+					"summary": "Summary"
+				},
+				"delete": {
+					"confirmation": "Are you sure you want to delete this FAQ?",
+					"tooltip": "Delete FAQ?"
+				},
+				"creator": {
+					"info": {
+						"label": "If you want to create a new FAQ, click the button below.",
+						"button": "Create a new FAQ"
+					},
+					"modal": {
+						"label": "Create new FAQ",
+						"save": {
+							"confirmation": "Are you sure you want to create a new FAQ?",
+							"button": "Save FAQ"
+						},
+						"title": {
+							"label": "Add a title to the FAQ",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "FAQ title"
+						},
+						"summary": {
+							"label": "Add a summary to the FAQ",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "FAQ summary"
+						},
+						"content": {
+							"label": "Add content to the FAQ",
+							"placeholder": "FAQ content"
+						}
+					}
+				},
+				"editor": {
+					"info": {
+						"tooltip": "Edit this FAQ?"
+					},
+					"modal": {
+						"label": "Edit a FAQ",
+						"save": {
+							"confirmation": "Are you sure you want to update this FAQ?",
+							"button": "Save changes"
+						},
+						"title": {
+							"label": "Edit the FAQ's title",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "FAQ title"
+						},
+						"summary": {
+							"label": "Edit the FAQ's summary",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "FAQ summary"
+						},
+						"content": {
+							"label": "Edit the FAQ's content",
+							"placeholder": "FAQ content"
+						}
+					}
+				}
 			}
 		}
 	},
@@ -581,17 +649,6 @@ const resources = {
 			"ch_help_you3": "Interaktive leksjoner som forklarer hver åpning og dens variabler i dybden.",
 			"ch_help_you4": "Utfordringer og spill mot AI for å øve og forsterke læringen.",
 			"ch_help_you5": "Tilbakemelding og analyser som hjelper deg å forstå dine styrker og svakheter.",
-			"faq_title": "FAQ",
-			"faq1_question": "Er Chess Buddy gratis å bruke?",
-			"faq1_answer": "ChessBuddy er et gratis nettsted for å lære sjakk og sjakkåpninger.",
-			"faq2_question": "Kan jeg bruke nettstedet uten en konto?",
-			"faq2_answer": "Du kan bruke nettstedet uten å ha en konto, men hvis du ikke har en konto vil ikke fremgangen din lagres når du avslutter programmet",
-			"faq3_question": "Hvordan starter jeg et spill?",
-			"faq3_answer": "Du starter et spill ved å gå til hjemmesiden og trykke start spill.",
-			"faq4_question": "Kan jeg spille mot datamaskinen?",
-			"faq4_answer": "Ja, du kan spille mot en datamaskin og hvis vi skal gjøre det mulig å spille mot folk også",
-			"faq5_question": "Tilbyr du sjakktimer eller -veiledninger?",
-			"faq5_answer": "Chess Buddy er en nettside dedikert til å hjelpe spillere å lære åpninger for sjakkspillet, og du kan til og med lage dine egne åpninger senere når du har lært noen.",
 			"welcome_title": "Velkommen til Chess Buddy",
 			"welcome_paragraph_1": "Her hos Chess Buddy, er vi drevet av en enkel visjon: Å gjøre sjakkundervisning av høy kvalitet tilgjengelig for alle. Vår lidenskap for sjakk og en klar forståelse av markedets behov inspirerte oss til å skape et verktøy som spesifikt fokuserer på åpningstrekk; en vital, men ofte undervurdert, del av spillet.",
 			"welcome_paragraph_2": "Vi anerkjente et gap i markedet for et dedikert verktøy som kunne tilby dypere innsikt og praktisk trening i sjakkåpninger. Dette førte oss til å utvikle Chess Buddy, en plattform som kombinerer den nyeste teknologien med omfattende sjakkekspertise for å tilby en unik læringsopplevelse.",
@@ -1097,6 +1154,84 @@ const resources = {
 						"content": {
 							"label": "Rediger dokumentasjonens innhold",
 							"placeholder": "Dokumentasjon innhold"
+						}
+					}
+				}
+			},
+			"faq": {
+				"generics": {
+					"fragment": {
+						"required": "Obligatorisk felt"
+					}
+				},
+				"title": "Ofte Spurte Spørsmål",
+				"publishing": {
+					"part1": "Er du sikker på at du vil",
+					"part2": "denne FAQen",
+					"alt1": "Ønsker du å",
+					"alt2": "denne FAQen?",
+					"publish": "publisere",
+					"unpublish": "upublisere"
+				},
+				"item": {
+					"created_at": "Opprettet",
+					"modified_at": "Endret",
+					"summary": "Sammendrag"
+				},
+				"delete": {
+					"confirmation": "Er du sikker på at du vil slette denne FAQen?",
+					"tooltip": "Slett FAQ?"
+				},
+				"creator": {
+					"info": {
+						"label": "Om du ønsker å lage en ny FAQ, kan du klikke knappen under.",
+						"button": "Lag ny FAQ"
+					},
+					"modal": {
+						"label": "Lag FAQ",
+						"save": {
+							"confirmation": "Er du sikker på at du vil gjennomføre opprettelsen av denne nye FAQen?",
+							"button": "Lagre FAQ"
+						},
+						"title": {
+							"label": "Lag en tittel til FAQen",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "FAQ titel"
+						},
+						"summary": {
+							"label": "Lag ett sammendrag for FAQen",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "FAQ sammendrag"
+						},
+						"content": {
+							"label": "Lag innhold for FAQen",
+							"placeholder": "FAQ innhold"
+						}
+					}
+				},
+				"editor": {
+					"info": {
+						"tooltip": "Rediger denne FAQen?"
+					},
+					"modal": {
+						"label": "Rediger FAQ",
+						"save": {
+							"confirmation": "Er du sikker på at du vil oppdatere denne FAQen?",
+							"button": "Lagre endringer"
+						},
+						"title": {
+							"label": "Rediger FAQens titel",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "FAQ titel"
+						},
+						"summary": {
+							"label": "Rediger FAQens sammendrag",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "FAQ sammendrag"
+						},
+						"content": {
+							"label": "Rediger FAQens innhold",
+							"placeholder": "FAQ innhold"
 						}
 					}
 				}
