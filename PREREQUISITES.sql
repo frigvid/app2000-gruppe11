@@ -26,6 +26,8 @@ Date (yyyy-mm-dd)   	Author             	Comments
 2024-04-15				frigvid					Added friend_request_get_one and friend_get_one,
 														and modified friend_get_all_friends to make it
 														function better with the realtime implementation.
+2024-04-20				frigvid					Modified public.docs POLICIES to feature match
+														public.news' POLICIES.
 ********************************************************************************************/ 
 
 
@@ -343,36 +345,47 @@ ALTER TABLE docs ENABLE ROW LEVEL SECURITY;
 /* =============================================
  * Author:      frigvid
  * Create date: 2024-04-13
- * Description: Grant read-write access to admins.
+ * Description: Grant read access to non-user
+ *              created rows.
  * ============================================= */
-CREATE POLICY docs_rw_as_admin
-ON docs
-FOR ALL
+CREATE POLICY docs_r_to_published
+ON public.docs
+AS PERMISSIVE
+FOR SELECT
+TO authenticated, anon
+USING (
+	is_published = TRUE
+);
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-19
+ * Description: Grants read access to unpublished
+ *              docs for administrators.
+ * ============================================= */
+CREATE POLICY docs_r_to_unpublished_as_admin
+ON public.docs
+AS PERMISSIVE
+FOR SELECT
 TO authenticated
 USING (
-	EXISTS (
-		SELECT 1 FROM auth.users
-		WHERE id = auth.uid() AND is_super_admin = TRUE
-	)
-)
-WITH CHECK (
-	EXISTS (
-		SELECT 1 FROM auth.users
-		WHERE id = auth.uid() AND is_super_admin = TRUE
-	)
+	admin_is_admin() = TRUE AND
+	is_published = FALSE
 );
 
 /* =============================================
  * Author:      frigvid
  * Create date: 2024-04-13
- * Description: Grant read access to non-user
- *              created rows.
+ * Description: Grant read-write access to admins.
  * ============================================= */
-CREATE POLICY docs_r_to_published
-ON docs
-FOR SELECT
-TO anon, authenticated
-USING (is_published = TRUE);
+CREATE POLICY docs_rw_as_admin
+ON public.docs
+AS PERMISSIVE
+FOR ALL
+TO authenticated
+USING (
+	admin_is_admin() = TRUE
+);
 
 
 
