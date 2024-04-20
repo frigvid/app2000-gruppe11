@@ -23,15 +23,15 @@ interface DocsModalPropTypes {
 }
 
 /**
- * The news modal.
+ * The docs modal.
  *
- * This modal is used to create and edit news items.
+ * This modal is used to create and edit docs items.
  *
  * @author frigvid
  * @created 2024-04-20
  * @param isAuthoring Whether the user is authoring or not.
- * @param newsId The ID of the news item to edit.
- * @return The news modal.
+ * @param docsId The ID of the doc item to edit.
+ * @return The docs modal.
  */
 export default function DocsModal({
 	isAuthoring = false,
