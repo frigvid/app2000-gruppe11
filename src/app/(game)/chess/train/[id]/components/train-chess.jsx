@@ -12,10 +12,18 @@ import {Chess} from "chess.js";
  * @author qwertyfyr
  * @contributor frigvid
  * @created 2024-04-12
- * @param opening parameter that gets an opening and is used to restrict allowed moves 
+ * @param pgn The PGN of the game
+ * @param repo The repertoire of openings
+ * @param opening parameter that gets an opening and is used to restrict allowed moves
+ * @param setOpening function to set the opening
  * @returns A chessboard with the opening moves and a panel for feedback
  */
-export default function TrainChess({pgn, repo, opening, setOpening}) {
+export default function TrainChess({
+	pgn,
+	repo,
+	opening,
+	setOpening
+}) {
 	const {t} = useTranslation();
 	const [game, setGame] = useState(new Chess());
 	const [boardPosition, setBoardPosition] = useState(game.fen());
