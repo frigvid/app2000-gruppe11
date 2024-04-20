@@ -243,13 +243,14 @@ export default function News() {
 								</Tooltip>
 								<Divider sx={{m: 6}}/>
 								{
-									/* This should only be displayed by clicking on the news article,
-									 * but is included as an example for now.
+									/* TODO: Make the body only visible when clicking on the news article.
+									 * 		Preferably with some sort of visual indicator that it's collapsed
+									 * 		or not.
 									 */
+									<p className="mr-6">
+										{newsItem.content.split(/\r?\n/).map((line: any, i: any) => <span key={i}>{line}<br/></span>)}
+									</p>
 								}
-								<p className="mr-6">
-									{newsItem.content}
-								</p>
 							</div>
 						</div>
 					))
