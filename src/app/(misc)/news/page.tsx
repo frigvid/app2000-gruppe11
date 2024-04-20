@@ -175,40 +175,46 @@ export default function News() {
 							className={`relative bg-white ${newsItem.is_published ? null : "border-2 border-red-500"} p-4 rounded-lg shadow-md h-auto lg:min-h-[10rem]`}
 						>
 							<div className="absolute top-0 right-0 m-2 space-y-2 flex flex-col">
-								<NewsModal isAuthoring={false}/>
 								{
-									(user && isAdmin)
-										? (
-											<ConfirmBeforeAction
-												confirmMessage={`${t("news.publishing.part1")} ${newsItem.is_published ? t("news.publishing.unpublish") : t("news.publishing.publish")} ${t("news.publishing.part2")} "${newsItem.title}"?`}
-												onConfirm={async () => {
-													const {error} = await supabase
-														.from('news')
-														.update({
-															is_published: !newsItem.is_published
-														})
-														.eq('id', newsItem.id);
-													
-													if (error) {
-														console.error("Error updating news item.", error);
-													}
-												}}
-											>
-												<Tooltip title={`Do you want to ${newsItem.is_published ? t("news.publishing.unpublish") : t("news.publishing.publish")} this?`}>
-													<IconButton className="bg-white">
-														{
-															newsItem.is_published
-																? <LockOpenIcon className="text-green-500"/>
-																: <LockIcon className="text-red-500"/>
-														}
-													</IconButton>
-												</Tooltip>
-											</ConfirmBeforeAction>
-										)
-										: null
-								}
-								{
-									deleteNews(newsItem.id)
+									(user && isAdmin &&
+										<>
+											<NewsModal isAuthoring={false}/>
+											{
+												(user && isAdmin)
+													? (
+														<ConfirmBeforeAction
+															confirmMessage={`${t("news.publishing.part1")} ${newsItem.is_published ? t("news.publishing.unpublish") : t("news.publishing.publish")} ${t("news.publishing.part2")} "${newsItem.title}"?`}
+															onConfirm={async () => {
+																const {error} = await supabase
+																	.from('news')
+																	.update({
+																		is_published: !newsItem.is_published
+																	})
+																	.eq('id', newsItem.id);
+																
+																if (error) {
+																	console.error("Error updating news item.", error);
+																}
+															}}
+														>
+															<Tooltip title={`Do you want to ${newsItem.is_published ? t("news.publishing.unpublish") : t("news.publishing.publish")} this?`}>
+																<IconButton className="bg-white">
+																	{
+																		newsItem.is_published
+																			? <LockOpenIcon className="text-green-500"/>
+																			: <LockIcon className="text-red-500"/>
+																	}
+																</IconButton>
+															</Tooltip>
+														</ConfirmBeforeAction>
+													)
+													: null
+											}
+											{
+												deleteNews(newsItem.id)
+											}
+										</>
+									)
 								}
 							</div>
 							{/* TODO: Implement using the user's profile.display_name instead of UUID. */}
