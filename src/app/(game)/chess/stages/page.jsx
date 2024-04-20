@@ -70,7 +70,7 @@ export default function Stages() {
 				}]);
 			
 			if (error) {
-				console.log("Something went wrong while saving the repertoire!", error);
+				console.error("Something went wrong while saving the repertoire!", error);
 			} else {
 				/* Clear selected openings, so they're not selected the next time you
 				 * press the create repertoire button.

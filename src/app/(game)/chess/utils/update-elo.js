@@ -53,8 +53,6 @@ export async function updateElo(user_id, win){
 		if (updateError) {
 			throw updateError;
 		}
-
-		//console.log("Elo updated successfully");
 	} catch (error) {
 		console.error("Error updating elo:", error.message);
 	}

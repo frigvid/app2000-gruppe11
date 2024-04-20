@@ -43,9 +43,8 @@ function PlayChess() {
 		try {
 			game.move(move);
 			setTurn(turn + 1);
-			console.log("Turn:", turn);
-		} catch (e) {
-			console.log(e);
+		} catch (error) {
+			console.error("Something went wrong while making a move!", error);
 			return null;
 		}
 		

@@ -93,7 +93,7 @@ export default function FriendList({
 				);
 				
 				if (error) {
-					console.log("Something went wrong adding a new friend in real time", error);
+					console.error("Something went wrong adding a new friend in real time", error);
 				} else {
 					setFriends((prevFriends: any) => [...prevFriends, data[0]]);
 				}

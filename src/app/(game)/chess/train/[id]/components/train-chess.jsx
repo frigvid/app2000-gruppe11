@@ -43,9 +43,6 @@ export default function TrainChess({
 	 */
 	function makeAMove(move) {
 		try {
-			//console.log(pgn[playerTurn]);
-			//console.log(move);
-			
 			if (playerTurn < pgn.length) {
 				if (
 					move.from === pgn[playerTurn].from &&
@@ -56,17 +53,13 @@ export default function TrainChess({
 					setPlayerTurn(playerTurn + 2);
 				} else {
 					setStatus(t("chess.train_chess.status.wrong"));
-					
-					//console.log("pgn: ", pgn[playerTurn]);
-					//console.log("move: ", move);
-					
 					setWrongCounter(wrongCounter + 1);
 				}
 			} else {
 				setStatus(t("chess.train_chess.status.complete"));
 			}
-		} catch (e) {
-			console.log(e);
+		} catch (error) {
+			console.error("Something went wrong while trying to make a move!", error);
 			return null;
 		}
 		
@@ -104,15 +97,13 @@ export default function TrainChess({
 				setGame(game);
 				setBoardPosition(game.fen());
 				setBotTurn(botTurn + 2);
-				
-				//console.log(botTurn);
 
 				setStatus(t("chess.train_chess.status.white_move"));
 			} else {
 				setStatus(t("chess.train_chess.status.complete"));
 			}
-		} catch (e) {
-			console.log(e);
+		} catch (error) {
+			console.error("Something went wrong when trying to follow through with the next move!", error);
 			return null;
 		}
 
@@ -131,7 +122,6 @@ export default function TrainChess({
 		setBoardPosition(newGame.fen());
 		setPlayerTurn(0);
 		setBotTurn(1);
-		console.log("rerender");
 	}, [pgn])
 
 
