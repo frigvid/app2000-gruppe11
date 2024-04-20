@@ -11,6 +11,9 @@ import Link from "next/link";
  * @param status The status message of the practice.
  * @param moveCounter The number of moves made.
  * @param pgn The PGN of the practice session.
+ * @param repo The repertoire of openings.
+ * @param opening The opening that is selected.
+ * @param setOpening The function to set the opening.
  * @returns returns the panel with information about the practice status
  */
 export default function TrainPanel({
