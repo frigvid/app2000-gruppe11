@@ -1,6 +1,6 @@
+import PickOpening from "@game/chess/train/repertoire/[id]/components/pick-opening";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
-import PickOpening from "../../repertoire/[id]/components/pick-opening";
 
 /**
  * Panel to display information about the practice status.
