@@ -32,12 +32,34 @@ export default function OpeningCreator({closeModal}) {
 	const [openingName, setOpeningName] = useState('');
 	const [openingDescription, setOpeningDescription] = useState('');
 	const [feedbackMsg, setFeedbackMsg] = useState('');
+	const [isDefaultOpening, setIsDefaultOpening] = useState(false);
 	const [isFeedbackVisible, setIsFeedbackVisible] = useState(false);
 	const [feedbackType, setFeedbackType] = useState('');
 	const [loading, setLoading] = useState(true);
 	const supabase = createClient();
+	const [isAdmin, setIsAdmin] = useState(false);
 	const user = useUser();
 	const {t} = useTranslation();
+	
+	/**
+	 * Checks if the authenticated user is an administrator or not.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-21
+	 */
+	useEffect(() => {
+		const fetchAdminStatus = async () => {
+			const {data, error} = await supabase.rpc("admin_is_admin");
+			
+			if (error) {
+				console.error("Something went wrong while trying to check administrator status!", error);
+			} else {
+				setIsAdmin(data);
+			}
+		}
+		
+		void fetchAdminStatus();
+	}, [supabase]);
 	
 	/**
 	 * Sets a timeout to simulate loading.
@@ -110,7 +132,7 @@ export default function OpeningCreator({closeModal}) {
 		const {data, error} = await supabase
 			.from('openings')
 			.insert({
-				created_by: user.id,
+				created_by: (isDefaultOpening ? null : user.id),
 				title: openingName,
 				description: openingDescription,
 				pgn: moves
@@ -180,6 +202,18 @@ export default function OpeningCreator({closeModal}) {
 					boardWidth={400}
 				/>
 			</div>
+			{
+				(user && isAdmin &&
+					<div className="inline-block space-x-2">
+						<input
+							type="checkbox"
+							checked={isDefaultOpening}
+							onChange={(e) => setIsDefaultOpening(e.target.checked)}
+						/>
+						<label>Create default opening?</label>
+					</div>
+				)
+			}
 		</div>
 	);
 }
