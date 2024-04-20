@@ -24,7 +24,7 @@ export default function TrainPanel({
 	opening,
 	setOpening,
 }) {
-	const { t } = useTranslation();
+	const {t} = useTranslation();
 
 	return (
 		<section className="flex flex-col justify-center mr-8 p-3 px-8 max-w-md bg-gray-200 rounded-lg border border-gray-200 shadow-md text-center space-y-4">
@@ -32,13 +32,13 @@ export default function TrainPanel({
 				{t("chess.train_chess.panel.label")}
 			</h2>
 			<div className="italic">
-				{status === "Wrong move!" ? (
-					<p className="bg-red-500 p-2">{status}</p>
-				) : status === "Opening completed!" ? (
-					<p className="bg-green-500 p-2">{status}</p>
-				) : (
-					<p className="p-2">{status}</p>
-				)}
+				{
+					(status === "Wrong move!")
+						? <p className="bg-red-500 p-2">{status}</p>
+						: (status === "Opening completed!")
+							? <p className="bg-green-500 p-2">{status}</p>
+							: <p className="p-2">{status}</p>
+				}
 			</div>
 			<p className="max-w-[14rem]">
 				{t("chess.train_chess.panel.move.part1")} {moveCounter}{" "}
@@ -51,15 +51,17 @@ export default function TrainPanel({
 				{t("chess.train_chess.panel.return")}
 			</Link>
 			<div>
-				{repo == null ? (
-					<></>
-				) : (
-					<PickOpening
-						repo={repo}
-						opening={opening}
-						setOpening={setOpening}
-					/>
-				)}
+				{
+					repo == null
+						? <></>
+						: (
+							<PickOpening
+								repo={repo}
+								opening={opening}
+								setOpening={setOpening}
+							/>
+						)
+				}
 			</div>
 		</section>
 	);

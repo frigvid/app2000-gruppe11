@@ -155,7 +155,7 @@ export default function TrainChess({
 			piece: piece[1].toLowerCase(),
 		});
 
-		/* illegal move. */
+		/* Illegal move. */
 		if (move === null) {
 			return false;
 		}
