@@ -158,8 +158,8 @@ export default function Docs() {
 	}
 	
 	return (
-		<main className="grid grid-cols-1 grid-rows-[auto,1fr,auto] m-4">
-			<div className="self-start space-y-4">
+		<main className="flex flex-col">
+			<div className="space-y-4">
 				<h1 className="text-4xl font-bold text-center">
 					{t("docs.title")}
 				</h1>
@@ -169,13 +169,16 @@ export default function Docs() {
 						<span>
 							<Link
 								href="/faq"
-								className="md:w-[13rem] bg-buttoncolor hover:bg-[#976646] hover:text-white inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
+								className="w-full md:w-[13rem] bg-buttoncolor hover:bg-[#976646] hover:text-white inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
 							>
 								{t("docs.faq.button")}
 							</Link>
 						</span>
 					</p>
 				</div>
+			</div>
+			<div className="m-4 w-full md:w-[20rem] lg:w-[30rem] place-self-center">
+				<Divider/>
 			</div>
 			{
 				(user && isAdmin &&
