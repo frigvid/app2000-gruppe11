@@ -479,6 +479,88 @@ const resources = {
 						}
 					}
 				}
+			},
+			"docs": {
+				"generics": {
+					"fragment": {
+						"required": "Required field"
+					}
+				},
+				"title": "$t(header.docs)",
+				"faq": {
+					"label": "We also have an FAQ section.",
+					"button": "FAQ"
+				},
+				"publishing": {
+					"part1": "Are you sure you want to",
+					"part2": "the doc",
+					"alt1": "Do you want to",
+					"alt2": "this?",
+					"publish": "publish",
+					"unpublish": "unpublish"
+				},
+				"item": {
+					"created_at": "Created",
+					"modified_at": "Modified",
+					"summary": "Summary"
+				},
+				"delete": {
+					"confirmation": "Are you sure you want to delete this doc?",
+					"tooltip": "Delete doc?"
+				},
+				"creator": {
+					"info": {
+						"label": "If you want to create new documentation, click the button below.",
+						"button": "Create a new doc"
+					},
+					"modal": {
+						"label": "Create new documentation",
+						"save": {
+							"confirmation": "Are you sure you want to create a new doc?",
+							"button": "Save doc"
+						},
+						"title": {
+							"label": "Add a title to the doc",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Doc title"
+						},
+						"summary": {
+							"label": "Add a summary to the doc",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Doc summary"
+						},
+						"content": {
+							"label": "Add content to the doc",
+							"placeholder": "Doc content"
+						}
+					}
+				},
+				"editor": {
+					"info": {
+						"tooltip": "Edit this doc?"
+					},
+					"modal": {
+						"label": "Edit a doc",
+						"save": {
+							"button": "Save changes",
+							"tooltip": "Are you sure you want to update this doc?"
+						},
+						"title": {
+							"label": "Edit the doc's title",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Doc title"
+						},
+						"summary": {
+							"label": "Edit the doc's summary",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Doc summary"
+						},
+						"content": {
+							"label": "Edit the doc's content",
+							"placeholder": "Doc content"
+						}
+					}
+				}
 			}
 		}
 	},
@@ -933,6 +1015,88 @@ const resources = {
 						"content": {
 							"label": "Rediger nyhetens innhold",
 							"placeholder": "Nyhet innhold"
+						}
+					}
+				}
+			},
+			"docs": {
+				"generics": {
+					"fragment": {
+						"required": "Obligatorisk felt"
+					}
+				},
+				"title": "Dokumentasjon",
+				"faq": {
+					"label": "Vi har også en ofte-spurte-spørsmål seksjon.",
+					"button": "FAQ"
+				},
+				"publishing": {
+					"part1": "Er du sikker på at du vil",
+					"part2": "denne dokumentasjonen",
+					"alt1": "Ønsker du å",
+					"alt2": "denne dokumentasjonen?",
+					"publish": "publisere",
+					"unpublish": "upublisere"
+				},
+				"item": {
+					"created_at": "Opprettet",
+					"modified_at": "Endret",
+					"summary": "Sammendrag"
+				},
+				"delete": {
+					"confirmation": "Er du sikker på at du vil slette denne dokumentasjonen?",
+					"tooltip": "Slett dokumentasjon?"
+				},
+				"creator": {
+					"info": {
+						"label": "Om du ønsker å lage ny dokumentasjon, kan du klikke knappen under.",
+						"button": "Lag en ny dokumentasjon"
+					},
+					"modal": {
+						"label": "Lag dokumentasjon",
+						"save": {
+							"confirmation": "Er du sikker på at du vil gjennomføre opprettelsen av denne nye dokumentasjon?",
+							"button": "Lagre dokumentasjon"
+						},
+						"title": {
+							"label": "Lag en tittel til dokumentasjonen",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Dokumentasjon titel"
+						},
+						"summary": {
+							"label": "Lag ett sammendrag for dokumentasjonen",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Dokumentasjon sammendrag"
+						},
+						"content": {
+							"label": "Lag innhold for dokumentasjonen",
+							"placeholder": "Dokumentasjon innhold"
+						}
+					}
+				},
+				"editor": {
+					"info": {
+						"tooltip": "Rediger denne dokumentasjonen?"
+					},
+					"modal": {
+						"label": "Rediger dokumentasjon",
+						"save": {
+							"confirmation": "Er du sikker på at du vil oppdatere denne dokumentasjonen?",
+							"button": "Lagre endringer"
+						},
+						"title": {
+							"label": "Rediger dokumentasjonens titel",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Dokumentasjon titel"
+						},
+						"summary": {
+							"label": "Rediger dokumentasjonens sammendrag",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Dokumentasjon sammendrag"
+						},
+						"content": {
+							"label": "Rediger dokumentasjonens innhold",
+							"placeholder": "Dokumentasjon innhold"
 						}
 					}
 				}

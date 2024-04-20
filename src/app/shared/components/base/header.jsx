@@ -52,7 +52,7 @@ export default function Header() {
 							className="text-xl font-semibold leading-6 text-white hover:underline hover:underline-offset-8"
 							href="/docs"
 						>
-							{t("header.docs")}*
+							{t("header.docs")}
 						</Link>
 					</div>
 				</div>
