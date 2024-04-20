@@ -158,7 +158,7 @@ export default function Docs() {
 	}
 	
 	return (
-		<main className="flex flex-col">
+		<main className="flex flex-col m-4">
 			<div className="space-y-4">
 				<h1 className="text-4xl font-bold text-center">
 					{t("docs.title")}
