@@ -411,6 +411,8 @@ const resources = {
 				"publishing": {
 					"part1": "Are you sure you want to",
 					"part2": "the news item",
+					"alt1": "Do you want to",
+					"alt2": "this?",
 					"publish": "publish",
 					"unpublish": "unpublish"
 				},
@@ -866,6 +868,8 @@ const resources = {
 				"publishing": {
 					"part1": "Er du sikker på at du vil",
 					"part2": "denne nyheten",
+					"alt1": "Ønsker du å",
+					"alt2": "denne nyheten?",
 					"publish": "publisere",
 					"unpublish": "upublisere"
 				},

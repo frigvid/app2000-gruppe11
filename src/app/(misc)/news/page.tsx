@@ -202,7 +202,7 @@ export default function News() {
 																}
 															}}
 														>
-															<Tooltip title={`Do you want to ${newsItem.is_published ? t("news.publishing.unpublish") : t("news.publishing.publish")} this?`}>
+															<Tooltip title={`${t("news.publishing.alt1")} ${newsItem.is_published ? t("news.publishing.unpublish") : t("news.publishing.publish")} ${t("news.publishing.alt2")}`}>
 																<IconButton className="bg-white">
 																	{
 																		newsItem.is_published
