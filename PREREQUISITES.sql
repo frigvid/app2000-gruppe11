@@ -27,7 +27,11 @@ Date (yyyy-mm-dd)   	Author             	Comments
 														and modified friend_get_all_friends to make it
 														function better with the realtime implementation.
 2024-04-20				frigvid					Modified public.docs POLICIES to feature match
-														public.news' POLICIES.
+														public.news' POLICIES. Also added trigger for
+														updating public.news modified_at time.
+2024-04-21				frigvid					Modified public.faq POLICIES to feature match
+														public.news' and public.docs' POLICIES. Also added
+														triggers for updating modified_at time.
 ********************************************************************************************/ 
 
 
@@ -1466,3 +1470,51 @@ CREATE TRIGGER news_update_modified_timestamptz
 BEFORE UPDATE ON news
 FOR EACH ROW
 EXECUTE PROCEDURE _news_update_modified_at_on_change();
+
+
+
+/* ==============================================================
+ * Author:      frigvid
+ * Create date: 2024-04-20
+ * Description: Triggered function for handling docs modified time
+ *              updates.
+ * Usage:       INTERNAL. Hence starting with an underscore.
+ * ============================================================ */
+CREATE OR REPLACE FUNCTION _docs_update_modified_at_on_change()
+	RETURNS TRIGGER
+	LANGUAGE 'plpgsql'
+AS $$
+BEGIN
+	NEW.modified_at = timezone('utc', now());
+	RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER docs_update_modified_timestamptz
+BEFORE UPDATE ON docs
+FOR EACH ROW
+EXECUTE PROCEDURE _docs_update_modified_at_on_change();
+
+
+
+/* ==============================================================
+ * Author:      frigvid
+ * Create date: 2024-04-20
+ * Description: Triggered function for handling faq modified time
+ *              updates.
+ * Usage:       INTERNAL. Hence starting with an underscore.
+ * ============================================================ */
+CREATE OR REPLACE FUNCTION _faq_update_modified_at_on_change()
+	RETURNS TRIGGER
+	LANGUAGE 'plpgsql'
+AS $$
+BEGIN
+	NEW.modified_at = timezone('utc', now());
+	RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER faq_update_modified_timestamptz
+BEFORE UPDATE ON faq
+FOR EACH ROW
+EXECUTE PROCEDURE _faq_update_modified_at_on_change();
