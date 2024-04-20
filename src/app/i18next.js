@@ -420,6 +420,10 @@ const resources = {
 					"modified_at": "Modified",
 					"summary": "Summary"
 				},
+				"delete": {
+					"confirmation": "Are you sure you want to delete this news item?",
+					"tooltip": "Delete news item?"
+				},
 				"creator": {
 					"info": {
 						"label": "If you want to create some news, click the button below.",
@@ -870,6 +874,10 @@ const resources = {
 					"created_at": "Opprettet",
 					"modified_at": "Endret",
 					"summary": "Sammendrag"
+				},
+				"delete": {
+					"confirmation": "Er du sikker på at du vil slette denne nyheten?",
+					"tooltip": "Slett nyhet?"
 				},
 				"creator": {
 					"info": {

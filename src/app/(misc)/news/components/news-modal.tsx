@@ -1,28 +1,15 @@
 "use client";
 
 import ConfirmBeforeAction from "@shared/components/misc/confirm-before-action";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import {createClient} from "@shared/utils/supabase/client";
 import React, {useState, useEffect, Fragment} from "react";
-import ListItemText from "@mui/material/ListItemText";
+import {createClient} from "@shared/utils/supabase/client";
 import {Dialog, Transition} from "@headlessui/react";
-import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import Accordion from "@mui/material/Accordion";
-import ListItem from "@mui/material/ListItem";
 import {useUser} from "@auth/actions/useUser";
 import {useTranslation} from "react-i18next";
 import Tooltip from "@mui/material/Tooltip";
 import Edit from "@mui/icons-material/Edit";
-import Divider from "@mui/material/Divider";
-import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
-import List from "@mui/material/List";
-import Link from "next/link";
 
 /**
  * The prop types for the modal.

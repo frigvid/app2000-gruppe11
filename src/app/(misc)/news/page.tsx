@@ -2,14 +2,14 @@
 
 import ConfirmBeforeAction from "@shared/components/misc/confirm-before-action";
 import {createClient} from "@shared/utils/supabase/client";
+import NewsModal from "@misc/news/components/news-modal";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
+import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
+import React, {useEffect, useState} from "react";
 import LockIcon from "@mui/icons-material/Lock";
 import {useTranslation} from "react-i18next";
 import Tooltip from "@mui/material/Tooltip";
-import React, {useEffect, useState} from "react";
-import NewsModal from "@misc/news/components/news-modal";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Divider from "@mui/material/Divider";
 
 /**
@@ -141,7 +141,7 @@ export default function News() {
 	function deleteNews(newsItemId: any) {
 		return (
 			<ConfirmBeforeAction
-				confirmMessage={`Are you sure you want to delete this news item?`}
+				confirmMessage={t("news.delete.confirm")}
 				onConfirm={async () => {
 					const {error} = await supabase
 						.from('news')
@@ -153,7 +153,7 @@ export default function News() {
 					}
 				}}
 			>
-				<Tooltip title="Delete news item?">
+				<Tooltip title={t("news.delete.tooltip")}>
 					<IconButton>
 						<DeleteIcon color="error"/>
 					</IconButton>
