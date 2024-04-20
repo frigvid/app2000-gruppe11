@@ -11,15 +11,18 @@ import LockIcon from "@mui/icons-material/Lock";
 import {useTranslation} from "react-i18next";
 import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
-import Link from "next/link";
 
 /**
  * Represents the main FAQ application component.
  *
+ * TODO: The public.faq table can probably remove the column for either
+ * 		summary or content. This is not really a long-format type of
+ * 		documentation/answer system.
+ *
  * @author frigvid
  * @contributor oldpopcorn
  * @created 2024-04-06
- * @returns {JSX.Element} The FAQ component rendering the FAQ section.
+ * @returns The FAQ component rendering the FAQ section.
  */
 export default function FAQ() {
 	const supabase = createClient();
