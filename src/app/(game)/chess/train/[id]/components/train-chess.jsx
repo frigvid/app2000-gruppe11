@@ -1,7 +1,7 @@
 import TrainPanel from "@/app/(game)/chess/train/[id]/components/train-panel";
 import {useTranslation} from "react-i18next";
 import {Chessboard} from "react-chessboard";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Chess} from "chess.js";
 
 /**
@@ -15,7 +15,7 @@ import {Chess} from "chess.js";
  * @param opening parameter that gets an opening and is used to restrict allowed moves 
  * @returns A chessboard with the opening moves and a panel for feedback
  */
-export default function TrainChess({pgn}) {
+export default function TrainChess({pgn, repo, opening, setOpening}) {
 	const {t} = useTranslation();
 	const [game, setGame] = useState(new Chess());
 	const [boardPosition, setBoardPosition] = useState(game.fen());
@@ -115,6 +115,19 @@ export default function TrainChess({pgn}) {
 	}
 
 	/**
+	 * Resets the Chess game and board position when the pgn parameter is changed
+	 */
+	useEffect(() => {
+		const newGame = new Chess();
+		setGame(newGame);
+		setBoardPosition(newGame.fen());
+		setPlayerTurn(0);
+		setBotTurn(1);
+		console.log("rerender");
+	}, [pgn])
+
+
+	/**
 	 * Handles the event when a piece is dropped onto a square.
 	 *
 	 * If the move is illegal, returns false.
@@ -146,7 +159,7 @@ export default function TrainChess({pgn}) {
 
 	return (
 		<div className="flex justify-center items-center space-x-5">
-			<TrainPanel status={status} moveCounter={wrongCounter} pgn={pgn}/>
+			<TrainPanel status={status} moveCounter={wrongCounter} pgn={pgn} repo={repo} opening={opening} setOpening={setOpening}/>
 			<div className="w-96 h-96">
 				<Chessboard position={boardPosition} onPieceDrop={onDrop}/>
 			</div>
