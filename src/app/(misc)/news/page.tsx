@@ -173,7 +173,7 @@ export default function News() {
 			}
 			<div className="grid grid-cols-1 gap-4 place-self-center md:w-[30rem] lg:w-[35rem] align-middle">
 				{
-					news.map((newsItem) => (
+					news.toReversed().map((newsItem) => (
 						<div
 							key={newsItem.id}
 							className={`relative bg-white ${newsItem.is_published ? null : "border-2 border-red-500"} p-4 rounded-lg shadow-md h-auto lg:min-h-[10rem]`}
