@@ -2,14 +2,15 @@
 
 import PersonAddDisabled from '@mui/icons-material/PersonAddDisabled';
 import React, {Fragment, useEffect, useState} from "react";
+import {createClient} from "@shared/utils/supabase/client";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import {Dialog, Transition} from "@headlessui/react";
 import HowToReg from "@mui/icons-material/HowToReg";
-import {createClient} from "@utils/supabase/client";
 import PersonIcon from "@mui/icons-material/Person";
 import IconButton from "@mui/material/IconButton";
 import HailIcon from "@mui/icons-material/Hail";
+import {useUser} from "@auth/actions/useUser";
 import ListItem from "@mui/material/ListItem";
 import {useTranslation} from "react-i18next";
 import Divider from "@mui/material/Divider";
@@ -27,10 +28,17 @@ import List from "@mui/material/List";
  */
 export default function PendingFriendRequests() {
 	const supabase = createClient();
+	const user = useUser();
 	const [isOpen, setIsOpen] = useState(false);
 	const [friendRequests, setFriendRequests] = useState(null);
 	const {t} = useTranslation();
 	
+	/**
+	 * Fetches all friend requests for the user.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-12
+	 */
 	useEffect(() => {
 		const fetchRequests = async () => {
 			const {data, error} = await supabase.rpc("friend_request_get_all");
@@ -45,10 +53,79 @@ export default function PendingFriendRequests() {
 		void fetchRequests();
 	}, [supabase]);
 	
+	/**
+	 * This useEffect handles realtime INSERTs and DELETEs
+	 * from the public.friend_requests table.
+	 *
+	 * See {@link @/app/chess/stages/components/StagesOpenings}
+	 * for some additional details.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-15
+	 * @see https://supabase.com/docs/guides/realtime
+	 */
+	useEffect(() => {
+		const friend_requests = supabase
+			.channel('pending_friend_requests')
+			.on('postgres_changes', {
+				event: '*',
+				schema: 'public',
+				table: 'friend_requests'
+			}, async (payload) => {
+				if (payload.eventType === 'INSERT') {
+					const {data, error} = await supabase.rpc("friend_request_get_one", {
+						by_usr: payload.new.by_user
+					});
+					
+					if (error) {
+						console.error("Something went wrong while fetching friend requests in real time!", error);
+					} else {
+						/**
+						 * This makes sure that IF there is data, which has by_user,
+						 * and IF there is a user, and it has an ID, and IF they
+						 * don't match, only then set a friend request.
+						 *
+						 * If you don't have this, you're going to have a bad time.
+						 * The one sending it will crash, and if the logic in the
+						 * JSX is changed to use the optional chaining operator,
+						 * they'll get an "empty" friend request in their pending
+						 * friend request list.
+						 *
+						 * This ensures it's not a problem.
+						 *
+						 * @author frigvid
+						 * @created 2024-04-15
+						 */
+						if (payload.new.by_user !== user?.id) {
+							setFriendRequests((prevFriendRequests: any) => [...prevFriendRequests, data[0]]);
+						}
+					}
+				} else if (payload.eventType === 'DELETE') {
+					setFriendRequests((prevFriendRequests: any[]) => prevFriendRequests.filter(friendRequests => friendRequests.id !== payload.old.id));
+				}
+			}).subscribe();
+		
+		return () => {
+			void supabase.removeChannel(friend_requests);
+		}
+	}, [supabase, friendRequests, user?.id]);
+	
+	/**
+	 * Closes the modal.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-12
+	 */
 	function closeModal() {
 		setIsOpen(false);
 	}
 	
+	/**
+	 * Opens the modal.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-12
+	 */
 	function openModal() {
 		setIsOpen(true);
 	}
@@ -84,7 +161,7 @@ export default function PendingFriendRequests() {
 									leaveTo="opacity-0 scale-95"
 								>
 									<Dialog.Panel
-										className="xs:w-full xs:h-full lg:w-[40rem] lg:h-[38rem] transform overflow-hidden lg:rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+										className="xs:w-full xs:h-full lg:w-[40rem] lg:h-[38rem] transform overflow-x-hidden overflow-y-scroll lg:no-scrollbar lg:rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
 									>
 										<Dialog.Title
 											as="h3"
@@ -108,6 +185,9 @@ export default function PendingFriendRequests() {
 																		 * It creates a new array with the elements that match, so literally
 																		 * everything that isn't this current `friendRequest` mapping. In
 																		 * effect, deleting it.
+																		 *
+																		 * @author frigvid
+																		 * @created 2024-04-12
 																		 */
 																		const deleteListing = () => {
 																			setFriendRequests(friendRequests.filter((_: any, i: any) => i !== index));

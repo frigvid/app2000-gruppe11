@@ -1,6 +1,6 @@
 "use client";
 
-import InternalServerError from "@ui/error/500_internal-server";
+import InternalServerError from "@shared/components/error/500_internal-server";
 import {useTranslation} from "react-i18next";
 import Link from "next/link";
 

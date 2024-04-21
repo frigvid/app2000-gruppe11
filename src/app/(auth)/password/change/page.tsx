@@ -1,9 +1,9 @@
 "use client";
 
 import PasswordDetails from "@auth/components/fragment/password-details";
+import withI18next from "@shared/components/lang/with-i18next";
+import {createClient} from "@shared/utils/supabase/client";
 import {FC, FormEvent, useEffect, useState} from "react";
-import {createClient} from "@utils/supabase/client";
-import withI18next from "@ui/lang/with-i18next";
 import {useTranslation} from "react-i18next";
 import {useRouter} from "next/navigation";
 
@@ -19,11 +19,16 @@ const PasswordUpdateForm: FC = () => {
 	const [confirmPassword, setConfirmPassword] = useState<string>('');
 	const [error, setError] = useState<string>('');
 	const [success, setSuccess] = useState<string>('');
-	
-	const {t} = useTranslation();
 	const supabase = createClient();
+	const {t} = useTranslation();
 	const router = useRouter();
 	
+	/**
+	 * Redirects the user to the home page after a successful password change.
+	 *
+	 * @author frigvid
+	 * @created 2024-01-26
+	 */
 	useEffect(() => {
 		if (success) {
 			const timer = setTimeout(() => {
@@ -34,6 +39,13 @@ const PasswordUpdateForm: FC = () => {
 		}
 	}, [router, success]);
 	
+	/**
+	 * Changes the user's password.
+	 *
+	 * @author frigvid
+	 * @created 2024-01-26
+	 * @param event The form event.
+	 */
 	const changePassword = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		
@@ -51,7 +63,7 @@ const PasswordUpdateForm: FC = () => {
 		} else {
 			setSuccess('Password updated successfully.');
 			setError('');
-			// NOTE: Here's where to put a redirect timer.
+			/* NOTE: Here's where to put a redirect timer. */
 		}
 	}
 	
@@ -122,4 +134,8 @@ const PasswordUpdateForm: FC = () => {
 	);
 };
 
+/**
+ * Export the component with extra i18next support,
+ * to avoid hydration errors.
+ */
 export default withI18next(PasswordUpdateForm);

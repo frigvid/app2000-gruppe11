@@ -1,6 +1,6 @@
 "use client";
 
-import withI18next from "@ui/lang/with-i18next";
+import withI18next from "@shared/components/lang/with-i18next";
 import {useTranslation} from "react-i18next";
 import Link from "next/link";
 
@@ -29,4 +29,8 @@ function SignUpCheckEmail() {
 	);
 }
 
+/**
+ * Exported with extra i18next support,
+ * to avoid hydration errors.
+ */
 export default withI18next(SignUpCheckEmail);

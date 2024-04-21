@@ -2,7 +2,7 @@
 
 import ProtectClientContent from "@auth/components/protect-client-content";
 import Buffering from "@auth/components/fragment/Buffering";
-import {createClient} from "@utils/supabase/client";
+import {createClient} from "@shared/utils/supabase/client";
 import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import Tooltip from "@mui/material/Tooltip";
@@ -24,6 +24,12 @@ export default function UserSettings() {
 	const [password, setPassword] = useState(null);
 	const router = useRouter();
 	
+	/**
+	 * Fetch the user's email.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-14
+	 */
 	useEffect(() => {
 		setIsLoading(true);
 		
@@ -41,6 +47,14 @@ export default function UserSettings() {
 		void fetchUser();
 	}, [supabase]);
 	
+	/**
+	 * Loading screen to ensure that content is properly
+	 * pre-loaded before rendering.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-14
+	 * @returns {Buffering} The bufferin/loading screen.
+	 */
 	if (isLoading) {
 		return <Buffering/>;
 	}

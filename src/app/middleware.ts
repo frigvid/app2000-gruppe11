@@ -9,8 +9,9 @@ import {NextResponse, type NextRequest} from "next/server";
  * - Passing the refreshed Auth token to the browser, so it replaces the old token.
  *   This is done using `response.cookies.set`.
  *
- * @param request
  * @author frigvid, supabase
+ * @created 2024-02-12
+ * @param request The incoming request.
  * @note Since Server Components can't write cookies,
  * 		middleware is needed to refresh expired auth tokens and store them.
  */
@@ -30,7 +31,7 @@ export async function middleware(request: NextRequest) {
 					return request.cookies.get(name)?.value
 				},
 				set(name: string, value: string, options: CookieOptions) {
-					// Pass Auth token to server-context.
+					/* Pass Auth token to server-context. */
 					request.cookies.set({
 						name,
 						value,
@@ -41,7 +42,7 @@ export async function middleware(request: NextRequest) {
 							headers: request.headers,
 						},
 					})
-					// Pass Auth token to browser-context.
+					/* Pass Auth token to browser-context. */
 					response.cookies.set({
 						name,
 						value,
@@ -49,7 +50,7 @@ export async function middleware(request: NextRequest) {
 					})
 				},
 				remove(name: string, options: CookieOptions) {
-					// Pass Auth token to server-context.
+					/* Pass Auth token to server-context. */
 					request.cookies.set({
 						name,
 						value: '',
@@ -60,7 +61,7 @@ export async function middleware(request: NextRequest) {
 							headers: request.headers,
 						},
 					})
-					// Pass Auth token to browser-context.
+					/* Pass Auth token to browser-context. */
 					response.cookies.set({
 						name,
 						value: '',
@@ -71,9 +72,9 @@ export async function middleware(request: NextRequest) {
 		}
 	)
 	
-	// Refresh Auth token.
+	/* Refresh Auth token. */
 	const {error} = await supabase.auth.getUser()
-	// Ensure logout and cookie deletion to avoid 400.
+	/* Ensure logout and cookie deletion to avoid 400. */
 	if (error) {
 		void await supabase.auth.signOut();
 	}

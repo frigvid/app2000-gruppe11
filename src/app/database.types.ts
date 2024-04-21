@@ -15,7 +15,7 @@ export type Database = {
           created_at: string
           created_by: string
           id: string
-          is_published: boolean | null
+          is_published: boolean
           modified_at: string
           summary: string | null
           title: string
@@ -25,8 +25,8 @@ export type Database = {
           created_at?: string
           created_by: string
           id?: string
-          is_published?: boolean | null
-          modified_at: string
+          is_published?: boolean
+          modified_at?: string
           summary?: string | null
           title: string
         }
@@ -35,7 +35,7 @@ export type Database = {
           created_at?: string
           created_by?: string
           id?: string
-          is_published?: boolean | null
+          is_published?: boolean
           modified_at?: string
           summary?: string | null
           title?: string
@@ -56,7 +56,7 @@ export type Database = {
           created_at: string
           created_by: string
           id: string
-          is_published: boolean | null
+          is_published: boolean
           modified_at: string
           summary: string | null
           title: string
@@ -66,8 +66,8 @@ export type Database = {
           created_at?: string
           created_by: string
           id?: string
-          is_published?: boolean | null
-          modified_at: string
+          is_published?: boolean
+          modified_at?: string
           summary?: string | null
           title: string
         }
@@ -76,7 +76,7 @@ export type Database = {
           created_at?: string
           created_by?: string
           id?: string
-          is_published?: boolean | null
+          is_published?: boolean
           modified_at?: string
           summary?: string | null
           title?: string
@@ -161,22 +161,22 @@ export type Database = {
       }
       gamedata: {
         Row: {
-          draws: number | null
+          draws: number
           id: string
-          losses: number | null
-          wins: number | null
+          losses: number
+          wins: number
         }
         Insert: {
-          draws?: number | null
+          draws?: number
           id: string
-          losses?: number | null
-          wins?: number | null
+          losses?: number
+          wins?: number
         }
         Update: {
-          draws?: number | null
+          draws?: number
           id?: string
-          losses?: number | null
-          wins?: number | null
+          losses?: number
+          wins?: number
         }
         Relationships: [
           {
@@ -226,7 +226,7 @@ export type Database = {
           created_at: string
           created_by: string
           id: string
-          is_published: boolean | null
+          is_published: boolean
           modified_at: string
           summary: string | null
           title: string
@@ -236,8 +236,8 @@ export type Database = {
           created_at?: string
           created_by: string
           id?: string
-          is_published?: boolean | null
-          modified_at: string
+          is_published?: boolean
+          modified_at?: string
           summary?: string | null
           title: string
         }
@@ -246,7 +246,7 @@ export type Database = {
           created_at?: string
           created_by?: string
           id?: string
-          is_published?: boolean | null
+          is_published?: boolean
           modified_at?: string
           summary?: string | null
           title?: string
@@ -342,21 +342,27 @@ export type Database = {
       }
       repertoire: {
         Row: {
+          description: string | null
           id: string
           openings: Json | null
           timestamp: string
+          title: string | null
           usr: string | null
         }
         Insert: {
+          description?: string | null
           id?: string
           openings?: Json | null
           timestamp?: string
+          title?: string | null
           usr?: string | null
         }
         Update: {
+          description?: string | null
           id?: string
           openings?: Json | null
           timestamp?: string
+          title?: string | null
           usr?: string | null
         }
         Relationships: [
@@ -413,6 +419,20 @@ export type Database = {
       friend_get_all_friends: {
         Args: Record<PropertyKey, never>
         Returns: {
+          friendship_id: string
+          id: string
+          display_name: string
+          elo_rank: number
+          avatar_url: string
+          nationality: string
+        }[]
+      }
+      friend_get_one: {
+        Args: {
+          friend: string
+        }
+        Returns: {
+          friendship_id: string
           id: string
           display_name: string
           elo_rank: number
@@ -441,6 +461,16 @@ export type Database = {
       }
       friend_request_get_all: {
         Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          display_name: string
+          avatar_url: string
+        }[]
+      }
+      friend_request_get_one: {
+        Args: {
+          by_usr: string
+        }
         Returns: {
           id: string
           display_name: string

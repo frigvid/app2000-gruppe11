@@ -1,9 +1,9 @@
 "use client";
 
+import WordDivider from "@shared/components/misc/word-divider";
+import withI18next from "@shared/components/lang/with-i18next";
 import {signInSA} from "@auth/signin/actions/sign-in-sa";
-import withI18next from "@ui/lang/with-i18next";
 import {useTranslation} from "react-i18next";
-import WordDivider from "@ui/word-divider";
 import Link from "next/link";
 import React from "react";
 

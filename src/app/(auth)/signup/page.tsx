@@ -1,9 +1,9 @@
 "use client";
 
 import PasswordDetails from "@auth/components/fragment/password-details";
+import WordDivider from "@shared/components/misc/word-divider";
+import withI18next from "@shared/components/lang/with-i18next";
 import signUpSA from "@auth/signup/actions/sign-up-sa";
-import WordDivider from "@ui/word-divider";
-import withI18next from "@ui/lang/with-i18next";
 import {useTranslation} from "react-i18next";
 import Link from "next/link";
 import React from "react";
@@ -75,4 +75,8 @@ function SignUp() {
 	);
 }
 
+/**
+ * Exported with extra i18next support,
+ * to avoid hydration errors.
+ */
 export default withI18next(SignUp);

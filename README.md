@@ -35,7 +35,14 @@ Chess has various strategies to for both proactive and reactive actions for the 
 
 Chess Buddy is a web-application designed to teach its users opening strategies.
 
-Saying that, it's important to note that it is a bit bare-bones. You are able to play full chess games against machine opponents*, and you can create your own opening strategies, as well as training against said openings. There are also some social functions in the form of user profiles and friendships, but that's about it.
+Saying that, it's important to note that it is a bit bare-bones at the moment.
+
+Features:
+- Play full games of Chess against a random-type machine opponent.
+- You are able to create opening strategies visually, and train against them.
+- You are able to create repertoires, groups of openings, and train against them.
+- You are able to modify your user profile, and add other users as friends.
+- You are able to view, author, edit, delete and publish/unpublish news, documentation and FAQ.
 
 ## Built with
 

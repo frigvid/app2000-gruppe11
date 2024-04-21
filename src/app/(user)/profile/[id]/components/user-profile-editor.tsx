@@ -8,11 +8,13 @@ import React, {Fragment, useState} from "react";
 import {useTranslation} from "react-i18next";
 import Tooltip from "@mui/material/Tooltip";
 import Edit from "@mui/icons-material/Edit";
-import {useRouter} from "next/navigation";
 import Button from "@mui/material/Button";
 
 /**
- * Type definition for the EditUserProfileModal component.
+ * Type definition for the EditUserProfileModal component's props.
+ *
+ * @author frigvid
+ * @created 2024-04-10
  */
 interface EditUserProfileModalProps {
 	avatar_url: string;
@@ -45,33 +47,24 @@ export default function UserProfileEditor({
 	const [aboutMe, setAboutMe] = useState(about_me);
 	const [visibilityStatus, setVisibilityStatus] = useState(String(visibility));
 	const [visibilityFriendsStatus, setVisibilityFriendsStatus] = useState(String(visibility_friends));
-	const router = useRouter();
 	const {t} = useTranslation();
 	
+	/**
+	 * Closes the modal.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-10
+	 */
 	function closeModal() {
 		setIsOpen(false);
 	}
 	
 	/**
-	 * This is a rather ugly hack. Essentially, it's trying to go up
-	 * a level in the URL path hierarchy, however, it gets 404'd because
-	 * there purposefully isn't a generic profile page.
+	 * Opens the modal.
 	 *
-	 * Instead of going back a step, and sending the user to a 404. It
-	 * instead forces a reload of the page; which is what you'd want.
-	 *
-	 * I'm pretty sure this behavior is just a bug, as it only occurs
-	 * when this function is called from within either the Transition,
-	 * Dialog or button. And not if you call the regular closeModal
-	 * function.
-	 *
-	 * FIXME: Don't use this mess.
+	 * @author frigvid
+	 * @created 2024-04-10
 	 */
-	function closeModalWeirdly() {
-		setIsOpen(false);
-		router.push(".");
-	}
-	
 	function openModal() {
 		setIsOpen(true);
 	}
@@ -106,7 +99,7 @@ export default function UserProfileEditor({
 								leaveTo="opacity-0 scale-95"
 							>
 								<Dialog.Panel
-									className="xs:w-full xs:h-full lg:w-[40rem] lg:h-[52rem] transform overflow-hidden lg:rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+									className="xs:w-full xs:h-full lg:w-[40rem] lg:h-[52rem] transform overflow-x-hidden overflow-y-scroll lg:no-scrollbar lg:rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
 								>
 									<Dialog.Title
 										as="h3"
@@ -250,7 +243,7 @@ export default function UserProfileEditor({
 												<button
 													className="bg-green-400 mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal"
 													formAction={editUserProfileSA}
-													onClick={closeModalWeirdly}
+													onClick={closeModal}
 												>
 													{t("user_profile.editor.save.label")}
 												</button>

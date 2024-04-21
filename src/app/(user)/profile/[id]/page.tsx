@@ -4,11 +4,11 @@ import PendingFriendRequests from "@user/profile/[id]/components/pending-friend-
 import UserProfileEditor from "@user/profile/[id]/components/user-profile-editor";
 import SearchForFriend from "@user/profile/[id]/components/search-for-friend";
 import ProtectClientContent from "@auth/components/protect-client-content";
+import UnauthorizedError from "@shared/components/error/401_unauthorized";
 import FriendList from "@user/profile/[id]/components/friend-list";
 import UserStats from "@user/profile/[id]/components/user-stats";
 import Buffering from "@auth/components/fragment/Buffering";
-import UnauthorizedError from "@ui/error/401_unauthorized";
-import {createClient} from "@utils/supabase/client";
+import {createClient} from "@shared/utils/supabase/client";
 import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {usePathname} from "next/navigation";
@@ -33,9 +33,18 @@ export default function UserProfile() {
 	const [isLoading, setIsLoading] = useState(true);
 	const [data, setData] = useState(null);
 	const [user, setUser] = useState(null);
+	const [avatarURL, setAvatarURL] = useState(null);
+	const [displayName, setDisplayName] = useState(null);
+	const [aboutMe, setAboutMe] = useState(null);
 	const staticUserId = usePathname().split('/').pop() || '';
 	const {t} = useTranslation();
 	
+	/**
+	 * Fetches the user's profile data, and the user object.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-03
+	 */
 	useEffect(() => {
 		const fetchProfile = async () => {
 			setIsLoading(true);
@@ -46,6 +55,9 @@ export default function UserProfile() {
 				console.error("Supabase RPC postgres error!", PostgrestError);
 			} else {
 				setData(data[0]);
+				setAvatarURL(data[0].avatar_url);
+				setDisplayName(data[0].display_name);
+				setAboutMe(data[0].about_me);
 			}
 		};
 		
@@ -65,6 +77,41 @@ export default function UserProfile() {
 		void fetchUser();
 		setIsLoading(false);
 	}, [staticUserId, supabase]);
+	
+	/**
+	 * This useEffect handles realtime UPDATEs on the
+	 * public.profiles table.
+	 *
+	 * See {@link @/app/chess/stages/components/StagesOpenings}
+	 * for some additional details.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-15
+	 * @see https://supabase.com/docs/guides/realtime
+	 * @see https://supabase.com/docs/reference/javascript/subscribe?example=listen-to-multiple-events
+	 */
+	useEffect(() => {
+		const userProfile = supabase
+			.channel('userprofile')
+			.on('postgres_changes', {
+				event: 'UPDATE',
+				schema: 'public',
+				table: 'profiles'
+			}, async (payload) => {
+				/* Call it paranoia, but just to be safe, I'm checking that the payload's
+				 * user ID matches the static user ID. */
+				if (payload.new.id === staticUserId) {
+					setAvatarURL(payload.new.avatar_url);
+					setDisplayName(payload.new.display_name);
+					setAboutMe(payload.new.about_me)
+				}
+			})
+			.subscribe();
+		
+		return () => {
+			void supabase.removeChannel(userProfile);
+		}
+	}, [supabase, staticUserId, avatarURL, displayName, aboutMe]);
 	
 	/**
 	 * The extra checks are mostly for users who are not
@@ -88,6 +135,9 @@ export default function UserProfile() {
 	 * The JSX layout for the user's profile.
 	 *
 	 * Called by the authorization logic below this function.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-10
 	 */
 	function profileLayout() {
 		return (
@@ -104,9 +154,9 @@ export default function UserProfile() {
 									? (
 										<div className="absolute top-0 right-0 mt-2 mr-2 flex flex-col space-y-2">
 											<UserProfileEditor
-												avatar_url={data.avatar_url}
-												display_name={data.display_name}
-												about_me={data.about_me}
+												avatar_url={avatarURL}
+												display_name={displayName}
+												about_me={aboutMe}
 												nationality={data.nationality}
 												visibility={data.visibility}
 												visibility_friends={data.visibility_friends}
@@ -119,30 +169,23 @@ export default function UserProfile() {
 							}
 						</ProtectClientContent>
 						<div className="w-24 h-24 bg-[#a1887f] rounded-full mx-auto">
-							<Avatar src={data.avatar_url} sx={{width: 96, height: 96}}/>
+							<Avatar src={avatarURL} sx={{width: 96, height: 96}}/>
 						</div>
-						<h2 className="text-2xl">{data.display_name}</h2>
+						<h2 className="text-2xl">{displayName}</h2>
 					</div>
 					{/* Header: User's stats. */}
 					<div className="flex justify-around p-5 bg-[#efebe9]">
-						<UserStats
-							elo_rank={data.elo_rank}
-							games_played={data.wins + data.losses + data.draws}
-							games_won={data.wins}
-							games_lost={data.losses}
-							games_drawn={data.draws}
-							nationality={data.nationality}
-						/>
+						<UserStats data={data}/>
 					</div>
 					{/* Body: About me. */}
 					<div className="p-5">
 						<h2 className="border-b-2 border-[#a1887f] pb-1 font-bold">{t("user_profile.about_me")}</h2>
 						<p className="mt-2">
 						{
-							// Checks if the user has added any data yet.
-							(data.about_me !== null)
-								? ((data.about_me !== "")
-									? data.about_me.split('\r\n').map((line: any, i: any) => <span key={i}>{line}<br/></span>)
+							/* Checks if the user has added any data yet. */
+							(aboutMe !== null)
+								? ((aboutMe !== "")
+									? aboutMe.split(/\r?\n/).map((line: any, i: any) => <span key={i}>{line}<br/></span>)
 									: null)
 								: null
 						}
@@ -151,11 +194,11 @@ export default function UserProfile() {
 					{/* Body: Friend's list. */}
 					<div className="p-5">
 						{
-							(data.visibility_friends === true)
-								? <FriendList/>
-								: ((user !== null && staticUserId == user.id)
-									? <FriendList user={user}/>
-									: null)
+							(user !== null && staticUserId === user.id)
+								? <FriendList user={user}/>
+								: (data.visibility_friends === true)
+									? <FriendList/>
+									: null
 						}
 					</div>
 				</div>
@@ -177,6 +220,9 @@ export default function UserProfile() {
 	 *         `user.id` of the authenticated user, return the profile layout.
 	 *    2.2. If the `user` object is null, or if the `staticUserId` is NOT equal to the
 	 *         `user.id` of the authenticated user, return a 401 error.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-03
 	 */
 	if (data.visibility) {
 		return (

@@ -23,6 +23,15 @@ Date (yyyy-mm-dd)   	Author             	Comments
 2024-04-13T20-50		frigvid					Added history-gamedata trigger.
 2024-04-13T21-10		frigvid					Add Supabase REALTIME support to select tables.
 2024-04-14				frigvid					Added function to promote user to administrator.
+2024-04-15				frigvid					Added friend_request_get_one and friend_get_one,
+														and modified friend_get_all_friends to make it
+														function better with the realtime implementation.
+2024-04-20				frigvid					Modified public.docs POLICIES to feature match
+														public.news' POLICIES. Also added trigger for
+														updating public.news modified_at time.
+2024-04-21				frigvid					Modified public.faq POLICIES to feature match
+														public.news' and public.docs' POLICIES. Also added
+														triggers for updating modified_at time.
 ********************************************************************************************/ 
 
 
@@ -76,7 +85,7 @@ CREATE TABLE IF NOT EXISTS
 		/* Ensure any permutation of 2 users are caught. */
 		UNIQUE (user1, user2),
 		UNIQUE (user2, user1)
-);
+	);
 
 
 
@@ -99,7 +108,7 @@ CREATE TABLE IF NOT EXISTS
 		 */
 		UNIQUE (by_user, to_user),
 		UNIQUE (to_user, by_user)
-);
+	);
 
 
 
@@ -131,9 +140,9 @@ CREATE TABLE IF NOT EXISTS
 CREATE TABLE IF NOT EXISTS
 	gamedata (
 		id UUID PRIMARY KEY,
-		wins BIGINT,
-		losses BIGINT,
-		draws BIGINT,
+		wins BIGINT NOT NULL DEFAULT 0,
+		losses BIGINT NOT NULL DEFAULT 0,
+		draws BIGINT NOT NULL DEFAULT 0,
 		FOREIGN KEY (id) REFERENCES auth.users (id)
 	);
 
@@ -166,12 +175,14 @@ CREATE TABLE IF NOT EXISTS
  * ============================================= */
 CREATE TABLE IF NOT EXISTS
 	repertoire (
-		id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+		id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 		timestamp TIMESTAMPTZ NOT NULL DEFAULT (timezone('utc', now())),
 		/* Named this way to avoid naming collision with USER() in SELECTs. */
-		usr uuid,
+		usr UUID,
+		title TEXT DEFAULT (timezone('utc', now())),
+		description TEXT,
 		/* Array with opening IDs. */
-		openings jsonb,
+		openings JSONB,
 		FOREIGN KEY (usr) REFERENCES auth.users (id)
 	);
 
@@ -187,14 +198,14 @@ CREATE TABLE IF NOT EXISTS
 		id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 		created_at TIMESTAMPTZ NOT NULL DEFAULT (timezone('utc', now())),
 		/* Changed using a TRIGGER. */
-		modified_at TIMESTAMPTZ NOT NULL,
+		modified_at TIMESTAMPTZ NOT NULL DEFAULT (timezone('utc', now())),
 		created_by UUID NOT NULL,
 		title TEXT NOT NULL,
 		summary TEXT NULL,
 		content TEXT NULL,
 		/* Used to check if "news" are still drafts, or if they've been published.
 		 * A superuser is necessary to see them in the UI if FALSE. */
-		is_published BOOLEAN DEFAULT TRUE,
+		is_published BOOLEAN NOT NULL DEFAULT TRUE,
 		FOREIGN KEY (created_by) REFERENCES auth.users (id)
 	);
 
@@ -210,14 +221,14 @@ CREATE TABLE IF NOT EXISTS
 		id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 		created_at TIMESTAMPTZ NOT NULL DEFAULT (timezone('utc', now())),
 		/* Changed using a TRIGGER. */
-		modified_at TIMESTAMPTZ NOT NULL,
+		modified_at TIMESTAMPTZ NOT NULL DEFAULT (timezone('utc', now())),
 		created_by UUID NOT NULL,
 		title TEXT NOT NULL,
 		summary TEXT NULL,
 		content TEXT NULL,
 		/* Used to check if "docs" are still drafts, or if they've been published.
 		 * A superuser is necessary to see them in the UI if FALSE. */
-		is_published BOOLEAN DEFAULT TRUE,
+		is_published BOOLEAN NOT NULL DEFAULT TRUE,
 		FOREIGN KEY (created_by) REFERENCES auth.users (id)
 	);
 
@@ -233,14 +244,14 @@ CREATE TABLE IF NOT EXISTS
 		id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 		created_at TIMESTAMPTZ NOT NULL DEFAULT (timezone('utc', now())),
 		/* Changed using a TRIGGER. */
-		modified_at TIMESTAMPTZ NOT NULL,
+		modified_at TIMESTAMPTZ NOT NULL DEFAULT (timezone('utc', now())),
 		created_by UUID NOT NULL,
 		title TEXT NOT NULL,
 		summary TEXT NULL,
 		content TEXT NULL,
 		/* Used to check if "faq" are still drafts, or if they've been published.
 		 * A superuser is necessary to see them in the UI if FALSE. */
-		is_published BOOLEAN DEFAULT TRUE,
+		is_published BOOLEAN NOT NULL DEFAULT TRUE,
 		FOREIGN KEY (created_by) REFERENCES auth.users (id)
 	);
 
@@ -253,10 +264,20 @@ CREATE TABLE IF NOT EXISTS
  *					REALTIME SUPPORT					*
  *															*
  ********************************************/
+
+
+
+
+
 ALTER PUBLICATION supabase_realtime ADD TABLE public.openings;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.repertoire;
 ALTER PUBLICATION supabase_realtime ADD TABLE public.gamedata;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.profiles;
 ALTER PUBLICATION supabase_realtime ADD TABLE public.friends;
 ALTER PUBLICATION supabase_realtime ADD TABLE public.friend_requests;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.news;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.faq;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.docs;
 
 
 
@@ -265,7 +286,7 @@ ALTER PUBLICATION supabase_realtime ADD TABLE public.friend_requests;
 /*********************************************
  *															*
  *			ROW LEVEL SECURITY & POLICIES			*
- *															*
+ *				(Insert order sensitive)			*
  ********************************************/
 
 
@@ -278,36 +299,48 @@ ALTER TABLE news ENABLE ROW LEVEL SECURITY;
 /* =============================================
  * Author:      frigvid
  * Create date: 2024-04-13
- * Description: Grant read-write access to admins.
+ * Description: Grant read access to non-user
+ *              created rows.
  * ============================================= */
-CREATE POLICY news_rw_as_admin
-ON news
-FOR ALL
+CREATE POLICY news_r_to_published
+ON public.news
+AS PERMISSIVE
+FOR SELECT
+TO authenticated, anon
+USING (
+	is_published = TRUE
+);
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-19
+ * Description: Grants read access to unpublished
+ *              news for administrators.
+ * ============================================= */
+CREATE POLICY news_r_to_unpublished_as_admin
+ON public.news
+AS PERMISSIVE
+FOR SELECT
 TO authenticated
 USING (
-	EXISTS (
-		SELECT 1 FROM auth.users
-		WHERE id = auth.uid() AND is_super_admin = TRUE
-	)
-)
-WITH CHECK (
-	EXISTS (
-		SELECT 1 FROM auth.users
-		WHERE id = auth.uid() AND is_super_admin = TRUE
-	)
+	admin_is_admin() = TRUE AND
+	is_published = FALSE
 );
 
 /* =============================================
  * Author:      frigvid
  * Create date: 2024-04-13
- * Description: Grant read access to non-user
- *              created rows.
+ * Description: Grant read-write access to admins.
  * ============================================= */
-CREATE POLICY news_r_to_published
-ON news
-FOR SELECT
-TO anon, authenticated
-USING (is_published = TRUE);
+CREATE POLICY news_rw_as_admin
+ON public.news
+AS PERMISSIVE
+FOR ALL
+TO authenticated
+USING (
+	admin_is_admin() = TRUE
+);
+
 
 
 /* DOCS POLICIES */
@@ -316,36 +349,47 @@ ALTER TABLE docs ENABLE ROW LEVEL SECURITY;
 /* =============================================
  * Author:      frigvid
  * Create date: 2024-04-13
- * Description: Grant read-write access to admins.
+ * Description: Grant read access to non-user
+ *              created rows.
  * ============================================= */
-CREATE POLICY docs_rw_as_admin
-ON docs
-FOR ALL
+CREATE POLICY docs_r_to_published
+ON public.docs
+AS PERMISSIVE
+FOR SELECT
+TO authenticated, anon
+USING (
+	is_published = TRUE
+);
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-19
+ * Description: Grants read access to unpublished
+ *              docs for administrators.
+ * ============================================= */
+CREATE POLICY docs_r_to_unpublished_as_admin
+ON public.docs
+AS PERMISSIVE
+FOR SELECT
 TO authenticated
 USING (
-	EXISTS (
-		SELECT 1 FROM auth.users
-		WHERE id = auth.uid() AND is_super_admin = TRUE
-	)
-)
-WITH CHECK (
-	EXISTS (
-		SELECT 1 FROM auth.users
-		WHERE id = auth.uid() AND is_super_admin = TRUE
-	)
+	admin_is_admin() = TRUE AND
+	is_published = FALSE
 );
 
 /* =============================================
  * Author:      frigvid
  * Create date: 2024-04-13
- * Description: Grant read access to non-user
- *              created rows.
+ * Description: Grant read-write access to admins.
  * ============================================= */
-CREATE POLICY docs_r_to_published
-ON docs
-FOR SELECT
-TO anon, authenticated
-USING (is_published = TRUE);
+CREATE POLICY docs_rw_as_admin
+ON public.docs
+AS PERMISSIVE
+FOR ALL
+TO authenticated
+USING (
+	admin_is_admin() = TRUE
+);
 
 
 
@@ -355,36 +399,47 @@ ALTER TABLE faq ENABLE ROW LEVEL SECURITY;
 /* =============================================
  * Author:      frigvid
  * Create date: 2024-04-13
- * Description: Grant read-write access to admins.
+ * Description: Grant read access to non-user
+ *              created rows.
  * ============================================= */
-CREATE POLICY faq_rw_as_admin
-ON faq
-FOR ALL
+CREATE POLICY faq_r_to_published
+ON public.faq
+AS PERMISSIVE
+FOR SELECT
+TO authenticated, anon
+USING (
+	is_published = TRUE
+);
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-19
+ * Description: Grants read access to unpublished
+ *              FAQs for administrators.
+ * ============================================= */
+CREATE POLICY faq_r_to_unpublished_as_admin
+ON public.faq
+AS PERMISSIVE
+FOR SELECT
 TO authenticated
 USING (
-	EXISTS (
-		SELECT 1 FROM auth.users
-		WHERE id = auth.uid() AND is_super_admin = TRUE
-	)
-)
-WITH CHECK (
-	EXISTS (
-		SELECT 1 FROM auth.users
-		WHERE id = auth.uid() AND is_super_admin = TRUE
-	)
+	admin_is_admin() = TRUE AND
+	is_published = FALSE
 );
 
 /* =============================================
  * Author:      frigvid
  * Create date: 2024-04-13
- * Description: Grant read access to non-user
- *              created rows.
+ * Description: Grant read-write access to admins.
  * ============================================= */
-CREATE POLICY docs_r_to_published
-ON faq
-FOR SELECT
-TO anon, authenticated
-USING (is_published = TRUE);
+CREATE POLICY faq_rw_as_admin
+ON public.faq
+AS PERMISSIVE
+FOR ALL
+TO authenticated
+USING (
+	admin_is_admin() = TRUE
+);
 
 
 
@@ -1056,32 +1111,71 @@ $$;
  * ============================================= */
 CREATE OR REPLACE FUNCTION public.friend_get_all_friends()
 	RETURNS TABLE(
-		id uuid,
-		display_name text,
-		elo_rank integer,
-		avatar_url text,
-		nationality text
+		friendship_id UUID,
+		id UUID,
+		display_name TEXT,
+		elo_rank INTEGER,
+		avatar_url TEXT,
+		nationality TEXT
 	)
 	LANGUAGE plpgsql
 AS $$
 BEGIN
 	RETURN QUERY
 	SELECT
+		f.id AS friendship_id,
 		p.id,
 		p.display_name,
 		p.elo_rank,
 		p.avatar_url,
 		p.nationality
-	FROM profiles AS p
-	WHERE p.id IN (
-		SELECT f.user2 AS id
+	FROM (
+		SELECT f.id AS friendship_id, f.user2 AS id
 		FROM friends AS f
 		WHERE f.user1 = auth.uid()
 		UNION
-		SELECT f.user1 AS id
+		SELECT f.id AS friendship_id, f.user1 AS id
 		FROM friends AS f
 		WHERE f.user2 = auth.uid()
-	);
+	) AS f
+	JOIN profiles AS p ON p.id = f.id;
+END;
+$$;
+
+
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-15
+ * Description: Get one friend, if matching a
+ *              specific user.
+ * ============================================= */
+CREATE OR REPLACE FUNCTION public.friend_get_one(friend UUID)
+	RETURNS TABLE(
+		friendship_id UUID,
+		id UUID,
+		display_name TEXT,
+		elo_rank INTEGER,
+		avatar_url TEXT,
+		nationality TEXT
+	)
+	LANGUAGE plpgsql
+AS $$
+BEGIN
+	RETURN QUERY
+	SELECT
+		f.id AS friendship_id,
+		p.id,
+		p.display_name,
+		p.elo_rank,
+		p.avatar_url,
+		p.nationality
+	FROM
+		public.friends AS f
+	JOIN
+		public.profiles AS p ON p.id = friend
+	WHERE	(f.user1 = auth.uid() AND f.user2 = friend) OR
+			(f.user2 = auth.uid() AND f.user1 = friend);
 END;
 $$;
 
@@ -1100,15 +1194,15 @@ AS $$
 DECLARE
 	status BOOLEAN;
 BEGIN
-   RETURN EXISTS (
-   	SELECT 1
-   	FROM friends
+	RETURN EXISTS (
+		SELECT 1
+		FROM friends
 		/* Overkill check. Table is already constrained for
 		 * this kind of eventaulity. But call me paranoid.
 		 */
-   	WHERE	(user1 = auth.uid() AND user2 = other_user) OR
-   			(user2 = auth.uid() AND user1 = other_user)
-   );
+		WHERE	(user1 = auth.uid() AND user2 = other_user) OR
+				(user2 = auth.uid() AND user1 = other_user)
+	);
 END;
 $$;
 
@@ -1157,6 +1251,38 @@ BEGIN
 		public.profiles AS p ON fr.by_user = p.id
 	WHERE
 		fr.to_user = auth.uid();
+END;
+$$;
+
+
+
+/* =============================================
+ * Author:      frigvid
+ * Create date: 2024-04-15
+ * Description: Get one pending friend requests
+ *              from a specific user.
+ * ============================================= */
+CREATE OR REPLACE FUNCTION public.friend_request_get_one(by_usr UUID)
+	RETURNS TABLE(
+		id UUID,
+		display_name TEXT,
+		avatar_url TEXT
+	)
+	LANGUAGE plpgsql
+AS $$
+BEGIN
+	RETURN QUERY
+	SELECT
+		p.id,
+		p.display_name,
+		p.avatar_url
+	FROM
+		public.friend_requests AS fr
+	JOIN
+		public.profiles AS p ON fr.by_user = p.id
+	WHERE
+		fr.to_user = auth.uid() AND
+		fr.by_user = by_usr;
 END;
 $$;
 
@@ -1320,3 +1446,75 @@ CREATE TRIGGER history_update_gamedata_trigger
 AFTER INSERT ON history
 FOR EACH ROW
 EXECUTE FUNCTION _history_update_gamedata();
+
+
+
+/* ==============================================================
+ * Author:      frigvid
+ * Create date: 2024-04-20
+ * Description: Triggered function for handling news modified time
+ *              updates.
+ * Usage:       INTERNAL. Hence starting with an underscore.
+ * ============================================================ */
+CREATE OR REPLACE FUNCTION _news_update_modified_at_on_change()
+	RETURNS TRIGGER
+	LANGUAGE 'plpgsql'
+AS $$
+BEGIN
+	NEW.modified_at = timezone('utc', now());
+	RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER news_update_modified_timestamptz
+BEFORE UPDATE ON news
+FOR EACH ROW
+EXECUTE PROCEDURE _news_update_modified_at_on_change();
+
+
+
+/* ==============================================================
+ * Author:      frigvid
+ * Create date: 2024-04-20
+ * Description: Triggered function for handling docs modified time
+ *              updates.
+ * Usage:       INTERNAL. Hence starting with an underscore.
+ * ============================================================ */
+CREATE OR REPLACE FUNCTION _docs_update_modified_at_on_change()
+	RETURNS TRIGGER
+	LANGUAGE 'plpgsql'
+AS $$
+BEGIN
+	NEW.modified_at = timezone('utc', now());
+	RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER docs_update_modified_timestamptz
+BEFORE UPDATE ON docs
+FOR EACH ROW
+EXECUTE PROCEDURE _docs_update_modified_at_on_change();
+
+
+
+/* ==============================================================
+ * Author:      frigvid
+ * Create date: 2024-04-20
+ * Description: Triggered function for handling faq modified time
+ *              updates.
+ * Usage:       INTERNAL. Hence starting with an underscore.
+ * ============================================================ */
+CREATE OR REPLACE FUNCTION _faq_update_modified_at_on_change()
+	RETURNS TRIGGER
+	LANGUAGE 'plpgsql'
+AS $$
+BEGIN
+	NEW.modified_at = timezone('utc', now());
+	RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER faq_update_modified_timestamptz
+BEFORE UPDATE ON faq
+FOR EACH ROW
+EXECUTE PROCEDURE _faq_update_modified_at_on_change();

@@ -5,6 +5,27 @@
 :root {
 }
 
+/**
+ * You can use these two utility classes in any className
+ * prop by writing `no-scrollbar`.
+ *
+ * @author frigvid
+ * @created 2024-04-16
+ */
+@layer utilities {
+	/* Google Chrome, Chromium, Safari and Opera. */
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+
+	.no-scrollbar {
+		/* Internet Explorer and old Microsoft Edge */
+		-ms-overflow-style: none;
+		/* Firefox and Firefox Developer Edition. */
+		scrollbar-width: none;
+	}
+}
+
 @media (prefers-color-scheme: dark) {
 	:root {
 	}

@@ -1,6 +1,6 @@
 "use client";
 
-import {createClient} from "@utils/supabase/client";
+import {createClient} from "@shared/utils/supabase/client";
 import {User} from "@supabase/supabase-js";
 import {useEffect, useState} from "react";
 
@@ -19,6 +19,7 @@ import {useEffect, useState} from "react";
  *
  * @author frigvid
  * @created 2024-02-26
+ * @returns The user object.
  */
 export function useUser() {
 	const supabase = createClient();
@@ -26,7 +27,7 @@ export function useUser() {
 	
 	useEffect(() => {
 		const getUser = async () => {
-			// Get session first, to test against, to avoid logging 401s to the console.
+			/* Get session first, to test against, to avoid logging 401s to the console. */
 			const {data: {session}} = await supabase.auth.getSession();
 			
 			if (session) {
@@ -37,25 +38,17 @@ export function useUser() {
 			}
 		}
 		
-		// Ignore the warning about the promise being ignored.
+		/* Ignore the warning about the promise being ignored. */
 		void getUser();
-	}, [supabase.auth]); // Ignore dependency warning. Adding it will cause a small performance drop.
+	}, [supabase.auth]);
 	
-	return user;
-}
-
-/**
- * Gets the user's metadata, if it exists.
- *
- * TODO: Investigate why getting the user's metadata returns `null` the first few times, despite it being there
- * 		and being updatable through the API.
- */
-export const useMetadata = () => {
-	const user = useUser();
-
-	if (user && user.user_metadata) {
-		return user.user_metadata;
+	/**
+	 * This will hopefully make it easier to avoid errors
+	 * where there isn't a user.
+	 */
+	if (user) {
+		return user;
+	} else {
+		return null;
 	}
-
-	return null;
 }

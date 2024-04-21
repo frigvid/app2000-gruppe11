@@ -20,9 +20,6 @@ import i18n from "i18next";
 const resources = {
 	en: {
 		translation: {// Translation keys and their English text
-			"home": "Home",
-			"news": "News",
-			"docs": "Docs",
 			"title": "Chess Buddy",
 			"train_openings": "Train Openings",
 			"play_now": "Play Now",
@@ -39,16 +36,6 @@ const resources = {
 			"ch_help_you4": "Challenges and games against AI to practice and reinforce learning.",
 			"ch_help_you5": "Feedback and analyzes that help you understand your strengths and weaknesses.",
 			"faq_title": "FAQ",
-			"faq1_question": "Is Chess Buddy free to use?",
-			"faq1_answer": "chess buddy is a free websites for learning chess and chess openings.",
-			"faq2_question": "Can I use the website without an account?",
-			"faq2_answer": "You can use the website without having a account, but if you dont have a account your progress wont be saved when you exit the application",
-			"faq3_question": "How do I start a game?",
-			"faq3_answer": "You start a game by going to the home page and pressing start game.",
-			"faq4_question": "Can I play against the computer?",
-			"faq4_answer": "Yes, you can play againts a computer and later we are going to make it possible to play against people also",
-			"faq5_question": "Do you offer chess lessons or tutorials?",
-			"faq5_answer": "Chess Buddy is a webpage dedicated to help players learn openings for the game of chess, and you can even make your own openings later when you have learned some.",
 			"welcome_title": "Welcome to Chess Buddy",
 			"welcome_paragraph_1": "Here at Chess Buddy, we are driven by a simple vision: To make high-quality chess instruction available to everyone. Our passion for chess and a clear understanding of the market's needs inspired us to create a tool that specifically focuses on opening moves; a vital, but often underrated, part of the game.",
 			"welcome_paragraph_2": "We recognized a gap in the market for a dedicated tool that could offer deeper insight and practical training in chess openings. This led us to develop Chess Buddy, a platform that combines the latest technology with extensive chess expertise to offer a unique learning experience.",
@@ -79,6 +66,7 @@ const resources = {
 			"generic": {
 				"return_somewhere": "Return to",
 				"return_to": "Go back to",
+				"read_more": "Read more",
 				"email": {
 					"label": "E-mail",
 					"placeholder": "you@example.com"
@@ -87,10 +75,30 @@ const resources = {
 					"label": "Password"
 				}
 			},
+			"cookie_banner": {
+				"label": "This website uses cookies",
+				"body": "This website relies on cookies for authentication. These are critical cookies, and cannot be disabled; unless you do not want to be able to log in.",
+				"button": "Okay"
+			},
+			"header": {
+				"home": "Home",
+				"news": "News",
+				"docs": "Docs",
+			},
+			"footer": {
+				"notice": "All rights reserved."
+			},
 			"error": {
 				"500": {
 					"title": "Intern Server Feil.",
 					"message": "Noe gikk galt."
+				}
+			},
+			"actions": {
+				"confirm": {
+					"title": "Confirm action",
+					"yes": "Yes",
+					"no": "No"
 				}
 			},
 			"signup": {
@@ -286,12 +294,66 @@ const resources = {
 						"missing": "Missing name, description or moves",
 						"error": "An error occurred while saving to the database",
 						"success": "New opening saved successfully"
+					},
+					"groups": {
+						"label": "Openings"
+					},
+					"confirm": {
+						"part1": "You are about to delete the opening",
+						"part2": "Are you sure you want to proceed?"
+					}
+				},
+				"repertoire": {
+					"generics": {
+						"fragment": {
+							"group": "repertoire"
+						},
+					},
+					"header": {
+						"label": "$t(chess.repertoire.generics.fragment.group), a group of openings.",
+						"button": {
+							"save": "Save the $t(chess.repertoire.generics.fragment.group)",
+							"create": "Create a $t(chess.repertoire.generics.fragment.group)"
+						}
+					},
+					"groups": {
+						"label": "Your $t(chess.repertoire.generics.fragment.group)s",
+						"title": "Openings in this $t(chess.repertoire.generics.fragment.group)",
+						"button": "$t(generic.read_more)",
+						"train": "Practice this $t(chess.repertoire.generics.fragment.group)",
+						"delete": {
+							"tooltip": "Delete $t(chess.repertoire.generics.fragment.group)"
+						},
+						"edit": "Edit $t(chess.repertoire.generics.fragment.group)",
+						"opening_delete": "Remove opening from this $t(chess.repertoire.generics.fragment.group)",
+						"confirm": {
+							"part1": "Are you sure you want to remove",
+							"part2": "from the $t(chess.repertoire.generics.fragment.group)?"
+						}
+					},
+					"editor": {
+						"label": "Editing $t(chess.repertoire.generics.fragment.group)",
+						"edit": {
+							"title": "Edit title",
+							"desc": "Edit description",
+							"openings": "Select openings"
+						},
+						"save": "Save details",
+						"confirm": "Are you sure you want to delete the $t(chess.repertoire.generics.fragment.group)"
 					}
 				},
 				"stages": {
-					"read_more": "Read more",
+					"read_more": "$t(generic.read_more)",
 					"practice": "Practice",
-					"delete": "Delete opening"
+					"delete": "Delete opening",
+					"title": {
+						"edit": "Edit the title",
+						"save": "Save the title"
+					},
+					"desc": {
+						"edit": "Edit the description",
+						"save": "Save the description"
+					}
 				},
 				"train_chess": {
 					"status": {
@@ -306,7 +368,8 @@ const resources = {
 							"part1": "You have moved",
 							"part2": "times, and the amount of moves in the opening is"
 						},
-						"return": "Back to stage selection"
+						"return": "Back to stage selection",
+						"openings": "Select opening here"
 					}
 				},
 				"full_game": {
@@ -328,14 +391,250 @@ const resources = {
 					},
 					"alert": "Can't undo. game has already been completed."
 				}
+			},
+			"news": {
+				"generics": {
+					"fragment": {
+						"required": "Required field"
+					}
+				},
+				"title": "$t(header.news)",
+				"publishing": {
+					"part1": "Are you sure you want to",
+					"part2": "the news item",
+					"alt1": "Do you want to",
+					"alt2": "this?",
+					"publish": "publish",
+					"unpublish": "unpublish"
+				},
+				"item": {
+					"created_by": "Written by",
+					"created_at": "Created",
+					"modified_at": "Modified",
+					"summary": "Summary"
+				},
+				"delete": {
+					"confirmation": "Are you sure you want to delete this news item?",
+					"tooltip": "Delete news item?"
+				},
+				"creator": {
+					"info": {
+						"label": "If you want to create some news, click the button below.",
+						"button": "Create a new news item"
+					},
+					"modal": {
+						"label": "Create a news post",
+						"save": {
+							"confirmation": "Are you sure you want to create a new news post?",
+							"button": "Save news"
+						},
+						"title": {
+							"label": "Add a title to the news",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "News title"
+						},
+						"summary": {
+							"label": "Add a summary to the news",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "News summary"
+						},
+						"content": {
+							"label": "Add content to the news",
+							"placeholder": "News content"
+						}
+					}
+				},
+				"editor": {
+					"info": {
+						"tooltip": "Edit this news item?"
+					},
+					"modal": {
+						"label": "Edit a news post",
+						"save": {
+							"button": "Save changes",
+							"tooltip": "Are you sure you want to update this news post?"
+						},
+						"title": {
+							"label": "Edit the news title",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "News title"
+						},
+						"summary": {
+							"label": "Edit the news summary",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "News summary"
+						},
+						"content": {
+							"label": "Edit the news content",
+							"placeholder": "News content"
+						}
+					}
+				}
+			},
+			"docs": {
+				"generics": {
+					"fragment": {
+						"required": "Required field"
+					}
+				},
+				"title": "$t(header.docs)",
+				"faq": {
+					"label": "We also have an FAQ section.",
+					"button": "FAQ"
+				},
+				"publishing": {
+					"part1": "Are you sure you want to",
+					"part2": "the doc",
+					"alt1": "Do you want to",
+					"alt2": "this?",
+					"publish": "publish",
+					"unpublish": "unpublish"
+				},
+				"item": {
+					"created_at": "Created",
+					"modified_at": "Modified",
+					"summary": "Summary"
+				},
+				"delete": {
+					"confirmation": "Are you sure you want to delete this doc?",
+					"tooltip": "Delete doc?"
+				},
+				"creator": {
+					"info": {
+						"label": "If you want to create new documentation, click the button below.",
+						"button": "Create a new doc"
+					},
+					"modal": {
+						"label": "Create new documentation",
+						"save": {
+							"confirmation": "Are you sure you want to create a new doc?",
+							"button": "Save doc"
+						},
+						"title": {
+							"label": "Add a title to the doc",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Doc title"
+						},
+						"summary": {
+							"label": "Add a summary to the doc",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Doc summary"
+						},
+						"content": {
+							"label": "Add content to the doc",
+							"placeholder": "Doc content"
+						}
+					}
+				},
+				"editor": {
+					"info": {
+						"tooltip": "Edit this doc?"
+					},
+					"modal": {
+						"label": "Edit a doc",
+						"save": {
+							"button": "Save changes",
+							"tooltip": "Are you sure you want to update this doc?"
+						},
+						"title": {
+							"label": "Edit the doc's title",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Doc title"
+						},
+						"summary": {
+							"label": "Edit the doc's summary",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Doc summary"
+						},
+						"content": {
+							"label": "Edit the doc's content",
+							"placeholder": "Doc content"
+						}
+					}
+				}
+			},
+			"faq": {
+				"generics": {
+					"fragment": {
+						"required": "Required field"
+					}
+				},
+				"title": "Frequently Asked Questions",
+				"publishing": {
+					"part1": "Are you sure you want to",
+					"part2": "the FAQ",
+					"alt1": "Do you want to",
+					"alt2": "this?",
+					"publish": "publish",
+					"unpublish": "unpublish"
+				},
+				"item": {
+					"created_at": "Created",
+					"modified_at": "Modified",
+					"summary": "Summary"
+				},
+				"delete": {
+					"confirmation": "Are you sure you want to delete this FAQ?",
+					"tooltip": "Delete FAQ?"
+				},
+				"creator": {
+					"info": {
+						"label": "If you want to create a new FAQ, click the button below.",
+						"button": "Create a new FAQ"
+					},
+					"modal": {
+						"label": "Create new FAQ",
+						"save": {
+							"confirmation": "Are you sure you want to create a new FAQ?",
+							"button": "Save FAQ"
+						},
+						"title": {
+							"label": "Add a title to the FAQ",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "FAQ title"
+						},
+						"summary": {
+							"label": "Add a summary to the FAQ",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "FAQ summary"
+						},
+						"content": {
+							"label": "Add content to the FAQ",
+							"placeholder": "FAQ content"
+						}
+					}
+				},
+				"editor": {
+					"info": {
+						"tooltip": "Edit this FAQ?"
+					},
+					"modal": {
+						"label": "Edit a FAQ",
+						"save": {
+							"confirmation": "Are you sure you want to update this FAQ?",
+							"button": "Save changes"
+						},
+						"title": {
+							"label": "Edit the FAQ's title",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "FAQ title"
+						},
+						"summary": {
+							"label": "Edit the FAQ's summary",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "FAQ summary"
+						},
+						"content": {
+							"label": "Edit the FAQ's content",
+							"placeholder": "FAQ content"
+						}
+					}
+				}
 			}
 		}
 	},
 	no: {
 		translation: {// Translation keys and their Norwegian text
-			"home": "Hjem",
-			"news": "Nyheter",
-			"docs": "Dokumentasjon",
 			"title": "Chess Buddy",
 			"train_openings": "Tren Åpninger",
 			"play_now": "Spill Nå",
@@ -351,17 +650,6 @@ const resources = {
 			"ch_help_you3": "Interaktive leksjoner som forklarer hver åpning og dens variabler i dybden.",
 			"ch_help_you4": "Utfordringer og spill mot AI for å øve og forsterke læringen.",
 			"ch_help_you5": "Tilbakemelding og analyser som hjelper deg å forstå dine styrker og svakheter.",
-			"faq_title": "FAQ",
-			"faq1_question": "Er Chess Buddy gratis å bruke?",
-			"faq1_answer": "ChessBuddy er et gratis nettsted for å lære sjakk og sjakkåpninger.",
-			"faq2_question": "Kan jeg bruke nettstedet uten en konto?",
-			"faq2_answer": "Du kan bruke nettstedet uten å ha en konto, men hvis du ikke har en konto vil ikke fremgangen din lagres når du avslutter programmet",
-			"faq3_question": "Hvordan starter jeg et spill?",
-			"faq3_answer": "Du starter et spill ved å gå til hjemmesiden og trykke start spill.",
-			"faq4_question": "Kan jeg spille mot datamaskinen?",
-			"faq4_answer": "Ja, du kan spille mot en datamaskin og hvis vi skal gjøre det mulig å spille mot folk også",
-			"faq5_question": "Tilbyr du sjakktimer eller -veiledninger?",
-			"faq5_answer": "Chess Buddy er en nettside dedikert til å hjelpe spillere å lære åpninger for sjakkspillet, og du kan til og med lage dine egne åpninger senere når du har lært noen.",
 			"welcome_title": "Velkommen til Chess Buddy",
 			"welcome_paragraph_1": "Her hos Chess Buddy, er vi drevet av en enkel visjon: Å gjøre sjakkundervisning av høy kvalitet tilgjengelig for alle. Vår lidenskap for sjakk og en klar forståelse av markedets behov inspirerte oss til å skape et verktøy som spesifikt fokuserer på åpningstrekk; en vital, men ofte undervurdert, del av spillet.",
 			"welcome_paragraph_2": "Vi anerkjente et gap i markedet for et dedikert verktøy som kunne tilby dypere innsikt og praktisk trening i sjakkåpninger. Dette førte oss til å utvikle Chess Buddy, en plattform som kombinerer den nyeste teknologien med omfattende sjakkekspertise for å tilby en unik læringsopplevelse.",
@@ -385,6 +673,7 @@ const resources = {
 			"generic": {
 				"return_somewhere": "Dra tilbake til",
 				"return_to": "Tilbake til",
+				"read_more": "Les mer",
 				"email": {
 					"label": "E-post",
 					"placeholder": "deg@eksempel.com"
@@ -393,10 +682,30 @@ const resources = {
 					"label": "Passord"
 				}
 			},
+			"cookie_banner": {
+				"label": "Denne nettsiden benytter informasjonskapsler",
+				"body": "$t(cookie_banner.label) for brukerautentisering. Disse er kritiske informasjonskapsler, og kan ikke deaktiveres; foruten at du ikke ønsker å kunne logge inn.",
+				"button": "Ok"
+			},
+			"header": {
+				"home": "Home",
+				"news": "News",
+				"docs": "Docs",
+			},
+			"footer": {
+				"notice": "Alle rettigheter forbeholdt."
+			},
 			"error": {
 				"500": {
 					"title": "Intern Server Feil.",
 					"message": "Noe gikk galt."
+				}
+			},
+			"actions": {
+				"confirm": {
+					"title": "Bekreft handling",
+					"yes": "Ja",
+					"no": "Nei"
 				}
 			},
 			"signup": {
@@ -592,12 +901,66 @@ const resources = {
 						"missing": "Mangler navn, beskrivelse eller trekk",
 						"error": "En feil oppstod ved skriving til databasen",
 						"success": "Ny åpning lagret"
+					},
+					"groups": {
+						"label": "Åpninger"
+					},
+					"confirm": {
+						"part1": "Du er i ferd med å slette åpningen",
+						"part2": "Er du sikker på at du vil fortsette?"
+					}
+				},
+				"repertoire": {
+					"generics": {
+						"fragment": {
+							"group": "repertoar"
+						},
+					},
+					"header": {
+						"label": "$t(chess.repertoire.generics.fragment.group), en gruppe av åpninger.",
+						"button": {
+							"save": "Lagre $t(chess.repertoire.generics.fragment.group)en",
+							"create": "Lag en $t(chess.repertoire.generics.fragment.group)"
+						}
+					},
+					"groups": {
+						"label": "Dine $t(chess.repertoire.generics.fragment.group)",
+						"title": "Åpninger i denne $t(chess.repertoire.generics.fragment.group)en",
+						"button": "$t(generic.read_more)",
+						"train": "Øv på denne $t(chess.repertoire.generics.fragment.group)en",
+						"delete": {
+							"tooltip": "Slett $t(chess.repertoire.generics.fragment.group)"
+						},
+						"edit": "Rediger $t(chess.repertoire.generics.fragment.group)",
+						"opening_delete": "Fjern åpning fra $t(chess.repertoire.generics.fragment.group)et",
+						"confirm": {
+							"part1": "Er du sikker på at du vil fjerne",
+							"part2": "fra $t(chess.repertoire.generics.fragment.group)et?"
+						}
+					},
+					"editor": {
+						"label": "Redigerer $t(chess.repertoire.generics.fragment.group)",
+						"edit": {
+							"title": "Rediger tittel",
+							"desc": "Rediger beskrivelsen",
+							"openings": "Velg åpninger"
+						},
+						"save": "Lagre detaljer",
+						"confirm": "Er du sikker på at du vil slette $t(chess.repertoire.generics.fragment.group)et"
 					}
 				},
 				"stages": {
-					"read_more": "Les mer",
+					"read_more": "$t(generic.read_more)",
 					"practice": "Øv på",
-					"delete": "Slett åpning"
+					"delete": "Slett åpning",
+					"title": {
+						"edit": "Rediger tittelen",
+						"save": "Lagre tittelen"
+					},
+					"desc": {
+						"edit": "Rediger beskrivelsen",
+						"save": "Lagre beskrivelsen"
+					}
 				},
 				"train_chess": {
 					"status": {
@@ -609,10 +972,11 @@ const resources = {
 					"panel": {
 						"label": "$t(chess.generics.status.game)",
 						"move": {
-							"part1": "You have moved",
-							"part2": "times, and the amount of moves in the opening is"
+							"part1": "Du har flyttet deg",
+							"part2": "ganger, og antallet trekk i denne åpningen er"
 						},
-						"return": "Back to stage selection"
+						"return": "Tilbake til banevalg",
+						"openings": "Velg åpning her"
 					}
 				},
 				"full_game": {
@@ -633,6 +997,245 @@ const resources = {
 						"undo": "Angre trekk"
 					},
 					"alert": "Kan ikke angre trekk, spiller er fullført."
+				}
+			},
+			"news": {
+				"generics": {
+					"fragment": {
+						"required": "Obligatorisk felt"
+					}
+				},
+				"title": "Nyheter",
+				"publishing": {
+					"part1": "Er du sikker på at du vil",
+					"part2": "denne nyheten",
+					"alt1": "Ønsker du å",
+					"alt2": "denne nyheten?",
+					"publish": "publisere",
+					"unpublish": "upublisere"
+				},
+				"item": {
+					"created_by": "Skrevet av",
+					"created_at": "Opprettet",
+					"modified_at": "Endret",
+					"summary": "Sammendrag"
+				},
+				"delete": {
+					"confirmation": "Er du sikker på at du vil slette denne nyheten?",
+					"tooltip": "Slett nyhet?"
+				},
+				"creator": {
+					"info": {
+						"label": "Om du ønsker å lage en ny nyhet, kan du klikke knappen under.",
+						"button": "Lag en ny nyhet"
+					},
+					"modal": {
+						"label": "Lag en nyhet",
+						"save": {
+							"confirmation": "Er du sikker på at du vil gjennomføre opprettelsen av denne nye nyheten?",
+							"button": "Lagre nyhet"
+						},
+						"title": {
+							"label": "Lag en tittel til nyheten",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Nyhet titel"
+						},
+						"summary": {
+							"label": "Lag ett sammendrag for nyheten",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Nyhet sammendrag"
+						},
+						"content": {
+							"label": "Lag innhold for nyheten",
+							"placeholder": "Nyhet innhold"
+						}
+					}
+				},
+				"editor": {
+					"info": {
+						"tooltip": "Rediger denne nyheten?"
+					},
+					"modal": {
+						"label": "Rediger nyhet",
+						"save": {
+							"confirmation": "Er du sikker på at du vil oppdatere denne nyheten?",
+							"button": "Lagre endringer"
+						},
+						"title": {
+							"label": "Rediger nyhetens titel",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Nyhet titel"
+						},
+						"summary": {
+							"label": "Rediger nyhetens sammendrag",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Nyhet sammendrag"
+						},
+						"content": {
+							"label": "Rediger nyhetens innhold",
+							"placeholder": "Nyhet innhold"
+						}
+					}
+				}
+			},
+			"docs": {
+				"generics": {
+					"fragment": {
+						"required": "Obligatorisk felt"
+					}
+				},
+				"title": "Dokumentasjon",
+				"faq": {
+					"label": "Vi har også en ofte-spurte-spørsmål seksjon.",
+					"button": "FAQ"
+				},
+				"publishing": {
+					"part1": "Er du sikker på at du vil",
+					"part2": "denne dokumentasjonen",
+					"alt1": "Ønsker du å",
+					"alt2": "denne dokumentasjonen?",
+					"publish": "publisere",
+					"unpublish": "upublisere"
+				},
+				"item": {
+					"created_at": "Opprettet",
+					"modified_at": "Endret",
+					"summary": "Sammendrag"
+				},
+				"delete": {
+					"confirmation": "Er du sikker på at du vil slette denne dokumentasjonen?",
+					"tooltip": "Slett dokumentasjon?"
+				},
+				"creator": {
+					"info": {
+						"label": "Om du ønsker å lage ny dokumentasjon, kan du klikke knappen under.",
+						"button": "Lag en ny dokumentasjon"
+					},
+					"modal": {
+						"label": "Lag dokumentasjon",
+						"save": {
+							"confirmation": "Er du sikker på at du vil gjennomføre opprettelsen av denne nye dokumentasjon?",
+							"button": "Lagre dokumentasjon"
+						},
+						"title": {
+							"label": "Lag en tittel til dokumentasjonen",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Dokumentasjon titel"
+						},
+						"summary": {
+							"label": "Lag ett sammendrag for dokumentasjonen",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Dokumentasjon sammendrag"
+						},
+						"content": {
+							"label": "Lag innhold for dokumentasjonen",
+							"placeholder": "Dokumentasjon innhold"
+						}
+					}
+				},
+				"editor": {
+					"info": {
+						"tooltip": "Rediger denne dokumentasjonen?"
+					},
+					"modal": {
+						"label": "Rediger dokumentasjon",
+						"save": {
+							"confirmation": "Er du sikker på at du vil oppdatere denne dokumentasjonen?",
+							"button": "Lagre endringer"
+						},
+						"title": {
+							"label": "Rediger dokumentasjonens titel",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Dokumentasjon titel"
+						},
+						"summary": {
+							"label": "Rediger dokumentasjonens sammendrag",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "Dokumentasjon sammendrag"
+						},
+						"content": {
+							"label": "Rediger dokumentasjonens innhold",
+							"placeholder": "Dokumentasjon innhold"
+						}
+					}
+				}
+			},
+			"faq": {
+				"generics": {
+					"fragment": {
+						"required": "Obligatorisk felt"
+					}
+				},
+				"title": "Ofte Spurte Spørsmål",
+				"publishing": {
+					"part1": "Er du sikker på at du vil",
+					"part2": "denne FAQen",
+					"alt1": "Ønsker du å",
+					"alt2": "denne FAQen?",
+					"publish": "publisere",
+					"unpublish": "upublisere"
+				},
+				"item": {
+					"created_at": "Opprettet",
+					"modified_at": "Endret",
+					"summary": "Sammendrag"
+				},
+				"delete": {
+					"confirmation": "Er du sikker på at du vil slette denne FAQen?",
+					"tooltip": "Slett FAQ?"
+				},
+				"creator": {
+					"info": {
+						"label": "Om du ønsker å lage en ny FAQ, kan du klikke knappen under.",
+						"button": "Lag ny FAQ"
+					},
+					"modal": {
+						"label": "Lag FAQ",
+						"save": {
+							"confirmation": "Er du sikker på at du vil gjennomføre opprettelsen av denne nye FAQen?",
+							"button": "Lagre FAQ"
+						},
+						"title": {
+							"label": "Lag en tittel til FAQen",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "FAQ titel"
+						},
+						"summary": {
+							"label": "Lag ett sammendrag for FAQen",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "FAQ sammendrag"
+						},
+						"content": {
+							"label": "Lag innhold for FAQen",
+							"placeholder": "FAQ innhold"
+						}
+					}
+				},
+				"editor": {
+					"info": {
+						"tooltip": "Rediger denne FAQen?"
+					},
+					"modal": {
+						"label": "Rediger FAQ",
+						"save": {
+							"confirmation": "Er du sikker på at du vil oppdatere denne FAQen?",
+							"button": "Lagre endringer"
+						},
+						"title": {
+							"label": "Rediger FAQens titel",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "FAQ titel"
+						},
+						"summary": {
+							"label": "Rediger FAQens sammendrag",
+							"tooltip": "$t(news.generics.fragment.required)",
+							"placeholder": "FAQ sammendrag"
+						},
+						"content": {
+							"label": "Rediger FAQens innhold",
+							"placeholder": "FAQ innhold"
+						}
+					}
 				}
 			}
 		}
