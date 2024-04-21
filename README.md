@@ -40,8 +40,9 @@ Saying that, it's important to note that it is a bit bare-bones at the moment.
 Features:
 - Play full games of Chess against a random-type machine opponent.
 - You are able to create opening strategies visually, and train against them.
-- You are able to create repertoires, groups of openings.
+- You are able to create repertoires, groups of openings, and train against them.
 - You are able to modify your user profile, and add other users as friends.
+- You are able to view, author, edit, delete and publish/unpublish news, documentation and FAQ.
 
 ## Built with
 
