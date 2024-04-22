@@ -15,7 +15,7 @@ export default function AboutUs() {
 
 	return (
 		<main className="flex flex-col items-center text-center px-4 py-8">
-			<section className="max-w-4xl text-justify space-y-4 space-x-12 text-lg">
+			<section className="max-w-4xl text-justify space-y-4 lg:space-x-12 text-lg">
 				<h1 className="text-4xl text-center font-bold mb-6">{t('welcome_title')}</h1>
 				<p>
 					{t('welcome_paragraph_1')}
@@ -27,7 +27,7 @@ export default function AboutUs() {
 					{t('welcome_paragraph_3')}
 				</p>
 			</section>
-			<section className="max-w-4xl mt-10 text-justify space-y-4 space-x-12">
+			<section className="max-w-4xl mt-10 text-justify space-y-4 lg:space-x-12">
 				<h2 className="text-3xl text-center font-bold mb-6">{t('our_vision_title')}</h2>
 				<p className="text-lg">
 					{t('our_vision_paragraph')}
