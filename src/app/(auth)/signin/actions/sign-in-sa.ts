@@ -8,9 +8,10 @@ import {cookies} from "next/headers";
 /**
  * Server action for signing in the user.
  *
- * @param formData The sign-in form data.
- * @author frigvid
+ * @author Supabase, frigvid
  * @created 2024-02-13
+ * @param formData The sign-in form data.
+ * @see https://supabase.com/docs/guides/auth/server-side/nextjs, section 5.
  */
 export async function signInSA(formData: FormData) {
 	const supabase = createClient(cookies());

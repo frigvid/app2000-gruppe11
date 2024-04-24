@@ -12,6 +12,7 @@ import {cookies} from "next/headers";
  * @created 2024-01-23
  * @warning Do not use this in client-side code. Server-context only.
  * @hint This essentially configures a `fetch` call. You can, and should, create a new client for every route.
+ * @see https://supabase.com/docs/guides/auth/server-side/nextjs, section 3.
  */
 export const createClient = (cookieStore: ReturnType<typeof cookies>) => {
 	return createServerClient<Database>(

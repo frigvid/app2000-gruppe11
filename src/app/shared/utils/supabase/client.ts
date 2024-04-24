@@ -11,6 +11,7 @@ import {Database} from "@/app/database.types";
  * @warning Do not use this in server-side code. Browser-context only.
  * @hint This uses a singleton pattern, only one instance of the client is created,
  * 		regardless of how many times this function is called.
+ * @see https://supabase.com/docs/guides/auth/server-side/nextjs, section 3.
  */
 export const createClient = () =>
 	createBrowserClient<Database>(

@@ -7,10 +7,11 @@ import {cookies} from "next/headers";
  * Used for when a user clicks their confirmation email link.
  * It exchanges their secure code for an Auth token.
  *
- * @param request
- * @author frigvid
+ * @author Supabase, frigvid
  * @created 2024-02-13
+ * @param request
  * @warning Since this is a Route Handler, a server-context Supabase client is needed.
+ * @see https://supabase.com/docs/guides/auth/server-side/nextjs, section 7.
  */
 export async function GET(request: NextRequest) {
 	const {searchParams} = new URL(request.url);

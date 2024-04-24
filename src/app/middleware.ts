@@ -9,11 +9,12 @@ import {NextResponse, type NextRequest} from "next/server";
  * - Passing the refreshed Auth token to the browser, so it replaces the old token.
  *   This is done using `response.cookies.set`.
  *
- * @author frigvid, supabase
+ * @author Supabase, frigvid
  * @created 2024-02-12
  * @param request The incoming request.
  * @note Since Server Components can't write cookies,
  * 		middleware is needed to refresh expired auth tokens and store them.
+ * @see https://supabase.com/docs/guides/auth/server-side/nextjs, section 4.
  */
 export async function middleware(request: NextRequest) {
 	let response = NextResponse.next({
