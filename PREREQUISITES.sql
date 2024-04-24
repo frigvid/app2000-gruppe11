@@ -1336,16 +1336,16 @@ CREATE OR REPLACE FUNCTION public.friend_request_status(other_user UUID)
 AS $$
 BEGIN
 	RETURN (
-   	SELECT CASE
+	SELECT CASE
 			/* 2 = NULL. */
-   		WHEN accepted IS NULL THEN 2
+		WHEN accepted IS NULL THEN 2
 			/* 1 = TRUE, user has accepted. */
-   		WHEN accepted THEN 1
+		WHEN accepted THEN 1
 			/* 0 = FALSE, user has rejected. */
-   		ELSE 0
-   	END
-   	FROM public.friend_requests
-   	WHERE to_user = other_user AND by_user = auth.uid()
+		ELSE 0
+	END
+	FROM public.friend_requests
+	WHERE to_user = other_user AND by_user = auth.uid()
 	);
 END;
 $$;
@@ -1392,7 +1392,7 @@ BEGIN
 	 * Delete the friend request. The row, in other words.
 	 */
 	IF NEW.accepted IS FALSE THEN
-	   DELETE FROM public.friend_requests
+		DELETE FROM public.friend_requests
 		WHERE id = NEW.id;
 		
 	/* If the accepted column value changes from NULL to TRUE,
@@ -1402,7 +1402,7 @@ BEGIN
 	ELSIF NEW.accepted IS TRUE THEN
 		INSERT INTO public.friends (user1, user2)
 		VALUES (NEW.by_user, NEW.to_user);
-				
+		
 		DELETE FROM public.friend_requests
 		WHERE id = NEW.id;
 	END IF;
