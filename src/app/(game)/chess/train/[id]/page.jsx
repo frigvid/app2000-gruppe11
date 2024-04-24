@@ -11,10 +11,10 @@ import { useEffect, useState } from "react";
  * @created 2024-01-31
  * @param params The id of the route.
  */
-export default function ChessTrainer({ params }) {
+export default function ChessTrainer({params}) {
 	const supabase = createClient();
 	const [opening, setOpening] = useState(null);
-	const { id } = params;
+	const {id} = params;
 
 	/*
 	useEffect(() => {
@@ -52,7 +52,7 @@ export default function ChessTrainer({ params }) {
 		return move[key] === opening[turn][key];
 	});
 	*/
-
+	
 	/**
 	 * Ensure there is an opening before trying to render the component,
 	 * to avoid `opening` being `null` errors.
@@ -60,7 +60,7 @@ export default function ChessTrainer({ params }) {
 	if (opening) {
 		return (
 			<main className="flex justify-center items-center">
-				<TrainChess pgn={opening.pgn} />
+				<TrainChess pgn={opening.pgn}/>
 				<p></p>
 			</main>
 		);
