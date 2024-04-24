@@ -28,6 +28,7 @@ export default function TrainChess({
 	const [game, setGame] = useState(new Chess());
 	const [boardPosition, setBoardPosition] = useState(game.fen());
 	const [status, setStatus] = useState(t("chess.train_chess.status.start"));
+	const [highlightedSquares, setHighlightedSquares] = useState({});
 	const [playerTurn, setPlayerTurn] = useState(0);
 	const [botTurn, setBotTurn] = useState(1);
 	const [wrongCounter, setWrongCounter] = useState(0);
@@ -154,6 +155,48 @@ export default function TrainChess({
 		
 		return true;
 	}
+	
+	/**
+	 * Highlights the squares that the piece can move to.
+	 *
+	 * @author frigvid
+	 * @contributor qwertyfyr
+	 * @created 2024-04-24
+	 * @param {string} piece The piece being dragged.
+	 * @param {string} sourceSquare The square of the piece.
+	 * @see The code for the "Click To Move" example [on react-chessboard's documentation]{@link https://react-chessboard.vercel.app/?path=/docs/example-chessboard--configurable-board}
+	 * 	  for inspiration on how to implement piece highlighting.
+	 */
+	function onPieceDragBegin(piece, sourceSquare) {
+		/* Calculate the possible moves for this piece. */
+		const moves = game.moves({
+			square: sourceSquare,
+			verbose: true
+		});
+		
+		/* Highlight the squares for the possible moves. */
+		const newSquares = {};
+		moves.forEach((move) => {
+			newSquares[move.to] = {
+				background: "radial-gradient(circle, rgba(0,0,0,.1) 65%, transparent 65%)",
+				borderRadius: "50%",
+			};
+		});
+		
+		setHighlightedSquares(newSquares);
+	}
+	
+	/**
+	 * Clears the highlighted squares when the piece drag ends.
+	 *
+	 * @author frigvid
+	 * @created 2024-04-24
+	 * @param {string} piece The piece that was dragged.
+	 * @param {string} sourceSquare The square of the piece.
+	 */
+	function onPieceDragEnd(piece, sourceSquare) {
+		setHighlightedSquares({});
+	}
 
 	return (
 		<div className="flex flex-col md:flex-row justify-center items-center relative">
@@ -161,7 +204,13 @@ export default function TrainChess({
 				<TrainPanel status={status} moveCounter={wrongCounter} pgn={pgn} repo={repo} opening={opening} setOpening={setOpening}/>
 			</div>
 			<div className="w-[23rem] h-[23rem] lg:w-96 lg:h-96 md:order-2 order-1 mt-4 md:mt-0 mb-4 md:mb-0 relative">
-				<Chessboard position={boardPosition} onPieceDrop={onDrop}/>
+				<Chessboard
+					position={boardPosition}
+					onPieceDrop={onDrop}
+					onPieceDragBegin={onPieceDragBegin}
+					onPieceDragEnd={onPieceDragEnd}
+					customSquareStyles={highlightedSquares}
+				/>
 			</div>
 		</div>
 	);
