@@ -43,12 +43,6 @@ export default function TrainChess({
 	 * @return {boolean|null} Returns true if the game is over, and null if an error occurred
 	 */
 	function makeAMove(move) {
-		console.log("Move made", game.history().pop())
-		console.log("PGN move", pgn[pgn.length - 1])
-		console.log("PGN", pgn)
-		console.log("PLAYER", playerTurn)
-		console.log("FROM", pgn[pgn.length - 1].from, move.from)
-		console.log("TO", pgn[pgn.length - 1].to, move.to)
 		try {
 			if (playerTurn < pgn.length) {
 				if (
