@@ -111,6 +111,7 @@ function PlayChess() {
 	 * Essentially checks if `w` or `b` won.
 	 *
 	 * @author qwertyfyr
+	 * @contributor frigvid
 	 * @created 2024-01-30
 	 * @param winner
 	 */
