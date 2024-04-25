@@ -18,6 +18,7 @@ import Link from "next/link";
  */
 export default function TrainPanel({
 	status,
+	setStatus,
 	moveCounter,
 	pgn,
 	repo,
@@ -61,6 +62,7 @@ export default function TrainPanel({
 									repo={repo}
 									opening={opening}
 									setOpening={setOpening}
+									setStatus={setStatus}
 								/>
 							</>
 						)

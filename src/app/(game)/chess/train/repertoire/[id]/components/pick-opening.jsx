@@ -1,5 +1,6 @@
 import {CheckIcon, ChevronUpDownIcon} from "@heroicons/react/20/solid";
 import {Listbox, Transition} from "@headlessui/react";
+import {useTranslation} from "react-i18next";
 import {Fragment} from "react";
 import React from "react";
 
@@ -12,16 +13,23 @@ import React from "react";
  * @param repertoire The repertoire of openings.
  * @param opening The opening to be selected.
  * @param setOpening	The function to set the opening.
+ * @param setStatus The function to set the status of the panel.
  * @return {Element} The listbox for picking an opening.
  */
 export default function PickOpening({
 	repo: repertoire,
 	opening,
-	setOpening
+	setOpening,
+	setStatus
 }) {
+	const {t} = useTranslation();
+	
 	return (
 		<div className="w-72">
-			<Listbox value={opening} onChange={setOpening}>
+			<Listbox value={opening} onChange={(value) => {
+				setOpening(value);
+				setStatus(t("chess.train_chess.status.start"));
+			}}>
 				<div className="relative mt-1">
 					<Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
 						<span className="block truncate">

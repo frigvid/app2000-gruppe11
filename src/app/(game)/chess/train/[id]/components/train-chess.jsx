@@ -205,7 +205,7 @@ export default function TrainChess({
 	return (
 		<div className="flex flex-col md:flex-row justify-center items-center relative">
 			<div className="md:mr-8 md:order-1 order-2 p-3 px-8 rounded-lg md:mb-0 mb-4 flex flex-col">
-				<TrainPanel status={status} moveCounter={wrongCounter} pgn={pgn} repo={repo} opening={opening} setOpening={setOpening}/>
+				<TrainPanel status={status} setStatus={setStatus} moveCounter={wrongCounter} pgn={pgn} repo={repo} opening={opening} setOpening={setOpening}/>
 			</div>
 			<div className="w-[23rem] h-[23rem] lg:w-96 lg:h-96 md:order-2 order-1 mt-4 md:mt-0 mb-4 md:mb-0 relative">
 				<Chessboard
