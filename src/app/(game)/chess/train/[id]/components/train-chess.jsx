@@ -56,7 +56,7 @@ export default function TrainChess({
 					setStatus(t("chess.train_chess.status.wrong"));
 					setWrongCounter(wrongCounter + 1);
 				}
-			} else {
+			} else if (pgn[pgn.length - 1].from === move.from && pgn[pgn.length - 1].to === move.to) {
 				setStatus(t("chess.train_chess.status.complete"));
 			}
 		} catch (error) {
@@ -80,7 +80,7 @@ export default function TrainChess({
 	 * @created 2024-04-12
 	 * @return {boolean|null} Returns true if the game is over, and null if an error occurred
 	 */
-	function followingMove() {
+	function followingMove(move) {
 		try {
 			/**
 			 * @note from @frigvid, I don't see any implementation of checkEnding()
@@ -100,7 +100,7 @@ export default function TrainChess({
 				setBotTurn(botTurn + 2);
 
 				setStatus(t("chess.train_chess.status.white_move"));
-			} else {
+			} else if (pgn[pgn.length - 1].from === move.from && pgn[pgn.length - 1].to === move.to) {
 				setStatus(t("chess.train_chess.status.complete"));
 			}
 		} catch (error) {
@@ -151,7 +151,11 @@ export default function TrainChess({
 			return false;
 		}
 		
-		setTimeout(followingMove, 500);
+		setTimeout(followingMove({
+			from: sourceSquare,
+			to: targetSquare,
+			piece: piece[1].toLowerCase(),
+		}), 500);
 		
 		return true;
 	}
@@ -201,7 +205,7 @@ export default function TrainChess({
 	return (
 		<div className="flex flex-col md:flex-row justify-center items-center relative">
 			<div className="md:mr-8 md:order-1 order-2 p-3 px-8 rounded-lg md:mb-0 mb-4 flex flex-col">
-				<TrainPanel status={status} moveCounter={wrongCounter} pgn={pgn} repo={repo} opening={opening} setOpening={setOpening}/>
+				<TrainPanel status={status} setStatus={setStatus} moveCounter={wrongCounter} pgn={pgn} repo={repo} opening={opening} setOpening={setOpening}/>
 			</div>
 			<div className="w-[23rem] h-[23rem] lg:w-96 lg:h-96 md:order-2 order-1 mt-4 md:mt-0 mb-4 md:mb-0 relative">
 				<Chessboard

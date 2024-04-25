@@ -111,6 +111,7 @@ function PlayChess() {
 	 * Essentially checks if `w` or `b` won.
 	 *
 	 * @author qwertyfyr
+	 * @contributor frigvid
 	 * @created 2024-01-30
 	 * @param winner
 	 */
@@ -119,7 +120,7 @@ function PlayChess() {
 			setScore({ ...score, losses: score.losses + 1 });
 			if (user) {
 				void addGamedata(user.id, false);
-				updateElo(user.id, false);
+				void updateElo(user.id, false);
 			}
 
 			/* Adds loss to user history. */
@@ -128,7 +129,7 @@ function PlayChess() {
 			setScore({ ...score, wins: score.wins + 1 });
 			if (user) {
 				void addGamedata(user.id, true);
-				updateElo(user.id, true);
+				void updateElo(user.id, true);
 			}
 		}
 	};
