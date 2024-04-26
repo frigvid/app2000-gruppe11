@@ -239,11 +239,15 @@ function PlayChess() {
 		if (game.isGameOver())
 			alert(t("chess.full_game.alert"));
 		else {
-			game.undo();
-			game.undo();
-			// TODO: check if its blacks turn after undo, so you don't swap sides.
-			// if(game.turn === "b") makeRandomMove(); // Here it'll undo and play new move simultaneously.
-			// Quick fix: Just activates undo() function twice to make sure you're still playing as white.
+			if (localMultiplayer) {
+				game.undo();
+			} else {
+				game.undo();
+				game.undo();
+				// TODO: check if its blacks turn after undo, so you don't swap sides.
+				// if(game.turn === "b") makeRandomMove(); // Here it'll undo and play new move simultaneously.
+				// Quick fix: Just activates undo() function twice to make sure you're still playing as white.
+			}
 		}
 	}
 	
