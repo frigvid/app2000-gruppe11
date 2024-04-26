@@ -393,8 +393,8 @@ const resources = {
 								"black": "$t(chess.full_game.status.local_multiplayer.pieces.black)'s turn"
 							},
 							"winner": {
-								"white": "$t(chess.full_game.status.local_multiplayer.pieces.white) $t(chess.full_game.status.winner)",
-								"black": "$t(chess.full_game.status.local_multiplayer.pieces.black) $t(chess.full_game.status.winner)"
+								"white": "$t(chess.full_game.status.local_multiplayer.pieces.white) $t(chess.full_game.status.fragments.winner)",
+								"black": "$t(chess.full_game.status.local_multiplayer.pieces.black) $t(chess.full_game.status.fragments.winner)"
 							}
 						}
 					},
