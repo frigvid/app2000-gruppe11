@@ -383,11 +383,29 @@ const resources = {
 						},
 						"ongoing": "Game ongoing",
 						"drawn": "Game drawn",
+						"local_multiplayer": {
+							"pieces": {
+								"white": "White",
+								"black": "Black"
+							},
+							"turn": {
+								"white": "$t(chess.full_game.status.local_multiplayer.pieces.white)'s turn",
+								"black": "$t(chess.full_game.status.local_multiplayer.pieces.black)'s turn"
+							},
+							"winner": {
+								"white": "$t(chess.full_game.status.local_multiplayer.pieces.white) $t(chess.full_game.status.fragments.winner)",
+								"black": "$t(chess.full_game.status.local_multiplayer.pieces.black) $t(chess.full_game.status.fragments.winner)"
+							}
+						}
 					},
 					"panel": {
 						"label": "$t(chess.generics.status.game)",
 						"reset": "Reset board",
-						"undo": "Undo move"
+						"undo": "Undo move",
+						"local_multiplayer": {
+							"multiplayer": "Switch to multiplayer?",
+							"singleplayer": "Switch to singleplayer?"
+						}
 					},
 					"alert": "Can't undo. game has already been completed."
 				}
@@ -990,11 +1008,29 @@ const resources = {
 						},
 						"ongoing": "Spill pågående",
 						"drawn": "Spill uavgjort",
+						"local_multiplayer": {
+							"pieces": {
+								"white": "Hvit",
+								"black": "Sort"
+							},
+							"turn": {
+								"white": "$t(chess.full_game.status.local_multiplayer.pieces.white) spillers tur",
+								"black": "$t(chess.full_game.status.local_multiplayer.pieces.black) spillers tur"
+							},
+							"winner": {
+								"white": "$t(chess.full_game.status.local_multiplayer.pieces.white) $t(chess.full_game.status.fragments.winner)",
+								"black": "$t(chess.full_game.status.local_multiplayer.pieces.black) $t(chess.full_game.status.fragments.winner)"
+							}
+						}
 					},
 					"panel": {
 						"label": "$t(chess.generics.status.game)",
 						"reset": "Nullstill bordet",
-						"undo": "Angre trekk"
+						"undo": "Angre trekk",
+						"local_multiplayer": {
+							"multiplayer": "Bytt til multiplayer?",
+							"singleplayer": "Bytt til singleplayer?"
+						}
 					},
 					"alert": "Kan ikke angre trekk, spiller er fullført."
 				}
