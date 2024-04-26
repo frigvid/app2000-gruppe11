@@ -27,6 +27,7 @@ function PlayChess() {
 	const [score, setScore] = useState({wins: 0, losses: 0});
 	const [boardPosition, setBoardPosition] = useState(game.fen());
 	const [status, setStatus] = useState(t("chess.full_game.status.ongoing"));
+	const [localMultiplayer, setLocalMultiplayer] = useState(false);
 	const [highlightedSquares, setHighlightedSquares] = useState({});
 	const [turn, setTurn] = useState(0);
 	const [fenList, setFenList] = useState();
@@ -68,6 +69,16 @@ function PlayChess() {
 	 * @created 2024-01-30
 	 */
 	function makeRandomMove() {
+		/**
+		 * If local multiplayer is enabled, we don't want the bot to make a move.
+		 *
+		 * @author frigvid
+		 * @created 2024-04-26
+		 */
+		if (localMultiplayer) {
+			return;
+		}
+		
 		/* we need to update the state after the previous move has happened all in the same render. */
 		const possibleMoves = game.moves();
 		const randomIndex = Math.floor(Math.random() * possibleMoves.length);
@@ -235,7 +246,7 @@ function PlayChess() {
 			// Quick fix: Just activates undo() function twice to make sure you're still playing as white.
 		}
 	}
-
+	
 	return (
 		<div className="flex flex-col md:flex-row justify-center items-center relative">
 			<div className="md:mr-8 md:order-1 order-2 p-3 px-8 md:max-w-sm bg-gray-200 rounded-lg border border-gray-200 shadow-md md:mb-0 mb-4 flex flex-col">
@@ -243,10 +254,39 @@ function PlayChess() {
 					{t("chess.full_game.panel.label")}
 				</h5>
 				<div>
-					<p>{status}</p>
-					<p>{t("chess.full_game.status.fragments.wins")}: {score.wins}</p>
-					<p>{t("chess.full_game.status.fragments.losses")}: {score.losses}</p>
-					<p>{t("chess.full_game.status.fragments.draws")}: {score.draws}</p>
+					<p>
+						{
+							/**
+							 * This is a bit more "brute-forcey" than I'd like. But this is being added
+							 * last minute. Ugly, but functional is fine, me thinks.
+							 *
+							 * Technically also is a botched way to play as the black player, by entering
+							 * multiplayer, moving white, switching to single-player and then continuing
+							 * on with your life. But I'll fix that in a bit.
+							 *
+							 * @author frigvid
+							 * @created 2024-04-26
+							 */
+							localMultiplayer
+								? (
+									game.turn() === "w"
+										? (game.isCheckmate())
+											? t("chess.full_game.status.local_multiplayer.winner.black")
+											: t("chess.full_game.status.local_multiplayer.turn.white")
+										: (game.isCheckmate())
+											? t("chess.full_game.status.local_multiplayer.winner.white")
+											: t("chess.full_game.status.local_multiplayer.turn.black")
+								)
+								: status
+						}
+					</p>
+					{!localMultiplayer && (
+						<>
+							<p>{t("chess.full_game.status.fragments.wins")}: {score.wins}</p>
+							<p>{t("chess.full_game.status.fragments.losses")}: {score.losses}</p>
+							<p>{t("chess.full_game.status.fragments.draws")}: {score.draws}</p>
+						</>
+					)}
 				</div>
 				<button
 					className="bg-buttoncolor inline-block rounded px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger mt-4 hover:bg-[#976646] py-2"
@@ -264,33 +304,28 @@ function PlayChess() {
 				>
 					{t("chess.full_game.panel.undo")}
 				</button>
-				{
-					/**
-					 * Only show this button if you're logged in.
-					 *
-					 * Switched the old method out for using ProtectClientContent instead.
-					 * However, this is still scheduled for removal/refactor. Due to the
-					 * changes coming.
-					 *
-					 * NOTE: Current implementation will become obsolete soon, when game
-					 * 		data is calculated relative to their total game history
-					 * 		instead.
-					 *
-					 * @author frigvid
-					 * @created 2024-04-18
-					 * @note Originally created 2024-02-05
-					 */
-				}
-				<ProtectClientContent showError={false} noBuffer={true}>
-					<button
-						className="bg-buttoncolor w-full inline-block rounded px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger mt-4 hover:bg-[#976646] py-2"
-						onClick={async () => {
-							void removeGamedata(user.id);
-						}}
-					>
-						{t("chess.generics.delete_data")}
-					</button>
-				</ProtectClientContent>
+				<button
+					className="bg-buttoncolor inline-block rounded px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger mt-4 hover:bg-[#976646] py-2"
+					onClick={() => setLocalMultiplayer(!localMultiplayer)}
+				>
+					{
+						localMultiplayer
+							? t("chess.full_game.panel.local_multiplayer.singleplayer")
+							: t("chess.full_game.panel.local_multiplayer.multiplayer")
+					}
+				</button>
+				{!localMultiplayer && (
+					<ProtectClientContent showError={false} noBuffer={true}>
+						<button
+							className="bg-buttoncolor w-full inline-block rounded px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger mt-4 hover:bg-[#976646] py-2"
+							onClick={async () => {
+								void removeGamedata(user.id);
+							}}
+						>
+							{t("chess.generics.delete_data")}
+						</button>
+					</ProtectClientContent>
+				)}
 			</div>
 			<div className="w-full md:w-96 md:order-2 order-1 mt-4 md:mt-0 mb-4 md:mb-0 relative">
 				<Chessboard
