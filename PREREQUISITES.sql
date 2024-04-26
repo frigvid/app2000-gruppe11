@@ -32,6 +32,8 @@ Date (yyyy-mm-dd)   	Author             	Comments
 2024-04-21				frigvid					Modified public.faq POLICIES to feature match
 														public.news' and public.docs' POLICIES. Also added
 														triggers for updating modified_at time.
+2024-04-26				frigvid					Make sure delete_opening lets administrators delete
+														"default" openings.
 ********************************************************************************************/ 
 
 
@@ -948,7 +950,7 @@ CREATE OR REPLACE FUNCTION public.opening_delete(
 	LANGUAGE SQL
 AS $$
 	DELETE FROM public.openings
-	WHERE id = opn_id AND created_by = auth.uid();
+	WHERE id = opn_id AND (created_by = auth.uid() OR (created_by IS NULL AND admin_is_admin()));
 $$;
 
 
