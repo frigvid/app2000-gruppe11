@@ -284,7 +284,7 @@ function PlayChess() {
 						<>
 							<p>{t("chess.full_game.status.fragments.wins")}: {score.wins}</p>
 							<p>{t("chess.full_game.status.fragments.losses")}: {score.losses}</p>
-							<p>{t("chess.full_game.status.fragments.draws")}: {score.draws}</p>
+							<p>{t("chess.full_game.status.fragments.draws")}: {score.draws ? score.draws : 0}</p>
 						</>
 					)}
 				</div>
