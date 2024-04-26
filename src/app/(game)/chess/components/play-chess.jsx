@@ -262,7 +262,7 @@ function PlayChess() {
 							 *
 							 * Technically also is a botched way to play as the black player, by entering
 							 * multiplayer, moving white, switching to single-player and then continuing
-							 * on with your life. But I'll fix that in a bit.
+							 * on with your life. But I'll fix that if I have time.
 							 *
 							 * @author frigvid
 							 * @created 2024-04-26
