@@ -74,7 +74,7 @@ export default function RepertoireModal({repertoireObj}) {
 		}
 		
 		void fetchOpenings();
-	}, [isOpen, repertoire.openings, supabase]);
+	}, [repertoire.openings, supabase]);
 	
 	/**
 	 * Fetches all openings from the database.
@@ -187,59 +187,53 @@ export default function RepertoireModal({repertoireObj}) {
 						<h2 className="font-semibold text-center">
 							{t("chess.repertoire.groups.title")}
 						</h2>
-						<Paper style={{overflow: "auto"}}>
-							{
-								/**
-								 * This is warning about not liking an "unknown" type. It's not
-								 * a problem, just ignore it. It's just ESLint being ESLint.
-								 */
-								openings.map((opening) => {
-									return (
-										<Accordion key={opening[0].id}>
-											<AccordionSummary
-												expandIcon={<ArrowDownwardIcon/>}
-												aria-controls="panel1a-content"
-												id="panel1a-header"
-											>
-												<Typography>{opening[0].title}</Typography>
-											</AccordionSummary>
-											<AccordionDetails>
-												<Typography>
-													{opening[0].description}
-												</Typography>
-												<div className="flex flex-row justify-end">
-													<ConfirmBeforeAction
-														confirmMessage={`${t("chess.repertoire.groups.confirm.part1")} '${opening[0].title}' ${t("chess.repertoire.groups.confirm.part2")}`}
-														onConfirm={async () => {
-															const newOpenings = repertoire.openings.filter(id => id !== opening[0].id);
-															
-															const {error} = await supabase
-																.from('repertoire')
-																.update({
-																	openings: newOpenings
-																})
-																.eq('id', repertoire.id);
-															
-															if (error) {
-																console.error("Something went wrong when removing opening from repertoire!", error);
-															} else {
-																setRepertoire({...repertoire, openings: newOpenings});
-															}
-														}}
-													>
-														<Tooltip title={t("chess.repertoire.groups.opening_delete")}>
-															<IconButton aria-label={t("chess.repertoire.groups.opening_delete")}>
-																<DeleteIcon color="error"/>
-															</IconButton>
-														</Tooltip>
-													</ConfirmBeforeAction>
-												</div>
-											</AccordionDetails>
-										</Accordion>
-									)
-								})
-							}
-						</Paper>
+						{
+							openings.map((opening) => {
+								return (
+									<Accordion key={opening[0].id}>
+										<AccordionSummary
+											expandIcon={<ArrowDownwardIcon/>}
+											aria-controls="panel1a-content"
+											id="panel1a-header"
+										>
+											<Typography>{opening[0].title}</Typography>
+										</AccordionSummary>
+										<AccordionDetails>
+											<Typography>
+												{opening[0].description}
+											</Typography>
+											<div className="flex flex-row justify-end">
+												<ConfirmBeforeAction
+													confirmMessage={`${t("chess.repertoire.groups.confirm.part1")} '${opening[0].title}' ${t("chess.repertoire.groups.confirm.part2")}`}
+													onConfirm={async () => {
+														const newOpenings = repertoire.openings.filter(id => id !== opening[0].id);
+														
+														const {error} = await supabase
+															.from('repertoire')
+															.update({
+																openings: newOpenings
+															})
+															.eq('id', repertoire.id);
+														
+														if (error) {
+															console.error("Something went wrong when removing opening from repertoire!", error);
+														} else {
+															setRepertoire({...repertoire, openings: newOpenings});
+														}
+													}}
+												>
+													<Tooltip title={t("chess.repertoire.groups.opening_delete")}>
+														<IconButton aria-label={t("chess.repertoire.groups.opening_delete")}>
+															<DeleteIcon color="error"/>
+														</IconButton>
+													</Tooltip>
+												</ConfirmBeforeAction>
+											</div>
+										</AccordionDetails>
+									</Accordion>
+								)
+							})
+						}
 					</div>
 				</section>
 				<section className="self-end sticky bottom-0 w-full flex flex-row justify-between mb-4">
